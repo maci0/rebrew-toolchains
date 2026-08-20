@@ -18,7 +18,7 @@ need a reconstructed media tarball you provide (see [Copyright](#copyright)).
 These are the same images [rebrew](https://github.com/maci0/rebrew) uses for
 compiler-in-the-loop decompilation, packaged so any tool can use them without
 rebrew itself — e.g. the [recompile.online](https://github.com/archaic-toolchains/recompile.online)
-compiler-as-a-service (submit C source + toolchain id, get back the object).
+compiler-as-a-service pattern: submit C source + toolchain id, get back the object (a local `recompile` service is the reference consumer).
 
 ## Build
 
