@@ -1,11 +1,10 @@
 # MSVC 1.52 — 16-bit compiler (Phar Lap TNT CL under DOSBox).
 #
 # Inherits the shared rebrew/base; this image adds the MSVC 1.52
-# command-line tree from the committed msvc152.tar.xz (extracted from the
-# archive.org en_vc152_202512 RAR SFX — the download itself is corrupt for
-# 7z/unar, so the verified tree is vendored in-repo) and exposes the
-# `cl16` entrypoint wrapper.  Fully self-contained: no host files, no
-# downloads.
+# command-line tree from the archaic-toolchains/msvc152 preservation
+# repo (sha256-verified codeload — the verified extraction of the
+# archive.org en_vc152_202512 RAR SFX, which is corrupt for 7z/unar) and
+# exposes the `cl16` entrypoint wrapper.  Fully self-contained: no host files.
 #
 # Build:  docker build -t rebrew/msvc:1.52-win16 toolchain/msvc/1.52-win16
 # Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/msvc:1.52-win16 /c test.c  (ENTRYPOINT is the cl16 wrapper)
@@ -19,11 +18,13 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
       org.opencontainers.image.description="MSVC 1.52 (win16, DOSBox) toolchain image"
 
 
-# Vendored MSVC 1.52 command-line tree (BIN/INCLUDE/LIB at the tarball top).
-COPY msvc152.tar.xz /tmp/msvc152.tar.xz
-RUN mkdir -p /opt/msvc152 \
-    && tar xJf /tmp/msvc152.tar.xz -C /opt/msvc152 \
-    && rm /tmp/msvc152.tar.xz \
+# MSVC 1.52 command-line tree (BIN/INCLUDE/LIB at the repo top).
+RUN curl -sL -o /tmp/msvc152.tar.gz \
+        "https://codeload.github.com/archaic-toolchains/msvc152/tar.gz/refs/heads/main" \
+    && echo "18fbdb547aa6a6cdbb3a77b00b5453f6fd9ae2b543a1c4842552643384e4711b  /tmp/msvc152.tar.gz" | sha256sum -c - \
+    && mkdir -p /opt/msvc152 \
+    && tar xzf /tmp/msvc152.tar.gz -C /opt/msvc152 --strip-components=1 \
+    && rm /tmp/msvc152.tar.gz \
     && ls /opt/msvc152/BIN/CL.EXE
 
 # The `cl16` wrapper (see cl16-wrapper.sh — uses wrapper-common.sh helpers).

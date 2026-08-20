@@ -29,8 +29,7 @@ service is the reference consumer).
 ```
 
 `PREFIX` env var re-tags the images (`PREFIX=archaic ./build.sh` →
-`archaic/msvc:6.0-win32`).  The six 16-bit toolchains additionally require
-their media tarball next to the Dockerfile (see below).
+`archaic/msvc:6.0-win32`).
 
 ## Use
 
@@ -79,15 +78,9 @@ the build, so a build is reproducible from this repo alone.
 ## Copyright
 
 The compiler binaries and media are **proprietary** (Microsoft / Borland /
-Watcom) and are *not* in this repository.  What's here is our own build
-glue: Dockerfiles, wrapper scripts, the shared base image and the manifest
-— all MIT.
-
-The 16-bit images need the reconstructed media tarball (`msvc10.tar.xz`,
-`msvc15.tar.xz`, `msvc152.tar.xz`, `tc20.tar.xz`, `tc31.tar.xz`,
-`delphi10.tar.xz`).  Obtain the media yourself from the archive.org /
-WinWorld links above (abandonware, at your own discretion), extract per the
-provenance notes in the [rebrew TOOLCHAIN docs](https://github.com/maci0/rebrew/blob/main/docs/TOOLCHAIN.md),
-re-pack the verified tree (`tar cJf <name>.tar.xz <BIN> <INCLUDE> <LIB> ...`)
-and drop it next to the Dockerfile.  `./build.sh` checks and tells you
-exactly which file is missing.
+Watcom) and are *not* in this repository — they live in the public
+preservation repos the Dockerfiles download from (archaic-msvc,
+archaic-toolchains), which hold the reconstructed media trees.  What's here
+is our own build glue: Dockerfiles, wrapper scripts, the shared base image
+and the manifest — all MIT.  Every build sha256-verifies its download, and
+`./build.sh` needs nothing beyond docker.

@@ -1,10 +1,10 @@
 # Turbo C++ 3.1 — 16-bit DOS compiler (TCC.EXE under DOSBox).
 #
 # Inherits the shared rebrew/base; this image adds the Turbo C++ 3.1
-# command-line tree (BIN/INCLUDE/LIB) from the committed tc31.tar.xz
-# (vendored from the archive.org `turboc3.1_202112` item, sha256-verified)
-# and exposes the `tcc` entrypoint wrapper.  Fully self-contained: no host
-# files, no downloads.
+# command-line tree (BIN/INCLUDE/LIB) from the
+# archaic-toolchains/tc31 preservation repo (sha256-verified codeload —
+# the archive.org `turboc3.1_202112` item) and exposes the `tcc` entrypoint
+# wrapper.  Fully self-contained: no host files.
 #
 # Build:  docker build -t rebrew/borland:3.1-win16 toolchain/borland/3.1-win16
 # Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/borland:3.1-win16 -c test.c  (ENTRYPOINT is the tcc wrapper)
@@ -19,10 +19,12 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 
 
 # Vendored Turbo C++ 3.1 command-line tree (BIN/INCLUDE/LIB at the tarball top).
-COPY tc31.tar.xz /tmp/tc31.tar.xz
-RUN mkdir -p /opt/tc31 \
-    && tar xJf /tmp/tc31.tar.xz -C /opt/tc31 \
-    && rm /tmp/tc31.tar.xz \
+RUN curl -sL -o /tmp/tc31.tar.gz \
+        "https://codeload.github.com/archaic-toolchains/tc31/tar.gz/refs/heads/main" \
+    && echo "3d534741ebdc31ffdceb87db8de3b7d494ad5c912b7cd1a4f326b4a94d0c2ba1  /tmp/tc31.tar.gz" | sha256sum -c - \
+    && mkdir -p /opt/tc31 \
+    && tar xzf /tmp/tc31.tar.gz -C /opt/tc31 --strip-components=1 \
+    && rm /tmp/tc31.tar.gz \
     && ls /opt/tc31/BIN/TCC.EXE
 
 # The `tcc` wrapper: translate the POSIX-style argv into the DOSBox TCC
