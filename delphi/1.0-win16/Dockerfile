@@ -29,7 +29,7 @@ RUN curl -sL -o /tmp/delphi10.tar.gz \
     && mkdir -p /opt/delphi10 \
     && tar xzf /tmp/delphi10.tar.gz -C /opt/delphi10 --strip-components=1 \
     && rm /tmp/delphi10.tar.gz \
-    && mv /opt/delphi10/delphi-lib /opt/delphi10/DELPHI/LIB \
+    && mkdir -p /opt/delphi10/DELPHI && mv /opt/delphi10/delphi-lib /opt/delphi10/DELPHI/LIB \
     && ls /opt/delphi10/DCC.EXE
 
 COPY dcc-wrapper.sh /usr/local/bin/dcc
