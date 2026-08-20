@@ -1,0 +1,317 @@
+{
+  "borlandc55": {
+    "family": "borland",
+    "host_dir": "borland/5.5-win32",
+    "url": "https://archive.org/download/BorlandC55/Borland%20C%2B%2B%205.5.zip",
+    "sha256": "12affb942db2b9823292697faaa6f465b18c381ba347f9f4bf8efae6ff34cca1",
+    "commit": "",
+    "layout": "zip-installshield",
+    "in_repo_tarball": ""
+  },
+  "delphi16": {
+    "family": "delphi",
+    "host_dir": "delphi/1.0-win16",
+    "url": "",
+    "sha256": "",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "toolchain/delphi/1.0-win16/delphi10.tar.xz"
+  },
+  "msvc1.52": {
+    "family": "msvc",
+    "host_dir": "msvc/1.52-win16",
+    "url": "",
+    "sha256": "",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "toolchain/msvc/1.52-win16/msvc152.tar.xz"
+  },
+  "msvc10": {
+    "family": "msvc",
+    "host_dir": "msvc/1.0-win16",
+    "url": "",
+    "sha256": "",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "toolchain/msvc/1.0-win16/msvc10.tar.xz"
+  },
+  "msvc1000": {
+    "family": "msvc",
+    "host_dir": "msvc/10.0-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc1000/tar.gz/refs/heads/master",
+    "sha256": "5f0b4486eb68e0069bb11506bcc8834710ac92ac1e7f311b3e4400a9d5d9409f",
+    "commit": "f8977e2cacbe6cab4f9e73eb2c05695a88519bfe",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc1000sp1": {
+    "family": "msvc",
+    "host_dir": "msvc/10.0-sp1-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc1000_sp1/tar.gz/refs/heads/master",
+    "sha256": "2e5fbb9b71ed8cb2673594484d6a8fad7484c809ecefffaf3319e0164af6f89b",
+    "commit": "09a53c11f781ec9ab5e66772ba720b9d85e4c2a4",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc1100": {
+    "family": "msvc",
+    "host_dir": "msvc/11.0-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc1100/tar.gz/refs/heads/master",
+    "sha256": "adba1882eb076cb774b7a5d0f2b1067544da7cd2f0bf0b12f284361516cbc825",
+    "commit": "89087a636aea5e6f9450ee7e840ea71e08740ee1",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc15": {
+    "family": "msvc",
+    "host_dir": "msvc/1.5-win16",
+    "url": "",
+    "sha256": "",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "toolchain/msvc/1.5-win16/msvc15.tar.xz"
+  },
+  "msvc200": {
+    "family": "msvc",
+    "host_dir": "msvc/2.0-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc200/tar.gz/refs/heads/master",
+    "sha256": "0b058f103fe6b615987a85d518d7fd23389fab67c9df3cadfae22f5a70d5d000",
+    "commit": "6bf022c590fdea0526dc94975f3d91add444ac1a",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc400": {
+    "family": "msvc",
+    "host_dir": "msvc/4.0-win32",
+    "url": "https://codeload.github.com/itsmattkc/MSVC400/tar.gz/refs/heads/master",
+    "sha256": "c076ab51bb5a52c805c85603d565ac406beec1a0accf3829127369294f1aff11",
+    "commit": "821e942fd95bd16d01649401de7943ef87ae9f54",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc410": {
+    "family": "msvc",
+    "host_dir": "msvc/4.1-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc410/tar.gz/refs/heads/master",
+    "sha256": "21486aecd108397bdced6e2cf6a5170a3cc30280a3eba97a4a8f92985a9cc5c4",
+    "commit": "373f5e621ac8fb7b219873b37334ef1d0a2149e6",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc420": {
+    "family": "msvc",
+    "host_dir": "msvc/4.2-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc420/tar.gz/refs/heads/master",
+    "sha256": "651db241202416be7e870ff8d98928179b94515068e7895008b8a82cb0b7001c",
+    "commit": "b42c244f0a83ba15ba2ffb62b0dc240d7b2dea50",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc5": {
+    "family": "msvc",
+    "host_dir": "msvc/5.0-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc500/tar.gz/refs/heads/master",
+    "sha256": "46745771c0805310212415450f097134f3871d1786434e86c080e0b8cb9a38fb",
+    "commit": "8abf95ce980161ad87b0b02402269cce76988953",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc500sp1": {
+    "family": "msvc",
+    "host_dir": "msvc/5.0-sp1-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc500sp1/tar.gz/refs/heads/master",
+    "sha256": "f41e9e5a05bd7a4da97fdcc9d168aaac7898e5bfec11791c630735a7da13d303",
+    "commit": "401174749393c9991a6b91425a795e04e8bdeedb",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc500sp2": {
+    "family": "msvc",
+    "host_dir": "msvc/5.0-sp2-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc500sp2/tar.gz/refs/heads/master",
+    "sha256": "551137506a6a98ca890bfe20df7d5833bc475cf7e2279d959eccce0485525c8e",
+    "commit": "4ebf02022705b4c9e9108d3ed3f286ed80ba2ed9",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc500sp3": {
+    "family": "msvc",
+    "host_dir": "msvc/5.0-sp3-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc500sp3/tar.gz/refs/heads/master",
+    "sha256": "cdba2878eaacd07cb289b73f08250e2c39596fc9b31a2ad7a4fd887879be1e38",
+    "commit": "259a03f0bc863de5baf657ec064cb60cb20a2cdc",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc6": {
+    "family": "msvc",
+    "host_dir": "msvc/6.0-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc600/tar.gz/refs/heads/master",
+    "sha256": "19b72020c8225f91d7345b16aa0acf1b31a4608ae1299693021491e7338d0ee8",
+    "commit": "34d4fc4004e880b8d5c44ae5babd7229eeaad993",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc600sp1": {
+    "family": "msvc",
+    "host_dir": "msvc/6.0-sp1-win32",
+    "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp1/tar.gz/refs/heads/main",
+    "sha256": "2c3d1a6d2e7d6248f1bcb5e46a54cd2bea94704df032056abef53828b0b79888",
+    "commit": "6d9787482473ca46a1e6fb70be020755951eb16a",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc600sp2": {
+    "family": "msvc",
+    "host_dir": "msvc/6.0-sp2-win32",
+    "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp2/tar.gz/refs/heads/main",
+    "sha256": "088cd189ce0ae3c7ff96a71bb3f364a397b2fe6c19e6a8f252cc575be3783574",
+    "commit": "79157a87dec5e5ff014178f817f27a70098fd862",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc600sp3": {
+    "family": "msvc",
+    "host_dir": "msvc/6.0-sp3-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/msvcwin9x/msvc6.3.tar.gz",
+    "sha256": "84f73e718b3671bfd5de3b7764622b07633b572ee826ca3b77602d224c128608",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "msvc600sp4": {
+    "family": "msvc",
+    "host_dir": "msvc/6.0-sp4-win32",
+    "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp4/tar.gz/refs/heads/main",
+    "sha256": "7aeb03f65858000bb6988a64cc066a4a2aec9fc591400db400ffe6fc99ae2dbc",
+    "commit": "0ca69bae9e3ca739c5ce38c8cf39ffc51582080d",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc600sp5": {
+    "family": "msvc",
+    "host_dir": "msvc/6.0-sp5-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc600_sp5/tar.gz/refs/heads/master",
+    "sha256": "a95a9c17cbcbe0d97a3e80ef9596f12404eb28f36bab24e89aabcbe37acbbef6",
+    "commit": "b0b07e29108e2695eb0274c2a377a7b7d7326150",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc600sp6": {
+    "family": "msvc",
+    "host_dir": "msvc/6.0-sp6-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc600_sp6/tar.gz/refs/heads/master",
+    "sha256": "7c2aa3dd4c56b8054cc1ae0e00cd976005dd5b9b43ea8c33b22798a15c9c15c3",
+    "commit": "1f4223a77122220d28e8670788b3f9fd6bb2c4d1",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc7": {
+    "family": "msvc",
+    "host_dir": "msvc/7.0-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc710/tar.gz/refs/heads/master",
+    "sha256": "618e876bc06431498fa98e71a408d822a5fad979219ce3253318d099a6917b27",
+    "commit": "2932d76fe417b0bc49010b26d4be2e5b743cc4be",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc700": {
+    "family": "msvc",
+    "host_dir": "msvc/7.0-rtm-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc700/tar.gz/refs/heads/master",
+    "sha256": "5f75462fb6134ad56c3ae28cf8b1e3b2869578d4171568b7a1fcdfb0bf97830b",
+    "commit": "97fe4cdeaeb0bb934591d4b05eb52c2e8ab3e34b",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc700sp1": {
+    "family": "msvc",
+    "host_dir": "msvc/7.0-sp1-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc700_sp1/tar.gz/refs/heads/master",
+    "sha256": "bc1300625c89e855e1c0160b43c6fe2576ad68426483bd73c3cde2682165ba8a",
+    "commit": "8bd9502d74274667de198247a459d63dbd431068",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc710": {
+    "family": "msvc",
+    "host_dir": "msvc/7.1-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc710/tar.gz/refs/heads/master",
+    "sha256": "618e876bc06431498fa98e71a408d822a5fad979219ce3253318d099a6917b27",
+    "commit": "2932d76fe417b0bc49010b26d4be2e5b743cc4be",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc710sp1": {
+    "family": "msvc",
+    "host_dir": "msvc/7.1-sp1-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc710_sp1/tar.gz/refs/heads/master",
+    "sha256": "44246ff2980d715c2d05eaed505344a0b87850a04606482c13ba4832ddf5ec70",
+    "commit": "cf62606064633dd8441aa2feffe34792099cc366",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc800": {
+    "family": "msvc",
+    "host_dir": "msvc/8.0-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc800/tar.gz/refs/heads/master",
+    "sha256": "ab819164ebd9e9d367c1178a86eb9c3337b1a8d85d1357322a3252b63ad64453",
+    "commit": "00ddaf58d09788f0b12e475dae5fb5674dd32578",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc800sp1": {
+    "family": "msvc",
+    "host_dir": "msvc/8.0-sp1-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc800_sp1/tar.gz/refs/heads/master",
+    "sha256": "9b53b515d79839c7404944c29cdae862d3a8c1ff0d0a27a202bfc37a31f587c5",
+    "commit": "4b1bafba636f67eb76f548f0f0e7f38864091a4a",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc900": {
+    "family": "msvc",
+    "host_dir": "msvc/9.0-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc900/tar.gz/refs/heads/master",
+    "sha256": "9121d184d9cb88c13b95d3d2e770c8d8ae9d2531a5d8ea90c53a14f765e3f904",
+    "commit": "c9d710cef9a3dec08d7d2dca78a3b494335a5baa",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "msvc900sp1": {
+    "family": "msvc",
+    "host_dir": "msvc/9.0-sp1-win32",
+    "url": "https://codeload.github.com/archaic-toolchains/msvc900_sp1/tar.gz/refs/heads/main",
+    "sha256": "33a66c779da39ab40518f24b75656f1f93cb1837a3d65a9b79188f41c2f2bd97",
+    "commit": "cebb3c9740c92de36937a401a3a3141358c8ac29",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "tc16": {
+    "family": "borland",
+    "host_dir": "borland/3.1-win16",
+    "url": "",
+    "sha256": "",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "toolchain/borland/3.1-win16/tc31.tar.xz"
+  },
+  "tc20": {
+    "family": "borland",
+    "host_dir": "borland/2.0-win16",
+    "url": "",
+    "sha256": "",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "toolchain/borland/2.0-win16/tc20.tar.xz"
+  },
+  "watcom": {
+    "family": "watcom",
+    "host_dir": "watcom/2.0-win32",
+    "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/Last-CI-build/ow-snapshot.tar.xz",
+    "sha256": "99e494d9a3871f58a6398268e8f04003affa73421ca5fb49e3815a8ef1bb7b1f",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  }
+}

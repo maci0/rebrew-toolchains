@@ -1,0 +1,4 @@
+# Reconstructed 16-bit media tarballs are build prerequisites, not
+# redistributed here — dropping one in (see README) must not stage it.
+*.tar.xz
+*.tar.gz
