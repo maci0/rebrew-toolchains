@@ -9,9 +9,10 @@ mount a workdir and pass compiler flags.
 
 This repo is the *build source*: Dockerfiles, the shared `base` image,
 wrapper scripts and the pinned-source manifest.  **No compiler binaries live
-in this repo** — every 32-bit image downloads its sha256-verified source at
-build time from the URL recorded in `sources.json`; the six 16-bit images
-need a reconstructed media tarball you provide (see [Copyright](#copyright)).
+in this repo** — every image downloads its sha256-verified source at build
+time from the URL recorded in `sources.json` (the archaic-msvc and
+archaic-toolchains preservation repos; the six 16-bit toolchains fetch their
+reconstructed-media trees from the matching archaic-toolchains repo).
 
 ## Why
 
