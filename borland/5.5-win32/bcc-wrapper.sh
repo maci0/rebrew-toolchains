@@ -1,5 +1,6 @@
 #!/bin/sh
-# bcc wrapper — Borland C++ 5.5 (bcc32) under wine (uses the shared helpers).
+# bcc wrapper — Borland C++ 5.5 (bcc32) under wine or wibo (uses the shared
+# helpers; set REBREW_RUNNER=wibo to skip wine for faster runs).
 #
 # Invoke:  bcc <source.c> [flags...]
 #
@@ -9,4 +10,4 @@
 . /usr/local/lib/rebrew/wrapper-common.sh
 
 rebrew_pick_source "$@"
-exec wine /opt/bcc55/Bin/bcc32.exe -I/opt/bcc55/Include -L/opt/bcc55/Lib "$@"
+rebrew_run /opt/bcc55/Bin/bcc32.exe -I/opt/bcc55/Include -L/opt/bcc55/Lib "$@"

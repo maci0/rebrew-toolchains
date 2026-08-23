@@ -5,36 +5,51 @@
 #   ./build.sh msvc6           # build one (dir name: msvc/6.0-win32 or the tag suffix)
 #   ./build.sh 6.0-win32       # ...also accepted
 #
-# Every image is self-contained: the Dockerfile downloads its pinned,
-# sha256-verified source from the URL recorded in sources.json (the
-# archaic-msvc / archaic-toolchains preservation repos).  No compiler
-# binaries or media live in this repo (see README "Copyright").
+# The images are self-contained: every image downloads its pinned,
+# sha256-verified source from the URL recorded in sources.json (curl inside
+# the Dockerfile) — 32-bit from archaic-msvc / archaic-toolchains, and the
+# six 16-bit toolchains (msvc10, msvc15, msvc1.52, tc20, tc31, delphi10)
+# from their archaic-toolchains repos.  No media tarballs are needed.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 PREFIX="${PREFIX:-rebrew}"
 
-
-# rebrew profile name -> toolchain dir (generated from sources.json).
-PROFILE_DIRS="borlandc55=borland/5.5-win32 delphi16=delphi/1.0-win16 msvc1.52=msvc/1.52-win16 msvc10=msvc/1.0-win16 msvc1000=msvc/10.0-win32 msvc1000sp1=msvc/10.0-sp1-win32 msvc1100=msvc/11.0-win32 msvc15=msvc/1.5-win16 msvc200=msvc/2.0-win32 msvc400=msvc/4.0-win32 msvc410=msvc/4.1-win32 msvc420=msvc/4.2-win32 msvc5=msvc/5.0-win32 msvc500sp1=msvc/5.0-sp1-win32 msvc500sp2=msvc/5.0-sp2-win32 msvc500sp3=msvc/5.0-sp3-win32 msvc6=msvc/6.0-win32 msvc600sp1=msvc/6.0-sp1-win32 msvc600sp2=msvc/6.0-sp2-win32 msvc600sp3=msvc/6.0-sp3-win32 msvc600sp4=msvc/6.0-sp4-win32 msvc600sp5=msvc/6.0-sp5-win32 msvc600sp6=msvc/6.0-sp6-win32 msvc7=msvc/7.0-win32 msvc700=msvc/7.0-rtm-win32 msvc700sp1=msvc/7.0-sp1-win32 msvc710=msvc/7.1-win32 msvc710sp1=msvc/7.1-sp1-win32 msvc800=msvc/8.0-win32 msvc800sp1=msvc/8.0-sp1-win32 msvc900=msvc/9.0-win32 msvc900sp1=msvc/9.0-sp1-win32 tc16=borland/3.1-win16 tc20=borland/2.0-win16 watcom=watcom/2.0-win32"
+# rebrew profile name -> toolchain dir, generated from sources.json (the
+# single source of truth for the mapping; a parse failure must stop the
+# build, not silently drop profiles).
+PROFILE_DIRS="$(awk '
+    /^  "[^"]+": \{$/ { key = $1; sub(/^"/, "", key); sub(/":$/, "", key) }
+    /^    "host_dir": "/ { v = $0; sub(/^.*"host_dir": "/, "", v); sub(/",$/, "", v); print key "=" v }
+' "$ROOT/sources.json")"
+[ -n "$PROFILE_DIRS" ] || { echo "failed to parse $ROOT/sources.json" >&2; exit 2; }
 
 
 resolve_dir() {
   local arg="$1"
-  # already a family-qualified dir?
-  [ -d "$ROOT/$arg" ] && { echo "${arg%/}"; return; }
-  # bare dir name (6.0-win32)
+  # Family-qualified path to a toolchain dir (e.g. msvc/6.0-win32).
+  # Only a dir that actually holds a Dockerfile counts — a bare family dir
+  # like `watcom/` has no Dockerfile and must fall through to the profile
+  # lookup below (the `watcom` profile would otherwise short-circuit here).
+  [ -f "$ROOT/$arg/Dockerfile" ] && { echo "${arg%/}"; return; }
+  # Bare dir name (6.0-win32) — normalize an optional trailing slash.
+  # `1.0-win16` and `2.0-win32` exist under more than one family (msvc+delphi,
+  # msvc+watcom), so an ambiguous bare name is rejected with guidance rather
+  # than silently building an arbitrary family's image.
+  local last="${arg%/}" match="" count=0 d
   for d in "$ROOT"/*/*/; do
-    if [ "$(basename "$d")" = "$arg" ]; then
-      echo "${d#$ROOT/}"
-      return
-    fi
+    [ "$(basename "$d")" = "$last" ] && [ -f "$d/Dockerfile" ] || continue
+    match="${d#$ROOT/}"
+    match="${match%/}"  # glob yields a trailing slash — strip it
+    count=$((count + 1))
   done
-  # bare dir with trailing slash (6.0-win32/) — normalize
-  for d in "$ROOT"/*/*/; do
-    [ "$(basename "$d")" = "${arg%/}" ] && { echo "${d#$ROOT/}"; return; }
-  done
-  # rebrew profile name (msvc6) -> dir
+  if [ "$count" -gt 1 ]; then
+    echo "ambiguous toolchain name '$arg' — matches multiple families; use a family-qualified path (e.g. msvc/$last or watcom/$last)" >&2
+    echo ""
+    return
+  fi
+  [ "$count" -eq 1 ] && { echo "$match"; return; }
+  # rebrew profile name (msvc6, borlandc55, watcom, ...) -> dir
   for kv in $PROFILE_DIRS; do
     if [ "${kv%%=*}" = "$arg" ]; then
       echo "${kv#*=}"
@@ -54,18 +69,25 @@ build_one() {
     exit 2
   fi
   local tag="$PREFIX/$family:$verarch"
+  # The shared base is always tagged :1.0 — every toolchain Dockerfile's
+  # FROM/BASE_IMAGE and the --build-arg below point at it, so a manual
+  # `./build.sh base` rebuild must land on that same tag.
+  [ "$dir" = "base" ] && tag="$PREFIX/base:1.0"
   echo "==> building $tag (from $dir)"
-  docker build -t "$tag" "$ROOT/$dir"
+  docker build --build-arg "BASE_IMAGE=$PREFIX/base:1.0" -t "$tag" "$ROOT/$dir"
 }
 
-# base image first
-echo "==> building $PREFIX/base"
-docker build -t "$PREFIX/base" "$ROOT/base"
+# base image first — tag :1.0 to match the FROM ${BASE_IMAGE} default and the
+# build-arg we pass to every toolchain Dockerfile.
+echo "==> building $PREFIX/base:1.0"
+docker build -t "$PREFIX/base:1.0" "$ROOT/base"
 
 if [ $# -eq 0 ]; then
   for d in "$ROOT"/*/*/; do
     [ -f "$d/Dockerfile" ] || continue
-    build_one "${d#$ROOT/}"
+    rel="${d#$ROOT/}"
+    rel="${rel%/}"  # the glob yields a trailing slash — strip it
+    build_one "$rel"
   done
 else
   for arg in "$@"; do

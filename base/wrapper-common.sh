@@ -40,6 +40,18 @@ rebrew_pick_source() {
     [ -n "$STEM" ] || rebrew_die "source basename '$SRC' has no stem"
 }
 
+# rebrew_run <exe> [args...] — runs a Windows PE binary through the runtime
+# selected by $REBREW_RUNNER: "wine" (default; full Wine, most compatible) or
+# "wibo" (the minimal decompals PE loader — much faster for plain console
+# tools like cl.exe/bcc32.exe, but only implements a subset of Win32).
+rebrew_run() {
+    case "${REBREW_RUNNER:-wine}" in
+        wine) exec wine "$@" ;;
+        wibo) exec wibo "$@" ;;
+        *) rebrew_die "unknown REBREW_RUNNER '${REBREW_RUNNER}' (wine|wibo)" ;;
+    esac
+}
+
 # rebrew_dosbox_run <sandbox> <autoexec-line> — writes a headless DOSBox
 # config that mounts the sandbox as C:, runs the autoexec line, and exits.
 # Sets $DOX_LOG to the sandbox's toolchain log path (callers write it).

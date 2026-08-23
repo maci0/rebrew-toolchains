@@ -6,10 +6,12 @@
 # Last-CI-build tag is deterministic, and uses wcc386 as the entrypoint.
 # Fully self-contained: no host files.
 #
-# Build:  docker build -t rebrew/watcom:2.0-win32 toolchain/watcom/2.0-win32
+# Build:  docker build -t rebrew/watcom:2.0-win32 watcom/2.0-win32
 # Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/watcom:2.0-win32 -fo=out.o f.c  (ENTRYPOINT is wcc386)
 
-FROM rebrew/base:1.0
+ARG BASE_IMAGE=rebrew/base:1.0
+
+FROM ${BASE_IMAGE}
 
 # OCI provenance labels (org.opencontainers.image).
 LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \

@@ -2,38 +2,38 @@
   "borlandc55": {
     "family": "borland",
     "host_dir": "borland/5.5-win32",
-    "url": "https://archive.org/download/BorlandC55/Borland%20C%2B%2B%205.5.zip",
-    "sha256": "12affb942db2b9823292697faaa6f465b18c381ba347f9f4bf8efae6ff34cca1",
-    "commit": "",
-    "layout": "zip-installshield",
+    "url": "https://codeload.github.com/archaic-toolchains/borlandc55/tar.gz/refs/heads/main",
+    "sha256": "e9319c3904303ca4424cfed855b17837d10aa9653a3d8e6329d2adb3326392b0",
+    "commit": "fcdcaf5bc41fc166ef632329c72baf6d487b50d2",
+    "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
   "delphi16": {
     "family": "delphi",
     "host_dir": "delphi/1.0-win16",
-    "url": "",
-    "sha256": "",
-    "commit": "",
-    "layout": "tar",
-    "in_repo_tarball": "toolchain/delphi/1.0-win16/delphi10.tar.xz"
+    "url": "https://codeload.github.com/archaic-toolchains/delphi10/tar.gz/refs/heads/main",
+    "sha256": "24cd23f0ef555f3582eda27b4bb655e17215366b556dfaabd9f2ba5daf61b55e",
+    "commit": "fd12406eeaa6b44099013c5a56d083919676967c",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
   },
   "msvc1.52": {
     "family": "msvc",
     "host_dir": "msvc/1.52-win16",
-    "url": "",
-    "sha256": "",
-    "commit": "",
-    "layout": "tar",
-    "in_repo_tarball": "toolchain/msvc/1.52-win16/msvc152.tar.xz"
+    "url": "https://codeload.github.com/archaic-toolchains/msvc152/tar.gz/refs/heads/main",
+    "sha256": "18fbdb547aa6a6cdbb3a77b00b5453f6fd9ae2b543a1c4842552643384e4711b",
+    "commit": "3beb967dfc075d34a1a8f7d30e0428e447432270",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
   },
   "msvc10": {
     "family": "msvc",
     "host_dir": "msvc/1.0-win16",
-    "url": "",
-    "sha256": "",
-    "commit": "",
-    "layout": "tar",
-    "in_repo_tarball": "toolchain/msvc/1.0-win16/msvc10.tar.xz"
+    "url": "https://codeload.github.com/archaic-toolchains/msvc10/tar.gz/refs/heads/main",
+    "sha256": "4858446b957fe327fedbb3a511316bebc060b72f22557a47397b905522668ce9",
+    "commit": "0cd3d8a2024119b6b08b384fd3487a64a59a25eb",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
   },
   "msvc1000": {
     "family": "msvc",
@@ -65,11 +65,11 @@
   "msvc15": {
     "family": "msvc",
     "host_dir": "msvc/1.5-win16",
-    "url": "",
-    "sha256": "",
-    "commit": "",
-    "layout": "tar",
-    "in_repo_tarball": "toolchain/msvc/1.5-win16/msvc15.tar.xz"
+    "url": "https://codeload.github.com/archaic-toolchains/msvc15/tar.gz/refs/heads/main",
+    "sha256": "5cd1e4d9fd70fe97587fd3edfd0cebe3276e7b59ea5eb0848510f15c95d79aec",
+    "commit": "3649e12977c169bd60662362400677f28a716ef1",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
   },
   "msvc200": {
     "family": "msvc",
@@ -83,9 +83,9 @@
   "msvc400": {
     "family": "msvc",
     "host_dir": "msvc/4.0-win32",
-    "url": "https://codeload.github.com/itsmattkc/MSVC400/tar.gz/refs/heads/master",
-    "sha256": "c076ab51bb5a52c805c85603d565ac406beec1a0accf3829127369294f1aff11",
-    "commit": "821e942fd95bd16d01649401de7943ef87ae9f54",
+    "url": "https://codeload.github.com/archaic-toolchains/msvc400/tar.gz/refs/heads/main",
+    "sha256": "4996b91a8e075715238817ad567994b8dbf830d25d2c6e0fefe7adacc5b4ddec",
+    "commit": "17122292d394baa5a08fea6c899cdf48b67efb15",
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
@@ -173,10 +173,10 @@
   "msvc600sp3": {
     "family": "msvc",
     "host_dir": "msvc/6.0-sp3-win32",
-    "url": "https://github.com/OmniBlade/decomp.me/releases/download/msvcwin9x/msvc6.3.tar.gz",
-    "sha256": "84f73e718b3671bfd5de3b7764622b07633b572ee826ca3b77602d224c128608",
-    "commit": "",
-    "layout": "tar",
+    "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp3/tar.gz/refs/heads/main",
+    "sha256": "f753adfa8a29d8b03fb67bbcaadd3e41d672b86e5e17e32084bd1b60a1771ab4",
+    "commit": "ff28b93857087f787492eef603e243fcccb0b368",
+    "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
   "msvc600sp4": {
@@ -290,20 +290,20 @@
   "tc16": {
     "family": "borland",
     "host_dir": "borland/3.1-win16",
-    "url": "",
-    "sha256": "",
-    "commit": "",
-    "layout": "tar",
-    "in_repo_tarball": "toolchain/borland/3.1-win16/tc31.tar.xz"
+    "url": "https://codeload.github.com/archaic-toolchains/tc31/tar.gz/refs/heads/main",
+    "sha256": "3d534741ebdc31ffdceb87db8de3b7d494ad5c912b7cd1a4f326b4a94d0c2ba1",
+    "commit": "ba6af878392be5ea20f6bb54f7dd2359b3845b7b",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
   },
   "tc20": {
     "family": "borland",
     "host_dir": "borland/2.0-win16",
-    "url": "",
-    "sha256": "",
-    "commit": "",
-    "layout": "tar",
-    "in_repo_tarball": "toolchain/borland/2.0-win16/tc20.tar.xz"
+    "url": "https://codeload.github.com/archaic-toolchains/tc20/tar.gz/refs/heads/main",
+    "sha256": "2eca4c26c1b30ce2bd7e61573eb9f40096994405fc173c28143f06a93da269d1",
+    "commit": "64b5ef09a7c18b65c38902a217bcfec67c4b113b",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
   },
   "watcom": {
     "family": "watcom",

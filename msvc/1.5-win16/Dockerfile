@@ -1,15 +1,17 @@
 # MSVC 1.5 — 16-bit compiler (Phar Lap TNT CL under DOSBox).
 #
 # Inherits the shared rebrew/base; this image adds the MSVC 1.5
-# command-line tree from the archaic-toolchains/msvc15 preservation repo
-# (sha256-verified codeload — extracted from the archive.org en_vc152 item,
-# the 1993 16-bit release) and exposes the `cl15` entrypoint wrapper.
-# Fully self-contained: no host files.
+# command-line tree (archaic-toolchains/msvc15 tarball, reconstructed from
+# the archive.org en_vc152 item — the 1993 16-bit release — and
+# sha256-pinned) and exposes the `cl15` entrypoint wrapper.  Fully
+# self-contained: no host files.
 #
-# Build:  docker build -t rebrew/msvc:1.5-win16 toolchain/msvc/1.5-win16
+# Build:  docker build -t rebrew/msvc:1.5-win16 msvc/1.5-win16
 # Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/msvc:1.5-win16 /c test.c  (ENTRYPOINT is the cl15 wrapper)
 
-FROM rebrew/base:1.0
+ARG BASE_IMAGE=rebrew/base:1.0
+
+FROM ${BASE_IMAGE}
 
 # OCI provenance labels (org.opencontainers.image).
 LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
@@ -18,7 +20,8 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
       org.opencontainers.image.description="MSVC 1.5 (win16, DOSBox) toolchain image"
 
 
-# Vendored MSVC 1.5 command-line tree (BIN/INCLUDE/LIB at the tarball top).
+# MSVC 1.5 command-line tree — archaic-toolchains/msvc15 tarball
+# (sha256-verified; same source `rebrew toolchain vendor` assembles from).
 RUN curl -sL -o /tmp/msvc15.tar.gz \
         "https://codeload.github.com/archaic-toolchains/msvc15/tar.gz/refs/heads/main" \
     && echo "5cd1e4d9fd70fe97587fd3edfd0cebe3276e7b59ea5eb0848510f15c95d79aec  /tmp/msvc15.tar.gz" | sha256sum -c - \

@@ -1,15 +1,17 @@
 # Turbo C 2.0 — 16-bit DOS compiler (TCC.EXE under DOSBox).
 #
 # Inherits the shared rebrew/base; this image adds the Turbo C 2.0
-# command-line tree (BIN/INCLUDE/LIB) from the archaic-toolchains/tc20
-# preservation repo (sha256-verified codeload — assembled from the
-# archive.org `turboc20` floppy disk images) and exposes the `tcc`
-# entrypoint wrapper.  Fully self-contained: no host files.
+# command-line tree (BIN/INCLUDE/LIB; archaic-toolchains/tc20 tarball,
+# reconstructed from the archive.org `turboc20` floppy images and
+# sha256-pinned) and exposes the `tcc` entrypoint wrapper.  Fully
+# self-contained: no host files.
 #
-# Build:  docker build -t rebrew/borland:2.0-win16 toolchain/borland/2.0-win16
+# Build:  docker build -t rebrew/borland:2.0-win16 borland/2.0-win16
 # Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/borland:2.0-win16 -c test.c  (ENTRYPOINT is the tcc wrapper)
 
-FROM rebrew/base:1.0
+ARG BASE_IMAGE=rebrew/base:1.0
+
+FROM ${BASE_IMAGE}
 
 # OCI provenance labels (org.opencontainers.image).
 LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
@@ -18,7 +20,8 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
       org.opencontainers.image.description="Turbo C 2.0 (win16, DOSBox) toolchain image"
 
 
-# Vendored Turbo C 2.0 command-line tree (BIN/INCLUDE/LIB at the tarball top).
+# Turbo C 2.0 command-line tree — archaic-toolchains/tc20 tarball
+# (sha256-verified; same source `rebrew toolchain vendor` assembles from).
 RUN curl -sL -o /tmp/tc20.tar.gz \
         "https://codeload.github.com/archaic-toolchains/tc20/tar.gz/refs/heads/main" \
     && echo "2eca4c26c1b30ce2bd7e61573eb9f40096994405fc173c28143f06a93da269d1  /tmp/tc20.tar.gz" | sha256sum -c - \

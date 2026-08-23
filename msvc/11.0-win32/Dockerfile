@@ -5,10 +5,12 @@
 # cl.exe 17.00.50522.1) and the `cl` entrypoint wrapper.  Fully
 # self-contained: no host files.
 #
-# Build:  docker build -t rebrew/msvc:11.0-win32 toolchain/msvc/11.0-win32
+# Build:  docker build -t rebrew/msvc:11.0-win32 msvc/11.0-win32
 # Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/msvc:11.0-win32 /c f.c  (ENTRYPOINT is the cl wrapper)
 
-FROM rebrew/base:1.0
+ARG BASE_IMAGE=rebrew/base:1.0
+
+FROM ${BASE_IMAGE}
 
 LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
       org.opencontainers.image.licenses="MIT" \
@@ -33,7 +35,7 @@ RUN printf '%s\n' \
         '#!/bin/sh' \
         '. /usr/local/lib/rebrew/wrapper-common.sh' \
         'rebrew_pick_source "$@"' \
-        'exec wine /opt/msvc11.0/VC/bin/cl.exe "$@"' \
+        'rebrew_run /opt/msvc11.0/VC/bin/cl.exe "$@"' \
         > /usr/local/bin/cl \
     && chmod +x /usr/local/bin/cl
 

@@ -3,16 +3,16 @@
 Standalone docker images for legacy Windows/DOS compilers — MSVC 1.0–11.0
 (every preserved service pack), Borland C/C++ (Turbo C 1.0/2.0/3.1, bcc32
 5.5), Watcom C (Open Watcom 2.0) and Delphi 1.0.  Each image is a
-self-contained compiler container: the runtime (wine / DOSBox) and the
-compiler are baked in, and the entrypoint is the compiler wrapper — you just
-mount a workdir and pass compiler flags.
+self-contained compiler container: the runtime (wine / wibo / DOSBox) and
+the compiler are baked in, and the entrypoint is the compiler wrapper — you
+just mount a workdir and pass compiler flags.
 
 This repo is the *build source*: Dockerfiles, the shared `base` image,
-wrapper scripts and the pinned-source manifest.  **No compiler binaries live
-in this repo** — every image downloads its sha256-verified source at build
-time from the URL recorded in `sources.json` (the archaic-msvc and
-archaic-toolchains preservation repos; the six 16-bit toolchains fetch their
-reconstructed-media trees from the matching archaic-toolchains repo).
+wrapper scripts and the pinned-source manifest.  **No compiler binaries
+live in this repo** — every image downloads its sha256-verified source at
+build time from the URL recorded in `sources.json` (the proprietary trees
+live in the community preservation repos the build pulls from; see
+[Copyright](#copyright)).
 
 ## Why
 
@@ -30,7 +30,8 @@ service is the reference consumer).
 ```
 
 `PREFIX` env var re-tags the images (`PREFIX=archaic ./build.sh` →
-`archaic/msvc:6.0-win32`).
+`archaic/msvc:6.0-win32`).  Every image is self-contained; no extra inputs
+are needed.
 
 ## Use
 
@@ -42,6 +43,11 @@ follow, and the artifact lands back in the mounted dir:
 # MSVC 6.0 (wine inside the image)
 docker run --rm -v "$PWD":/work -w /work rebrew/msvc:6.0-win32 /c /O2 f.c   # → f.obj
 
+# Same image, wibo instead of wine — much faster for plain console tools.
+# The wrapper reads REBREW_RUNNER (wine is the default; wibo is the minimal
+# decompals PE loader baked into the base image).
+docker run --rm -e REBREW_RUNNER=wibo -v "$PWD":/work -w /work rebrew/msvc:6.0-win32 /c /O2 f.c
+
 # MSVC 1.52 / Turbo C 3.1 / Delphi 1.0 (DOSBox inside the image)
 docker run --rm -v "$PWD":/work -w /work rebrew/msvc:1.52-win16 /c /O2 f.c
 docker run --rm -v "$PWD":/work -w /work rebrew/borland:3.1-win16 -c f.c
@@ -50,6 +56,14 @@ docker run --rm -v "$PWD":/work -w /work rebrew/delphi:1.0-win16 /c f.c
 # Watcom (native Linux binary in the image, POSIX-ish flags)
 docker run --rm -v "$PWD":/work -w /work rebrew/watcom:2.0-win32 -fo=f.obj -zq f.c
 ```
+
+The 32-bit wrappers run the compiler through `rebrew_run`, which dispatches
+on the `REBREW_RUNNER` env var: `wine` (default, full Wine — most
+compatible) or `wibo` (the minimal [decompals/wibo](https://github.com/decompals/wibo)
+PE loader baked into the base image — an order of magnitude faster to start,
+good for plain console compilers, but it only implements a subset of Win32;
+if a tool misbehaves, fall back to wine).  The 16-bit DOSBox toolchains
+always use DOSBox and ignore `REBREW_RUNNER`.
 
 The wrapper validates the source (`rebrew_pick_source`) and forwards every
 other argument to the compiler verbatim, so any flag set works.  Artifacts
@@ -79,9 +93,14 @@ the build, so a build is reproducible from this repo alone.
 ## Copyright
 
 The compiler binaries and media are **proprietary** (Microsoft / Borland /
-Watcom) and are *not* in this repository — they live in the public
-preservation repos the Dockerfiles download from (archaic-msvc,
-archaic-toolchains), which hold the reconstructed media trees.  What's here
-is our own build glue: Dockerfiles, wrapper scripts, the shared base image
-and the manifest — all MIT.  Every build sha256-verifies its download, and
-`./build.sh` needs nothing beyond docker.
+Watcom) and are *not* in this repository.  What's here is our own build
+glue: Dockerfiles, wrapper scripts, the shared base image and the manifest
+— all MIT.
+
+The 16-bit toolchains ultimately derive from scans of the original media
+(archive.org items and WinWorld floppy sets noted under Sources &
+provenance; abandonware — obtaining or using them is at your own
+discretion).  The builds fetch the reconstructed trees from the
+community-run `archaic-msvc` / `archaic-toolchains` GitHub repos, pinned by
+sha256 in `sources.json`; see also the provenance notes in the
+[rebrew TOOLCHAIN docs](https://github.com/maci0/rebrew/blob/main/docs/TOOLCHAIN.md).
