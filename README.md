@@ -30,7 +30,11 @@ service is the reference consumer).
 ```
 
 `PREFIX` env var re-tags the images (`PREFIX=archaic ./build.sh` →
-`archaic/msvc:6.0-win32`).  Every image is self-contained; no extra inputs
+`archaic/msvc:6.0-win32`).  The base image is built first, then the
+toolchain images build in parallel (`REBREW_BUILD_JOBS` concurrent builds,
+default 4; set it to 1 for strictly sequential) — each build downloads its
+pinned source tarball, so a full sweep is network-bound and parallelism cuts
+wall-clock roughly by the job count.  Every image is self-contained; no extra inputs
 are needed.
 
 ## Use
@@ -64,6 +68,12 @@ PE loader baked into the base image — an order of magnitude faster to start,
 good for plain console compilers, but it only implements a subset of Win32;
 if a tool misbehaves, fall back to wine).  The 16-bit DOSBox toolchains
 always use DOSBox and ignore `REBREW_RUNNER`.
+
+Both runners and the headless DOSBox runs are wrapped in a watchdog so a
+hung compile fails loudly instead of blocking forever:
+`REBREW_RUNNER_TIMEOUT` / `REBREW_DOSBOX_TIMEOUT` cap a run in seconds
+(default 600); on expiry the wrapper exits with an explicit error naming
+the knob.
 
 The wrapper validates the source (`rebrew_pick_source`) and forwards every
 other argument to the compiler verbatim, so any flag set works — except the

@@ -16,8 +16,8 @@ rebrew_pick_source "$@"
 sandbox=$(mktemp -d /tmp/dcc.XXXXXX)
 trap 'rm -rf "$sandbox"' EXIT
 
-cp -r /opt/delphi10/. "$sandbox"/
-cp "$SRC" "$sandbox/SRC.DPR"
+cp -r /opt/delphi10/. "$sandbox"/ || rebrew_die "cannot stage Delphi toolchain tree"
+cp "$SRC" "$sandbox/SRC.DPR" || rebrew_die "cannot stage source $SRC"
 
 # DCC reads DCC.CFG for the RTL/VCL unit paths.
 printf '/m\n/cw\n/rC:\\DELPHI\\LIB\n/uC:\\DELPHI\\LIB\n/iC:\\DELPHI\\LIB\n' > "$sandbox/DCC.CFG"
@@ -28,6 +28,11 @@ cp "$sandbox"/DCCOUT.TXT /work/dccout.txt 2>/dev/null || true
 if rebrew_copy_back "$sandbox" SRC.EXE "${STEM}.EXE"; then
     exit 0
 fi
-rebrew_log "DCC produced no executable (log: /work/dccout.txt)"
-cat "$sandbox/DCCOUT.TXT" 2>/dev/null >&2 || true
-rebrew_die "compile failed"
+# The log was copied to /work/dccout.txt above; embed it in the error too so
+# a failed compile shows its cause even if that copy failed (e.g. read-only
+# mount).
+if [ -f "$sandbox"/DCCOUT.TXT ]; then
+    rebrew_die "DCC produced no executable$(rebrew_dosbox_failure_note); compiler log:
+$(cat "$sandbox"/DCCOUT.TXT 2>/dev/null)"
+fi
+rebrew_die "DCC produced no executable$(rebrew_dosbox_failure_note) (no compiler log written)"

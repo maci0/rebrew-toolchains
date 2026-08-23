@@ -43,7 +43,7 @@ RUN dpkg --add-architecture i386 \
 # x86_64 build, sha256-pinned from the 1.2.0 release.  Runs 32-bit PE
 # command-line tools (cl.exe, bcc32.exe, ...) without a wine prefix; wrappers
 # use it when REBREW_RUNNER=wibo (they default to wine).
-RUN curl -sL -o /usr/local/bin/wibo \
+RUN curl -fsSL -o /usr/local/bin/wibo \
         "https://github.com/decompals/wibo/releases/download/1.2.0/wibo-x86_64" \
     && echo "13f86a2d618f0dbe67179d349625345eabf9b46450295cb4c904e49f6aff85af  /usr/local/bin/wibo" | sha256sum -c - \
     && chmod +x /usr/local/bin/wibo \

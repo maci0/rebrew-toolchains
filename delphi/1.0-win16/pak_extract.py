@@ -560,14 +560,7 @@ def dos_datetime(time_: int, date_: int) -> str:
 # ---------------------------------------------------------------------------
 
 
-def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(description="Quantum archive (.PAK) extractor")
-    ap.add_argument("archive", help="path to the .PAK archive")
-    ap.add_argument("-lo", "--list", action="store_true", help="list contents")
-    ap.add_argument("-x", "--extract", action="store_true", help="extract files")
-    ap.add_argument("-o", "--output", default=".", help="output directory (extract)")
-    args = ap.parse_args(argv)
-
+def _run(args: argparse.Namespace) -> int:
     path = Path(args.archive)
     data = path.read_bytes()
     header, files, stream_off = parse_archive(data)
@@ -587,9 +580,6 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{total:>12}  {'':<19} {len(files)} file(s)")
         return 0
 
-    if not args.extract:
-        return 0
-
     compressed = data[stream_off:]
     out = quantum_decompress(compressed, [int(f["size"]) for f in files], table_size)
 
@@ -606,6 +596,21 @@ def main(argv: list[str] | None = None) -> int:
         pos += size
     print(f"Extracted {len(files)} file(s), {total} bytes -> {out_dir}")
     return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description="Quantum archive (.PAK) extractor")
+    ap.add_argument("archive", help="path to the .PAK archive")
+    ap.add_argument("-lo", "--list", action="store_true", help="list contents")
+    ap.add_argument("-x", "--extract", action="store_true", help="extract files")
+    ap.add_argument("-o", "--output", default=".", help="output directory (extract)")
+    args = ap.parse_args(argv)
+
+    try:
+        return _run(args)
+    except (OSError, ValueError) as exc:
+        print(f"pak_extract.py: {exc}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":

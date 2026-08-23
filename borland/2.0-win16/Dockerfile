@@ -22,7 +22,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 
 # Turbo C 2.0 command-line tree — archaic-toolchains/tc20 tarball
 # (sha256-verified; same source `rebrew toolchain vendor` assembles from).
-RUN curl -sL -o /tmp/tc20.tar.gz \
+RUN curl -fsSL -o /tmp/tc20.tar.gz \
         "https://codeload.github.com/archaic-toolchains/tc20/tar.gz/refs/heads/main" \
     && echo "2eca4c26c1b30ce2bd7e61573eb9f40096994405fc173c28143f06a93da269d1  /tmp/tc20.tar.gz" | sha256sum -c - \
     && mkdir -p /opt/tc20 \
@@ -33,15 +33,7 @@ RUN curl -sL -o /tmp/tc20.tar.gz \
 # The `tcc` wrapper: translate the POSIX-style argv into the DOSBox TCC
 # invocation inside the mounted /work (source staged under an 8.3-safe
 # name, object written back to /work).
-COPY tc20-run.sh /usr/local/lib/rebrew/tc20-run.sh
-RUN chmod +x /usr/local/lib/rebrew/tc20-run.sh
-
-RUN printf '%s\n' \
-        '#!/bin/sh' \
-        '. /usr/local/lib/rebrew/wrapper-common.sh' \
-        'rebrew_pick_source "$@"' \
-        'exec /usr/local/lib/rebrew/tc20-run.sh "$@"' \
-        > /usr/local/bin/tcc \
-    && chmod +x /usr/local/bin/tcc
+COPY tc20-run.sh /usr/local/bin/tcc
+RUN chmod +x /usr/local/bin/tcc
 
 ENTRYPOINT ["/usr/local/bin/tcc"]

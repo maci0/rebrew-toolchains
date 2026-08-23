@@ -21,7 +21,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 
 # MSVC 1.52 command-line tree — archaic-toolchains/msvc152 tarball
 # (sha256-verified; same source `rebrew toolchain vendor` assembles from).
-RUN curl -sL -o /tmp/msvc152.tar.gz \
+RUN curl -fsSL -o /tmp/msvc152.tar.gz \
         "https://codeload.github.com/archaic-toolchains/msvc152/tar.gz/refs/heads/main" \
     && echo "18fbdb547aa6a6cdbb3a77b00b5453f6fd9ae2b543a1c4842552643384e4711b  /tmp/msvc152.tar.gz" | sha256sum -c - \
     && mkdir -p /opt/msvc152 \

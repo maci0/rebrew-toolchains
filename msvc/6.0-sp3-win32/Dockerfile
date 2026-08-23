@@ -21,7 +21,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 # tarball (sha256-verified; CL.EXE byte-identical to the OmniBlade decomp.me
 # msvc6.3 this image previously built from — only the VC98/Bin layout differs
 # from the older flat Bin/ tree).
-RUN curl -sL -o /tmp/msvc6.0-sp3.tar.gz \
+RUN curl -fsSL -o /tmp/msvc6.0-sp3.tar.gz \
         "https://codeload.github.com/archaic-toolchains/msvc600_sp3/tar.gz/refs/heads/main" \
     && echo "f753adfa8a29d8b03fb67bbcaadd3e41d672b86e5e17e32084bd1b60a1771ab4  /tmp/msvc6.0-sp3.tar.gz" | sha256sum -c - \
     && mkdir -p /opt/msvc6.0-sp3 \

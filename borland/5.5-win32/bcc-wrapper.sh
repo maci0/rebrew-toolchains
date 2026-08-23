@@ -9,5 +9,6 @@
 # (-c -I<dir> -o...); the object defaults to <source>.obj.
 . /usr/local/lib/rebrew/wrapper-common.sh
 
+set -e
 rebrew_pick_source "$@"
 rebrew_run /opt/bcc55/Bin/bcc32.exe -I/opt/bcc55/Include -L/opt/bcc55/Lib "$@"
