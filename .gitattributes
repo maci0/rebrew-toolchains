@@ -1,0 +1,11 @@
+# Normalize line endings: this repo is consumed on any host with docker +
+# bash, and CRLF checkouts break it — build.sh dies on `$'\r'`, the wrapper
+# scripts copied into the images fail with "bad interpreter", and the
+# $-anchored awk parse of sources.json in build.sh matches nothing.
+* text=auto
+
+# Always LF in the working tree, regardless of core.autocrlf.
+*.sh text eol=lf
+*.py text eol=lf
+Dockerfile text eol=lf
+sources.json text eol=lf
