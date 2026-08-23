@@ -1,4 +1,5 @@
-# Reconstructed 16-bit media tarballs are build prerequisites, not
-# redistributed here — dropping one in (see README) must not stage it.
+# No compiler binaries or media are redistributed from this repo — every
+# image downloads its pinned source at build time.  Local tarball artifacts
+# (e.g. unpacked media trees) must never be staged.
 *.tar.xz
 *.tar.gz

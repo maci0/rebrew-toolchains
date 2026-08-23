@@ -35,9 +35,9 @@ cp "$sandbox"/TCOUT.TXT /work/tcout.txt 2>/dev/null || true
 if rebrew_copy_back "$sandbox" SRC.OBJ "${STEM}.OBJ"; then
     exit 0
 fi
-# The compile workdir is transient (compile_to_obj cleans it up), so the
-# bare "see /work/tcout.txt" hint leaves the user with nothing to read —
-# embed the compiler log in the error instead.
+# The log was copied to /work/tcout.txt above; embed it in the error too so
+# a failed compile shows its cause even if that copy failed (e.g. read-only
+# mount).
 if [ -f "$sandbox"/TCOUT.TXT ]; then
     rebrew_die "TCC produced no object; compiler log:\n$(cat "$sandbox"/TCOUT.TXT 2>/dev/null)"
 else

@@ -1,8 +1,8 @@
 # rebrew-toolchains
 
 Standalone docker images for legacy Windows/DOS compilers — MSVC 1.0–11.0
-(every preserved service pack), Borland C/C++ (Turbo C 1.0/2.0/3.1, bcc32
-5.5), Watcom C (Open Watcom 2.0) and Delphi 1.0.  Each image is a
+(every preserved service pack), Borland C/C++ (Turbo C 2.0, Turbo C++ 3.1,
+bcc32 5.5), Watcom C (Open Watcom 2.0) and Delphi 1.0.  Each image is a
 self-contained compiler container: the runtime (wine / wibo / DOSBox) and
 the compiler are baked in, and the entrypoint is the compiler wrapper — you
 just mount a workdir and pass compiler flags.
@@ -51,7 +51,7 @@ docker run --rm -e REBREW_RUNNER=wibo -v "$PWD":/work -w /work rebrew/msvc:6.0-w
 # MSVC 1.52 / Turbo C 3.1 / Delphi 1.0 (DOSBox inside the image)
 docker run --rm -v "$PWD":/work -w /work rebrew/msvc:1.52-win16 /c /O2 f.c
 docker run --rm -v "$PWD":/work -w /work rebrew/borland:3.1-win16 -c f.c
-docker run --rm -v "$PWD":/work -w /work rebrew/delphi:1.0-win16 /c f.c
+docker run --rm -v "$PWD":/work -w /work rebrew/delphi:1.0-win16 hello.dpr
 
 # Watcom (native Linux binary in the image, POSIX-ish flags)
 docker run --rm -v "$PWD":/work -w /work rebrew/watcom:2.0-win32 -fo=f.obj -zq f.c
@@ -66,9 +66,10 @@ if a tool misbehaves, fall back to wine).  The 16-bit DOSBox toolchains
 always use DOSBox and ignore `REBREW_RUNNER`.
 
 The wrapper validates the source (`rebrew_pick_source`) and forwards every
-other argument to the compiler verbatim, so any flag set works.  Artifacts
-are named after the source (`.obj`/`.o`/`.exe`), FAT-uppercased for the
-DOSBox runtimes (`f.OBJ`).
+other argument to the compiler verbatim, so any flag set works — except the
+Delphi `dcc` wrapper, which runs DCC with a fixed configuration baked into
+the image and ignores extra arguments.  Artifacts are named after the source
+(`.obj`/`.o`/`.exe`), FAT-uppercased for the DOSBox runtimes (`f.OBJ`).
 
 ## Sources & provenance
 

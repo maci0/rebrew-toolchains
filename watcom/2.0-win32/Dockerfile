@@ -28,8 +28,8 @@ RUN curl -sL -o /tmp/ow.tar.xz \
     && rm /tmp/ow.tar.xz \
     && ls /opt/watcom/binl/wcc386
 
-# wcc386 (32-bit x86, native) — rebrew's entrypoint.  Emits OMF objects by
-# default (8086 relocatable); the OMF parser is the enabling follow-up.
+# wcc386 (32-bit x86, native) — rebrew's entrypoint.  Emits 32-bit OMF
+# object modules by default; the OMF parser is the enabling follow-up.
 ENV WATCOM=/opt/watcom \
     INCLUDE=/opt/watcom/h \
     PATH=/opt/watcom/binl:$PATH

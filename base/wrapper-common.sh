@@ -54,7 +54,6 @@ rebrew_run() {
 
 # rebrew_dosbox_run <sandbox> <autoexec-line> — writes a headless DOSBox
 # config that mounts the sandbox as C:, runs the autoexec line, and exits.
-# Sets $DOX_LOG to the sandbox's toolchain log path (callers write it).
 rebrew_dosbox_run() {
     sandbox="$1"
     autoexec="$2"
