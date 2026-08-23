@@ -58,6 +58,22 @@ rebrew_pick_source() {
     [ -n "$STEM" ] || rebrew_die "source basename '$SRC' has no stem"
 }
 
+# rebrew_watchdog_status <start-secs> <timeout> <status> — echoes the status
+# with watchdog escalations normalized to 124.  GNU timeout reports its own
+# TERM kill as 124, but when the run survives --kill-after and is SIGKILLed
+# it reports the raw 128+9 (= 137), which would otherwise pass through as if
+# the tool itself died and defeat the fail-loud contract.  An external kill
+# of the tool mid-run also exits 137, but well before the cap, so the
+# elapsed-time guard keeps that passing through unchanged.
+rebrew_watchdog_status() {
+    [ "$3" -eq 137 ] || { printf '%s' "$3"; return; }
+    if [ $(($(date +%s) - $1)) -ge "$2" ]; then
+        printf '124'
+    else
+        printf '%s' "$3"
+    fi
+}
+
 # rebrew_run <exe> [args...] — runs a Windows PE binary through the runtime
 # selected by $REBREW_RUNNER: "wine" (default; full Wine, most compatible) or
 # "wibo" (the minimal decompals PE loader — much faster for plain console
@@ -74,8 +90,9 @@ rebrew_run() {
         *) rebrew_die "unknown REBREW_RUNNER '${REBREW_RUNNER}' (wine|wibo)" ;;
     esac
     set +e
+    _start=$(date +%s)
     timeout --kill-after=10 "$_runner_timeout" "$_runner" "$@"
-    _status=$?
+    _status=$(rebrew_watchdog_status "$_start" "$_runner_timeout" "$?")
     set -e
     if [ "$_status" -eq 124 ]; then
         rebrew_die "$_runner run exceeded ${_runner_timeout}s (REBREW_RUNNER_TIMEOUT) and was killed"
@@ -94,11 +111,13 @@ rebrew_dosbox_run() {
     sandbox="$1"
     autoexec="$2"
     _dosbox_timeout=$(rebrew_timeout_secs 600 "${REBREW_DOSBOX_TIMEOUT:-}" REBREW_DOSBOX_TIMEOUT) || exit 1
+    _start=$(date +%s)
     printf '[sdl]\nfullscreen=false\n\n[cpu]\ncycles=fixed 30000\n\n[autoexec]\nmount c %s\nC:\ncd \\\n%s\nexit\n' \
         "$sandbox" "$autoexec" > "$sandbox/toolchain.conf"
     SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
         timeout --kill-after=10 "$_dosbox_timeout" \
         dosbox -conf "$sandbox/toolchain.conf" -noconsole >"$sandbox/dosbox.log" 2>&1 || DOSBOX_STATUS=$?
+    DOSBOX_STATUS=$(rebrew_watchdog_status "$_start" "$_dosbox_timeout" "$DOSBOX_STATUS")
 }
 
 # rebrew_dosbox_failure_note — diagnostic suffix describing how the DOSBox

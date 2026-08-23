@@ -73,18 +73,20 @@ resolve_dir() {
   # msvc+watcom), so an ambiguous bare name is rejected with guidance rather
   # than silently building an arbitrary family's image.
   local last="${arg%/}" match="" count=0 d
+  local matches=()
   for d in "$ROOT"/*/*/; do
     [ "$(basename "$d")" = "$last" ] && [ -f "$d/Dockerfile" ] || continue
     match="${d#$ROOT/}"
     match="${match%/}"  # glob yields a trailing slash — strip it
     count=$((count + 1))
+    matches+=("$match")
   done
   if [ "$count" -gt 1 ]; then
     # Die here rather than returning empty: the caller's "unknown toolchain"
     # fallback would misreport an ambiguous name as a nonexistent one.  The
     # status propagates out of resolve_dir's command substitution and, under
     # set -e, stops the script.
-    echo "ambiguous toolchain name '$arg' — matches multiple families; use a family-qualified path (e.g. msvc/$last or watcom/$last)" >&2
+    echo "ambiguous toolchain name '$arg' — matches multiple families; use a family-qualified path: ${matches[*]}" >&2
     exit 2
   fi
   [ "$count" -eq 1 ] && { echo "$match"; return; }
