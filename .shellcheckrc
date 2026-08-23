@@ -1,0 +1,27 @@
+# ShellCheck defaults for every script in this repo.
+#
+# enable=all turns on the optional check set (-o all): masked return values
+# (SC2312), set -e suppression in conditions (SC2310), missing case defaults
+# (SC2249), dead code, deprecations, etc.  Severity stays at the default
+# floor so style findings surface too.  Nothing is disabled silently: every
+# disable below carries its reason, and any new finding must be fixed or
+# scoped inline at the offending line.
+enable=all
+
+# SC2250 (braces on all variable references): this codebase deliberately
+# uses minimal $var quoting everywhere; requiring ${var} would churn hundreds
+# of lines for zero defect value.  Scoped disables remain welcome where
+# braces actually disambiguate.
+disable=SC2250
+
+# SC2292 ([[ ]] over [ ]): the wrappers are POSIX sh (#!/bin/sh, dash inside
+# the images) where [[ ]] does not exist; build.sh keeps [ ] to match them.
+disable=SC2292
+
+# The wrappers source /usr/local/lib/rebrew/wrapper-common.sh (the path it
+# gets inside the images).  Following sources requires external-sources;
+# combined with the repo-root search path below, the per-script
+# `# shellcheck source=...` directives then resolve from any CWD, so
+# shellcheck analyzes the common wrapper in context instead of skipping.
+external-sources=true
+source-path=SCRIPTDIR/../..

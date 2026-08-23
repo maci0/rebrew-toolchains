@@ -1,0 +1,22 @@
+# Static analysis gate: the same `make lint` entry point developers run
+# locally, with the exact tool versions pinned in pyproject.toml
+# [dependency-groups] so local and CI can never disagree on rule sets.
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned analyzers
+        run: python -m pip install --upgrade pip && python -m pip install --group lint
+      - name: Run static analysis
+        run: make lint

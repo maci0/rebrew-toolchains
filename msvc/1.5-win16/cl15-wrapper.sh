@@ -12,6 +12,7 @@
 # - All other args are forwarded to CL verbatim, so the GA flag sweep
 #   (/O1, /Gs, ...) actually reaches the compiler.
 # - INCLUDE/LIB point at the vendored tree baked into the image.
+# shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
 
 set -e

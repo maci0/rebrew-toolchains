@@ -22,7 +22,11 @@ ROOT="$(cd "$(dirname "$0")" && pwd)"
 PREFIX="${PREFIX:-rebrew}"
 JOBS="${REBREW_BUILD_JOBS:-4}"
 case "$JOBS" in
-  '' | *[!0-9]* | 0) echo "REBREW_BUILD_JOBS must be a positive integer (got '$JOBS')" >&2; exit 2 ;;
+  '' | *[!0-9]* | 0)
+    echo "REBREW_BUILD_JOBS must be a positive integer (got '$JOBS')" >&2
+    exit 2
+    ;;
+  *) ;;  # valid: falls through to the build
 esac
 
 # rebrew profile name -> toolchain dir + pinned url/sha256, parsed from
@@ -48,11 +52,13 @@ while IFS=$'\t' read -r profile dir url sha; do
     exit 2
   fi
   grep -Fq -- "$url" "$ROOT/$dir/Dockerfile" || {
-    echo "sources.json: pinned url of '$profile' is missing from $dir/Dockerfile — manifest and image disagree" >&2
+    echo "sources.json: pinned url of '$profile' is missing from" \
+      "$dir/Dockerfile — manifest and image disagree" >&2
     exit 2
   }
   grep -Fq -- "$sha" "$ROOT/$dir/Dockerfile" || {
-    echo "sources.json: pinned sha256 of '$profile' is missing from $dir/Dockerfile — manifest and image disagree" >&2
+    echo "sources.json: pinned sha256 of '$profile' is missing from" \
+      "$dir/Dockerfile — manifest and image disagree" >&2
     exit 2
   }
 done <<<"$PINS"
@@ -86,7 +92,8 @@ resolve_dir() {
     # fallback would misreport an ambiguous name as a nonexistent one.  The
     # status propagates out of resolve_dir's command substitution and, under
     # set -e, stops the script.
-    echo "ambiguous toolchain name '$arg' — matches multiple families; use a family-qualified path: ${matches[*]}" >&2
+    echo "ambiguous toolchain name '$arg' — matches multiple families;" \
+      "use a family-qualified path: ${matches[*]}" >&2
     exit 2
   fi
   [ "$count" -eq 1 ] && { echo "$match"; return; }
@@ -129,7 +136,8 @@ build_pool() {
     (
       tag="$(tag_for "$dir")"
       echo "==> building $tag (from $dir)"
-      if docker build --build-arg "BASE_IMAGE=$PREFIX/base:1.0" -t "$tag" "$ROOT/$dir" >>"$log" 2>&1; then
+      if docker build --build-arg "BASE_IMAGE=$PREFIX/base:1.0" -t "$tag" \
+        "$ROOT/$dir" >>"$log" 2>&1; then
         echo "==> built $tag"
       else
         echo "==> FAILED $tag — build log:"

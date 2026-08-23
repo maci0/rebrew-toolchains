@@ -6,3 +6,8 @@
 
 # Python bytecode from the vendored-format dev tools (pak_extract.py).
 __pycache__/
+
+# Analyzer state from `make lint` (ruff, mypy) and uv environments.
+.mypy_cache/
+.ruff_cache/
+.venv/

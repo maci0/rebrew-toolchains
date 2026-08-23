@@ -1,0 +1,63 @@
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+# Defect-first selection: pyflakes + pycodestyle errors/warnings, bugbear
+# (bug-prone constructs), flake8-simplify/return hygiene, comprehension
+# modernization, pyupgrade, import sorting and ruff-native correctness.
+# Anything disabled must be recorded here with a reason.
+select = [
+    "E",    # pycodestyle errors (incl. line length)
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "SIM",  # flake8-simplify
+    "RET",  # flake8-return
+    "UP",   # pyupgrade
+    "RUF",  # ruff-specific correctness
+    # Additional groups the tree already passes clean (proven by run); they
+    # guard new code against the defect classes they name.
+    "A",    # flake8-builtins (shadowing builtins)
+    "N",    # pep8-naming (naming drift breaks callers)
+    "ARG",  # unused arguments (dead parameters)
+    "S",    # bandit (weak crypto, eval, assert misuse)
+    "EXE",  # shebang/executable-bit consistency (this module is a script)
+    "ISC",  # implicit string concatenation (classic silent-bug source)
+    "DTZ",  # naive datetimes
+    "YTT",  # sys/version pitfalls
+    "RSE",  # redundant parentheses on raise
+    "SLF",  # private member access from outside
+    "TID",  # banned/relative imports
+    "PTH",  # os.path -> pathlib (already the module's convention)
+    "FLY",  # locale-aware joins
+    "PERF", # performance antipatterns
+    "FURB", # misc modernization/correctness
+    # Deliberately not enabled: PL (PLR2004 magic values / PLR0915 function
+    # length fire on the Pak header parser; fixing those belongs to
+    # code-review passes, not config), T20 (T201 print is the module's
+    # intended CLI output), ANN/Q/G/LOG (redundant with mypy strict, the
+    # formatter, or absent logging).
+]
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
+# Check every Python file in the tree by default; mypy skips dot-directories
+# during recursive discovery (.mypy_cache/.ruff_cache/.venv included), so new
+# modules cannot be added outside analysis unnoticed.
+files = ["."]
+
+# CI installs the pinned analyzer set from [dependency-groups] so local
+# runs and remote enforcement never disagree on tool versions.
+
+[dependency-groups]
+lint = [
+    "ruff==0.16.4",
+    "mypy==2.1.0",
+    # Wraps the upstream ShellCheck 0.11.0 binary under the `shellcheck`
+    # command; keeps the shell analyzer in the same pinned set.
+    "shellcheck-py==0.11.0.1",
+]

@@ -37,6 +37,27 @@ pinned source tarball, so a full sweep is network-bound and parallelism cuts
 wall-clock roughly by the job count.  Every image is self-contained; no extra inputs
 are needed.
 
+## Static analysis
+
+The repo's own glue is checked by three analyzers; `make lint` runs them
+all and must stay green.  The same command is the repo's CI gate
+(`.github/workflows/lint.yml`), so findings block merges, and the tool
+versions are pinned in `pyproject.toml`'s `[dependency-groups]` (`lint`)
+so local runs and CI never disagree:
+
+- **shellcheck** over every `.sh` script (`enable=all` via `.shellcheckrc`;
+  the two disabled style codes are recorded there with their reasons).
+  The wrappers' `# shellcheck source=` directives point at
+  `base/wrapper-common.sh`, so the shared helpers are analyzed in context.
+- **ruff** (`pyproject.toml`) checks and formats the Python sources — every
+  defect-oriented rule group that passes clean today is enabled, with any
+  exclusion recorded and justified in the config (100-column hard cap).
+- **mypy** in `strict` mode, scoped to the whole tree: new Python files are
+  checked by default, dot-directories are skipped automatically.
+
+After editing Python config locally, `uv sync --group lint` (or
+`uv run make lint`) reproduces exactly what CI installs.
+
 ## Use
 
 Every image's ENTRYPOINT is the compiler wrapper; the container sees your

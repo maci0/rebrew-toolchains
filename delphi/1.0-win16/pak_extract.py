@@ -48,6 +48,7 @@ from __future__ import annotations
 import argparse
 import struct
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -488,18 +489,27 @@ def read_var_string(data: bytes, pos: int) -> tuple[str, int]:
 def _read_u16(data: bytes, pos: int) -> int:
     if pos + 2 > len(data):
         raise ValueError("Truncated archive: u16 field overruns the file")
-    return struct.unpack_from("<H", data, pos)[0]
+    return int(struct.unpack_from("<H", data, pos)[0])
 
 
 def _read_u32(data: bytes, pos: int) -> int:
     if pos + 4 > len(data):
         raise ValueError("Truncated archive: u32 field overruns the file")
-    return struct.unpack_from("<I", data, pos)[0]
+    return int(struct.unpack_from("<I", data, pos)[0])
 
 
-def parse_archive(
-    data: bytes,
-) -> tuple[tuple[int, int, int, int, int], list[dict[str, object]], int]:
+@dataclass
+class ArchiveEntry:
+    """One per-file entry from the archive directory."""
+
+    name: str
+    comment: str
+    size: int
+    time: int
+    date: int
+
+
+def parse_archive(data: bytes) -> tuple[tuple[int, int, int, int, int], list[ArchiveEntry], int]:
     """Parse a Quantum archive; returns (header, file_entries, stream_offset)."""
     if len(data) < 8 or data[:2] != b"DS":
         raise ValueError("Invalid Quantum archive signature (expected 'DS')")
@@ -521,7 +531,7 @@ def parse_archive(
 
     header = (major, minor, num_files, table_size, flags)
 
-    files: list[dict[str, object]] = []
+    files: list[ArchiveEntry] = []
     for _ in range(num_files):
         name, pos = read_var_string(data, pos)
         comment, pos = read_var_string(data, pos)
@@ -531,15 +541,7 @@ def parse_archive(
         pos += 2
         date_ = _read_u16(data, pos)
         pos += 2
-        files.append(
-            {
-                "name": name,
-                "comment": comment,
-                "size": size,
-                "time": time_,
-                "date": date_,
-            }
-        )
+        files.append(ArchiveEntry(name=name, comment=comment, size=size, time=time_, date=date_))
 
     return header, files, pos
 
@@ -593,18 +595,18 @@ def _run(args: argparse.Namespace) -> int:
         f"Quantum {major}.{minor:02d} archive — {num_files} file(s), "
         f"window {1 << table_size} bytes, flags 0x{flags:02X}"
     )
-    total = sum(int(f["size"]) for f in files)
+    total = sum(f.size for f in files)
 
     if args.list or not args.extract:
         print(f"{'size':>12}  {'date':<19}  name")
         for f in files:
-            dt = dos_datetime(int(f["time"]), int(f["date"]))
-            print(f"{f['size']:>12}  {dt}  {display_name(str(f['name']))}")
+            dt = dos_datetime(f.time, f.date)
+            print(f"{f.size:>12}  {dt}  {display_name(f.name)}")
         print(f"{total:>12}  {'':<19} {len(files)} file(s)")
         return 0
 
     compressed = data[stream_off:]
-    out = quantum_decompress(compressed, [int(f["size"]) for f in files], table_size)
+    out = quantum_decompress(compressed, [f.size for f in files], table_size)
 
     if len(out) != total:
         raise ValueError(f"Decompression size mismatch: expected {total}, got {len(out)}")
@@ -616,9 +618,8 @@ def _run(args: argparse.Namespace) -> int:
     members: list[tuple[str, bytes]] = []
     pos = 0
     for f in files:
-        size = int(f["size"])
-        members.append((member_name(str(f["name"])), out[pos : pos + size]))
-        pos += size
+        members.append((member_name(f.name), out[pos : pos + f.size]))
+        pos += f.size
     for name, payload in members:
         (out_dir / name).write_bytes(payload)
     print(f"Extracted {len(files)} file(s), {total} bytes -> {out_dir}")

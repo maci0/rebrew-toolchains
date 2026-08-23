@@ -27,6 +27,7 @@ rebrew_timeout_secs() {
                 echo "rebrew: $3 must be a positive integer of seconds (got '$2')" >&2
                 return 1
                 ;;
+            *) ;;  # valid timeout passes through unchanged
         esac
         printf '%s' "$2"
     else
@@ -46,6 +47,7 @@ rebrew_pick_source() {
         case "$_a" in
             -*) continue ;;
             /?*) continue ;;  # MSVC flags start with '/'
+            *) ;;  # not a flag: the -r test below decides
         esac
         if [ -r "$_a" ]; then
             SRC="$_a"
@@ -67,7 +69,8 @@ rebrew_pick_source() {
 # elapsed-time guard keeps that passing through unchanged.
 rebrew_watchdog_status() {
     [ "$3" -eq 137 ] || { printf '%s' "$3"; return; }
-    if [ $(($(date +%s) - $1)) -ge "$2" ]; then
+    _now=$(date +%s)
+    if [ $((_now - $1)) -ge "$2" ]; then
         printf '124'
     else
         printf '%s' "$3"
@@ -83,7 +86,11 @@ rebrew_watchdog_status() {
 # tool's own exit status passes through unchanged, and only a watchdog kill
 # (hung compiler) dies with its own explicit error.
 rebrew_run() {
-    _runner_timeout=$(rebrew_timeout_secs 600 "${REBREW_RUNNER_TIMEOUT:-}" REBREW_RUNNER_TIMEOUT) || exit 1
+    # Deliberate `|| exit 1`: rebrew_timeout_secs prints its own error and
+    # returns nonzero; the explicit handling is the documented contract.
+    # shellcheck disable=SC2310
+    _runner_timeout=$(rebrew_timeout_secs 600 \
+        "${REBREW_RUNNER_TIMEOUT:-}" REBREW_RUNNER_TIMEOUT) || exit 1
     case "${REBREW_RUNNER:-wine}" in
         wine) _runner=wine ;;
         wibo) _runner=wibo ;;
@@ -95,7 +102,8 @@ rebrew_run() {
     _status=$(rebrew_watchdog_status "$_start" "$_runner_timeout" "$?")
     set -e
     if [ "$_status" -eq 124 ]; then
-        rebrew_die "$_runner run exceeded ${_runner_timeout}s (REBREW_RUNNER_TIMEOUT) and was killed"
+        rebrew_die "$_runner run exceeded ${_runner_timeout}s" \
+            "(REBREW_RUNNER_TIMEOUT) and was killed"
     fi
     exit "$_status"
 }
@@ -110,13 +118,21 @@ DOSBOX_STATUS=0
 rebrew_dosbox_run() {
     sandbox="$1"
     autoexec="$2"
-    _dosbox_timeout=$(rebrew_timeout_secs 600 "${REBREW_DOSBOX_TIMEOUT:-}" REBREW_DOSBOX_TIMEOUT) || exit 1
+    # Deliberate `|| exit 1`: rebrew_timeout_secs prints its own error and
+    # returns nonzero; the explicit handling is the documented contract.
+    # shellcheck disable=SC2310
+    _dosbox_timeout=$(rebrew_timeout_secs 600 \
+        "${REBREW_DOSBOX_TIMEOUT:-}" REBREW_DOSBOX_TIMEOUT) || exit 1
     _start=$(date +%s)
-    printf '[sdl]\nfullscreen=false\n\n[cpu]\ncycles=fixed 30000\n\n[autoexec]\nmount c %s\nC:\ncd \\\n%s\nexit\n' \
-        "$sandbox" "$autoexec" > "$sandbox/toolchain.conf"
+    {
+        printf '[sdl]\nfullscreen=false\n\n[cpu]\ncycles=fixed 30000\n\n[autoexec]\n'
+        printf 'mount c %s\nC:\ncd \\\n%s\nexit\n' \
+            "$sandbox" "$autoexec"
+    } > "$sandbox/toolchain.conf"
     SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
         timeout --kill-after=10 "$_dosbox_timeout" \
-        dosbox -conf "$sandbox/toolchain.conf" -noconsole >"$sandbox/dosbox.log" 2>&1 || DOSBOX_STATUS=$?
+        dosbox -conf "$sandbox/toolchain.conf" -noconsole \
+            >"$sandbox/dosbox.log" 2>&1 || DOSBOX_STATUS=$?
     DOSBOX_STATUS=$(rebrew_watchdog_status "$_start" "$_dosbox_timeout" "$DOSBOX_STATUS")
 }
 
@@ -147,7 +163,8 @@ rebrew_copy_back() {
     dest_name="$3"
     [ -f "$sandbox/$src_name" ] || return 1
     cp "$sandbox/$src_name" "/work/$dest_name" || \
-        rebrew_die "compiler produced $src_name but copying it to /work/$dest_name failed (is /work mounted writable?)"
+        rebrew_die "compiler produced $src_name but copying it to /work/$dest_name failed" \
+            "(is /work mounted writable?)"
     return 0
 }
 
@@ -165,8 +182,10 @@ rebrew_flags_except_source() {
         [ "$_a" = "$SRC" ] && continue
         case "$_a" in
             *[[:cntrl:]]*)
-                rebrew_die "argument with control characters rejected: $(printf '%s' "$_a" | tr -d '[:cntrl:]')"
+                _clean="$(printf '%s' "$_a" | tr -d '[:cntrl:]')"
+                rebrew_die "argument with control characters rejected: ${_clean}"
                 ;;
+            *) ;;  # ordinary flag or non-source argument: kept in $FLAGS
         esac
         FLAGS="$FLAGS $_a"
     done
@@ -198,12 +217,17 @@ rebrew_dosbox_compile() {
     if [ -f "$sandbox/$sandbox_log" ]; then
         cp "$sandbox/$sandbox_log" "/work/$log_name" 2>/dev/null || true
     fi
+    # Deliberate `if` on the helper: a missing artifact is the ordinary
+    # "compile produced nothing" case, not an unhandled failure.
+    # shellcheck disable=SC2310
     if rebrew_copy_back "$sandbox" SRC.OBJ "$STEM.OBJ"; then
         return 0
     fi
+    _note=$(rebrew_dosbox_failure_note)
     if [ -f "$sandbox/$sandbox_log" ]; then
-        rebrew_die "compiler produced no object$(rebrew_dosbox_failure_note) (see /work/$log_name); compiler log:
-$(cat "$sandbox/$sandbox_log" 2>/dev/null)"
+        _log="$(cat "$sandbox/$sandbox_log" 2>/dev/null)"
+        rebrew_die "compiler produced no object${_note} (see /work/$log_name); compiler log:
+$_log"
     fi
-    rebrew_die "compiler produced no object$(rebrew_dosbox_failure_note) (no compiler log written)"
+    rebrew_die "compiler produced no object${_note} (no compiler log written)"
 }

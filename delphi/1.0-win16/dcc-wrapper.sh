@@ -8,6 +8,7 @@
 # fixed short name SRC.DPR and the produced SRC.EXE is copied back under the
 # original basename's stem so callers get a predictable output name.
 # DOSBox FAT-uppercases outputs (HELLO.EXE, DCCOUT.TXT).
+# shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
 
 set -e
@@ -25,14 +26,19 @@ printf '/m\n/cw\n/rC:\\DELPHI\\LIB\n/uC:\\DELPHI\\LIB\n/iC:\\DELPHI\\LIB\n' > "$
 rebrew_dosbox_run "$sandbox" "C:\\DCC.EXE SRC.DPR > C:\\dccout.txt"
 
 cp "$sandbox"/DCCOUT.TXT /work/dccout.txt 2>/dev/null || true
+# Deliberate `if` on the helper: a missing artifact is the ordinary
+# "compile produced nothing" case, not an unhandled failure.
+# shellcheck disable=SC2310
 if rebrew_copy_back "$sandbox" SRC.EXE "${STEM}.EXE"; then
     exit 0
 fi
 # The log was copied to /work/dccout.txt above; embed it in the error too so
 # a failed compile shows its cause even if that copy failed (e.g. read-only
 # mount).
+_note=$(rebrew_dosbox_failure_note)
 if [ -f "$sandbox"/DCCOUT.TXT ]; then
-    rebrew_die "DCC produced no executable$(rebrew_dosbox_failure_note); compiler log:
-$(cat "$sandbox"/DCCOUT.TXT 2>/dev/null)"
+    _log="$(cat "$sandbox"/DCCOUT.TXT 2>/dev/null)"
+    rebrew_die "DCC produced no executable${_note}; compiler log:
+$_log"
 fi
-rebrew_die "DCC produced no executable$(rebrew_dosbox_failure_note) (no compiler log written)"
+rebrew_die "DCC produced no executable${_note} (no compiler log written)"
