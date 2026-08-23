@@ -347,9 +347,8 @@ def decode_symbol(
 
     sym = model.syms[i - 1][0]
 
-    range2 = ((h - lo) & 0xFFFF) + 1
-    h = (lo + (model.syms[i - 1][1] * range2) // total_freq - 1) & 0xFFFF
-    lo = (lo + (model.syms[i][1] * range2) // total_freq) & 0xFFFF
+    h = (lo + (model.syms[i - 1][1] * range_) // total_freq - 1) & 0xFFFF
+    lo = (lo + (model.syms[i][1] * range_) // total_freq) & 0xFFFF
 
     # Increase the frequency of the decoded symbol and everything above it.
     j = i
