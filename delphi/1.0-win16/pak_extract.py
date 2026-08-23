@@ -620,7 +620,18 @@ def _run(args: argparse.Namespace) -> int:
     for f in files:
         members.append((member_name(f.name), out[pos : pos + f.size]))
         pos += f.size
+    written: set[str] = set()
     for name, payload in members:
+        if name in written:
+            # Flattening can collide distinct archive paths (e.g. LIB\X.DCU
+            # and BIN\X.DCU); extraction stays last-wins, but the overwrite
+            # must be visible rather than silent.
+            print(
+                "pak_extract.py: warning: archive has multiple members named"
+                f" {display_name(name)}; the last one was written",
+                file=sys.stderr,
+            )
+        written.add(name)
         (out_dir / name).write_bytes(payload)
     print(f"Extracted {len(files)} file(s), {total} bytes -> {out_dir}")
     return 0

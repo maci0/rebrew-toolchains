@@ -28,16 +28,33 @@ case "$JOBS" in
     ;;
   *) ;;  # valid: falls through to the build
 esac
+# Wall-clock cap per image build (seconds).  Every build downloads its pinned
+# tarball over the network; a stalled transfer would otherwise hold a pool
+# slot forever.  The default is far above any healthy build so only genuine
+# hangs are killed; raise it for very slow links.
+BUILD_TIMEOUT="${REBREW_BUILD_TIMEOUT:-3600}"
+case "$BUILD_TIMEOUT" in
+  '' | *[!0-9]* | 0)
+    echo "REBREW_BUILD_TIMEOUT must be a positive integer of seconds (got '$BUILD_TIMEOUT')" >&2
+    exit 2
+    ;;
+  *) ;;  # valid: falls through to the build
+esac
 
 # rebrew profile name -> toolchain dir + pinned url/sha256, parsed from
 # sources.json (the single source of truth; a parse failure must stop the
-# build, not silently drop profiles).
+# build, not silently drop profiles).  Every profile header is emitted even
+# when its fields are missing, so the loop below can reject incomplete pins
+# instead of validating them vacuously.
 PINS="$(awk -F'"' '
-    /^  "[^"]+": \{$/    { key = $2 }
+    /^  "[^"]+": \{$/    { key = $2; seen[key] = 1 }
     /^    "host_dir": "/ { dir[key] = $4 }
     /^    "url": "/      { url[key] = $4 }
     /^    "sha256": "/   { sha[key] = $4 }
-    END { for (k in dir) print k "\t" dir[k] "\t" url[k] "\t" sha[k] }
+    END {
+      for (k in seen)
+        print k "\t" dir[k] "\t" url[k] "\t" sha[k]
+    }
 ' "$ROOT/sources.json")"
 [ -n "$PINS" ] || { echo "failed to parse $ROOT/sources.json" >&2; exit 2; }
 
@@ -47,6 +64,11 @@ PINS="$(awk -F'"' '
 # one-sided edit must fail the run, not fetch something sources.json does
 # not pin.
 while IFS=$'\t' read -r profile dir url sha; do
+  if [ -z "$profile" ] || [ -z "$dir" ] || [ -z "$url" ] || [ -z "$sha" ]; then
+    echo "sources.json: incomplete pin for profile '$profile':" \
+      "host_dir, url and sha256 must all be present and non-empty" >&2
+    exit 2
+  fi
   if [ ! -f "$ROOT/$dir/Dockerfile" ]; then
     echo "sources.json: host_dir '$dir' ($profile) has no Dockerfile" >&2
     exit 2
@@ -136,12 +158,18 @@ build_pool() {
     (
       tag="$(tag_for "$dir")"
       echo "==> building $tag (from $dir)"
-      if docker build --build-arg "BASE_IMAGE=$PREFIX/base:1.0" -t "$tag" \
+      if timeout --kill-after=30 "$BUILD_TIMEOUT" docker build \
+        --build-arg "BASE_IMAGE=$PREFIX/base:1.0" -t "$tag" \
         "$ROOT/$dir" >>"$log" 2>&1; then
         echo "==> built $tag"
       else
+        _status=$?
         echo "==> FAILED $tag — build log:"
         cat "$log"
+        if [ "$_status" -eq 124 ]; then
+          echo "==> build exceeded ${BUILD_TIMEOUT}s (REBREW_BUILD_TIMEOUT)" \
+            "and was killed: $tag" >&2
+        fi
         exit 1
       fi
     ) &
@@ -163,7 +191,18 @@ build_pool() {
 # build-arg we pass to every toolchain Dockerfile.  It must exist before the
 # pool starts: every toolchain image's FROM resolves against it.
 echo "==> building $PREFIX/base:1.0"
-docker build -t "$PREFIX/base:1.0" "$ROOT/base"
+set +e
+timeout --kill-after=30 "$BUILD_TIMEOUT" docker build -t "$PREFIX/base:1.0" "$ROOT/base"
+_status=$?
+set -e
+if [ "$_status" -ne 0 ]; then
+  if [ "$_status" -eq 124 ]; then
+    echo "==> base image build exceeded ${BUILD_TIMEOUT}s (REBREW_BUILD_TIMEOUT)" \
+      "and was killed" >&2
+  fi
+  echo "==> FAILED $PREFIX/base:1.0 (see docker output above)" >&2
+  exit 1
+fi
 
 dirs=()
 if [ $# -eq 0 ]; then
