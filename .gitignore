@@ -3,3 +3,6 @@
 # (e.g. unpacked media trees) must never be staged.
 *.tar.xz
 *.tar.gz
+
+# Python bytecode from the vendored-format dev tools (pak_extract.py).
+__pycache__/

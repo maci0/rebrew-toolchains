@@ -76,7 +76,7 @@ resolve_dir() {
   local matches=()
   for d in "$ROOT"/*/*/; do
     [ "$(basename "$d")" = "$last" ] && [ -f "$d/Dockerfile" ] || continue
-    match="${d#$ROOT/}"
+    match="${d#"$ROOT"/}"
     match="${match%/}"  # glob yields a trailing slash — strip it
     count=$((count + 1))
     matches+=("$match")
@@ -161,7 +161,7 @@ dirs=()
 if [ $# -eq 0 ]; then
   for d in "$ROOT"/*/*/; do
     [ -f "$d/Dockerfile" ] || continue
-    rel="${d#$ROOT/}"
+    rel="${d#"$ROOT"/}"
     rel="${rel%/}"  # the glob yields a trailing slash — strip it
     dirs+=("$rel")
   done

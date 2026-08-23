@@ -554,6 +554,30 @@ def dos_datetime(time_: int, date_: int) -> str:
     return f"{year:04d}-{month:02d}-{day:02d} {hours:02d}:{mins:02d}:{secs:02d}"
 
 
+def member_name(raw: str) -> str:
+    """Flatten a DOS-style member name to a bare, safe filename.
+
+    DOS archives separate path components with backslashes; normalizing them
+    to '/' before taking ``Path.name`` keeps extraction flat on every platform
+    (on POSIX a raw backslash would otherwise survive inside the filename).
+    Anything that flattens to empty, '.' or '..' is rejected rather than
+    written to an unintended path.
+    """
+    name = Path(raw.replace("\\", "/")).name
+    if name in ("", ".", ".."):
+        raise ValueError(f"unsafe archive member name: {raw!r}")
+    return name
+
+
+def display_name(raw: str) -> str:
+    """Member name safe to echo to a terminal: control characters masked.
+
+    Archive member names are untrusted bytes; printing them verbatim would let
+    a crafted archive emit terminal escape sequences into build logs.
+    """
+    return "".join(ch if ch.isprintable() else "?" for ch in raw)
+
+
 # ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
@@ -575,7 +599,7 @@ def _run(args: argparse.Namespace) -> int:
         print(f"{'size':>12}  {'date':<19}  name")
         for f in files:
             dt = dos_datetime(int(f["time"]), int(f["date"]))
-            print(f"{f['size']:>12}  {dt}  {f['name']}")
+            print(f"{f['size']:>12}  {dt}  {display_name(str(f['name']))}")
         print(f"{total:>12}  {'':<19} {len(files)} file(s)")
         return 0
 
@@ -587,12 +611,16 @@ def _run(args: argparse.Namespace) -> int:
 
     out_dir = Path(args.output)
     out_dir.mkdir(parents=True, exist_ok=True)
+    # Resolve and validate every member name before writing anything so a
+    # malformed archive fails cleanly instead of leaving a partial extraction.
+    members: list[tuple[str, bytes]] = []
     pos = 0
     for f in files:
         size = int(f["size"])
-        name = Path(f["name"]).name  # flat extraction, no path traversal
-        (out_dir / name).write_bytes(out[pos : pos + size])
+        members.append((member_name(str(f["name"])), out[pos : pos + size]))
         pos += size
+    for name, payload in members:
+        (out_dir / name).write_bytes(payload)
     print(f"Extracted {len(files)} file(s), {total} bytes -> {out_dir}")
     return 0
 

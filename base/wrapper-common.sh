@@ -154,10 +154,20 @@ rebrew_copy_back() {
 # rebrew_flags_except_source "$@" — sets $FLAGS to every argument except the
 # picked source, space-joined for unquoted expansion inside the DOS command
 # line (flags-first and source-first invocations both work).
+#
+# Arguments containing control characters are rejected before they reach
+# $FLAGS: the value is embedded verbatim in the generated DOSBox config,
+# where a raw newline (or carriage return) would terminate the compile
+# command line and execute the remainder as its own autoexec command.
 rebrew_flags_except_source() {
     FLAGS=""
     for _a in "$@"; do
         [ "$_a" = "$SRC" ] && continue
+        case "$_a" in
+            *[[:cntrl:]]*)
+                rebrew_die "argument with control characters rejected: $(printf '%s' "$_a" | tr -d '[:cntrl:]')"
+                ;;
+        esac
         FLAGS="$FLAGS $_a"
     done
 }
