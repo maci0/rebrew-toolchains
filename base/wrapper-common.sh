@@ -159,9 +159,12 @@ rebrew_dosbox_failure_note() {
 
 # rebrew_copy_back <sandbox> <src-name> <dest-name> — copies an artifact the
 # DOSBox run produced back into the mounted /work dir (DOSBox FAT-uppercases
-# names; the caller passes the uppercase source name).  Returns nonzero when
-# the artifact is missing (the usual "compile produced nothing" case —
-# callers test this with `if`); when the artifact exists but the copy fails
+# names; the caller passes the uppercase source name).  The copy is staged
+# through /work/.<dest>.partial and renamed into place, so a copy that fails
+# midway can never leave a truncated artifact looking like fresh compiler
+# output; the pre-existing destination (if any) survives untouched.  Returns
+# nonzero when the artifact is missing (the usual "compile produced nothing"
+# case — callers test this with `if`); when the staging or rename fails
 # (e.g. read-only /work) it dies saying so, since conflating that with a
 # compile failure would misdiagnose the run.
 rebrew_copy_back() {
@@ -169,9 +172,16 @@ rebrew_copy_back() {
     src_name="$2"
     dest_name="$3"
     [ -f "$sandbox/$src_name" ] || return 1
-    cp "$sandbox/$src_name" "/work/$dest_name" || \
+    _tmp="/work/.${dest_name}.partial"
+    cp "$sandbox/$src_name" "$_tmp" || {
+        rm -f "$_tmp"
         rebrew_die "compiler produced $src_name but copying it to /work/$dest_name failed" \
             "(is /work mounted writable?)"
+    }
+    mv "$_tmp" "/work/$dest_name" || {
+        rm -f "$_tmp"
+        rebrew_die "compiler produced $src_name but putting it in place at /work/$dest_name failed"
+    }
     return 0
 }
 

@@ -20,7 +20,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
       org.opencontainers.image.description="Open Watcom 2.0 (win32, native) toolchain image"
 
 
-RUN curl -fsSL -o /tmp/ow.tar.xz \
+RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/ow.tar.xz \
         "https://github.com/open-watcom/open-watcom-v2/releases/download/Last-CI-build/ow-snapshot.tar.xz" \
     && echo "99e494d9a3871f58a6398268e8f04003affa73421ca5fb49e3815a8ef1bb7b1f  /tmp/ow.tar.xz" | sha256sum -c - \
     && mkdir -p /opt/watcom \

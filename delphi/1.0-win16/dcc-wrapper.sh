@@ -14,7 +14,7 @@
 set -e
 rebrew_pick_source "$@"
 
-sandbox=$(mktemp -d /tmp/dcc.XXXXXX)
+sandbox=$(mktemp -d /tmp/dcc.XXXXXX) || rebrew_die "mktemp failed"
 trap 'rm -rf "$sandbox"' EXIT
 
 cp -r /opt/delphi10/. "$sandbox"/ || rebrew_die "cannot stage Delphi toolchain tree"

@@ -20,7 +20,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 # MSVC 9.0-SP1 command-line toolchain — archaic-toolchains/msvc900_sp1 tarball
 # (sha256-verified; same source the `rebrew toolchain vendor` host tree
 # assembles from).
-RUN curl -fsSL -o /tmp/msvc900_sp1.tar.gz \
+RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc900_sp1.tar.gz \
         "https://codeload.github.com/archaic-toolchains/msvc900_sp1/tar.gz/refs/heads/main" \
     && echo "33a66c779da39ab40518f24b75656f1f93cb1837a3d65a9b79188f41c2f2bd97  /tmp/msvc900_sp1.tar.gz" | sha256sum -c - \
     && mkdir -p /opt/msvc9.0-sp1 \

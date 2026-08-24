@@ -22,7 +22,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 
 # Turbo C 2.0 command-line tree — archaic-toolchains/tc20 tarball
 # (sha256-verified; same source `rebrew toolchain vendor` assembles from).
-RUN curl -fsSL -o /tmp/tc20.tar.gz \
+RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/tc20.tar.gz \
         "https://codeload.github.com/archaic-toolchains/tc20/tar.gz/refs/heads/main" \
     && echo "2eca4c26c1b30ce2bd7e61573eb9f40096994405fc173c28143f06a93da269d1  /tmp/tc20.tar.gz" | sha256sum -c - \
     && mkdir -p /opt/tc20 \

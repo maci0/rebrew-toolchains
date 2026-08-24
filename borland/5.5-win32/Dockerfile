@@ -22,7 +22,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 # Borland C++ 5.5 free command-line tools — archaic-toolchains/borlandc55 repo
 # tarball (sha256-verified; bcc32.exe byte-identical to the archive.org
 # BorlandC55 freecommandLinetools.exe payload this image previously extracted).
-RUN curl -fsSL -o /tmp/bcc55.tar.gz \
+RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/bcc55.tar.gz \
         "https://codeload.github.com/archaic-toolchains/borlandc55/tar.gz/refs/heads/main" \
     && echo "e9319c3904303ca4424cfed855b17837d10aa9653a3d8e6329d2adb3326392b0  /tmp/bcc55.tar.gz" | sha256sum -c - \
     && mkdir -p /opt/bcc55 \

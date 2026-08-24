@@ -22,7 +22,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 
 # Turbo C++ 3.1 command-line tree — archaic-toolchains/tc31 tarball
 # (sha256-verified; same source `rebrew toolchain vendor` assembles from).
-RUN curl -fsSL -o /tmp/tc31.tar.gz \
+RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/tc31.tar.gz \
         "https://codeload.github.com/archaic-toolchains/tc31/tar.gz/refs/heads/main" \
     && echo "3d534741ebdc31ffdceb87db8de3b7d494ad5c912b7cd1a4f326b4a94d0c2ba1  /tmp/tc31.tar.gz" | sha256sum -c - \
     && mkdir -p /opt/tc31 \

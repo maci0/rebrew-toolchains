@@ -223,7 +223,10 @@ reap_build() {
 # build_pool <dir>... — run the toolchain builds, JOBS at a time.  Any
 # failed build is reported with its log and fails the whole run.
 build_pool() {
-  LOG_DIR="$(mktemp -d "${TMPDIR:-/tmp}/rebrew-build.XXXXXX")"
+  LOG_DIR="$(mktemp -d "${TMPDIR:-/tmp}/rebrew-build.XXXXXX")" || {
+    echo "cannot create build log directory" >&2
+    exit 1
+  }
   local dir log tag
   for dir in "$@"; do
     log="$LOG_DIR/${dir//\//-}.log"

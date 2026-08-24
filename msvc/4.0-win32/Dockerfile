@@ -22,7 +22,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 # MSVC 4.0 command-line toolchain — archaic-toolchains/msvc400 repo tarball
 # (sha256-verified; byte-identical to the itsmattkc/MSVC400 tree this image
 # previously built from).
-RUN curl -fsSL -o /tmp/msvc400.tar.gz \
+RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc400.tar.gz \
         "https://codeload.github.com/archaic-toolchains/msvc400/tar.gz/refs/heads/main" \
     && echo "4996b91a8e075715238817ad567994b8dbf830d25d2c6e0fefe7adacc5b4ddec  /tmp/msvc400.tar.gz" | sha256sum -c - \
     && mkdir -p /opt/msvc4.0 \
