@@ -13,7 +13,8 @@
 #
 # The images are self-contained: every image downloads its pinned,
 # sha256-verified source from the URL recorded in sources.json (curl inside
-# the Dockerfile) — 32-bit from archaic-msvc / archaic-toolchains, and the
+# the Dockerfile) — the win32 MSVC/Borland trees from archaic-msvc /
+# archaic-toolchains, Open Watcom from its project's CI snapshot, and the
 # six 16-bit toolchains (msvc10, msvc15, msvc1.52, tc20, tc16, delphi16)
 # from their archaic-toolchains repos.  No media tarballs are needed.
 set -euo pipefail

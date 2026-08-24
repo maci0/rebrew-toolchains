@@ -228,7 +228,14 @@ class Model:
         self.shift_left = 4
 
     def update(self) -> None:
-        """Rescale model frequencies when the total exceeds 3800."""
+        """Rescale the model after its total crossed the rescale limit.
+
+        Called from decode_symbol once the cumulative total passes 3800.
+        Each call either halves every cumulative frequency in place or,
+        when the halving budget between full rescales runs out, rebuilds
+        the frequencies from individual counts and re-sorts the symbols
+        heaviest-first.
+        """
         self.shift_left -= 1
         n = self.entries
         frq = self.frq

@@ -10,7 +10,8 @@
 #   <source-stem>.OBJ.
 # - All other args are forwarded to TCC verbatim, so the GA flag sweep
 #   (-O1, -G1, ...) actually reaches the compiler.
-# - INCLUDE/LIB point at the vendored tree baked into the image.
+# - The vendored include dir reaches TCC via -I\INCLUDE; compiles are -c
+#   object-only, so no library path is configured.
 # shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
 
