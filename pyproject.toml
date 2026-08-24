@@ -51,6 +51,10 @@ select = [
     "PLE",  # pylint errors (duplicate kwargs, bad str/format use, ...)
     "FBT",  # boolean positional traps in callables
     "PGH",  # blanket `# noqa` / `# type: ignore` without a rule code
+    # Defect-grade groups the tree already passes clean (proven by run).
+    "T10",  # breakpoint()/pdb imports left in committed code
+    "PIE",  # duplicated class fields, non-unique enum values, dead constructs
+    "PLW",  # pylint warnings (self-assignment, useless loop branches, ...)
     # Deliberately not enabled: PL (PLR2004 magic values / PLR0915 function
     # length fire on the Pak header parser; fixing those belongs to
     # code-review passes, not config; error-only PLE is enabled above),
@@ -65,6 +69,9 @@ strict = true
 python_version = "3.13"
 # Not part of `strict`: flags dead code and impossible branches as errors.
 warn_unreachable = true
+# Not part of `strict`: bans explicit `Any` outright instead of merely
+# allowing it; the tree carries none (proven by run).
+disallow_any_explicit = true
 # Check every Python file in the tree by default; mypy skips dot-directories
 # during recursive discovery (.mypy_cache/.ruff_cache/.venv included), so new
 # modules cannot be added outside analysis unnoticed.
