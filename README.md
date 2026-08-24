@@ -55,6 +55,12 @@ so local runs and CI never disagree:
 - **mypy** in `strict` mode, scoped to the whole tree: new Python files are
   checked by default, dot-directories are skipped automatically.
 
+Behavioral tests (`make test`) pin two contracts: the wrapper
+runner/watchdog behavior via stub runners, and the Quantum `.PAK`
+extractor's numeric contracts (bit-reader word assembly, adaptive-model
+frequency invariants, decoder symbol-selection intervals, archive field
+bounds) with unit tests over `delphi/1.0-win16/pak_extract.py`.
+
 After editing Python config locally, `uv sync --group lint` (or
 `uv run make lint`) reproduces exactly what CI installs.
 
