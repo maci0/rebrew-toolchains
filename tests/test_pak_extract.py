@@ -6,12 +6,17 @@ arithmetic-decoder symbol selection intervals, archive field parsing
 bounds, DOS timestamp field extraction and match-copy window math.
 The end-to-end coder path is covered by byte-for-byte validation against
 real archives (see module docstring there); these tests pin the pieces
-that refactors of the hot loops most easily break silently.
+that refactors of the hot loops most easily break silently, plus the
+CLI extract path over a crafted archive (flat names, duplicate-member
+warning, payload accounting).
 """
 
+import contextlib
 import importlib.util
+import io
 import struct
 import sys
+import tempfile
 import unittest
 from itertools import pairwise
 from pathlib import Path
@@ -79,6 +84,15 @@ class ModelTests(unittest.TestCase):
         # Intervals at or above the decoded one (indices 0..3) gain +8 once.
         self.assertEqual(m.frq[:4], [16, 15, 14, 13])
         self.assertEqual(m.frq[4], 4)  # below: untouched
+
+    def test_decode_symbol_zero_total_frequency_raises(self) -> None:
+        # A collapsed model (total cumulative frequency 0) must fail loudly
+        # instead of dividing by zero below.
+        m = pak.Model(0, 8)
+        m.frq = [0] * len(m.frq)
+        bits = pak.BitReader(bytes(8))
+        with self.assertRaises(ValueError):
+            pak.decode_symbol(m, bits, 0xFFFF, 0, 0)
 
     def test_halving_update_keeps_frequencies_strict_and_positive(self) -> None:
         m = pak.Model(0, 42)
@@ -188,6 +202,11 @@ class ParseArchiveTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             pak.parse_archive(bytes(data))
 
+    def test_short_input_raises(self) -> None:
+        # Below the 8-byte minimum the header fields cannot all be read.
+        with self.assertRaises(ValueError):
+            pak.parse_archive(b"DS\x01")
+
     def test_bad_magic_and_table_size_raise(self) -> None:
         with self.assertRaises(ValueError):
             pak.parse_archive(b"XX" + self._archive_bytes()[2:])
@@ -211,6 +230,8 @@ class DosDatetimeTests(unittest.TestCase):
 class NameSafetyTests(unittest.TestCase):
     def test_member_name_flattens_dos_paths(self) -> None:
         self.assertEqual(pak.member_name("LIB\\X.DCU"), "X.DCU")
+        self.assertEqual(pak.member_name("DIR/SUB/X.DCU"), "X.DCU")
+        self.assertEqual(pak.member_name("/etc/passwd"), "passwd")
         self.assertEqual(pak.member_name("X.DCU"), "X.DCU")
 
     def test_member_name_rejects_traversals(self) -> None:
@@ -239,6 +260,48 @@ class DecompressBoundaryTests(unittest.TestCase):
     def test_exhausted_stream_raises_instead_of_hanging(self) -> None:
         with self.assertRaises(ValueError):
             pak.quantum_decompress(b"", [10**6], 16)
+
+
+class ExtractWorkflowTests(unittest.TestCase):
+    """CLI-level contracts of the extract path over a crafted archive.
+
+    A zero-filled stream decodes deterministically to zero padding (every
+    adaptive model selects its last symbol), so the full `main()` workflow
+    can be pinned without hand-encoding an arithmetic stream: flat member
+    names, the duplicate-name last-wins warning and payload accounting.
+    """
+
+    @staticmethod
+    def _archive_bytes() -> bytes:
+        out = bytearray(b"DS\x01\x00")
+        out += struct.pack("<H", 2)  # file count
+        out += bytes([12, 0])  # table size (window 4096), flags
+        out += bytes([9]) + b"LIB\\X.DCU"  # flattens onto BIN\\X.DCU
+        out += bytes([0])  # empty comment
+        out += struct.pack("<IHH", 3, 0x1234, 0x5678)
+        out += bytes([9]) + b"BIN\\X.DCU"
+        out += bytes([0])
+        out += struct.pack("<IHH", 4, 0xABCD, 0x0246)
+        return bytes(out)
+
+    def test_extract_flattens_and_warns_on_duplicate_members(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            archive = Path(tmp) / "collide.pak"
+            archive.write_bytes(self._archive_bytes())
+            out_dir = Path(tmp) / "out"
+            buf_out, buf_err = io.StringIO(), io.StringIO()
+            with (
+                contextlib.redirect_stdout(buf_out),
+                contextlib.redirect_stderr(buf_err),
+            ):
+                rc = pak.main(["-x", "-o", str(out_dir), str(archive)])
+            self.assertEqual(rc, 0)
+            # Both members flatten to one file in the output directory.
+            self.assertEqual([p.name for p in out_dir.iterdir()], ["X.DCU"])
+            # Last wins: the second member's 4 padding bytes overwrite the first's 3.
+            self.assertEqual((out_dir / "X.DCU").read_bytes(), b"\x00" * 4)
+        self.assertIn("multiple members named X.DCU", buf_err.getvalue())
+        self.assertIn("Extracted 2 file(s), 7 bytes", buf_out.getvalue())
 
 
 if __name__ == "__main__":
