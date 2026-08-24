@@ -8,7 +8,9 @@ version = "1.0.0"
 requires-python = ">=3.13"
 
 [tool.ruff]
-target-version = "py310"
+# Matches requires-python above (the only interpreters that can run this
+# tree); bump both together or pyupgrade/mypy reason about a dead dialect.
+target-version = "py313"
 line-length = 100
 
 [tool.ruff.lint]
@@ -44,16 +46,25 @@ select = [
     "FLY",  # locale-aware joins
     "PERF", # performance antipatterns
     "FURB", # misc modernization/correctness
+    # Error-grade groups the tree already passes clean (proven by run); they
+    # guard new code against the defect classes they name.
+    "PLE",  # pylint errors (duplicate kwargs, bad str/format use, ...)
+    "FBT",  # boolean positional traps in callables
+    "PGH",  # blanket `# noqa` / `# type: ignore` without a rule code
     # Deliberately not enabled: PL (PLR2004 magic values / PLR0915 function
     # length fire on the Pak header parser; fixing those belongs to
-    # code-review passes, not config), T20 (T201 print is the module's
-    # intended CLI output), ANN/Q/G/LOG (redundant with mypy strict, the
-    # formatter, or absent logging).
+    # code-review passes, not config; error-only PLE is enabled above),
+    # T20 (T201 print is the module's intended CLI output), ANN/Q/G/LOG
+    # (redundant with mypy strict, the formatter, or absent logging), INP
+    # (tests are script-style by design; an __init__.py would be dead weight).
 ]
 
 [tool.mypy]
 strict = true
-python_version = "3.10"
+# Matches requires-python above; bump both together (see [tool.ruff]).
+python_version = "3.13"
+# Not part of `strict`: flags dead code and impossible branches as errors.
+warn_unreachable = true
 # Check every Python file in the tree by default; mypy skips dot-directories
 # during recursive discovery (.mypy_cache/.ruff_cache/.venv included), so new
 # modules cannot be added outside analysis unnoticed.
