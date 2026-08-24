@@ -143,10 +143,10 @@ rebrew_run() {
 # $DOSBOX_STATUS so callers can tell an emulator crash/timeout from a
 # compile that ran and failed.  REBREW_DOSBOX_TIMEOUT (seconds, default 600)
 # caps the run.
-DOSBOX_STATUS=0
 rebrew_dosbox_run() {
     sandbox="$1"
     autoexec="$2"
+    DOSBOX_STATUS=0
     # Deliberate `|| exit 1`: rebrew_timeout_secs prints its own error and
     # returns nonzero; the explicit handling is the documented contract.
     # shellcheck disable=SC2310

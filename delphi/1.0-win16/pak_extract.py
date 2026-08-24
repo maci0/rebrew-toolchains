@@ -43,8 +43,6 @@ Usage:
     python3 pak_extract.py -x -o OUTDIR ARCHIVE.PAK   # extract
 """
 
-from __future__ import annotations
-
 import argparse
 import struct
 import sys
@@ -222,7 +220,7 @@ class Model:
         # decode_symbol mutates frequencies on every decoded symbol, and
         # tuple churn there dominates the decoder's allocation cost.
         # frq[length] is the sentinel with cumulative frequency 0.
-        self.sym: list[int] = [start + i for i in range(length + 1)]
+        self.sym: list[int] = [start + i for i in range(length)]
         self.frq: list[int] = [length - i for i in range(length + 1)]
         self.entries = length
         self.shift_left = 4
