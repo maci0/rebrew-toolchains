@@ -164,6 +164,11 @@ esac
 out=$(cd "$TMP" && sh -c '. '"$WC"'; rebrew_pick_source .hidden' 2>&1)
 case "$out" in *"has no stem"*) echo "ok   pick_source rejects extensionless dotfile" ;;
   *) echo "FAIL pick_source rejects extensionless dotfile: [$out]"; fail=1 ;; esac
+out=$(cd "$TMP" && sh -c '. '"$WC"'; rebrew_pick_source '"$TMP"'/f.c && printf "SRC=[%s] STEM=[%s]" "$SRC" "$STEM"')
+check "pick_source accepts an absolute source path" "SRC=[$TMP/f.c] STEM=[f]" "$out"
+mkdir -p "$TMP/adir"
+out=$(cd "$TMP" && sh -c '. '"$WC"'; rebrew_pick_source adir f.c && printf "SRC=[%s]" "$SRC"')
+check "pick_source skips directories" "SRC=[f.c]" "$out"
 
 # 9. rebrew_flags_except_source: source dropped, control characters rejected
 out=$(cd "$TMP" && sh -c '. '"$WC"'; SRC=f.c; rebrew_flags_except_source /c -O2 f.c; printf "[%s]" "$FLAGS"')

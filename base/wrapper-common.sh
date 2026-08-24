@@ -38,18 +38,20 @@ rebrew_timeout_secs() {
 # rebrew_pick_source "$@" — locates the readable source file among the args
 # (MSVC-style invocations put flags first, e.g. "/c f.c"; POSIX-style put the
 # source first).  The first arg that is not a flag and resolves to a readable
-# file wins.  Sets $SRC (the file) and $STEM (basename without the final
-# extension).  Exits with a message on misuse.
+# regular file wins — including absolute paths like /work/f.c, which would
+# otherwise be misclassified as MSVC flags by their leading '/'; a real MSVC
+# flag (/c, /O2, ...) is never an existing file at the filesystem root.
+# Sets $SRC (the file) and $STEM (basename without the final extension).
+# Exits with a message on misuse.
 rebrew_pick_source() {
     [ "$#" -ge 1 ] || rebrew_die "usage: <source> [flags...]"
     SRC=""
     for _a in "$@"; do
         case "$_a" in
-            -*) continue ;;
-            /?*) continue ;;  # MSVC flags start with '/'
-            *) ;;  # not a flag: the -r test below decides
+            -*) continue ;;  # POSIX-style flags start with '-'
+            *) ;;  # everything else: the regular-file test below decides
         esac
-        if [ -r "$_a" ]; then
+        if [ -f "$_a" ] && [ -r "$_a" ]; then
             SRC="$_a"
             break
         fi
