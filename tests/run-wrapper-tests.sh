@@ -100,7 +100,7 @@ case "$out" in
   *) echo "FAIL invalid timeout knob rejected: [$out]"; fail=1 ;;
 esac
 
-# 6a. rebrew_timeout_secs unit contract: default, passthrough, boundaries
+# 6. rebrew_timeout_secs unit contract: default, passthrough, boundaries
 out=$(sh -c '. '"$WC"'; rebrew_timeout_secs 600 "" KNOB')
 check "empty timeout knob takes the default" "600" "$out"
 out=$(sh -c '. '"$WC"'; rebrew_timeout_secs 600 90 KNOB')
@@ -120,15 +120,36 @@ for bad in 0 -1 abc 1x; do
   esac
 done
 
-# 7. rebrew_watchdog_status: 137 escalates to 124 only past the cap
-out=$(sh -c '. '"$WC"'; rebrew_watchdog_status "$(date +%s)" 5 137')
+# 7. rebrew_now_secs: integer seconds, non-decreasing across separate
+# processes (the watchdog clock must never step backwards mid-run)
+NOW1=$(sh -c '. '"$WC"'; rebrew_now_secs')
+case "$NOW1" in
+  '' | *[!0-9]*)
+    echo "FAIL rebrew_now_secs is not an integer: [$NOW1]"
+    fail=1
+    ;;
+  *)
+    NOW2=$(sh -c '. '"$WC"'; rebrew_now_secs')
+    if [ "$NOW2" -ge "$NOW1" ]; then
+      echo "ok   now_secs is an integer, non-decreasing across processes"
+    else
+      echo "FAIL rebrew_now_secs stepped backwards: $NOW1 -> $NOW2"
+      fail=1
+    fi
+    ;;
+esac
+
+# 8. rebrew_watchdog_status: 137 escalates to 124 only past the cap.
+# Start values come from rebrew_now_secs so both ends of the subtraction
+# read the same clock (mixing sources would compare unlike units).
+out=$(sh -c '. '"$WC"'; rebrew_watchdog_status "$(rebrew_now_secs)" 5 137')
 check "137 below the cap passes through" "137" "$out"
 out=$(sh -c '. '"$WC"'; rebrew_watchdog_status 0 5 137')
 check "137 at the cap normalizes to 124" "124" "$out"
-out=$(sh -c '. '"$WC"'; rebrew_watchdog_status "$(date +%s)" 5 7')
+out=$(sh -c '. '"$WC"'; rebrew_watchdog_status "$(rebrew_now_secs)" 5 7')
 check "non-137 status untouched" "7" "$out"
 
-# 8. rebrew_pick_source: first readable non-flag argument wins
+# 9. rebrew_pick_source: first readable non-flag argument wins
 : > "$TMP/f.c"
 : > "$TMP/.hidden"
 out=$(cd "$TMP" && sh -c '. '"$WC"'; rebrew_pick_source /c f.c && printf "SRC=[%s] STEM=[%s]" "$SRC" "$STEM"')
@@ -170,7 +191,7 @@ mkdir -p "$TMP/adir"
 out=$(cd "$TMP" && sh -c '. '"$WC"'; rebrew_pick_source adir f.c && printf "SRC=[%s]" "$SRC"')
 check "pick_source skips directories" "SRC=[f.c]" "$out"
 
-# 9. rebrew_flags_except_source: source dropped, control characters rejected
+# 10. rebrew_flags_except_source: source dropped, control characters rejected
 out=$(cd "$TMP" && sh -c '. '"$WC"'; SRC=f.c; rebrew_flags_except_source /c -O2 f.c; printf "[%s]" "$FLAGS"')
 check "flags_except_source drops the picked source" "[ /c -O2]" "$out"
 out=$(cd "$TMP" && sh -c '. '"$WC"'; SRC=f.c; rebrew_flags_except_source && printf "[%s]" "$FLAGS"')
@@ -188,7 +209,7 @@ case "$out" in
   *) echo "FAIL flags_except_source rejects control chars: [$out]"; fail=1 ;;
 esac
 
-# 10. rebrew_dosbox_run: headless env, generated config, status capture
+# 11. rebrew_dosbox_run: headless env, generated config, status capture
 cat > "$BIN/dosbox" <<'EOF'
 #!/bin/sh
 echo "SDL=$SDL_VIDEODRIVER AUDIO=$SDL_AUDIODRIVER"
@@ -238,7 +259,7 @@ case "$out" in
 esac
 rm -rf "$SBOX"
 
-# 11. hung tool killed at the cap -> explicit error naming the knob
+# 12. hung tool killed at the cap -> explicit error naming the knob
 SLOW="$BIN/slowdir"
 mkdir -p "$SLOW"
 printf '#!/bin/sh\nsleep 30\n' > "$SLOW/wine"

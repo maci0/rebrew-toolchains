@@ -62,16 +62,36 @@ rebrew_pick_source() {
     [ -n "$STEM" ] || rebrew_die "source basename '$SRC' has no stem"
 }
 
+# rebrew_now_secs — integer seconds from a step-free clock for elapsed-time
+# measurement: /proc/uptime reads the kernel's boottime clock, which NTP
+# steps and manual clock changes never jump (unlike date +%s), so watchdog
+# start/now pairs taken across a run measure real elapsed time even when
+# the wall clock is corrected mid-run.  Falls back to date +%s where
+# /proc/uptime does not exist (non-Linux hosts running the test harness).
+# Every <start> fed to rebrew_watchdog_status must come from this helper:
+# values from different sources are not comparable.
+rebrew_now_secs() {
+    _up=""
+    if [ -r /proc/uptime ]; then
+        read -r _up _rest < /proc/uptime 2>/dev/null || _up=""
+    fi
+    case "${_up:-}" in
+        '' | *[!0-9.]*) date +%s ;;
+        *) printf '%s' "${_up%%.*}" ;;
+    esac
+}
+
 # rebrew_watchdog_status <start-secs> <timeout> <status> — echoes the status
 # with watchdog escalations normalized to 124.  GNU timeout reports its own
 # TERM kill as 124, but when the run survives --kill-after and is SIGKILLed
 # it reports the raw 128+9 (= 137), which would otherwise pass through as if
 # the tool itself died and defeat the fail-loud contract.  An external kill
 # of the tool mid-run also exits 137, but well before the cap, so the
-# elapsed-time guard keeps that passing through unchanged.
+# elapsed-time guard keeps that passing through unchanged.  <start-secs>
+# must be a rebrew_now_secs reading taken immediately before the run.
 rebrew_watchdog_status() {
     [ "$3" -eq 137 ] || { printf '%s' "$3"; return; }
-    _now=$(date +%s)
+    _now=$(rebrew_now_secs)
     if [ $((_now - $1)) -ge "$2" ]; then
         printf '124'
     else
@@ -92,7 +112,7 @@ rebrew_exec() {
     _exec_timeout=$(rebrew_timeout_secs 600 \
         "${REBREW_RUNNER_TIMEOUT:-}" REBREW_RUNNER_TIMEOUT) || exit 1
     set +e
-    _start=$(date +%s)
+    _start=$(rebrew_now_secs)
     timeout --kill-after=10 "$_exec_timeout" "$@"
     _status=$(rebrew_watchdog_status "$_start" "$_exec_timeout" "$?")
     set -e
@@ -132,7 +152,7 @@ rebrew_dosbox_run() {
     # shellcheck disable=SC2310
     _dosbox_timeout=$(rebrew_timeout_secs 600 \
         "${REBREW_DOSBOX_TIMEOUT:-}" REBREW_DOSBOX_TIMEOUT) || exit 1
-    _start=$(date +%s)
+    _start=$(rebrew_now_secs)
     {
         printf '[sdl]\nfullscreen=false\n\n[cpu]\ncycles=fixed 30000\n\n[autoexec]\n'
         printf 'mount c %s\nC:\ncd \\\n%s\nexit\n' \
