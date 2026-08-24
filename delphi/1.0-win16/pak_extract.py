@@ -302,8 +302,6 @@ class BitReader:
         self.bits_left -= n
 
     def read_bits(self, n: int) -> int:
-        if n == 0:
-            return 0
         self.ensure_bits(n)
         val = self.peek_bits(n)
         self.remove_bits(n)
@@ -311,8 +309,6 @@ class BitReader:
 
     def read_many_bits(self, n: int) -> int:
         """Read n bits, handling n > 16 in chunks."""
-        if n == 0:
-            return 0
         val = 0
         while n > 0:
             if self.bits_left <= 16:

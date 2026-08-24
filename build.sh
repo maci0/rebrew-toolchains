@@ -20,26 +20,25 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 PREFIX="${PREFIX:-rebrew}"
+# require_positive_int <message> <value> — user-supplied env knobs must be
+# positive integers; garbage fails fast instead of misbehaving downstream.
+require_positive_int() {
+  case "$2" in
+    *[!0-9]* | 0)
+      echo "$1 (got '$2')" >&2
+      exit 2
+      ;;
+    *) ;;  # valid: passes through
+  esac
+}
 JOBS="${REBREW_BUILD_JOBS:-4}"
-case "$JOBS" in
-  '' | *[!0-9]* | 0)
-    echo "REBREW_BUILD_JOBS must be a positive integer (got '$JOBS')" >&2
-    exit 2
-    ;;
-  *) ;;  # valid: falls through to the build
-esac
+require_positive_int "REBREW_BUILD_JOBS must be a positive integer" "$JOBS"
 # Wall-clock cap per image build (seconds).  Every build downloads its pinned
 # tarball over the network; a stalled transfer would otherwise hold a pool
 # slot forever.  The default is far above any healthy build so only genuine
 # hangs are killed; raise it for very slow links.
 BUILD_TIMEOUT="${REBREW_BUILD_TIMEOUT:-3600}"
-case "$BUILD_TIMEOUT" in
-  '' | *[!0-9]* | 0)
-    echo "REBREW_BUILD_TIMEOUT must be a positive integer of seconds (got '$BUILD_TIMEOUT')" >&2
-    exit 2
-    ;;
-  *) ;;  # valid: falls through to the build
-esac
+require_positive_int "REBREW_BUILD_TIMEOUT must be a positive integer of seconds" "$BUILD_TIMEOUT"
 
 # rebrew profile name -> toolchain dir + pinned url/sha256, parsed from
 # sources.json (the single source of truth; a parse failure must stop the
@@ -275,12 +274,6 @@ else
     dirs+=("$dir")
   done
 fi
-
-# Validate every target before launching the pool so a typo fails fast
-# instead of after sibling builds have burned bandwidth.
-for dir in "${dirs[@]}"; do
-  [ -f "$ROOT/$dir/Dockerfile" ] || { echo "no Dockerfile in $dir" >&2; exit 2; }
-done
 
 build_pool "${dirs[@]}"
 echo "done."
