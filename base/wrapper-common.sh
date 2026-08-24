@@ -77,35 +77,42 @@ rebrew_watchdog_status() {
     fi
 }
 
+# rebrew_exec <exe> [args...] — runs a command under the watchdog cap shared
+# by every entrypoint (REBREW_RUNNER_TIMEOUT, seconds, default 600): the
+# command's own exit status passes through unchanged, and only a watchdog
+# kill (hung compiler) dies with its own explicit error naming the knob.
+# This is the single implementation of the fail-loud contract; rebrew_run
+# and the native-binary wrappers both go through it.
+rebrew_exec() {
+    # Deliberate `|| exit 1`: rebrew_timeout_secs prints its own error and
+    # returns nonzero; the explicit handling is the documented contract.
+    # shellcheck disable=SC2310
+    _exec_timeout=$(rebrew_timeout_secs 600 \
+        "${REBREW_RUNNER_TIMEOUT:-}" REBREW_RUNNER_TIMEOUT) || exit 1
+    set +e
+    _start=$(date +%s)
+    timeout --kill-after=10 "$_exec_timeout" "$@"
+    _status=$(rebrew_watchdog_status "$_start" "$_exec_timeout" "$?")
+    set -e
+    if [ "$_status" -eq 124 ]; then
+        rebrew_die "$1 exceeded ${_exec_timeout}s" \
+            "(REBREW_RUNNER_TIMEOUT) and was killed"
+    fi
+    exit "$_status"
+}
+
 # rebrew_run <exe> [args...] — runs a Windows PE binary through the runtime
 # selected by $REBREW_RUNNER: "wine" (default; full Wine, most compatible) or
 # "wibo" (the minimal decompals PE loader — much faster for plain console
 # tools like cl.exe/bcc32.exe, but only implements a subset of Win32).
-#
-# The run is capped by REBREW_RUNNER_TIMEOUT (seconds, default 600): the
-# tool's own exit status passes through unchanged, and only a watchdog kill
-# (hung compiler) dies with its own explicit error.
+# The selected loader executes under the shared watchdog (rebrew_exec).
 rebrew_run() {
-    # Deliberate `|| exit 1`: rebrew_timeout_secs prints its own error and
-    # returns nonzero; the explicit handling is the documented contract.
-    # shellcheck disable=SC2310
-    _runner_timeout=$(rebrew_timeout_secs 600 \
-        "${REBREW_RUNNER_TIMEOUT:-}" REBREW_RUNNER_TIMEOUT) || exit 1
     case "${REBREW_RUNNER:-wine}" in
         wine) _runner=wine ;;
         wibo) _runner=wibo ;;
         *) rebrew_die "unknown REBREW_RUNNER '${REBREW_RUNNER}' (wine|wibo)" ;;
     esac
-    set +e
-    _start=$(date +%s)
-    timeout --kill-after=10 "$_runner_timeout" "$_runner" "$@"
-    _status=$(rebrew_watchdog_status "$_start" "$_runner_timeout" "$?")
-    set -e
-    if [ "$_status" -eq 124 ]; then
-        rebrew_die "$_runner run exceeded ${_runner_timeout}s" \
-            "(REBREW_RUNNER_TIMEOUT) and was killed"
-    fi
-    exit "$_status"
+    rebrew_exec "$_runner" "$@"
 }
 
 # rebrew_dosbox_run <sandbox> <autoexec-line> — writes a headless DOSBox

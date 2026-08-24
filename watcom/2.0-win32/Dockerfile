@@ -30,8 +30,13 @@ RUN curl -fsSL -o /tmp/ow.tar.xz \
 
 # wcc386 (32-bit x86, native) — rebrew's entrypoint.  Emits 32-bit OMF
 # object modules by default; the OMF parser is the enabling follow-up.
+# The wrapper runs it under the shared watchdog (REBREW_RUNNER_TIMEOUT)
+# so a hung compile fails loudly like the wine/DOSBox entrypoints.
 ENV WATCOM=/opt/watcom \
     INCLUDE=/opt/watcom/h \
     PATH=/opt/watcom/binl:$PATH
 
-ENTRYPOINT ["/opt/watcom/binl/wcc386"]
+COPY wcc386-wrapper.sh /usr/local/bin/wcc386
+RUN chmod +x /usr/local/bin/wcc386
+
+ENTRYPOINT ["/usr/local/bin/wcc386"]

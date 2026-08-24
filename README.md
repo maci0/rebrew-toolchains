@@ -90,8 +90,9 @@ good for plain console compilers, but it only implements a subset of Win32;
 if a tool misbehaves, fall back to wine).  The 16-bit DOSBox toolchains
 always use DOSBox and ignore `REBREW_RUNNER`.
 
-Both runners and the headless DOSBox runs are wrapped in a watchdog so a
-hung compile fails loudly instead of blocking forever:
+Both runners and the headless DOSBox runs are wrapped in a watchdog so a hung
+compile fails loudly instead of blocking forever (the native Watcom entrypoint
+is capped by the same knob):
 `REBREW_RUNNER_TIMEOUT` / `REBREW_DOSBOX_TIMEOUT` cap a run in seconds
 (default 600); on expiry the wrapper exits with an explicit error naming
 the knob.
