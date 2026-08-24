@@ -41,9 +41,12 @@ are needed.
 
 The repo's own glue is checked by three analyzers; `make lint` runs them
 all and must stay green.  The same command is the repo's CI gate
-(`.github/workflows/lint.yml`), so findings block merges, and the tool
-versions are pinned in `pyproject.toml`'s `[dependency-groups]` (`lint`)
-so local runs and CI never disagree:
+(`.github/workflows/lint.yml`), so findings block merges.  The environment
+is pinned twice over: tool versions are exact-pinned in `pyproject.toml`'s
+`[dependency-groups]` (`lint`) and fully resolved — with sha256 hashes for
+every artifact — in the committed `uv.lock`.  CI installs with
+`uv sync --group lint --locked`, so local runs and CI get byte-identical,
+hash-verified packages or fail loudly on drift:
 
 - **shellcheck** over every `.sh` script (`enable=all` via `.shellcheckrc`;
   the two disabled style codes are recorded there with their reasons).
@@ -61,8 +64,8 @@ extractor's numeric contracts (bit-reader word assembly, adaptive-model
 frequency invariants, decoder symbol-selection intervals, archive field
 bounds) with unit tests over `delphi/1.0-win16/pak_extract.py`.
 
-After editing Python config locally, `uv sync --group lint` (or
-`uv run make lint`) reproduces exactly what CI installs.
+After editing Python config locally, `uv sync --group lint --locked` (or
+just `uv run make lint`) reproduces exactly what CI installs.
 
 ## Use
 
