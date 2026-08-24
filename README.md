@@ -108,9 +108,10 @@ the image and ignores extra arguments.  Artifacts are named after the source
 branch commit and layout.  Sources:
 
 - **MSVC 1.0–11.0**: `archaic-msvc` (github.com/archaic-msvc) preservation
-  repos, plus `archaic-toolchains/msvc600_sp{1,2,4}` and `msvc900_sp1` for the
-  service-pack deltas; VC 6.0 SP3/SP4 from the decomp.me `msvc6.3`/`msvc6.4`
-  releases (sha-verified byte-identical to the official SP4 CD).
+  repos, plus `archaic-toolchains/msvc400` and the `archaic-toolchains`
+  service-pack repos (`msvc600_sp{1,2,3,4}`, `msvc900_sp1`); VC 6.0 SP3/SP4
+  from the decomp.me `msvc6.3`/`msvc6.4` releases (sha-verified byte-identical
+  to the official SP4 CD).
 - **16-bit MSVC 1.0/1.5/1.52**: reconstructed from the original Microsoft
   media — archive.org `en_vc152` / `en_vc152_202512`, WinWorld's VC 1.0
   3.5" floppy set (SZDD payloads decompressed).

@@ -12,7 +12,8 @@
 #   - wibo (minimal decompals PE loader — selectable per run via
 #     REBREW_RUNNER=wibo for much faster compiles of plain console tools)
 #   - dosbox (16-bit DOS compilers, e.g. MSVC 1.52, Delphi 1.0)
-#   - dumb-init (signal handling for the compile containers)
+#   - dumb-init (PID-1 signal relay; no image entrypoint wraps with it —
+#     available to callers who prepend it via --entrypoint)
 #   - curl / ca-certificates / xz-utils (the pinned tarball downloads)
 #   - /usr/local/lib/rebrew/wrapper-common.sh (shared wrapper helpers)
 #   - common env: WINEDEBUG=-all, WINEPREFIX=/opt/wineprefix,

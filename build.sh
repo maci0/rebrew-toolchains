@@ -144,44 +144,90 @@ tag_for() {
 # Per-build docker output is buffered in a log file under LOG_DIR so
 # concurrent builds do not interleave on the terminal; the start and result
 # lines stream as usual, a failure dumps its full log.
+#
+# In-flight builds are tracked in PIDS (everything running) and JOB_PIDS
+# (pooled builds awaiting their report) so an interrupted sweep cannot leak
+# them: bash runs EXIT traps only on normal exits, so SIGINT/SIGTERM are
+# converted into exits whose trap TERM-then-KILLs every pending job — each
+# job's direct background child is the watchdog `timeout`, which relays the
+# signal to the docker build it supervises — and removes LOG_DIR.  Without
+# this, every cancelled run would leave N docker processes running detached
+# plus a /tmp/rebrew-build.* log dir behind.
 LOG_DIR=""
-cleanup_logs() { [ -z "$LOG_DIR" ] || rm -rf "$LOG_DIR"; }
-trap cleanup_logs EXIT
+PIDS=()
+JOB_PIDS=()
+JOB_TAGS=()
+JOB_LOGS=()
+# Set by reap_build when any pooled build fails; checked after the drain.
+fail=0
+cleanup() {
+  local pid
+  if [ "${#PIDS[@]}" -gt 0 ]; then
+    for pid in "${PIDS[@]}"; do
+      kill -TERM "$pid" 2>/dev/null || true
+    done
+    # Give the watchdogs a moment to relay the signal down their trees,
+    # then force-kill anything still alive so nothing outlives us.
+    sleep 2
+    for pid in "${PIDS[@]}"; do
+      kill -KILL "$pid" 2>/dev/null || true
+    done
+    wait 2>/dev/null || true
+  fi
+  [ -z "$LOG_DIR" ] || rm -rf "$LOG_DIR"
+}
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+
+# reap_build — wait for the oldest in-flight build, report its outcome, and
+# drop it from the tracking arrays.  FIFO order (not any-finished-first) is
+# what lets plain pid arrays track exactly the jobs still running; build
+# wall-clocks are similar enough that the slot idle time is negligible.
+reap_build() {
+  local status
+  if wait "${JOB_PIDS[0]}"; then
+    echo "==> built ${JOB_TAGS[0]}"
+  else
+    status=$?
+    echo "==> FAILED ${JOB_TAGS[0]} — build log:"
+    cat "${JOB_LOGS[0]}"
+    if [ "$status" -eq 124 ]; then
+      echo "==> build exceeded ${BUILD_TIMEOUT}s (REBREW_BUILD_TIMEOUT)" \
+        "and was killed: ${JOB_TAGS[0]}" >&2
+    fi
+    fail=1
+  fi
+  JOB_PIDS=("${JOB_PIDS[@]:1}")
+  JOB_TAGS=("${JOB_TAGS[@]:1}")
+  JOB_LOGS=("${JOB_LOGS[@]:1}")
+  PIDS=("${PIDS[@]:1}")
+}
 
 # build_pool <dir>... — run the toolchain builds, JOBS at a time.  Any
 # failed build is reported with its log and fails the whole run.
 build_pool() {
   LOG_DIR="$(mktemp -d "${TMPDIR:-/tmp}/rebrew-build.XXXXXX")"
-  local fail=0 running=0 dir log tag
+  local dir log tag
   for dir in "$@"; do
     log="$LOG_DIR/${dir//\//-}.log"
-    (
-      tag="$(tag_for "$dir")"
-      echo "==> building $tag (from $dir)"
-      if timeout --kill-after=30 "$BUILD_TIMEOUT" docker build \
-        --build-arg "BASE_IMAGE=$PREFIX/base:1.0" -t "$tag" \
-        "$ROOT/$dir" >>"$log" 2>&1; then
-        echo "==> built $tag"
-      else
-        _status=$?
-        echo "==> FAILED $tag — build log:"
-        cat "$log"
-        if [ "$_status" -eq 124 ]; then
-          echo "==> build exceeded ${BUILD_TIMEOUT}s (REBREW_BUILD_TIMEOUT)" \
-            "and was killed: $tag" >&2
-        fi
-        exit 1
-      fi
-    ) &
-    running=$((running + 1))
-    if [ "$running" -ge "$JOBS" ]; then
-      wait -n || fail=1
-      running=$((running - 1))
+    tag="$(tag_for "$dir")"
+    echo "==> building $tag (from $dir)"
+    # The direct background child must be `timeout` itself (no wrapping
+    # subshell): $! then names the process cleanup() has to signal.
+    timeout --kill-after=30 "$BUILD_TIMEOUT" docker build \
+      --build-arg "BASE_IMAGE=$PREFIX/base:1.0" -t "$tag" \
+      "$ROOT/$dir" >>"$log" 2>&1 &
+    PIDS+=("$!")
+    JOB_PIDS+=("$!")
+    JOB_TAGS+=("$tag")
+    JOB_LOGS+=("$log")
+    if [ "${#JOB_PIDS[@]}" -ge "$JOBS" ]; then
+      reap_build
     fi
   done
-  while [ "$running" -gt 0 ]; do
-    wait -n || fail=1
-    running=$((running - 1))
+  while [ "${#JOB_PIDS[@]}" -gt 0 ]; do
+    reap_build
   done
   rm -rf "$LOG_DIR"; LOG_DIR=""
   [ "$fail" -eq 0 ] || { echo "one or more image builds failed" >&2; exit 1; }
@@ -190,10 +236,17 @@ build_pool() {
 # base image first — tag :1.0 to match the FROM ${BASE_IMAGE} default and the
 # build-arg we pass to every toolchain Dockerfile.  It must exist before the
 # pool starts: every toolchain image's FROM resolves against it.
+# Backgrounded only so its pid is tracked and cleanup() can kill it if the
+# run is interrupted mid-build; the wait makes it effectively synchronous
+# and its output still streams to the terminal.
 echo "==> building $PREFIX/base:1.0"
 set +e
-timeout --kill-after=30 "$BUILD_TIMEOUT" docker build -t "$PREFIX/base:1.0" "$ROOT/base"
+timeout --kill-after=30 "$BUILD_TIMEOUT" docker build \
+  -t "$PREFIX/base:1.0" "$ROOT/base" &
+PIDS+=("$!")
+wait "${PIDS[0]}"
 _status=$?
+PIDS=("${PIDS[@]:1}")
 set -e
 if [ "$_status" -ne 0 ]; then
   if [ "$_status" -eq 124 ]; then
