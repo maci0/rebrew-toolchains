@@ -218,39 +218,54 @@ class Model:
     """Adaptive frequency model over symbols [start, start+length)."""
 
     def __init__(self, start: int, length: int) -> None:
-        # syms[i] = (symbol, cumulative frequency); syms[length] is the
-        # sentinel with cumulative frequency 0.
-        self.syms: list[tuple[int, int]] = [(start + i, length - i) for i in range(length + 1)]
+        # Parallel arrays instead of a list of (symbol, cumfreq) tuples:
+        # decode_symbol mutates frequencies on every decoded symbol, and
+        # tuple churn there dominates the decoder's allocation cost.
+        # frq[length] is the sentinel with cumulative frequency 0.
+        self.sym: list[int] = [start + i for i in range(length + 1)]
+        self.frq: list[int] = [length - i for i in range(length + 1)]
         self.entries = length
         self.shift_left = 4
 
     def update(self) -> None:
         """Rescale model frequencies when the total exceeds 3800."""
         self.shift_left -= 1
+        n = self.entries
+        frq = self.frq
         if self.shift_left > 0:
-            # Halve cumulative frequencies, maintaining monotonicity.
-            for i in range(self.entries - 1, -1, -1):
-                sym, freq = self.syms[i]
-                freq >>= 1
-                if freq <= self.syms[i + 1][1]:
-                    freq = self.syms[i + 1][1] + 1
-                self.syms[i] = (sym, freq)
+            # Halve cumulative frequencies bottom-up, keeping each entry
+            # strictly above its already-halved lower neighbor.
+            prev = frq[n]
+            for i in range(n - 1, -1, -1):
+                f = frq[i] >> 1
+                if f <= prev:
+                    f = prev + 1
+                frq[i] = f
+                prev = f
         else:
             self.shift_left = 50
             # Convert cumulative -> individual frequencies.
-            for i in range(self.entries):
-                sym, freq = self.syms[i]
-                freq = (freq - self.syms[i + 1][1] + 1) >> 1  # +1: no zeros
-                self.syms[i] = (sym, freq)
-            # Selection sort by individual frequency, descending.
-            for i in range(self.entries - 1):
-                for j in range(i + 1, self.entries):
-                    if self.syms[i][1] < self.syms[j][1]:
-                        self.syms[i], self.syms[j] = self.syms[j], self.syms[i]
+            for i in range(n):
+                frq[i] = (frq[i] - frq[i + 1] + 1) >> 1  # +1: no zeros
+            # Selection sort by individual frequency, descending; symbols
+            # travel with their frequencies.
+            sym = self.sym
+            for i in range(n - 1):
+                fi = frq[i]
+                si = sym[i]
+                for j in range(i + 1, n):
+                    fj = frq[j]
+                    if fi < fj:
+                        frq[j] = fi
+                        fi = fj
+                        sj = sym[j]
+                        sym[j] = si
+                        si = sj
+                frq[i] = fi
+                sym[i] = si
             # Convert back to cumulative frequencies.
-            for i in range(self.entries - 1, -1, -1):
-                sym, freq = self.syms[i]
-                self.syms[i] = (sym, freq + self.syms[i + 1][1])
+            for i in range(n - 1, -1, -1):
+                frq[i] += frq[i + 1]
 
 
 # ---------------------------------------------------------------------------
@@ -268,24 +283,28 @@ class BitReader:
 
     def __init__(self, data: bytes) -> None:
         self.data = data
+        self.limit = len(data)
         self.pos = 0
         self.bit_buffer = 0
         self.bits_left = 0
         self.overrun = 0
 
     def fill(self) -> None:
-        if self.pos < len(self.data):
-            b0 = self.data[self.pos]
-            self.pos += 1
+        limit = self.limit
+        pos = self.pos
+        if pos < limit:
+            b0 = self.data[pos]
+            pos += 1
         else:
             self.overrun += 1
             b0 = 0
-        if self.pos < len(self.data):
-            b1 = self.data[self.pos]
-            self.pos += 1
+        if pos < limit:
+            b1 = self.data[pos]
+            pos += 1
         else:
             self.overrun += 1
             b1 = 0
+        self.pos = pos
         word = (b0 << 8) | b1
         self.bit_buffer |= word << (32 - 16 - self.bits_left)
         self.bits_left += 16
@@ -330,33 +349,27 @@ def decode_symbol(
 ) -> tuple[int, int, int, int]:
     """Decode one symbol; returns (symbol, new_h, new_l, new_c)."""
     range_ = ((h - lo) & 0xFFFF) + 1
-    total_freq = model.syms[0][1]
+    frq = model.frq
+    total_freq = frq[0]
     if total_freq == 0 or range_ == 0:
         raise ValueError("Decompression error: zero frequency or range")
 
     symf = ((((c - lo + 1) * total_freq - 1) % (1 << 32)) // range_) & 0xFFFF
 
     i = 1
-    while i < model.entries:
-        if model.syms[i][1] <= symf:
-            break
+    while i < model.entries and frq[i] > symf:
         i += 1
 
-    sym = model.syms[i - 1][0]
+    sym = model.sym[i - 1]
 
-    h = (lo + (model.syms[i - 1][1] * range_) // total_freq - 1) & 0xFFFF
-    lo = (lo + (model.syms[i][1] * range_) // total_freq) & 0xFFFF
+    h = (lo + (frq[i - 1] * range_) // total_freq - 1) & 0xFFFF
+    lo = (lo + (frq[i] * range_) // total_freq) & 0xFFFF
 
     # Increase the frequency of the decoded symbol and everything above it.
-    j = i
-    while True:
-        j -= 1
-        s, f = model.syms[j]
-        model.syms[j] = (s, f + 8)
-        if j == 0:
-            break
+    for j in range(i - 1, -1, -1):
+        frq[j] += 8
 
-    if model.syms[0][1] > 3800:
+    if frq[0] > 3800:
         model.update()
 
     # Renormalization.
@@ -385,8 +398,6 @@ MAX_PADDING_SLACK = 64
 def quantum_decompress(compressed: bytes, file_sizes: list[int], window_bits: int) -> bytes:
     """Decompress a Quantum stream covering all files back-to-back."""
     window_size = 1 << window_bits
-    window = bytearray(window_size)
-    window_posn = 0
     output = bytearray()
 
     bits = BitReader(compressed)
@@ -417,8 +428,6 @@ def quantum_decompress(compressed: bytes, file_sizes: list[int], window_bits: in
             if selector < 4:
                 model = (model0, model1, model2, model3)[selector]
                 byte, h, lo, c = decode_symbol(model, bits, h, lo, c)
-                window[window_posn] = byte
-                window_posn = (window_posn + 1) & (window_size - 1)
                 output.append(byte)
                 continue
 
@@ -440,13 +449,25 @@ def quantum_decompress(compressed: bytes, file_sizes: list[int], window_bits: in
                 pos_extra = bits.read_many_bits(EXTRA_BITS[pos_sym])
                 offset = POSITION_BASE[pos_sym] + pos_extra + 1
 
-            src = (window_posn + window_size - offset) & (window_size - 1)
-            for _ in range(min(length, file_end - len(output))):
-                byte = window[src]
-                window[window_posn] = byte
-                output.append(byte)
-                src = (src + 1) & (window_size - 1)
-                window_posn = (window_posn + 1) & (window_size - 1)
+            n = min(length, file_end - len(output))
+            # The output buffer is the LZ77 history: a match reads the bytes
+            # sitting `dist` positions behind the write position.  Offsets are
+            # window-relative (a real encoder never exceeds the window); a
+            # larger crafted offset reduces modulo the window exactly as in
+            # the reference decoder, with a full-window lookback at zero.
+            dist = offset & (window_size - 1) or window_size
+            base = len(output) - dist
+            if dist >= n and base >= 0:
+                # Non-overlapping match fully inside the produced history:
+                # one slice copy instead of a Python loop per byte.
+                output += output[base : base + n]
+            else:
+                # Overlapping match (run-length repetition) or history that
+                # reaches before the stream start (unwritten window bytes,
+                # malformed input): copy byte-wise, zero-filling the gap.
+                for k in range(n):
+                    idx = base + k
+                    output.append(output[idx] if idx >= 0 else 0)
 
         # Between files: consume the 16-bit raw checksum (not arithmetic-coded).
         if file_idx < len(file_sizes) - 1:
