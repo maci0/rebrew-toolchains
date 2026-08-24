@@ -4,6 +4,9 @@
 # artifacts — not a fresh pip resolution that merely agrees on version pins.
 name: lint
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: [main]

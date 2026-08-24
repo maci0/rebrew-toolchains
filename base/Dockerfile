@@ -52,7 +52,21 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /usr/local/bin/wibo \
 
 ENV WINEDEBUG=-all \
     WINEPREFIX=/opt/wineprefix \
-    SDL_VIDEODRIVER=dummy
+    SDL_VIDEODRIVER=dummy \
+    HOME=/home/rebrew
 
 COPY wrapper-common.sh /usr/local/lib/rebrew/wrapper-common.sh
 RUN chmod +x /usr/local/lib/rebrew/wrapper-common.sh
+
+# Runtime runs as a non-root user (fixed uid/gid 1000): these images compile
+# untrusted workdirs mounted at /work, so the compiler and its emulator never
+# need root inside the container.  The wine prefix and HOME are pre-created
+# and handed over because wine initializes its prefix lazily on the first PE
+# run and DOSBox writes its primary config under $HOME/.dosbox.
+RUN groupadd --gid 1000 rebrew \
+    && useradd --uid 1000 --gid rebrew --create-home \
+        --home-dir /home/rebrew --shell /usr/sbin/nologin rebrew \
+    && mkdir -p /opt/wineprefix /work \
+    && chown -R rebrew:rebrew /opt/wineprefix /home/rebrew /work
+
+USER rebrew

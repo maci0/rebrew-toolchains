@@ -15,6 +15,9 @@ ARG BASE_IMAGE=rebrew/base:1.0
 
 FROM ${BASE_IMAGE}
 
+# Install steps need root; the base image defaults to a non-root user.
+USER root
+
 # OCI provenance labels (org.opencontainers.image).
 LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
       org.opencontainers.image.licenses="MIT" \
@@ -37,3 +40,6 @@ COPY cl10-wrapper.sh /usr/local/bin/cl10
 RUN chmod +x /usr/local/bin/cl10
 
 ENTRYPOINT ["/usr/local/bin/cl10"]
+
+# Runtime drops back to the base image's non-root user.
+USER rebrew
