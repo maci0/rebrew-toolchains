@@ -84,6 +84,23 @@ while IFS=$'\t' read -r profile dir url sha; do
   }
 done <<<"$PINS"
 
+# Reverse sweep: every toolchain dir with a Dockerfile must have a manifest
+# entry.  The forward checks above only validate dirs the manifest names;
+# without this a fresh Dockerfile could curl an unpinned source and build
+# with the provenance contract silently skipped.
+for d in "$ROOT"/*/*/; do
+  [ -f "${d}Dockerfile" ] || continue
+  dir="${d#"$ROOT"/}"
+  dir="${dir%/}"  # the glob yields a trailing slash — strip it
+  known="$(printf '%s\n' "$PINS" | awk -F'\t' -v d="$dir" \
+    '$2 == d { found = 1 } END { print found + 0 }')"
+  [ "$known" -eq 1 ] || {
+    echo "sources.json: no manifest entry for toolchain '$dir'" \
+      "(its download pins would go unverified)" >&2
+    exit 2
+  }
+done
+
 # rebrew profile name -> toolchain dir (resolve_dir's profile lookup).
 PROFILE_DIRS="$(printf '%s\n' "$PINS" | awk -F'\t' '{ print $1 "=" $2 }')"
 

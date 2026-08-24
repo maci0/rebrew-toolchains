@@ -22,3 +22,5 @@ jobs:
         run: uv sync --group lint --locked
       - name: Run static analysis
         run: uv run --no-sync make lint
+      - name: Run behavioral tests
+        run: uv run --no-sync make test

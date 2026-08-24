@@ -40,8 +40,9 @@ are needed.
 ## Static analysis
 
 The repo's own glue is checked by three analyzers; `make lint` runs them
-all and must stay green.  The same command is the repo's CI gate
-(`.github/workflows/lint.yml`), so findings block merges.  The environment
+all and must stay green.  Both `make lint` and the behavioral `make test`
+are CI gates (`.github/workflows/lint.yml`), so findings and contract
+breaks block merges.  The environment
 is pinned twice over: tool versions are exact-pinned in `pyproject.toml`'s
 `[dependency-groups]` (`lint`) and fully resolved — with sha256 hashes for
 every artifact — in the committed `uv.lock`.  CI installs with
