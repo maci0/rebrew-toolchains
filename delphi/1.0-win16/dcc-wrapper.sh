@@ -14,31 +14,17 @@
 set -e
 rebrew_pick_source "$@"
 
-sandbox=$(mktemp -d /tmp/dcc.XXXXXX) || rebrew_die "mktemp failed"
-trap 'rm -rf "$sandbox"' EXIT
+_sandbox=$(mktemp -d /tmp/dcc.XXXXXX) || rebrew_die "mktemp failed"
+trap 'rm -rf "$_sandbox"' EXIT
 
-cp -r /opt/delphi10/. "$sandbox"/ || rebrew_die "cannot stage Delphi toolchain tree"
-cp "$SRC" "$sandbox/SRC.DPR" || rebrew_die "cannot stage source $SRC"
+cp -r /opt/delphi10/. "$_sandbox"/ || rebrew_die "cannot stage Delphi toolchain tree"
+cp "$SRC" "$_sandbox/SRC.DPR" || rebrew_die "cannot stage source $SRC"
 
 # DCC reads DCC.CFG for the RTL/VCL unit paths.
-printf '/m\n/cw\n/rC:\\DELPHI\\LIB\n/uC:\\DELPHI\\LIB\n/iC:\\DELPHI\\LIB\n' > "$sandbox/DCC.CFG"
+printf '/m\n/cw\n/rC:\\DELPHI\\LIB\n/uC:\\DELPHI\\LIB\n/iC:\\DELPHI\\LIB\n' > "$_sandbox/DCC.CFG"
 
-rebrew_dosbox_run "$sandbox" "C:\\DCC.EXE SRC.DPR > C:\\dccout.txt"
-
-cp "$sandbox"/DCCOUT.TXT /work/dccout.txt 2>/dev/null || true
-# Deliberate `if` on the helper: a missing artifact is the ordinary
-# "compile produced nothing" case, not an unhandled failure.
-# shellcheck disable=SC2310
-if rebrew_copy_back "$sandbox" SRC.EXE "${STEM}.EXE"; then
-    exit 0
-fi
-# The log was copied to /work/dccout.txt above; embed it in the error too so
-# a failed compile shows its cause even if that copy failed (e.g. read-only
-# mount).
-_note=$(rebrew_dosbox_failure_note)
-if [ -f "$sandbox"/DCCOUT.TXT ]; then
-    _log="$(cat "$sandbox"/DCCOUT.TXT 2>/dev/null)"
-    rebrew_die "DCC produced no executable${_note}; compiler log:
-$_log"
-fi
-rebrew_die "DCC produced no executable${_note} (no compiler log written)"
+rebrew_dosbox_run "$_sandbox" "C:\\DCC.EXE SRC.DPR > C:\\dccout.txt"
+# Returns 0 once SRC.EXE is copied back as ${STEM}.EXE; otherwise dies
+# embedding the compiler log and how DOSBox itself ended.
+rebrew_dosbox_collect "$_sandbox" DCCOUT.TXT dccout.txt \
+    SRC.EXE "${STEM}.EXE" "DCC produced no executable"

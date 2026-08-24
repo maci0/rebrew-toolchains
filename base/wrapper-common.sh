@@ -144,8 +144,8 @@ rebrew_run() {
 # compile that ran and failed.  REBREW_DOSBOX_TIMEOUT (seconds, default 600)
 # caps the run.
 rebrew_dosbox_run() {
-    sandbox="$1"
-    autoexec="$2"
+    _sandbox="$1"
+    _autoexec="$2"
     DOSBOX_STATUS=0
     # Deliberate `|| exit 1`: rebrew_timeout_secs prints its own error and
     # returns nonzero; the explicit handling is the documented contract.
@@ -156,12 +156,12 @@ rebrew_dosbox_run() {
     {
         printf '[sdl]\nfullscreen=false\n\n[cpu]\ncycles=fixed 30000\n\n[autoexec]\n'
         printf 'mount c %s\nC:\ncd \\\n%s\nexit\n' \
-            "$sandbox" "$autoexec"
-    } > "$sandbox/toolchain.conf"
+            "$_sandbox" "$_autoexec"
+    } > "$_sandbox/toolchain.conf"
     SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
         timeout --kill-after=10 "$_dosbox_timeout" \
-        dosbox -conf "$sandbox/toolchain.conf" -noconsole \
-            >"$sandbox/dosbox.log" 2>&1 || DOSBOX_STATUS=$?
+        dosbox -conf "$_sandbox/toolchain.conf" -noconsole \
+            >"$_sandbox/dosbox.log" 2>&1 || DOSBOX_STATUS=$?
     DOSBOX_STATUS=$(rebrew_watchdog_status "$_start" "$_dosbox_timeout" "$DOSBOX_STATUS")
 }
 
@@ -190,19 +190,19 @@ rebrew_dosbox_failure_note() {
 # (e.g. read-only /work) it dies saying so, since conflating that with a
 # compile failure would misdiagnose the run.
 rebrew_copy_back() {
-    sandbox="$1"
-    src_name="$2"
-    dest_name="$3"
-    [ -f "$sandbox/$src_name" ] || return 1
-    _tmp="/work/.${dest_name}.partial"
-    cp "$sandbox/$src_name" "$_tmp" || {
+    _sandbox="$1"
+    _src_name="$2"
+    _dest_name="$3"
+    [ -f "$_sandbox/$_src_name" ] || return 1
+    _tmp="/work/.${_dest_name}.partial"
+    cp "$_sandbox/$_src_name" "$_tmp" || {
         rm -f "$_tmp"
-        rebrew_die "compiler produced $src_name but copying it to /work/$dest_name failed" \
+        rebrew_die "compiler produced $_src_name but copying it to /work/$_dest_name failed" \
             "(is /work mounted writable?)"
     }
-    mv "$_tmp" "/work/$dest_name" || {
+    mv "$_tmp" "/work/$_dest_name" || {
         rm -f "$_tmp"
-        rebrew_die "compiler produced $src_name but putting it in place at /work/$dest_name failed"
+        rebrew_die "compiler produced $_src_name but putting it in place at /work/$_dest_name failed"
     }
     return 0
 }
@@ -230,43 +230,58 @@ rebrew_flags_except_source() {
     done
 }
 
-# rebrew_dosbox_compile <tree> <tmp-prefix> <autoexec> <log-name> — the
-# shared DOSBox compile flow for the 16-bit C toolchains: stage the vendored
-# toolchain <tree> plus the picked source (as the 8.3-safe SRC.C) into a
-# fresh sandbox C: drive, run the <autoexec> line, copy the compiler log to
-# /work/<log-name>, and copy SRC.OBJ back to /work as $STEM.OBJ.  Exits
-# nonzero, embedding the compiler log, when no object was produced.
-rebrew_dosbox_compile() {
-    [ -n "${SRC:-}" ] || rebrew_die "rebrew_dosbox_compile: run rebrew_pick_source first"
-    tree="$1"
-    prefix="$2"
-    autoexec="$3"
-    log_name="$4"
-    sandbox=$(mktemp -d "/tmp/${prefix}.XXXXXX") || rebrew_die "mktemp failed"
-    trap 'rm -rf "$sandbox"' EXIT
-
-    cp -r "$tree/." "$sandbox"/ || rebrew_die "cannot stage toolchain tree $tree"
-    cp "$SRC" "$sandbox/SRC.C" || rebrew_die "cannot stage source $SRC"
-
-    rebrew_dosbox_run "$sandbox" "$autoexec"
-
-    sandbox_log="$(printf '%s' "$log_name" | tr '[:lower:]' '[:upper:]')"
-    # The log lands in /work for tooling; it is also embedded in the failure
-    # message in case that copy failed (e.g. read-only mount).
-    if [ -f "$sandbox/$sandbox_log" ]; then
-        cp "$sandbox/$sandbox_log" "/work/$log_name" 2>/dev/null || true
+# rebrew_dosbox_collect <sandbox> <sandbox-log> <work-log> <src-name>
+#   <dest-name> <no-artifact-msg> — shared tail of the DOSBox compile flows
+# (rebrew_dosbox_compile and the dcc wrapper): copies the compiler log to
+# /work/<work-log> best effort, then copies the artifact back via
+# rebrew_copy_back.  Returns 0 when the artifact was produced; otherwise
+# dies embedding <no-artifact-msg>, how the emulator ended
+# (rebrew_dosbox_failure_note) and, when present, the compiler log itself.
+# The log lands in /work for tooling; it is also embedded in the failure
+# message in case that copy failed (e.g. read-only mount).
+rebrew_dosbox_collect() {
+    _sandbox="$1"
+    _sandbox_log="$2"
+    _work_log="$3"
+    if [ -f "$_sandbox/$_sandbox_log" ]; then
+        cp "$_sandbox/$_sandbox_log" "/work/$_work_log" 2>/dev/null || true
     fi
     # Deliberate `if` on the helper: a missing artifact is the ordinary
     # "compile produced nothing" case, not an unhandled failure.
     # shellcheck disable=SC2310
-    if rebrew_copy_back "$sandbox" SRC.OBJ "$STEM.OBJ"; then
+    if rebrew_copy_back "$_sandbox" "$4" "$5"; then
         return 0
     fi
     _note=$(rebrew_dosbox_failure_note)
-    if [ -f "$sandbox/$sandbox_log" ]; then
-        _log="$(cat "$sandbox/$sandbox_log" 2>/dev/null)"
-        rebrew_die "compiler produced no object${_note} (see /work/$log_name); compiler log:
+    if [ -f "$_sandbox/$_sandbox_log" ]; then
+        _log="$(cat "$_sandbox/$_sandbox_log" 2>/dev/null)"
+        rebrew_die "$6${_note} (see /work/$_work_log); compiler log:
 $_log"
     fi
-    rebrew_die "compiler produced no object${_note} (no compiler log written)"
+    rebrew_die "$6${_note} (no compiler log written)"
+}
+
+# rebrew_dosbox_compile <tree> <tmp-prefix> <autoexec> <log-name> — the
+# shared DOSBox compile flow for the 16-bit C toolchains: stage the vendored
+# toolchain <tree> plus the picked source (as the 8.3-safe SRC.C) into a
+# fresh sandbox C: drive, run the <autoexec> line, then hand the sandbox to
+# rebrew_dosbox_collect: log to /work/<log-name>, SRC.OBJ back to /work as
+# $STEM.OBJ, die embedding the compiler log when no object was produced.
+rebrew_dosbox_compile() {
+    [ -n "${SRC:-}" ] || rebrew_die "rebrew_dosbox_compile: run rebrew_pick_source first"
+    _tree="$1"
+    _prefix="$2"
+    _autoexec="$3"
+    _log_name="$4"
+    _sandbox=$(mktemp -d "/tmp/${_prefix}.XXXXXX") || rebrew_die "mktemp failed"
+    trap 'rm -rf "$_sandbox"' EXIT
+
+    cp -r "$_tree/." "$_sandbox"/ || rebrew_die "cannot stage toolchain tree $_tree"
+    cp "$SRC" "$_sandbox/SRC.C" || rebrew_die "cannot stage source $SRC"
+
+    rebrew_dosbox_run "$_sandbox" "$_autoexec"
+
+    _sandbox_log="$(printf '%s' "$_log_name" | tr '[:lower:]' '[:upper:]')"
+    rebrew_dosbox_collect "$_sandbox" "$_sandbox_log" "$_log_name" \
+        SRC.OBJ "$STEM.OBJ" "compiler produced no object"
 }

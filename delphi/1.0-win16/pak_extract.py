@@ -407,14 +407,19 @@ def quantum_decompress(compressed: bytes, file_sizes: list[int], window_bits: in
 
     bits = BitReader(compressed)
 
-    i = window_bits * 2
+    # Position-slot count reachable by a match at this window size: two
+    # slots per window bit (QUANTUM.DOC).
+    pos_slots = window_bits * 2
     model0 = Model(0, 64)
     model1 = Model(64, 64)
     model2 = Model(128, 64)
     model3 = Model(192, 64)
-    model4 = Model(0, min(i, 24))  # position slots, 3-byte matches
-    model5 = Model(0, min(i, 36))  # position slots, 4-byte matches
-    model6 = Model(0, i)  # position slots, variable matches
+    # Selectors 4 and 5 can name only the first 24 / 36 position slots;
+    # larger offsets are encoded through selector 6, whose model covers
+    # every slot the window allows.
+    model4 = Model(0, min(pos_slots, 24))  # position slots, 3-byte matches
+    model5 = Model(0, min(pos_slots, 36))  # position slots, 4-byte matches
+    model6 = Model(0, pos_slots)  # position slots, variable matches
     model6len = Model(0, 27)  # length slots
     model7 = Model(0, 7)  # selector
 

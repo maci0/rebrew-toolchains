@@ -279,6 +279,39 @@ case "$out" in
   *) echo "FAIL watchdog kill fails loudly: st=$st out=[$out]"; fail=1 ;;
 esac
 
+# 13. rebrew_dosbox_collect: artifact-or-die contract with the embedded log
+SBOX2="$TMP/sbox2"
+mkdir -p "$SBOX2"
+printf 'compiling SRC.C\nfatal error FS255\n' > "$SBOX2/TCOUT.TXT"
+COLLECT_ARGS="'$SBOX2' TCOUT.TXT tcout.txt SRC.OBJ f.OBJ 'compiler produced no object'"
+out=$(sh -c ". '$WC'; DOSBOX_STATUS=0; rebrew_dosbox_collect $COLLECT_ARGS" 2>&1)
+st=$?
+case "$out" in
+  *"compiler produced no object (see /work/tcout.txt); compiler log:"*"fatal error FS255"*)
+    if [ "$st" -eq 1 ]; then
+      echo "ok   collect dies embedding the compiler log"
+    else
+      check "collect dies embedding the compiler log" "exit 1" "exit $st"
+    fi
+    ;;
+  *) echo "FAIL collect die message: [$out]"; fail=1 ;;
+esac
+out=$(sh -c ". '$WC'; DOSBOX_STATUS=124; rebrew_dosbox_collect $COLLECT_ARGS" 2>&1)
+case "$out" in
+  *"DOSBox was killed after exceeding REBREW_DOSBOX_TIMEOUT (see /work/tcout.txt)"*)
+    echo "ok   collect appends the DOSBox timeout note" ;;
+  *) echo "FAIL collect timeout note: [$out]"; fail=1 ;;
+esac
+rm -rf "$SBOX2"  # fresh sandbox: no compiler log this time
+mkdir -p "$SBOX2"
+out=$(sh -c ". '$WC'; DOSBOX_STATUS=0; rebrew_dosbox_collect $COLLECT_ARGS" 2>&1)
+case "$out" in
+  *"compiler produced no object (no compiler log written)"*)
+    echo "ok   collect reports a missing compiler log" ;;
+  *) echo "FAIL collect missing-log message: [$out]"; fail=1 ;;
+esac
+rm -rf "$SBOX2"
+
 if [ "$fail" -eq 0 ]; then
   echo "ALL-PASS"
 else
