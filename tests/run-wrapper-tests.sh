@@ -238,8 +238,8 @@ case "$log" in
 esac
 conf=$(cat "$SBOX/toolchain.conf")
 case "$conf" in
-  *"fullscreen=false"*"cycles=fixed 30000"*"[autoexec]"*"mount c $SBOX"*"TCC -c SRC.C"*"exit"*)
-    echo "ok   dosbox config mounts sandbox and embeds autoexec" ;;
+  *"fullscreen=false"*"cycles=fixed 30000"*"[autoexec]"*"mount c \"$SBOX\""*"TCC -c SRC.C"*"exit"*)
+    echo "ok   dosbox config mounts sandbox (quoted) and embeds autoexec" ;;
   *) echo "FAIL dosbox config content: [$conf]"; fail=1 ;;
 esac
 : > "$STUB_LOG"

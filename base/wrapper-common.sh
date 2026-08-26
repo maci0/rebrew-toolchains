@@ -155,7 +155,7 @@ rebrew_dosbox_run() {
     _start=$(rebrew_now_secs)
     {
         printf '[sdl]\nfullscreen=false\n\n[cpu]\ncycles=fixed 30000\n\n[autoexec]\n'
-        printf 'mount c %s\nC:\ncd \\\n%s\nexit\n' \
+        printf 'mount c "%s"\nC:\ncd \\\n%s\nexit\n' \
             "$_sandbox" "$_autoexec"
     } > "$_sandbox/toolchain.conf"
     SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
