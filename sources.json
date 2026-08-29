@@ -17,6 +17,24 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
+  "ido5.3": {
+    "family": "ido",
+    "host_dir": "ido/5.3-linux",
+    "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-5.3-recomp-linux.tar.gz",
+    "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "ido7.1": {
+    "family": "ido",
+    "host_dir": "ido/7.1-linux",
+    "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-7.1-recomp-linux.tar.gz",
+    "sha256": "0d411696e178fcca34c31c3bf02011b928d7fd9c1fa7f8bf45070e0781b58e15",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
   "msvc1.52": {
     "family": "msvc",
     "host_dir": "msvc/1.52-win16",
@@ -309,7 +327,7 @@
     "family": "watcom",
     "host_dir": "watcom/2.0-win32",
     "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/Last-CI-build/ow-snapshot.tar.xz",
-    "sha256": "99e494d9a3871f58a6398268e8f04003affa73421ca5fb49e3815a8ef1bb7b1f",
+    "sha256": "5c87c1045e66dbb6339c3098f4b571e4e24273eba6ca733a021326ed91e1d920",
     "commit": "",
     "layout": "tar-strip1",
     "in_repo_tarball": ""

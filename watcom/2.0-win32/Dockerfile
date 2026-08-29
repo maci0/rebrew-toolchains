@@ -25,7 +25,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 
 RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/ow.tar.xz \
         "https://github.com/open-watcom/open-watcom-v2/releases/download/Last-CI-build/ow-snapshot.tar.xz" \
-    && echo "99e494d9a3871f58a6398268e8f04003affa73421ca5fb49e3815a8ef1bb7b1f  /tmp/ow.tar.xz" | sha256sum -c - \
+    && echo "5c87c1045e66dbb6339c3098f4b571e4e24273eba6ca733a021326ed91e1d920  /tmp/ow.tar.xz" | sha256sum -c - \
     && mkdir -p /opt/watcom \
     && tar xJf /tmp/ow.tar.xz -C /opt/watcom --strip-components=1 \
     && rm /tmp/ow.tar.xz \
