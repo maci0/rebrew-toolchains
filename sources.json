@@ -215,6 +215,15 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
+  "msvc600sp5pp": {
+    "family": "msvc",
+    "host_dir": "msvc/6.0-sp5-pp-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc600_sp5_vcpp/tar.gz/refs/heads/master",
+    "sha256": "1bbf177489054698fd5d29bf042692efdb5bec8719f9dc889b9b1c618c645991",
+    "commit": "762e9382c751613c341daa766f0e22cdeb07152c",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
   "msvc600sp6": {
     "family": "msvc",
     "host_dir": "msvc/6.0-sp6-win32",
