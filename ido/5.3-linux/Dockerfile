@@ -41,7 +41,7 @@ RUN printf '%s\n' \
         '#!/bin/sh' \
         '. /usr/local/lib/rebrew/wrapper-common.sh' \
         'rebrew_pick_source "$@"' \
-        'exec /opt/ido/5.3/cc "$@"' \
+        'rebrew_exec /opt/ido/5.3/cc "$@"' \
         > /usr/local/bin/cc \
     && chmod +x /usr/local/bin/cc
 
