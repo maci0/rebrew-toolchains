@@ -8,12 +8,66 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
+  "clang": {
+    "family": "clang",
+    "host_dir": "clang/18.1.8-linux-x64",
+    "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
+    "sha256": "54ec30358afcc9fb8aa74307db3046f5187f9fb89fb37064cdde906e062ebf36",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "clang16": {
+    "family": "clang",
+    "host_dir": "clang/16.0.4-linux-x64",
+    "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.4/clang+llvm-16.0.4-x86_64-linux-gnu-ubuntu-22.04.tar.xz",
+    "sha256": "fd464333bd55b482eb7385f2f4e18248eb43129a3cda4c0920ad9ac3c12bdacf",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
   "delphi16": {
     "family": "delphi",
     "host_dir": "delphi/1.0-win16",
     "url": "https://codeload.github.com/archaic-toolchains/delphi10/tar.gz/refs/heads/main",
     "sha256": "24cd23f0ef555f3582eda27b4bb655e17215366b556dfaabd9f2ba5daf61b55e",
     "commit": "fd12406eeaa6b44099013c5a56d083919676967c",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "gcc": {
+    "family": "gcc",
+    "host_dir": "gcc/14.2.0-linux-x64",
+    "url": "https://ftp.gnu.org/gnu/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz",
+    "sha256": "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "gcc-pe": {
+    "family": "gcc-pe",
+    "host_dir": "gcc-pe/16.2.0-win32",
+    "url": "https://github.com/niXman/mingw-builds-binaries/releases/download/16.2.0-rt_v14-rev1/i686-16.2.0-release-posix-dwarf-msvcrt-rt_v14-rev1.7z",
+    "sha256": "9773342cba88efe50e6f3ddd021ac6f1d9ac1957301705fe64def22f501f0dd4",
+    "commit": "",
+    "layout": "7z-strip1",
+    "in_repo_tarball": ""
+  },
+  "gcc-pe14": {
+    "family": "gcc-pe",
+    "host_dir": "gcc-pe/14.2.0-win32",
+    "url": "https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev2/i686-14.2.0-release-posix-dwarf-msvcrt-rt_v12-rev2.7z",
+    "sha256": "895d22c902e22d4b7b1c1b4160d1b3d70bbd6fc653b04f46b7736ef0ef5e4bc2",
+    "commit": "",
+    "layout": "7z-strip1",
+    "in_repo_tarball": ""
+  },
+  "gcc12": {
+    "family": "gcc",
+    "host_dir": "gcc/12.3.0-linux-x64",
+    "url": "https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz",
+    "sha256": "949a5d4f99e786421a93b532b22ffab5578de7321369975b91aec97adfda8c3b",
+    "commit": "",
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
@@ -337,6 +391,15 @@
     "host_dir": "watcom/2.0-win32",
     "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/Last-CI-build/ow-snapshot.tar.xz",
     "sha256": "5c87c1045e66dbb6339c3098f4b571e4e24273eba6ca733a021326ed91e1d920",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "watcom16": {
+    "family": "watcom",
+    "host_dir": "watcom/2.0-win16",
+    "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/2026-09-01-Build/ow-snapshot.tar.xz",
+    "sha256": "bac354f3c75ffa49ff8d70a44e475de7e7c1823fff04b80c14787bd0792c9bdf",
     "commit": "",
     "layout": "tar-strip1",
     "in_repo_tarball": ""

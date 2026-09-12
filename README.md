@@ -1,11 +1,13 @@
 # rebrew-toolchains
 
-Standalone docker images for legacy Windows/DOS compilers — MSVC 1.0–11.0
+Standalone docker images for legacy and modern C compilers — MSVC 1.0–11.0
 (every preserved service pack), Borland C/C++ (Turbo C 2.0, Turbo C++ 3.1,
-bcc32 5.5), Watcom C (Open Watcom 2.0) and Delphi 1.0.  Each image is a
-self-contained compiler container: the runtime (wine / wibo / DOSBox) and
-the compiler are baked in, and the entrypoint is the compiler wrapper — you
-just mount a workdir and pass compiler flags.
+bcc32 5.5), Watcom C (Open Watcom 2.0, 32- and 16-bit), Delphi 1.0, MinGW-w64
+GCC (i686 PE), GNU GCC (ELF/x86_64) and Clang (ELF/x86_64), plus the SGI IDO
+reimplementations (MIPS/N64).  Each image is a self-contained compiler
+container: the runtime (wine / wibo / DOSBox / native Linux) and the compiler
+are baked in, and the entrypoint is the compiler wrapper — you just mount a
+workdir and pass compiler flags.
 
 This repo is the *build source*: Dockerfiles, the shared `base` image,
 wrapper scripts and the pinned-source manifest.  **No compiler binaries
@@ -25,8 +27,9 @@ service is the reference consumer).
 ## Build
 
 ```bash
-./build.sh                # base + all 35 images
+./build.sh                # base + all 45 images
 ./build.sh msvc6          # one image (accepts msvc/6.0-win32 or 6.0-win32)
+./build.sh gcc            # the GCC image (14.2.0-linux-x64)
 ```
 
 `PREFIX` env var re-tags the images (`PREFIX=archaic ./build.sh` →
@@ -90,14 +93,26 @@ docker run --rm -v "$PWD":/work -w /work rebrew/delphi:1.0-win16 hello.dpr
 
 # Watcom (native Linux binary in the image, POSIX-ish flags)
 docker run --rm -v "$PWD":/work -w /work rebrew/watcom:2.0-win32 -fo=f.obj -zq f.c
+
+# GCC / Clang (native Linux compilers in the image; the GCC image is built
+# from the GNU source tarball, Clang from LLVM's prebuilt release)
+docker run --rm -v "$PWD":/work -w /work rebrew/gcc:14.2.0-linux-x64 -c f.c -o f.o
+docker run --rm -v "$PWD":/work -w /work rebrew/gcc:12.3.0-linux-x64 -c f.c -o f.o
+docker run --rm -v "$PWD":/work -w /work rebrew/clang:18.1.8-linux-x64 -c f.c -o f.o
+
+# MinGW-w64 GCC (i686 target): the driver is a Windows PE binary, so the
+# wrapper runs it through wine like the MSVC images
+docker run --rm -v "$PWD":/work -w /work rebrew/gcc-pe:16.2.0-win32 -c f.c -o f.o
 ```
 
-The 32-bit wrappers run the compiler through `rebrew_run`, which dispatches
+The PE-driving wrappers (the 32-bit MSVC/Borland images and MinGW `gcc-pe`)
+run the compiler through `rebrew_run`, which dispatches
 on the `REBREW_RUNNER` env var: `wine` (default, full Wine — most
 compatible) or `wibo` (the minimal [decompals/wibo](https://github.com/decompals/wibo)
 PE loader baked into the base image — an order of magnitude faster to start,
 good for plain console compilers, but it only implements a subset of Win32;
-if a tool misbehaves, fall back to wine).  The 16-bit DOSBox toolchains
+if a tool misbehaves, fall back to wine).  The native images (Watcom, GCC,
+Clang, IDO) exec their compiler directly.  The 16-bit DOSBox toolchains
 always use DOSBox and ignore `REBREW_RUNNER`.
 
 Both runners and the headless DOSBox runs are wrapped in a watchdog so a hung
@@ -129,10 +144,23 @@ branch commit and layout.  Sources:
 - **Turbo C 2.0/3.1, Delphi 1.0**: archive.org `turboc20`, `turboc3.1_202112`,
   `delphi10` items.
 - **Borland C++ 5.5**: archive.org `BorlandC55` (official free tools).
-- **Open Watcom 2.0**: the project's CI snapshot (moving tag, re-pinned).
+- **MinGW-w64 GCC 14.2.0/16.2.0**: `niXman/mingw-builds-binaries` release
+  assets (i686-w64-mingw32 target, `.7z`); the driver is a Windows PE binary,
+  so the image runs it under wine.
+- **GNU GCC 12.3.0/14.2.0**: `ftp.gnu.org` release tarballs, compiled C-only
+  inside the image (`--enable-languages=c --disable-bootstrap
+  --disable-multilib --with-system-zlib`).
+- **Clang 16.0.4/18.1.8**: LLVM's official prebuilt x86_64 Linux release
+  tarballs (`clang+llvm-*`); 16.0.4 is the newest 16.x with an x86_64 Linux
+  asset (16.0.5/16.0.6 published aarch64 and powerpc64le only).
+- **Watcom 32-bit**: the project's CI snapshot (moving tag, re-pinned).
+  **Watcom 16-bit** (`wcc`) pins the dated `2026-09-01-Build` release instead:
+  the moving-tag snapshot recorded for the 32-bit image no longer hashes to
+  its pin upstream, and a dated release asset stays valid.
 
-Every 32-bit Dockerfile curls its own source and verifies the sha256 inside
-the build, so a build is reproducible from this repo alone.
+Every Dockerfile curls its own source and verifies the sha256 inside the
+build, so a build is reproducible from this repo alone (the four `.7z`/
+`.tar.xz` acquisitions above are content-addressed by their release tag).
 
 ## Copyright
 
