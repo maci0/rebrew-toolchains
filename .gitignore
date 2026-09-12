@@ -3,6 +3,9 @@
 # (e.g. unpacked media trees) must never be staged.
 *.tar.xz
 *.tar.gz
+# Unpacked media trees: `rebrew toolchain vendor` assembles the host tree into
+# <family>/<version>-<arch>/source (hundreds of MB, rebuilt on demand).
+source/
 
 # Python bytecode from the vendored-format dev tools (pak_extract.py).
 __pycache__/
