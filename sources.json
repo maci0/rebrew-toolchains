@@ -1,5 +1,5 @@
 {
-  "borlandc55": {
+  "borland-5.5": {
     "family": "borland",
     "host_dir": "borland/5.5-win32",
     "url": "https://codeload.github.com/archaic-toolchains/borlandc55/tar.gz/refs/heads/main",
@@ -8,7 +8,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "clang": {
+  "clang-18.1.8": {
     "family": "clang",
     "host_dir": "clang/18.1.8-linux-x64",
     "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
@@ -17,7 +17,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "clang16": {
+  "clang-16.0.4": {
     "family": "clang",
     "host_dir": "clang/16.0.4-linux-x64",
     "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.4/clang+llvm-16.0.4-x86_64-linux-gnu-ubuntu-22.04.tar.xz",
@@ -26,7 +26,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "delphi16": {
+  "delphi-1.0": {
     "family": "delphi",
     "host_dir": "delphi/1.0-win16",
     "url": "https://codeload.github.com/archaic-toolchains/delphi10/tar.gz/refs/heads/main",
@@ -35,7 +35,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "gcc": {
+  "gcc-14.2.0": {
     "family": "gcc",
     "host_dir": "gcc/14.2.0-linux-x64",
     "url": "https://ftp.gnu.org/gnu/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz",
@@ -44,25 +44,25 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "gcc-pe": {
-    "family": "gcc-pe",
-    "host_dir": "gcc-pe/16.2.0-win32",
+  "mingw-16.2.0": {
+    "family": "mingw",
+    "host_dir": "mingw/16.2.0-win32",
     "url": "https://github.com/niXman/mingw-builds-binaries/releases/download/16.2.0-rt_v14-rev1/i686-16.2.0-release-posix-dwarf-msvcrt-rt_v14-rev1.7z",
     "sha256": "9773342cba88efe50e6f3ddd021ac6f1d9ac1957301705fe64def22f501f0dd4",
     "commit": "",
     "layout": "7z-strip1",
     "in_repo_tarball": ""
   },
-  "gcc-pe14": {
-    "family": "gcc-pe",
-    "host_dir": "gcc-pe/14.2.0-win32",
+  "mingw-14.2.0": {
+    "family": "mingw",
+    "host_dir": "mingw/14.2.0-win32",
     "url": "https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev2/i686-14.2.0-release-posix-dwarf-msvcrt-rt_v12-rev2.7z",
     "sha256": "895d22c902e22d4b7b1c1b4160d1b3d70bbd6fc653b04f46b7736ef0ef5e4bc2",
     "commit": "",
     "layout": "7z-strip1",
     "in_repo_tarball": ""
   },
-  "gcc12": {
+  "gcc-12.3.0": {
     "family": "gcc",
     "host_dir": "gcc/12.3.0-linux-x64",
     "url": "https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz",
@@ -71,7 +71,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "ido5.3": {
+  "ido-5.3": {
     "family": "ido",
     "host_dir": "ido/5.3-linux",
     "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-5.3-recomp-linux.tar.gz",
@@ -80,7 +80,7 @@
     "layout": "tar",
     "in_repo_tarball": ""
   },
-  "ido7.1": {
+  "ido-7.1": {
     "family": "ido",
     "host_dir": "ido/7.1-linux",
     "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-7.1-recomp-linux.tar.gz",
@@ -89,7 +89,7 @@
     "layout": "tar",
     "in_repo_tarball": ""
   },
-  "msvc1.52": {
+  "msvc-1.52": {
     "family": "msvc",
     "host_dir": "msvc/1.52-win16",
     "url": "https://codeload.github.com/archaic-toolchains/msvc152/tar.gz/refs/heads/main",
@@ -98,7 +98,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc10": {
+  "msvc-1.0": {
     "family": "msvc",
     "host_dir": "msvc/1.0-win16",
     "url": "https://codeload.github.com/archaic-toolchains/msvc10/tar.gz/refs/heads/main",
@@ -107,7 +107,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc1000": {
+  "msvc-10.0": {
     "family": "msvc",
     "host_dir": "msvc/10.0-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc1000/tar.gz/refs/heads/master",
@@ -116,7 +116,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc1000sp1": {
+  "msvc-10.0-sp1": {
     "family": "msvc",
     "host_dir": "msvc/10.0-sp1-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc1000_sp1/tar.gz/refs/heads/master",
@@ -125,7 +125,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc1100": {
+  "msvc-11.0": {
     "family": "msvc",
     "host_dir": "msvc/11.0-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc1100/tar.gz/refs/heads/master",
@@ -134,7 +134,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc15": {
+  "msvc-1.5": {
     "family": "msvc",
     "host_dir": "msvc/1.5-win16",
     "url": "https://codeload.github.com/archaic-toolchains/msvc15/tar.gz/refs/heads/main",
@@ -143,7 +143,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc200": {
+  "msvc-2.0": {
     "family": "msvc",
     "host_dir": "msvc/2.0-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc200/tar.gz/refs/heads/master",
@@ -152,7 +152,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc400": {
+  "msvc-4.0": {
     "family": "msvc",
     "host_dir": "msvc/4.0-win32",
     "url": "https://codeload.github.com/archaic-toolchains/msvc400/tar.gz/refs/heads/main",
@@ -161,7 +161,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc410": {
+  "msvc-4.1": {
     "family": "msvc",
     "host_dir": "msvc/4.1-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc410/tar.gz/refs/heads/master",
@@ -170,7 +170,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc420": {
+  "msvc-4.2": {
     "family": "msvc",
     "host_dir": "msvc/4.2-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc420/tar.gz/refs/heads/master",
@@ -179,7 +179,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc5": {
+  "msvc-5.0": {
     "family": "msvc",
     "host_dir": "msvc/5.0-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc500/tar.gz/refs/heads/master",
@@ -188,7 +188,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc500sp1": {
+  "msvc-5.0-sp1": {
     "family": "msvc",
     "host_dir": "msvc/5.0-sp1-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc500sp1/tar.gz/refs/heads/master",
@@ -197,7 +197,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc500sp2": {
+  "msvc-5.0-sp2": {
     "family": "msvc",
     "host_dir": "msvc/5.0-sp2-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc500sp2/tar.gz/refs/heads/master",
@@ -206,7 +206,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc500sp3": {
+  "msvc-5.0-sp3": {
     "family": "msvc",
     "host_dir": "msvc/5.0-sp3-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc500sp3/tar.gz/refs/heads/master",
@@ -215,7 +215,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc6": {
+  "msvc-6.0": {
     "family": "msvc",
     "host_dir": "msvc/6.0-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc600/tar.gz/refs/heads/master",
@@ -224,7 +224,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc600sp1": {
+  "msvc-6.0-sp1": {
     "family": "msvc",
     "host_dir": "msvc/6.0-sp1-win32",
     "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp1/tar.gz/refs/heads/main",
@@ -233,7 +233,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc600sp2": {
+  "msvc-6.0-sp2": {
     "family": "msvc",
     "host_dir": "msvc/6.0-sp2-win32",
     "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp2/tar.gz/refs/heads/main",
@@ -242,7 +242,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc600sp3": {
+  "msvc-6.0-sp3": {
     "family": "msvc",
     "host_dir": "msvc/6.0-sp3-win32",
     "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp3/tar.gz/refs/heads/main",
@@ -251,7 +251,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc600sp4": {
+  "msvc-6.0-sp4": {
     "family": "msvc",
     "host_dir": "msvc/6.0-sp4-win32",
     "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp4/tar.gz/refs/heads/main",
@@ -260,7 +260,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc600sp5": {
+  "msvc-6.0-sp5": {
     "family": "msvc",
     "host_dir": "msvc/6.0-sp5-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc600_sp5/tar.gz/refs/heads/master",
@@ -269,7 +269,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc600sp5pp": {
+  "msvc-6.0-sp5-pp": {
     "family": "msvc",
     "host_dir": "msvc/6.0-sp5-pp-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc600_sp5_vcpp/tar.gz/refs/heads/master",
@@ -278,7 +278,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc600sp6": {
+  "msvc-6.0-sp6": {
     "family": "msvc",
     "host_dir": "msvc/6.0-sp6-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc600_sp6/tar.gz/refs/heads/master",
@@ -287,7 +287,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc7": {
+  "msvc-7.0": {
     "family": "msvc",
     "host_dir": "msvc/7.0-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc710/tar.gz/refs/heads/master",
@@ -296,7 +296,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc700": {
+  "msvc-7.0-rtm": {
     "family": "msvc",
     "host_dir": "msvc/7.0-rtm-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc700/tar.gz/refs/heads/master",
@@ -305,7 +305,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc700sp1": {
+  "msvc-7.0-sp1": {
     "family": "msvc",
     "host_dir": "msvc/7.0-sp1-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc700_sp1/tar.gz/refs/heads/master",
@@ -314,7 +314,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc710": {
+  "msvc-7.1": {
     "family": "msvc",
     "host_dir": "msvc/7.1-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc710/tar.gz/refs/heads/master",
@@ -323,7 +323,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc710sp1": {
+  "msvc-7.1-sp1": {
     "family": "msvc",
     "host_dir": "msvc/7.1-sp1-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc710_sp1/tar.gz/refs/heads/master",
@@ -332,7 +332,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc800": {
+  "msvc-8.0": {
     "family": "msvc",
     "host_dir": "msvc/8.0-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc800/tar.gz/refs/heads/master",
@@ -341,7 +341,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc800sp1": {
+  "msvc-8.0-sp1": {
     "family": "msvc",
     "host_dir": "msvc/8.0-sp1-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc800_sp1/tar.gz/refs/heads/master",
@@ -350,7 +350,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc900": {
+  "msvc-9.0": {
     "family": "msvc",
     "host_dir": "msvc/9.0-win32",
     "url": "https://codeload.github.com/archaic-msvc/msvc900/tar.gz/refs/heads/master",
@@ -359,7 +359,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc900sp1": {
+  "msvc-9.0-sp1": {
     "family": "msvc",
     "host_dir": "msvc/9.0-sp1-win32",
     "url": "https://codeload.github.com/archaic-toolchains/msvc900_sp1/tar.gz/refs/heads/main",
@@ -368,7 +368,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "tc16": {
+  "borland-3.1": {
     "family": "borland",
     "host_dir": "borland/3.1-win16",
     "url": "https://codeload.github.com/archaic-toolchains/tc31/tar.gz/refs/heads/main",
@@ -377,7 +377,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "tc20": {
+  "borland-2.0": {
     "family": "borland",
     "host_dir": "borland/2.0-win16",
     "url": "https://codeload.github.com/archaic-toolchains/tc20/tar.gz/refs/heads/main",
@@ -386,7 +386,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "watcom": {
+  "watcom-2.0-win32": {
     "family": "watcom",
     "host_dir": "watcom/2.0-win32",
     "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/Last-CI-build/ow-snapshot.tar.xz",
@@ -395,7 +395,7 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "watcom16": {
+  "watcom-2.0-win16": {
     "family": "watcom",
     "host_dir": "watcom/2.0-win16",
     "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/2026-09-01-Build/ow-snapshot.tar.xz",

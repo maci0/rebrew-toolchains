@@ -28,7 +28,7 @@ service is the reference consumer).
 
 ```bash
 ./build.sh                # base + all 45 images
-./build.sh msvc6          # one image (accepts msvc/6.0-win32 or 6.0-win32)
+./build.sh msvc-6.0          # one image (accepts msvc/6.0-win32 or 6.0-win32)
 ./build.sh gcc            # the GCC image (14.2.0-linux-x64)
 ```
 
@@ -102,10 +102,10 @@ docker run --rm -v "$PWD":/work -w /work rebrew/clang:18.1.8-linux-x64 -c f.c -o
 
 # MinGW-w64 GCC (i686 target): the driver is a Windows PE binary, so the
 # wrapper runs it through wine like the MSVC images
-docker run --rm -v "$PWD":/work -w /work rebrew/gcc-pe:16.2.0-win32 -c f.c -o f.o
+docker run --rm -v "$PWD":/work -w /work rebrew/mingw:16.2.0-win32 -c f.c -o f.o
 ```
 
-The PE-driving wrappers (the 32-bit MSVC/Borland images and MinGW `gcc-pe`)
+The PE-driving wrappers (the 32-bit MSVC/Borland images and the MinGW images)
 run the compiler through `rebrew_run`, which dispatches
 on the `REBREW_RUNNER` env var: `wine` (default, full Wine — most
 compatible) or `wibo` (the minimal [decompals/wibo](https://github.com/decompals/wibo)

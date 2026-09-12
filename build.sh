@@ -2,7 +2,7 @@
 # Build the rebrew toolchain docker images from this repo.
 #
 #   ./build.sh                 # build every image (toolchains in parallel)
-#   ./build.sh msvc6           # build one (dir name: msvc/6.0-win32 or the tag suffix)
+#   ./build.sh msvc-6.0       # build one (dir name: msvc/6.0-win32 or the tag suffix)
 #   ./build.sh 6.0-win32       # ...also accepted
 #
 # The base image is built first; the toolchain images depend only on it and
@@ -15,7 +15,7 @@
 # sha256-verified source from the URL recorded in sources.json (curl inside
 # the Dockerfile) — the win32 MSVC/Borland trees from archaic-msvc /
 # archaic-toolchains, Open Watcom from its project's CI snapshot, and the
-# six 16-bit toolchains (msvc10, msvc15, msvc1.52, tc20, tc16, delphi16)
+# six 16-bit toolchains (msvc-1.0, msvc-1.5, msvc-1.52, borland-2.0, borland-3.1, delphi-1.0)
 # from their archaic-toolchains repos.  No media tarballs are needed.
 set -euo pipefail
 
@@ -111,7 +111,7 @@ resolve_dir() {
   # Family-qualified path to a toolchain dir (e.g. msvc/6.0-win32).
   # Only a dir that actually holds a Dockerfile counts — a bare family dir
   # like `watcom/` has no Dockerfile and must fall through to the profile
-  # lookup below (the `watcom` profile would otherwise short-circuit here).
+  # lookup below (the `watcom-2.0-win32` profile would otherwise short-circuit here).
   [ -f "$ROOT/$arg/Dockerfile" ] && { echo "${arg%/}"; return; }
   # Bare dir name (6.0-win32) — normalize an optional trailing slash.
   # `1.0-win16` and `2.0-win32` exist under more than one family (msvc+delphi,
@@ -136,7 +136,7 @@ resolve_dir() {
     exit 2
   fi
   [ "$count" -eq 1 ] && { echo "$match"; return; }
-  # rebrew profile name (msvc6, borlandc55, watcom, ...) -> dir
+  # rebrew profile name (msvc-6.0, borland-5.5, watcom-2.0-win32, ...) -> dir
   for kv in $PROFILE_DIRS; do
     if [ "${kv%%=*}" = "$arg" ]; then
       echo "${kv#*=}"
