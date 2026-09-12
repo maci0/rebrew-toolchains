@@ -389,8 +389,8 @@
   "watcom-2.0-win32": {
     "family": "watcom",
     "host_dir": "watcom/2.0-win32",
-    "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/Last-CI-build/ow-snapshot.tar.xz",
-    "sha256": "5c87c1045e66dbb6339c3098f4b571e4e24273eba6ca733a021326ed91e1d920",
+    "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/2026-09-01-Build/ow-snapshot.tar.xz",
+    "sha256": "bac354f3c75ffa49ff8d70a44e475de7e7c1823fff04b80c14787bd0792c9bdf",
     "commit": "",
     "layout": "tar-strip1",
     "in_repo_tarball": ""

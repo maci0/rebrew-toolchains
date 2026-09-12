@@ -1,10 +1,10 @@
 # Open Watcom 2.0 (C) — x86 32-bit codegen compiler (native Linux).
 #
 # Inherits the shared rebrew/base; this image downloads the Open Watcom 2.0
-# CI snapshot (ow-snapshot.tar.xz — the official self-extracting installer
-# SIGFPEs on modern glibc, known issue), sha256-pinned so the moving
-# Last-CI-build tag is deterministic, and uses wcc386 as the entrypoint.
-# Fully self-contained: no host files.
+# snapshot (ow-snapshot.tar.xz — the official self-extracting installer
+# SIGFPEs on modern glibc, known issue) from the immutable dated release the
+# 16-bit image also uses, and runs wcc386 as the entrypoint.  Fully
+# self-contained: no host files.
 #
 # Build:  docker build -t rebrew/watcom:2.0-win32 watcom/2.0-win32
 # Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/watcom:2.0-win32 -fo=out.o f.c  (ENTRYPOINT is wcc386)
@@ -24,8 +24,8 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 
 
 RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/ow.tar.xz \
-        "https://github.com/open-watcom/open-watcom-v2/releases/download/Last-CI-build/ow-snapshot.tar.xz" \
-    && echo "5c87c1045e66dbb6339c3098f4b571e4e24273eba6ca733a021326ed91e1d920  /tmp/ow.tar.xz" | sha256sum -c - \
+        "https://github.com/open-watcom/open-watcom-v2/releases/download/2026-09-01-Build/ow-snapshot.tar.xz" \
+    && echo "bac354f3c75ffa49ff8d70a44e475de7e7c1823fff04b80c14787bd0792c9bdf  /tmp/ow.tar.xz" | sha256sum -c - \
     && mkdir -p /opt/watcom \
     && tar xJf /tmp/ow.tar.xz -C /opt/watcom --strip-components=1 \
     && rm /tmp/ow.tar.xz \
