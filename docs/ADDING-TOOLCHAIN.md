@@ -31,10 +31,19 @@ Prefer, in order:
 3. **The vendor/community release asset** (GCC tarballs, LLVM prebuilts,
    `archaic-toolchains` repos, …).
 
-**Know the traps in the big preservation repos.**  `decompals/IDO` is a ~1.2 GB
+**Know the traps in the big preservation repos.**  `decompals/IDO` is a ~1.5 GB
 media archive of IRIX IDO installs, not a per-toolchain source: the IRIX trees
 we actually pin come as individual tarballs from `LLONSIT/qemu-irix-helpers`
 (`ido5.2.tar.xz`, `ido5.3_c++.tar.xz`, `ido6.0.tar.xz`, `ssb_ido5.3.tar`, …).
+That archive was inventoried (38,464 entries) so nobody has to download it
+again: its IDO 5.3 tree is byte-identical to what we ship (`driver`
+`e197752a2c21`), its IRIX4 content is the already-documented 4.1.1 subtree, and
+**no Pascal front end exists anywhere in it** (`pc`/`pascal` appear in no path
+or product manifest), so it cannot unblock `ido5.3Pascal`/`ido7.1Pascal`.  The
+only trees in it that we do not already ship are **IDO 5.1** (*Ansi C 3.17* +
+*Development System 5.1*) and the **C++ Translator 4.0** cfront — both would
+need the whole 1.5 GB archive as their pin, and neither backs a community id, so
+they are deliberately unshipped.
 `qemu-irix-helpers` also publishes near-duplicate containers of the same tree —
 `ido6.0.tar.gz` is `ido6.0.tar.xz` minus the bundled emulator (207 shared files,
 all byte-identical) — so diff the file lists before picking one.
