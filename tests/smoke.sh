@@ -18,6 +18,16 @@ set -eu
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
 
+# The expected fragments below are deliberately loose: they must hold for any
+# file(1) magic database, which words the same object differently across
+# distributions ("Intel i386 COFF" here, "Intel 80386 COFF" on Ubuntu).  They
+# still catch the failure this harness exists for — an empty object, or one for
+# the wrong target.
+command -v file >/dev/null 2>&1 || {
+    echo "smoke: the file(1) command is required to identify the artifacts" >&2
+    exit 1
+}
+
 work="$(mktemp -d "${TMPDIR:-/tmp}/rebrew-smoke.XXXXXX")"
 trap 'rm -rf "$work"' EXIT
 # The toolchain images drop to uid 1000 (`rebrew`), so the mount must be
@@ -108,10 +118,10 @@ else
     done <<'CASES'
 ido-7.1|-c t.c -o t.o|t.o|MIPS
 ido-4.1|-c t.c -o t.o|t.o|MIPS
-msvc-6.0-sp6|/c t.c|t.obj|Intel i386 COFF
-icc-5.0.1-010525z|-c t.c -o t.obj|t.obj|Intel i386 COFF
+msvc-6.0-sp6|/c t.c|t.obj|COFF
+icc-5.0.1-010525z|-c t.c -o t.obj|t.obj|COFF
 borland-5.6|-c t.c|t.obj|relocatable
-msc-6.0|t.c|t.obj|Microsoft
+msc-6.0|t.c|t.obj|relocatable
 CASES
     if [ -e /dev/kvm ]; then
         while IFS='|' read -r profile args artifact expect; do
