@@ -1,0 +1,34 @@
+# Behavioural gate: builds one image per runtime class and compiles with it.
+#
+# `lint.yml` proves the manifest, the Dockerfiles and the generated docs agree;
+# it cannot prove an image produces an object.  This job runs `make smoke`,
+# which does — the same check every image passed by hand before landing.  It
+# needs Docker (present on the runner) and network for the first build of each
+# image.  GitHub's runners expose no /dev/kvm, so `make smoke` skips the
+# dosemu2 cases there and says so; those are verified locally.
+name: smoke
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Free up disk space for image layers
+        run: |
+          sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android
+          docker image prune -af || true
+      - name: Build and compile with one image per runtime class
+        run: make smoke

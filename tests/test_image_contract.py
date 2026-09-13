@@ -22,8 +22,15 @@ _OCI_LABELS = ("source", "licenses", "title", "description")
 
 #: The shared run helpers a wrapper may dispatch through.  A wine image uses
 #: ``rebrew_run``, a DOSBox image ``rebrew_dosbox_compile`` /
-#: ``rebrew_dosbox_run``, a native-binary image ``rebrew_exec``.
-_RUN_HELPERS = ("rebrew_run", "rebrew_dosbox_compile", "rebrew_dosbox_run", "rebrew_exec")
+#: ``rebrew_dosbox_run``, a DOS-binary image ``rebrew_dosemu_run`` (dosemu2),
+#: a native-binary image ``rebrew_exec``.
+_RUN_HELPERS = (
+    "rebrew_run",
+    "rebrew_dosbox_compile",
+    "rebrew_dosbox_run",
+    "rebrew_dosemu_run",
+    "rebrew_exec",
+)
 
 
 def _toolchain_dirs() -> list[Path]:
@@ -91,6 +98,23 @@ class TestImageContract(unittest.TestCase):
     def test_install_root_is_under_opt(self) -> None:
         for d in _toolchain_dirs():
             self.assertIn("mkdir -p /opt/", (d / "Dockerfile").read_text(encoding="utf-8"), d)
+
+    def test_every_toolchain_directory_is_manifested(self) -> None:
+        """Any directory carrying image inputs must be a manifest host_dir.
+
+        The reverse sweep above only looks at directories holding a
+        Dockerfile; a directory with just a wrapper file (what a template
+        escaping bug leaves behind) would otherwise slip through.
+        """
+        known = {str(e["host_dir"]) for e in _manifest().values()}
+        for path in sorted(_REPO.glob("*/*")):
+            if not path.is_dir():
+                continue
+            has_inputs = (path / "Dockerfile").exists() or next(path.glob("*.sh"), None)
+            self.assertTrue(
+                has_inputs is None or str(path.relative_to(_REPO)) in known,
+                f"{path.relative_to(_REPO)}: image inputs but no manifest entry",
+            )
 
     def test_wrapper_goes_through_the_shared_helpers(self) -> None:
         """Inline wrappers and sibling ``*.sh`` wrappers are both allowed, but

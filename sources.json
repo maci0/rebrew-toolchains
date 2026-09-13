@@ -1,10 +1,289 @@
 {
+  "agbcc": {
+    "family": "agbcc",
+    "host_dir": "agbcc/gba",
+    "url": "https://github.com/pret/agbcc/releases/download/release/agbcc.tar.gz",
+    "sha256": "bcf0197e3e27d8e08506a142e25fa68ea7f6679a98347a6406804eb3f9ff4d29",
+    "commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "agbcc-arm-gba": {
+    "family": "agbcc",
+    "host_dir": "agbcc/arm-gba",
+    "url": "https://github.com/pret/agbcc/releases/download/release/agbcc.tar.gz",
+    "sha256": "bcf0197e3e27d8e08506a142e25fa68ea7f6679a98347a6406804eb3f9ff4d29",
+    "commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "agbcc_arm"
+    ]
+  },
+  "agbcc-fe8j": {
+    "family": "agbcc",
+    "host_dir": "agbcc/fe8j-gba",
+    "url": "https://github.com/laqieer/agbcc/releases/download/fe8j-v1/agbcc.tar.gz",
+    "sha256": "5bdeac906031476a341f09929d303c5834d8adda8dc00bd85934eb4b2463daa7",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "agbcc-old-gba": {
+    "family": "agbcc",
+    "host_dir": "agbcc/old-gba",
+    "url": "https://github.com/pret/agbcc/releases/download/release/agbcc.tar.gz",
+    "sha256": "bcf0197e3e27d8e08506a142e25fa68ea7f6679a98347a6406804eb3f9ff4d29",
+    "commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "old_agbcc"
+    ]
+  },
+  "agbccpp": {
+    "family": "agbccpp",
+    "host_dir": "agbccpp/gba",
+    "url": "https://github.com/notyourav/agbcc/releases/download/cp/agbcc.tar.gz",
+    "sha256": "05a30f03ee916563bba29efdc9da64c47909892aa878002cf07e8e7ae5bd32f5",
+    "commit": "ac51b05a074197bffa51148ae543ce1e03c9c094",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "armcc-4.0-771": {
+    "family": "armcc",
+    "host_dir": "armcc/4.0-771-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.0/b771",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_40_771"
+    ]
+  },
+  "armcc-4.0-821": {
+    "family": "armcc",
+    "host_dir": "armcc/4.0-821-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.0/b821",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_40_821"
+    ]
+  },
+  "armcc-4.0-865": {
+    "family": "armcc",
+    "host_dir": "armcc/4.0-865-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.0/b865",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_40_865"
+    ]
+  },
+  "armcc-4.0-902": {
+    "family": "armcc",
+    "host_dir": "armcc/4.0-902-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.0/b902",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_40_902"
+    ]
+  },
+  "armcc-4.1-1049": {
+    "family": "armcc",
+    "host_dir": "armcc/4.1-1049-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.1/b1049",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_41_1049"
+    ]
+  },
+  "armcc-4.1-1440": {
+    "family": "armcc",
+    "host_dir": "armcc/4.1-1440-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.1/b1440",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_41_1440"
+    ]
+  },
+  "armcc-4.1-1454": {
+    "family": "armcc",
+    "host_dir": "armcc/4.1-1454-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.1/b1454",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_41_1454"
+    ]
+  },
+  "armcc-4.1-561": {
+    "family": "armcc",
+    "host_dir": "armcc/4.1-561-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.1/b561",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_41_561"
+    ]
+  },
+  "armcc-4.1-713": {
+    "family": "armcc",
+    "host_dir": "armcc/4.1-713-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.1/b713",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_41_713"
+    ]
+  },
+  "armcc-4.1-791": {
+    "family": "armcc",
+    "host_dir": "armcc/4.1-791-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.1/b791",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_41_791"
+    ]
+  },
+  "armcc-4.1-844": {
+    "family": "armcc",
+    "host_dir": "armcc/4.1-844-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.1/b844",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_41_844"
+    ]
+  },
+  "armcc-4.1-894": {
+    "family": "armcc",
+    "host_dir": "armcc/4.1-894-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.1/b894",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_41_894"
+    ]
+  },
+  "armcc-4.1-921": {
+    "family": "armcc",
+    "host_dir": "armcc/4.1-921-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:4.1/b921",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_41_921"
+    ]
+  },
+  "armcc-5.04-82": {
+    "family": "armcc",
+    "host_dir": "armcc/5.04-82-3ds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04",
+    "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:5.04/b82",
+    "in_repo_tarball": "",
+    "aliases": [
+      "armcc_504_82"
+    ]
+  },
+  "borland-2.0": {
+    "family": "borland",
+    "host_dir": "borland/2.0-win16",
+    "url": "https://codeload.github.com/archaic-toolchains/tc20/tar.gz/refs/heads/main",
+    "sha256": "2eca4c26c1b30ce2bd7e61573eb9f40096994405fc173c28143f06a93da269d1",
+    "commit": "64b5ef09a7c18b65c38902a217bcfec67c4b113b",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "borland-2.0-decompme": {
+    "family": "borland",
+    "host_dir": "borland/2.0-decompme-win16",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/bcc2.0.tar.gz",
+    "sha256": "6a8bb50e1d390e05ea8ef5ea076035eadda32eb1640b5b802538f2c3933565c3",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "bcc2.0"
+    ]
+  },
+  "borland-3.1": {
+    "family": "borland",
+    "host_dir": "borland/3.1-win16",
+    "url": "https://codeload.github.com/archaic-toolchains/tc31/tar.gz/refs/heads/main",
+    "sha256": "3d534741ebdc31ffdceb87db8de3b7d494ad5c912b7cd1a4f326b4a94d0c2ba1",
+    "commit": "ba6af878392be5ea20f6bb54f7dd2359b3845b7b",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "borland-3.1-decompme": {
+    "family": "borland",
+    "host_dir": "borland/3.1-decompme-win16",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/bcc3.1.tar.gz",
+    "sha256": "1fad5133fbe034f00e263e114993fbbcea5ff9ee061449b34e78704ed95af6fc",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "bcc3.1"
+    ]
+  },
   "borland-5.5": {
     "family": "borland",
     "host_dir": "borland/5.5-win32",
     "url": "https://codeload.github.com/archaic-toolchains/borlandc55/tar.gz/refs/heads/main",
     "sha256": "e9319c3904303ca4424cfed855b17837d10aa9653a3d8e6329d2adb3326392b0",
     "commit": "fcdcaf5bc41fc166ef632329c72baf6d487b50d2",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "borland-5.6": {
+    "family": "borland",
+    "host_dir": "borland/5.6-win32",
+    "url": "https://codeload.github.com/earthsiege2/borland-cpp-ide/tar.gz/09bcecc81184",
+    "sha256": "8e5a93db99330b816646a14bdfa1c90d2e80a41810ce8c65f4942378cb621882",
+    "commit": "09bcecc81184",
+    "layout": "tar-subset",
+    "in_repo_tarball": ""
+  },
+  "clang-16.0.4": {
+    "family": "clang",
+    "host_dir": "clang/16.0.4-linux-x64",
+    "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.4/clang+llvm-16.0.4-x86_64-linux-gnu-ubuntu-22.04.tar.xz",
+    "sha256": "fd464333bd55b482eb7385f2f4e18248eb43129a3cda4c0920ad9ac3c12bdacf",
+    "commit": "",
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
@@ -17,11 +296,38 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "clang-16.0.4": {
+  "clang-3.9.1": {
     "family": "clang",
-    "host_dir": "clang/16.0.4-linux-x64",
-    "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.4/clang+llvm-16.0.4-x86_64-linux-gnu-ubuntu-22.04.tar.xz",
-    "sha256": "fd464333bd55b482eb7385f2f4e18248eb43129a3cda4c0920ad9ac3c12bdacf",
+    "host_dir": "clang/3.9.1-switch",
+    "url": "https://releases.llvm.org/3.9.1/clang+llvm-3.9.1-x86_64-linux-gnu-debian8.tar.xz",
+    "sha256": "dbe2ad98cd9c2b718fdfb5dc72dcf9cfb91009d05a5b2b37457cccc958559b2a",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "clang-4.0.1": {
+    "family": "clang",
+    "host_dir": "clang/4.0.1-switch",
+    "url": "https://releases.llvm.org/4.0.1/clang+llvm-4.0.1-x86_64-linux-gnu-debian8.tar.xz",
+    "sha256": "ca48a4def4cbc9dd6af3f46ce1dc2bd903d26c7ad51387f57884ad1eaa58e42f",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "clang-8.0.0": {
+    "family": "clang",
+    "host_dir": "clang/8.0.0-switch",
+    "url": "https://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
+    "sha256": "0f5c314f375ebd5c35b8c1d5e5b161d9efaeff0523bac287f8b4e5b751272f51",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "clang-9.0.0": {
+    "family": "clang",
+    "host_dir": "clang/9.0.0-switch",
+    "url": "https://releases.llvm.org/9.0.0/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
+    "sha256": "a23b082b30c128c9831dbdd96edad26b43f56624d0ad0ea9edec506f5385038d",
     "commit": "",
     "layout": "tar-strip1",
     "in_repo_tarball": ""
@@ -35,6 +341,195 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
+  "ee-gcc-2.9-990721": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.9-990721-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.9-990721.tar.xz",
+    "sha256": "ad2ea68afff2be25d21a1d51a75e8a0eea8f259018e6580622355cd01b95676b",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.9-990721"
+    ]
+  },
+  "ee-gcc-2.9-991111": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.9-991111-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.9-991111.tar.xz",
+    "sha256": "99cb5db603cd985b50fc6851157020ad69489f2227309ccf825bd43ac7bc19dd",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.9-991111"
+    ]
+  },
+  "ee-gcc-2.9-991111-01": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.9-991111-01-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.9-991111-01.tar.xz",
+    "sha256": "ed684fd98f89d36b0121caab311052089103e3b36241fcef4338cc9ea41c75b8",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.9-991111-01"
+    ]
+  },
+  "ee-gcc-2.9-991111-01-dtls13010": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.9-991111-01-dtls13010-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.9-991111-01-dtls13010.tar.gz",
+    "sha256": "3ab52a7ea962100f2a7df3e04d3e7a758aad669eb365251682e769b755d9d586",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.9-991111-01-dtls13010"
+    ]
+  },
+  "ee-gcc-2.9-991111a": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.9-991111a-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.9-991111a.tar.xz",
+    "sha256": "f07d1f38afa847197fb816237dbce64e79b2d37b738cb93fa4df3ac7aa1d16f3",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.9-991111a"
+    ]
+  },
+  "ee-gcc-2.9-991111b-r4": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.9-991111b-r4-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.9-991111.tar.gz",
+    "sha256": "9ebbb042eb1e5d33d772293c5e9286a54dbec29865a3d7fbb398c97436f33583",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.9-991111b-r4"
+    ]
+  },
+  "ee-gcc-2.95.2-273a": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.95.2-273a-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ps2_compilers.tar.xz",
+    "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar-subpath:ee-gcc2.95.2-273a",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.95.2-273a"
+    ]
+  },
+  "ee-gcc-2.95.2-274": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.95.2-274-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ps2_compilers.tar.xz",
+    "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar-subpath:ee-gcc2.95.2-274",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.95.2-274"
+    ]
+  },
+  "ee-gcc-2.95.3-107": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.95.3-107-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ps2_compilers.tar.xz",
+    "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar-subpath:ee-gcc2.95.3-107",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.95.3-107"
+    ]
+  },
+  "ee-gcc-2.95.3-114": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.95.3-114-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ps2_compilers.tar.xz",
+    "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar-subpath:ee-gcc2.95.3-114",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.95.3-114"
+    ]
+  },
+  "ee-gcc-2.95.3-136": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.95.3-136-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.95.3-136.tar.gz",
+    "sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.95.3-136"
+    ]
+  },
+  "ee-gcc-2.96": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/2.96-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc2.96.tar.xz",
+    "sha256": "0590d2ca9da8f5903889d66761220d14b47a8d14ba987ca53db84a1650a1fd0a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc2.96"
+    ]
+  },
+  "ee-gcc-3.2-030210-beta2": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/3.2-030210-beta2-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc3.2-030210-beta2.tar.gz",
+    "sha256": "5244521973d3fa9712cc9f945e6e45c489d69d846ca6639b0c07c3e885a923a1",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc3.2-030210-beta2"
+    ]
+  },
+  "ee-gcc-3.2-030926": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/3.2-030926-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc3.2-030926.tar.gz",
+    "sha256": "6b92b61e40f80835b165d14fadd57d4046dbee82195599f791626180fe79b8e9",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc3.2-030926"
+    ]
+  },
+  "ee-gcc-3.2-040921": {
+    "family": "ee-gcc",
+    "host_dir": "ee-gcc/3.2-040921-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ee-gcc3.2-040921.tar.xz",
+    "sha256": "8c60ca7482523190e999524a7e4de2379dcf7ffee543c1b5663bfdf6a80ebf0f",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ee-gcc3.2-040921"
+    ]
+  },
+  "gcc-12.3.0": {
+    "family": "gcc",
+    "host_dir": "gcc/12.3.0-linux-x64",
+    "url": "https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz",
+    "sha256": "949a5d4f99e786421a93b532b22ffab5578de7321369975b91aec97adfda8c3b",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
   "gcc-14.2.0": {
     "family": "gcc",
     "host_dir": "gcc/14.2.0-linux-x64",
@@ -42,6 +537,763 @@
     "sha256": "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9",
     "commit": "",
     "layout": "tar-strip1",
+    "in_repo_tarball": ""
+  },
+  "gcc-2.5.7-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.5.7-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.5.7.tar.gz",
+    "sha256": "1cb0a3421d117477acd24e693a80968d04f977717ac5acc963c92f74f1a1360a",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.5.7-mipsel"
+    ]
+  },
+  "gcc-2.5.7-psx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.5.7-psx-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.5.7-psx.tar.gz",
+    "sha256": "0db1fb403c766e51b094354b9a136a6c1f01457aa41ccca28ac457b7cb67d871",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.5.7-psx"
+    ]
+  },
+  "gcc-2.6.0-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.6.0-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.6.0.tar.gz",
+    "sha256": "ca226713b4a303b2782eeae11888355b1fe92c941f9f70cd3548c926346a893e",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.6.0-mipsel"
+    ]
+  },
+  "gcc-2.6.0-psx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.6.0-psx-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.6.0-psx.tar.gz",
+    "sha256": "358dac949f0f566af9c6af93bba0d4ac04d56ca9df80c58bd66d81bbb50deceb",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.6.0-psx"
+    ]
+  },
+  "gcc-2.6.3-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.6.3-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.6.3.tar.gz",
+    "sha256": "b80ecdc052ccf459a85f538773b1373a7bfa267cf779641fae447ef6debca2a4",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.6.3-mipsel"
+    ]
+  },
+  "gcc-2.6.3-ps1": {
+    "family": "gcc",
+    "host_dir": "gcc/2.6.3-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.6.3-psx.tar.gz",
+    "sha256": "01e6e8c4933414ea3f8d8e3bc766a1f5fafd4fc0110e0b75d1f691bd791989b1",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.6.3-psx",
+      "gcc-2.6.3-psx"
+    ]
+  },
+  "gcc-2.7.0-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.0-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.7.0.tar.gz",
+    "sha256": "157a26ae5ecd60d395bf9ab0d9c8321920f62f789dec0223cb79ed6c9a96ee48",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.0-mipsel"
+    ]
+  },
+  "gcc-2.7.1-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.1-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.7.1.tar.gz",
+    "sha256": "e13476a0539055faf9aefc846a1b6b774ec84b8f02bbecaff09b6ce0774ca746",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.1-mipsel"
+    ]
+  },
+  "gcc-2.7.2-cdk": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-cdk-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.7.2-cdk.tar.gz",
+    "sha256": "42bb0df96db11a9b5d2e23d78bdc962791f40046280d3d360da93fe5eef6f0bb",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2-cdk"
+    ]
+  },
+  "gcc-2.7.2-kmc": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-kmc-n64",
+    "url": "https://github.com/decompals/mips-gcc-2.7.2/releases/download/main/gcc-2.7.2-linux.tar.gz",
+    "sha256": "ff3e299c1d952c0a5cb39f7790a208d0c547cf93986eb5607f820c935cedc288",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2kmc"
+    ],
+    "binutils_url": "https://github.com/decompals/mips-binutils-2.6/releases/download/main/binutils-2.6-linux.tar.gz",
+    "binutils_sha256": "405a7ddb29a0b2eb472b167e8f15472223df1eff3093a5ff31d6e545d3a6c670"
+  },
+  "gcc-2.7.2-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.7.2.tar.gz",
+    "sha256": "909b6b6834212e1e26a9b58b39dff54ea1a38c74afea788a75fe3bc62653d14d",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2-mipsel"
+    ]
+  },
+  "gcc-2.7.2-psx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-psx-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.7.2-psx.tar.gz",
+    "sha256": "500a459b3485e885a8d302cac23c2a4632f3900e03a09153f6190699fd723571",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2-psx"
+    ]
+  },
+  "gcc-2.7.2-sn0001": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-sn0001-n64",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/n64_sn272_0001.tar.gz",
+    "sha256": "17c57ccd5f2305fe5445c576d4cc2c1fea681dd78b29dd3d1f15c5ca0fdf2cea",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2sn0001"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "gcc-2.7.2-sn0001-cxx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-sn0001-cxx-n64",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/n64_sn272_0001.tar.gz",
+    "sha256": "17c57ccd5f2305fe5445c576d4cc2c1fea681dd78b29dd3d1f15c5ca0fdf2cea",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2sn0001-cxx"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "gcc-2.7.2-sn0004": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-sn0004-n64",
+    "url": "https://github.com/Mr-Wiseguy/pcsx-redux/releases/download/n64/cc1n64.exe",
+    "sha256": "17b0d9dc6a80b2aaec90f912bb442321ec8bc5cecaf7071f5bd187e1d6525d49",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2sn0004"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
+    "extra_pins": [
+      {
+        "url": "https://github.com/Mr-Wiseguy/pcsx-redux/releases/download/n64/asn64.exe",
+        "sha256": "1e04e1195f6504fe711c3db67ad94eb50d47f2a0f21e87dbbe20cbac4d83db39"
+      }
+    ]
+  },
+  "gcc-2.7.2-sn0006": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-sn0006-n64",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/n64_sn272_0006.tar.gz",
+    "sha256": "1a35a875278f38bfc285c2bd80b782cec38859dedfd925d8b8a2f1733ba9acad",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2sn0006"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "gcc-2.7.2-sn0006-cxx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-sn0006-cxx-n64",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/n64_sn272_0006.tar.gz",
+    "sha256": "1a35a875278f38bfc285c2bd80b782cec38859dedfd925d8b8a2f1733ba9acad",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2sn0006-cxx"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "gcc-2.7.2-snew": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2-snew-n64",
+    "url": "https://github.com/decompals/SN64-gcc/releases/download/gcc-2.7.2-970404/SN64-gcc-2.7.2-970404-linux.tar.gz",
+    "sha256": "60abe17c2562f5ae28444fe4f783fa8217d84b73e59e29cf39c41f7551d968f4",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2snew"
+    ],
+    "extra_pins": [
+      {
+        "url": "https://github.com/RocketRet/modern-asn64/releases/download/main-release/modern-asn64.py",
+        "sha256": "7e6815e2c2c0ae0b4581ace1c5adab3d1d567f0fc729f674fc52bdd77e2240bc"
+      }
+    ]
+  },
+  "gcc-2.7.2.1-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2.1-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.7.2.1.tar.gz",
+    "sha256": "8fdfcd95768eca36c1b373f16f57f78ab90877a71e2886f0a07422332d759755",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2.1-mipsel"
+    ]
+  },
+  "gcc-2.7.2.2-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2.2-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.7.2.2.tar.gz",
+    "sha256": "9f7ed2baae64dc0f2b3b1354914d34fee9aaaa3a3c5deda49a73b7183a9b5e28",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2.2-mipsel"
+    ]
+  },
+  "gcc-2.7.2.3-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.7.2.3-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.7.2.3.tar.gz",
+    "sha256": "34e525c1feb9a6f4ef98b590e72dacb4c79a67c5f135db11d6a9cb62a5e74edb",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.7.2.3-mipsel"
+    ]
+  },
+  "gcc-2.8.0-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.8.0-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.8.0.tar.gz",
+    "sha256": "f4d0bea985cd53bc7ee43f366a4058c631071e925b6ba25fc919d15e7c6a8ba0",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.8.0-mipsel"
+    ]
+  },
+  "gcc-2.8.0-psx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.8.0-psx-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.8.0-psx.tar.gz",
+    "sha256": "1a3c956fe8aea5ebdb251749d95de2c84f023530584d7bd663744b5ec24050b7",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.8.0-psx"
+    ]
+  },
+  "gcc-2.8.1-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.8.1-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.8.1.tar.gz",
+    "sha256": "2421097de375a67939713480ea2aa17ce4df6c92cf0c476e68e9ac08c09c759e",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.8.1-mipsel"
+    ]
+  },
+  "gcc-2.8.1-pm": {
+    "family": "gcc",
+    "host_dir": "gcc/2.8.1-pm-n64",
+    "url": "https://github.com/pmret/gcc-papermario/releases/download/master/linux.tar.gz",
+    "sha256": "1156cf0d6a88a64c20e2a10fc9445d99cb9a38518f432b1669528dfa82ebb45f",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.8.1pm"
+    ],
+    "binutils_url": "https://github.com/pmret/binutils-papermario/releases/download/master/linux.tar.gz",
+    "binutils_sha256": "c3cd88db47ac41f78b557042c7e7ad47ac9c04cee6f0d1069a489c1c9e8c103c"
+  },
+  "gcc-2.8.1-psx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.8.1-psx-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.8.1-psx.tar.gz",
+    "sha256": "f6f6e883942d4d3289d048236c672e71ed410e546aaae8ff655952f1567e1be0",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.8.1-psx"
+    ]
+  },
+  "gcc-2.8.1-sn": {
+    "family": "gcc",
+    "host_dir": "gcc/2.8.1-sn-n64",
+    "url": "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/cc1n64.exe",
+    "sha256": "d90df1028c46d826e37146dbcc3e3385f78c59e05a9ddd952daa94c9ad379d9c",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.8.1sn"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
+    "extra_pins": [
+      {
+        "url": "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/asn64.exe",
+        "sha256": "53e3a9f8b7b9a06c8f5a781f01074441df3469e6bbe2df5438ba4e2d8fcf3819"
+      }
+    ]
+  },
+  "gcc-2.8.1-sn-cxx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.8.1-sn-cxx-n64",
+    "url": "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/cc1n64.exe",
+    "sha256": "d90df1028c46d826e37146dbcc3e3385f78c59e05a9ddd952daa94c9ad379d9c",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.8.1sn-cxx"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
+    "extra_pins": [
+      {
+        "url": "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/cc1pln64.exe",
+        "sha256": "85e3e9fa05640af67115279a992a616a1a1fec8cf56b2e58191196fbbc51853a"
+      },
+      {
+        "url": "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/asn64.exe",
+        "sha256": "53e3a9f8b7b9a06c8f5a781f01074441df3469e6bbe2df5438ba4e2d8fcf3819"
+      }
+    ]
+  },
+  "gcc-2.8.1-snew-cxx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.8.1-snew-cxx-n64",
+    "url": "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/cc1n64.exe",
+    "sha256": "d90df1028c46d826e37146dbcc3e3385f78c59e05a9ddd952daa94c9ad379d9c",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.8.1snew-cxx"
+    ],
+    "extra_pins": [
+      {
+        "url": "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/cc1pln64.exe",
+        "sha256": "85e3e9fa05640af67115279a992a616a1a1fec8cf56b2e58191196fbbc51853a"
+      },
+      {
+        "url": "https://github.com/RocketRet/modern-asn64/releases/download/main-release/modern-asn64.py",
+        "sha256": "7e6815e2c2c0ae0b4581ace1c5adab3d1d567f0fc729f674fc52bdd77e2240bc"
+      }
+    ]
+  },
+  "gcc-2.91.66-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.91.66-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.91.66.tar.gz",
+    "sha256": "3ab7b4aaa763a9b10d44c3f4b75a617f2aae38807fbd8ac5b61f9d73df5cfa85",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.91.66-mipsel"
+    ]
+  },
+  "gcc-2.91.66-psx": {
+    "family": "gcc",
+    "host_dir": "gcc/2.91.66-psx-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.91.66-psx.tar.gz",
+    "sha256": "f773a0a9659fa4ff74313ac4363d939312e8125675cd09ad9f8c1202f587f1fd",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.91.66-psx"
+    ]
+  },
+  "gcc-2.95.2-mipsel": {
+    "family": "gcc",
+    "host_dir": "gcc/2.95.2-mipsel-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.95.2.tar.gz",
+    "sha256": "23da2192d39a6b829e8c5a26a1c8d211c4aa24849b71da088bc9a76e2e7ab781",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.95.2-mipsel"
+    ]
+  },
+  "gcc-2.95.2-ps1": {
+    "family": "gcc",
+    "host_dir": "gcc/2.95.2-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.95.2-psx.tar.gz",
+    "sha256": "932ed3669710a82b12570c29c46ff42989b6505b2af10db84d4551d55dfc0b1c",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.95.2-psx"
+    ]
+  },
+  "gcc-2.96": {
+    "family": "gcc",
+    "host_dir": "gcc/2.96-gba",
+    "url": "https://github.com/SBird1337/camelot-gcc/releases/download/2.96/gcc-2.96-20000731-armelf.tar.gz",
+    "sha256": "c0613784e1c3b228512db2abebdce1e7b8afc211dc904d9ae23b913fd9025af9",
+    "commit": "",
+    "layout": "tar-root",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc2.96"
+    ]
+  },
+  "gcc-3.1-1041": {
+    "family": "gcc",
+    "host_dir": "gcc/3.1-1041-macos",
+    "url": "https://github.com/ChrisNonyminus/powerpc-darwin-cross/releases/download/initial/gcc3-1041.tar.gz",
+    "sha256": "3ef1f2422e3cb9ede9a3f9c16d898c62550adde870ac58cb3b4e86689bdd702a",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc3-1041"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/ChrisNonyminus/ec53837b151a65e4233fa53604de4549/raw/d7c6fc639310b938fa519e68a8f8d4909acba2ad/convert_gas_syntax.py",
+    "helper_sha256": "8ad067bedef54c526774e6453f55ef7a2bedc93604bd7640a6a8a1cc64b3cda0"
+  },
+  "gcc-3.2-rh8": {
+    "family": "gcc",
+    "host_dir": "gcc/3.2-rh8-linux-i386",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/rh8_gcc3.2/rh8_gcc3.2.tar.gz",
+    "sha256": "4b6e6bb7b360dc62b3b2a3176563357ae651873e2b3e3523871b9c7d30417c7a",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "rh8_gcc3.2",
+      "gcc3.2-rh8"
+    ]
+  },
+  "gcc-4.0.0-5026": {
+    "family": "gcc",
+    "host_dir": "gcc/4.0.0-5026-macos",
+    "url": "https://github.com/ChrisNonyminus/powerpc-darwin-cross/releases/download/initial/gcc-5026.tar.gz",
+    "sha256": "74c5c4fb729544ebeb376de8eaa6126edfa7e3c55fa01f071e1a6e597e9a0896",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc-5026",
+      "gcc-5026-cpp"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/ChrisNonyminus/ec53837b151a65e4233fa53604de4549/raw/d7c6fc639310b938fa519e68a8f8d4909acba2ad/convert_gas_syntax.py",
+    "helper_sha256": "8ad067bedef54c526774e6453f55ef7a2bedc93604bd7640a6a8a1cc64b3cda0"
+  },
+  "gcc-4.0.1-5363": {
+    "family": "gcc",
+    "host_dir": "gcc/4.0.1-5363-macos",
+    "url": "https://github.com/ChrisNonyminus/powerpc-darwin-cross/releases/download/initial/gcc-5363.tar.gz",
+    "sha256": "57bac0e2082fafb581cd8a1f8d5bfe2a1e6b04ba69fde8a2ac1dd08c04b3bd7d",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc-5363",
+      "gcc-5363-cpp"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/ChrisNonyminus/ec53837b151a65e4233fa53604de4549/raw/d7c6fc639310b938fa519e68a8f8d4909acba2ad/convert_gas_syntax.py",
+    "helper_sha256": "8ad067bedef54c526774e6453f55ef7a2bedc93604bd7640a6a8a1cc64b3cda0"
+  },
+  "gcc-4.0.1-5370": {
+    "family": "gcc",
+    "host_dir": "gcc/4.0.1-5370-macos",
+    "url": "https://github.com/ChrisNonyminus/powerpc-darwin-cross/releases/download/initial/gcc-5370.tar.gz",
+    "sha256": "0d55f044365ffd8b34b5d13854235779cfe54131d16a62e5a909ace889363448",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc-5370",
+      "gcc-5370-cpp"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/ChrisNonyminus/ec53837b151a65e4233fa53604de4549/raw/d7c6fc639310b938fa519e68a8f8d4909acba2ad/convert_gas_syntax.py",
+    "helper_sha256": "8ad067bedef54c526774e6453f55ef7a2bedc93604bd7640a6a8a1cc64b3cda0"
+  },
+  "gcc-4.4.0-mips64-elf": {
+    "family": "gcc",
+    "host_dir": "gcc/4.4.0-mips64-elf-n64",
+    "url": "https://github.com/devwizard64/gcc4.4.0-mips64-elf/releases/download/latest/gcc4.4.0-mips64-elf.tar.gz",
+    "sha256": "d1a9815f730582ff65f8c14371c62436790655b20a21a5f8ee8b39b4fafa2f58",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "gcc4.4.0-mips64-elf"
+    ]
+  },
+  "gcc-egcs-1.1.2-4": {
+    "family": "gcc",
+    "host_dir": "gcc/egcs-1.1.2-4-n64",
+    "url": "https://github.com/AngheloAlf/egcs_1.1.2-4/releases/download/latest/egcs_1.1.2-4.tar.gz",
+    "sha256": "c8d0adeecbe655db1631df5dea58781f4aa738f9762b907f58a6e70740d1815a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "egcs_1.1.2-4"
+    ]
+  },
+  "gcc-egcs-1.1.2-4c": {
+    "family": "gcc",
+    "host_dir": "gcc/egcs-1.1.2-4c-n64",
+    "url": "https://github.com/decompals/mips-gcc-egcs-2.91.66/releases/download/0.7/mips-gcc-egcs-2.91.66-linux.tar.gz",
+    "sha256": "47b8cfccbad18fba40daa3fb01f4d71da7895d9183ab3ab91d6d7b1d27a715ab",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "egcs_1.1.2-4c"
+    ],
+    "extra_pins": [
+      {
+        "url": "https://github.com/decompals/mips-binutils-egcs-2.9.5/releases/download/0.6/mips-binutils-egcs-2.9.5-linux.tar.gz",
+        "sha256": "54eb249ccfbc9956048de5c740ff41d6ab6137cfc3a872739e465349327bbcbf"
+      }
+    ]
+  },
+  "ghs-5.3.22": {
+    "family": "ghs",
+    "host_dir": "ghs/5.3.22-wiiu",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ghs5.3.22.tar.gz",
+    "sha256": "41cd0a4723acfbddf8f70a9c3ff84bce7e85087b1d1ccef8bbf5f03d82c2b520",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ghs5.3.22"
+    ]
+  },
+  "icc-5.0.1-010525z": {
+    "family": "icc",
+    "host_dir": "icc/5.0.1-010525z-win32",
+    "url": "https://github.com/bwrsandman/icc5.0.1.010525Z/releases/download/v1/icc5.0.1-010525z.tar.gz",
+    "sha256": "2661672232e8845004f40d8aaba15f19cde36750b72b3a864aa21f6a0d196564",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "icc5.0.1-010525z"
+    ]
+  },
+  "ido-4.1": {
+    "family": "ido",
+    "host_dir": "ido/4.1-n64",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ido4.1.tar.gz",
+    "sha256": "16008087602fe1a39cdd7880a3c6987891ddb594cce4416670f2e96456e9b4d4",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ido4.1"
+    ]
+  },
+  "ido-5.2": {
+    "family": "ido",
+    "host_dir": "ido/5.2-n64",
+    "url": "https://github.com/LLONSIT/qemu-irix-helpers/raw/d577d1654ca4b57585af59849cb067c0148874d7/qemu/ido5.2.tar.xz",
+    "sha256": "870cd946d31d6abee24d47926328d15909771520240a0a4f5cb7d27aea90e1ad",
+    "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ido5.2"
+    ]
+  },
+  "ido-5.3": {
+    "family": "ido",
+    "host_dir": "ido/5.3-n64",
+    "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-5.3-recomp-linux.tar.gz",
+    "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506",
+    "commit": "9c242adc890beef098020149d9554f48208f699d",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ido5.3"
+    ]
+  },
+  "ido-5.3-cxx": {
+    "family": "ido",
+    "host_dir": "ido/5.3-cxx-n64",
+    "url": "https://github.com/LLONSIT/qemu-irix-helpers/raw/d577d1654ca4b57585af59849cb067c0148874d7/qemu/ido5.3_c++.tar.xz",
+    "sha256": "851426c63ffb0688c702793113c2d9aa3c703c7a4e9d4240fc99d1862f79e4b9",
+    "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ido5.3_c++",
+      "ido5.3_c++_irix",
+      "ido5.3-cxx"
+    ]
+  },
+  "ido-5.3-irix": {
+    "family": "ido",
+    "host_dir": "ido/5.3-irix-n64",
+    "url": "https://github.com/LLONSIT/qemu-irix-helpers/raw/d577d1654ca4b57585af59849cb067c0148874d7/qemu/ssb_ido5.3.tar",
+    "sha256": "a8a5bfa1713cc63c157ed4d61d0fb19f2d2ab10612fd9df2ceeb1de517cda4d4",
+    "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ido5.3_irix",
+      "ido5.3_asm_irix",
+      "ssb_ido5.3"
+    ],
+    "extra_pins": [
+      {
+        "url": "https://github.com/LLONSIT/qemu-irix-helpers/raw/d577d1654ca4b57585af59849cb067c0148874d7/qemu/ido_root.tar.xz",
+        "sha256": "d0d8a0deb1508fb1d3e91d5eaaded16a267af0be8e98aac7a104ba1bf4f677fb"
+      }
+    ]
+  },
+  "ido-6.0": {
+    "family": "ido",
+    "host_dir": "ido/6.0-n64",
+    "url": "https://github.com/LLONSIT/qemu-irix-helpers/raw/d577d1654ca4b57585af59849cb067c0148874d7/qemu/ido6.0.tar.xz",
+    "sha256": "c56d4be020bdaf76310ceec455ebc0d443fb7a46c740491f74898b04f6a60356",
+    "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ido6.0",
+      "ido6.0_irix"
+    ]
+  },
+  "ido-7.1": {
+    "family": "ido",
+    "host_dir": "ido/7.1-n64",
+    "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-7.1-recomp-linux.tar.gz",
+    "sha256": "0d411696e178fcca34c31c3bf02011b928d7fd9c1fa7f8bf45070e0781b58e15",
+    "commit": "9c242adc890beef098020149d9554f48208f699d",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ido7.1",
+      "ido7.1_irix"
+    ]
+  },
+  "ido-7.1-cxx": {
+    "family": "ido",
+    "host_dir": "ido/7.1-cxx-n64",
+    "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-7.1-recomp-linux.tar.gz",
+    "sha256": "0d411696e178fcca34c31c3bf02011b928d7fd9c1fa7f8bf45070e0781b58e15",
+    "commit": "9c242adc890beef098020149d9554f48208f699d",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ido7.1_c++"
+    ]
+  },
+  "ido-mipspro-744": {
+    "family": "ido",
+    "host_dir": "ido/mipspro-744-n64",
+    "url": "https://github.com/LLONSIT/qemu-irix-helpers/raw/d577d1654ca4b57585af59849cb067c0148874d7/qemu/mipspro7.4.4.tar.xz",
+    "sha256": "df33be0d9605b00b44070e567121fc00283a9b1f97763403f0898d2216028d24",
+    "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mips_pro_744",
+      "mips_pro_744_irix"
+    ]
+  },
+  "iop-gcc-2.8.1": {
+    "family": "iop-gcc",
+    "host_dir": "iop-gcc/2.8.1-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/iop-gcc2.8.1.tar.gz",
+    "sha256": "1f602e146f5be218cb3c84cda615432035bcf4a4f1a5f249164163a456ac929a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "iop-gcc2.8.1"
+    ]
+  },
+  "iop-gcc-2.95.2-102": {
+    "family": "iop-gcc",
+    "host_dir": "iop-gcc/2.95.2-102-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/iop-gcc2.95.2-102.tar.gz",
+    "sha256": "84016c5899358f65bb320081087f7fb82e32fd5f4ab25733bec094d4baa9728a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "iop-gcc2.95.2-102"
+    ]
+  },
+  "mingw-14.2.0": {
+    "family": "mingw",
+    "host_dir": "mingw/14.2.0-win32",
+    "url": "https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev2/i686-14.2.0-release-posix-dwarf-msvcrt-rt_v12-rev2.7z",
+    "sha256": "895d22c902e22d4b7b1c1b4160d1b3d70bbd6fc653b04f46b7736ef0ef5e4bc2",
+    "commit": "",
+    "layout": "7z-strip1",
     "in_repo_tarball": ""
   },
   "mingw-16.2.0": {
@@ -53,40 +1305,46 @@
     "layout": "7z-strip1",
     "in_repo_tarball": ""
   },
-  "mingw-14.2.0": {
-    "family": "mingw",
-    "host_dir": "mingw/14.2.0-win32",
-    "url": "https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev2/i686-14.2.0-release-posix-dwarf-msvcrt-rt_v12-rev2.7z",
-    "sha256": "895d22c902e22d4b7b1c1b4160d1b3d70bbd6fc653b04f46b7736ef0ef5e4bc2",
-    "commit": "",
-    "layout": "7z-strip1",
-    "in_repo_tarball": ""
+  "msc-5.1": {
+    "family": "msc",
+    "host_dir": "msc/5.1-msdos",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/msc-5.1.tar.gz",
+    "sha256": "97ca199c20ad09629ae7be0a653faac56612e0e03ed700a92dbfb75958207311",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "msc5.1"
+    ]
   },
-  "gcc-12.3.0": {
-    "family": "gcc",
-    "host_dir": "gcc/12.3.0-linux-x64",
-    "url": "https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz",
-    "sha256": "949a5d4f99e786421a93b532b22ffab5578de7321369975b91aec97adfda8c3b",
-    "commit": "",
+  "msc-6.0": {
+    "family": "msc",
+    "host_dir": "msc/6.0-msdos",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/msc600.tar.gz",
+    "sha256": "d918ee76b25f1e7c55fdcde6de37d4f47ad72e3e69c93e2323802fa951bd60c4",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "msc600"
+    ]
+  },
+  "msvc-1.0": {
+    "family": "msvc",
+    "host_dir": "msvc/1.0-win16",
+    "url": "https://codeload.github.com/archaic-toolchains/msvc10/tar.gz/refs/heads/main",
+    "sha256": "4858446b957fe327fedbb3a511316bebc060b72f22557a47397b905522668ce9",
+    "commit": "0cd3d8a2024119b6b08b384fd3487a64a59a25eb",
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "ido-5.3": {
-    "family": "ido",
-    "host_dir": "ido/5.3-linux",
-    "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-5.3-recomp-linux.tar.gz",
-    "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506",
-    "commit": "9c242adc890beef098020149d9554f48208f699d",
-    "layout": "tar",
-    "in_repo_tarball": ""
-  },
-  "ido-7.1": {
-    "family": "ido",
-    "host_dir": "ido/7.1-linux",
-    "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-7.1-recomp-linux.tar.gz",
-    "sha256": "0d411696e178fcca34c31c3bf02011b928d7fd9c1fa7f8bf45070e0781b58e15",
-    "commit": "9c242adc890beef098020149d9554f48208f699d",
-    "layout": "tar",
+  "msvc-1.5": {
+    "family": "msvc",
+    "host_dir": "msvc/1.5-win16",
+    "url": "https://codeload.github.com/archaic-toolchains/msvc15/tar.gz/refs/heads/main",
+    "sha256": "5cd1e4d9fd70fe97587fd3edfd0cebe3276e7b59ea5eb0848510f15c95d79aec",
+    "commit": "3649e12977c169bd60662362400677f28a716ef1",
+    "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
   "msvc-1.52": {
@@ -95,15 +1353,6 @@
     "url": "https://codeload.github.com/archaic-toolchains/msvc152/tar.gz/refs/heads/main",
     "sha256": "18fbdb547aa6a6cdbb3a77b00b5453f6fd9ae2b543a1c4842552643384e4711b",
     "commit": "3beb967dfc075d34a1a8f7d30e0428e447432270",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
-  },
-  "msvc-1.0": {
-    "family": "msvc",
-    "host_dir": "msvc/1.0-win16",
-    "url": "https://codeload.github.com/archaic-toolchains/msvc10/tar.gz/refs/heads/main",
-    "sha256": "4858446b957fe327fedbb3a511316bebc060b72f22557a47397b905522668ce9",
-    "commit": "0cd3d8a2024119b6b08b384fd3487a64a59a25eb",
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
@@ -134,15 +1383,6 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "msvc-1.5": {
-    "family": "msvc",
-    "host_dir": "msvc/1.5-win16",
-    "url": "https://codeload.github.com/archaic-toolchains/msvc15/tar.gz/refs/heads/main",
-    "sha256": "5cd1e4d9fd70fe97587fd3edfd0cebe3276e7b59ea5eb0848510f15c95d79aec",
-    "commit": "3649e12977c169bd60662362400677f28a716ef1",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
-  },
   "msvc-2.0": {
     "family": "msvc",
     "host_dir": "msvc/2.0-win32",
@@ -159,7 +1399,10 @@
     "sha256": "4996b91a8e075715238817ad567994b8dbf830d25d2c6e0fefe7adacc5b4ddec",
     "commit": "17122292d394baa5a08fea6c899cdf48b67efb15",
     "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc4.0"
+    ]
   },
   "msvc-4.1": {
     "family": "msvc",
@@ -177,7 +1420,10 @@
     "sha256": "651db241202416be7e870ff8d98928179b94515068e7895008b8a82cb0b7001c",
     "commit": "b42c244f0a83ba15ba2ffb62b0dc240d7b2dea50",
     "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc4.2"
+    ]
   },
   "msvc-5.0": {
     "family": "msvc",
@@ -249,7 +1495,10 @@
     "sha256": "f753adfa8a29d8b03fb67bbcaadd3e41d672b86e5e17e32084bd1b60a1771ab4",
     "commit": "ff28b93857087f787492eef603e243fcccb0b368",
     "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc6.3"
+    ]
   },
   "msvc-6.0-sp4": {
     "family": "msvc",
@@ -258,7 +1507,10 @@
     "sha256": "7aeb03f65858000bb6988a64cc066a4a2aec9fc591400db400ffe6fc99ae2dbc",
     "commit": "0ca69bae9e3ca739c5ce38c8cf39ffc51582080d",
     "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc6.4"
+    ]
   },
   "msvc-6.0-sp5": {
     "family": "msvc",
@@ -267,7 +1519,10 @@
     "sha256": "a95a9c17cbcbe0d97a3e80ef9596f12404eb28f36bab24e89aabcbe37acbbef6",
     "commit": "b0b07e29108e2695eb0274c2a377a7b7d7326150",
     "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc6.5"
+    ]
   },
   "msvc-6.0-sp5-pp": {
     "family": "msvc",
@@ -276,7 +1531,10 @@
     "sha256": "1bbf177489054698fd5d29bf042692efdb5bec8719f9dc889b9b1c618c645991",
     "commit": "762e9382c751613c341daa766f0e22cdeb07152c",
     "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc6.5pp"
+    ]
   },
   "msvc-6.0-sp6": {
     "family": "msvc",
@@ -285,14 +1543,29 @@
     "sha256": "7c2aa3dd4c56b8054cc1ae0e00cd976005dd5b9b43ea8c33b22798a15c9c15c3",
     "commit": "1f4223a77122220d28e8670788b3f9fd6bb2c4d1",
     "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc6.6"
+    ]
+  },
+  "msvc-6.0-win9x": {
+    "family": "msvc",
+    "host_dir": "msvc/6.0-win9x-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/msvcwin9x/msvc6.0.tar.gz",
+    "sha256": "5c81e9c2ab0ac5545022c1418a23392cb514db950cf6dcb1f48327270403fcd3",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc6.0"
+    ]
   },
   "msvc-7.0": {
     "family": "msvc",
     "host_dir": "msvc/7.0-win32",
-    "url": "https://codeload.github.com/archaic-msvc/msvc710/tar.gz/refs/heads/master",
-    "sha256": "618e876bc06431498fa98e71a408d822a5fad979219ce3253318d099a6917b27",
-    "commit": "2932d76fe417b0bc49010b26d4be2e5b743cc4be",
+    "url": "https://codeload.github.com/archaic-msvc/msvc700/tar.gz/refs/heads/master",
+    "sha256": "5f75462fb6134ad56c3ae28cf8b1e3b2869578d4171568b7a1fcdfb0bf97830b",
+    "commit": "97fe4cdeaeb0bb934591d4b05eb52c2e8ab3e34b",
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
@@ -321,7 +1594,10 @@
     "sha256": "618e876bc06431498fa98e71a408d822a5fad979219ce3253318d099a6917b27",
     "commit": "2932d76fe417b0bc49010b26d4be2e5b743cc4be",
     "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc7.1"
+    ]
   },
   "msvc-7.1-sp1": {
     "family": "msvc",
@@ -340,6 +1616,18 @@
     "commit": "00ddaf58d09788f0b12e475dae5fb5674dd32578",
     "layout": "tar-strip1",
     "in_repo_tarball": ""
+  },
+  "msvc-8.0-portable": {
+    "family": "msvc",
+    "host_dir": "msvc/8.0-portable-win32",
+    "url": "https://github.com/widberg/msvc8.0/archive/52c8293f8b8d6441c594cf096542290c17a4d70e.zip",
+    "sha256": "b138c1b3c99a8a2b9c4324add058e0ddfda5def81f0ef821b10cbfcf383b2084",
+    "commit": "52c8293f8b8d6441c594cf096542290c17a4d70e",
+    "layout": "zip-strip1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc8.0p"
+    ]
   },
   "msvc-8.0-sp1": {
     "family": "msvc",
@@ -368,36 +1656,1543 @@
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "borland-3.1": {
-    "family": "borland",
-    "host_dir": "borland/3.1-win16",
-    "url": "https://codeload.github.com/archaic-toolchains/tc31/tar.gz/refs/heads/main",
-    "sha256": "3d534741ebdc31ffdceb87db8de3b7d494ad5c912b7cd1a4f326b4a94d0c2ba1",
-    "commit": "ba6af878392be5ea20f6bb54f7dd2359b3845b7b",
-    "layout": "tar-strip1",
+  "msvc-ppc-14.00.2110": {
+    "family": "msvc-ppc",
+    "host_dir": "msvc-ppc/14.00.2110-x360",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:X360/14.00.2110",
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc_ppc_14.00.2110"
+    ]
+  },
+  "msvc-ppc-16.00.11886": {
+    "family": "msvc-ppc",
+    "host_dir": "msvc-ppc/16.00.11886-x360",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:X360/16.00.11886.00",
+    "in_repo_tarball": "",
+    "aliases": [
+      "msvc_ppc_16.00.11886.00"
+    ]
+  },
+  "mwcc-2.3.3-144": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.3.3-144-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/1.0",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_233_144"
+    ]
+  },
+  "mwcc-2.3.3-159": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.3.3-159-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/1.1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_233_159"
+    ]
+  },
+  "mwcc-2.3.3-159p1": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.3.3-159p1-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/1.1p1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_233_159p1"
+    ]
+  },
+  "mwcc-2.3.3-163": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.3.3-163-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/1.2.5",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_233_163",
+      "mwcc233_163"
+    ]
+  },
+  "mwcc-2.3.3-163e": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.3.3-163e-gc",
+    "url": "https://files.decomp.dev/compilers_20240706.zip",
+    "sha256": "399889e059cc86804267eb9376c9c2c4e197d7204936421c45e35fb6c01256c5",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/1.2.5e",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_233_163e"
+    ]
+  },
+  "mwcc-2.3.3-163n": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.3.3-163n-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/1.2.5n",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_233_163n"
+    ]
+  },
+  "mwcc-2.4.2-53": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.4.2-53-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/1.3",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_242_53"
+    ]
+  },
+  "mwcc-2.4.2-81": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.4.2-81-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/1.3.2",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_242_81"
+    ]
+  },
+  "mwcc-2.4.2-81r": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.4.2-81r-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/1.3.2r",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_242_81r"
+    ]
+  },
+  "mwcc-2.4.7-105": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.4.7-105-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/2.5",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_247_105"
+    ]
+  },
+  "mwcc-2.4.7-107": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.4.7-107-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/2.6",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_247_107"
+    ]
+  },
+  "mwcc-2.4.7-108": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.4.7-108-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/2.7",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_247_108"
+    ]
+  },
+  "mwcc-2.4.7-92": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.4.7-92-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/2.0",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_247_92"
+    ]
+  },
+  "mwcc-2.4.7-92p1": {
+    "family": "mwcc",
+    "host_dir": "mwcc/2.4.7-92p1-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/2.0p1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_247_92p1"
+    ]
+  },
+  "mwcc-4.1-51213": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.1-51213-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/3.0a3",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_41_51213"
+    ]
+  },
+  "mwcc-4.1-60126": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.1-60126-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/3.0a3.2",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_41_60126"
+    ]
+  },
+  "mwcc-4.1-60209": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.1-60209-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/3.0a3.3",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_41_60209"
+    ]
+  },
+  "mwcc-4.1-60831": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.1-60831-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/3.0a5.2",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_41_60831"
+    ]
+  },
+  "mwcc-4.2-127": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.2-127-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:Wii/0x4201_127",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_42_127"
+    ]
+  },
+  "mwcc-4.2-140": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.2-140-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:Wii/1.0RC1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_42_140"
+    ]
+  },
+  "mwcc-4.2-142": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.2-142-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:Wii/1.0a",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_42_142"
+    ]
+  },
+  "mwcc-4.2-60308": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.2-60308-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/3.0a3.4",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_42_60308"
+    ]
+  },
+  "mwcc-4.2-60422": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.2-60422-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:GC/3.0a5",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_42_60422"
+    ]
+  },
+  "mwcc-4.3-145": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.3-145-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:Wii/1.0",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_43_145"
+    ]
+  },
+  "mwcc-4.3-151": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.3-151-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:Wii/1.1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_43_151"
+    ]
+  },
+  "mwcc-4.3-172": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.3-172-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:Wii/1.3",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_43_172"
+    ]
+  },
+  "mwcc-4.3-188": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.3-188-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:Wii/1.5",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_43_188"
+    ]
+  },
+  "mwcc-4.3-202": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.3-202-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:Wii/1.6",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_43_202"
+    ]
+  },
+  "mwcc-4.3-213": {
+    "family": "mwcc",
+    "host_dir": "mwcc/4.3-213-wii",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:Wii/1.7",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_43_213"
+    ]
+  },
+  "mwccarm-2.0-56": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/2.0-56-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcc_20_56.tar.gz",
+    "sha256": "91e10b9826bb985641a6db075da444a51bf25dd53df3216cb8bc05548561ec45",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_20_56"
+    ]
+  },
+  "mwccarm-2.0-72": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/2.0-72-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/1.2/base",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_20_72"
+    ]
+  },
+  "mwccarm-2.0-79": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/2.0-79-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/1.2/sp2",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_20_79"
+    ]
+  },
+  "mwccarm-2.0-82": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/2.0-82-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/1.2/sp2p3",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_20_82"
+    ]
+  },
+  "mwccarm-2.0-84": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/2.0-84-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/1.2/sp3",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_20_84"
+    ]
+  },
+  "mwccarm-2.0-87": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/2.0-87-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/1.2/sp4",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_20_87"
+    ]
+  },
+  "mwccarm-3.0-114": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-114-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/base",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_114"
+    ]
+  },
+  "mwccarm-3.0-123": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-123-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/sp1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_123"
+    ]
+  },
+  "mwccarm-3.0-126": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-126-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/sp1p2",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_126"
+    ]
+  },
+  "mwccarm-3.0-131": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-131-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/sp1p5",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_131"
+    ]
+  },
+  "mwccarm-3.0-133": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-133-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/sp1p6",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_133"
+    ]
+  },
+  "mwccarm-3.0-134": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-134-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/sp1p7",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_134"
+    ]
+  },
+  "mwccarm-3.0-136": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-136-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/sp2",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_136"
+    ]
+  },
+  "mwccarm-3.0-137": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-137-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/sp2p2",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_137"
+    ]
+  },
+  "mwccarm-3.0-138": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-138-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/sp2p3",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_138"
+    ]
+  },
+  "mwccarm-3.0-139": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/3.0-139-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/2.0/sp2p4",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_30_139"
+    ]
+  },
+  "mwccarm-4.0-1018": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/4.0-1018-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/dsi/1.1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_40_1018"
+    ]
+  },
+  "mwccarm-4.0-1024": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/4.0-1024-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/dsi/1.1p1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_40_1024"
+    ]
+  },
+  "mwccarm-4.0-1026": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/4.0-1026-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/dsi/1.2",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_40_1026"
+    ]
+  },
+  "mwccarm-4.0-1027": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/4.0-1027-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/dsi/1.2p1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_40_1027"
+    ]
+  },
+  "mwccarm-4.0-1028": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/4.0-1028-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/dsi/1.2p2",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_40_1028"
+    ]
+  },
+  "mwccarm-4.0-1034": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/4.0-1034-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/dsi/1.3",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_40_1034"
+    ]
+  },
+  "mwccarm-4.0-1036": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/4.0-1036-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/dsi/1.3p1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_40_1036"
+    ]
+  },
+  "mwccarm-4.0-1051": {
+    "family": "mwccarm",
+    "host_dir": "mwccarm/4.0-1051-nds",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccarm.zip",
+    "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:mwccarm/dsi/1.6sp1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcc_40_1051"
+    ]
+  },
+  "mwccpsp-3.0.1-121": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-121-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_121.tar.gz",
+    "sha256": "44836bb4d19fbe216b55fbd638420c000f7dd373c84493de0e732e85f81656af",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_121"
+    ]
+  },
+  "mwccpsp-3.0.1-134": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-134-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_134.tar.gz",
+    "sha256": "a4a00c2450ee2b6f7be29fc73470446994fcf2b1b1003b8ac34568f3358e1c99",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_134"
+    ]
+  },
+  "mwccpsp-3.0.1-139": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-139-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_139.tar.gz",
+    "sha256": "932bae1cdd95df8e1c593af14c19c90c21ad8e2662d6cc5e537269543d8bdd8f",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_139"
+    ]
+  },
+  "mwccpsp-3.0.1-147": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-147-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_147.tar.gz",
+    "sha256": "7b9c917d50f804617eb50897cb5b68e1f287f6f676f28078c04a9054b2e4586e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_147"
+    ]
+  },
+  "mwccpsp-3.0.1-151": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-151-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_151.tar.gz",
+    "sha256": "168ee268ebd9a9dc756886c90b4fdd577b13b57ecad025c8b7d98acf47d3f76f",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_151"
+    ]
+  },
+  "mwccpsp-3.0.1-180": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-180-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_180.tar.gz",
+    "sha256": "2d4ff76e4e5c9bd938dbc627e4219583d6119bc4af30548df43e06221ab7b32b",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_180"
+    ]
+  },
+  "mwccpsp-3.0.1-192": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-192-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_192.tar.gz",
+    "sha256": "e68e0a281f90e0c5a96cd04defe01eabfad4b5592807bba983495fa07c1d55b3",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_192"
+    ]
+  },
+  "mwccpsp-3.0.1-201": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-201-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_201.tar.gz",
+    "sha256": "1bf4b06615f56e6ca5b78287e8fab5c7737f5cd5766d1df052829d737928dbc8",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_201"
+    ]
+  },
+  "mwccpsp-3.0.1-205": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-205-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_205.tar.gz",
+    "sha256": "ace61d4641fcdff55c08b7560c95915b20243f0f18023c3d4ce99fe37c5cdb00",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_205"
+    ]
+  },
+  "mwccpsp-3.0.1-210": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-210-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_210.tar.gz",
+    "sha256": "a8a0bf3a0ec3545f6578717516aad0f262a40dd1538a6e462b77efc29e79a969",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_210"
+    ]
+  },
+  "mwccpsp-3.0.1-219": {
+    "family": "mwccpsp",
+    "host_dir": "mwccpsp/3.0.1-219-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwccpsp_3.0.1_219.tar.gz",
+    "sha256": "81a2a8664d779901f6fa2f298b663b4b0feeb1d7f6613fd14531f51e66926d78",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwccpsp_3.0.1_219"
+    ]
+  },
+  "mwcps2-2.3-991202": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/2.3-991202-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ps2_compilers.tar.xz",
+    "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar-subpath:mwcps2-2.3-991202",
     "in_repo_tarball": ""
   },
-  "borland-2.0": {
-    "family": "borland",
-    "host_dir": "borland/2.0-win16",
-    "url": "https://codeload.github.com/archaic-toolchains/tc20/tar.gz/refs/heads/main",
-    "sha256": "2eca4c26c1b30ce2bd7e61573eb9f40096994405fc173c28143f06a93da269d1",
-    "commit": "64b5ef09a7c18b65c38902a217bcfec67c4b113b",
-    "layout": "tar-strip1",
+  "mwcps2-2.3.3-000906": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/2.3.3-000906-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-2.3.3-000906.tar.gz",
+    "sha256": "c2a4e463f8f7b324350d6bfb26d6daed83f4d5cb46df8b20dcfec8617b22ad5d",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
     "in_repo_tarball": ""
   },
-  "watcom-2.0-win32": {
+  "mwcps2-2.4-001213": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/2.4-001213-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-2.4-001213.tar.gz",
+    "sha256": "0ebe09436b4163c3a109b0431517281501d2de1bd5a0b049d33057710a943e3e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0-011126": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0-011126-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0-011126.tar.gz",
+    "sha256": "b83fef398fd765aaeb48576dae0fa0751bf9c1496036d0d878e7a2a0e71c2a7f",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1-020123": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1-020123-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1-020123.tar.gz",
+    "sha256": "72d823d85943c92ca13378e93d56ac1870298ccbfda0ef8a2efb9650692e968c",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b103-040528": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b103-040528-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b103-040528.tar.gz",
+    "sha256": "a6db36760445e18da840bda70f3e7b97dc563ba421d13651c121e8867013c0c9",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b119-040914": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b119-040914-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b119-040914.tar.gz",
+    "sha256": "5c6984d5d52f21b62b6bc9161749bde7bb14e136fbee41f0f4df7fcee7b06c13",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b145-050209": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b145-050209-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b145-050209.tar.gz",
+    "sha256": "d021f7d02ab63da770c13dc246637276141321ca08221ee2333a7acadf82482b",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b151-050317": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b151-050317-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b151-050317.tar.gz",
+    "sha256": "5050a211954f0828cf1c0f56333943407d20f7e85bc68b23e3c539bb5d8ee947",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b198-051011": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b198-051011-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b198-051011.tar.gz",
+    "sha256": "436af8060249e7ea0aa2dfa98a86b4667ee3716b3384cca577c52c5b68e4934a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b205-051227": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b205-051227-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b205-051227.tar.gz",
+    "sha256": "456cdfc1894f20bcaecc627ff674222888f093c3ec37c91e4f0fe6baae3b5a9d",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b210-060308": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b210-060308-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b210-060308.tar.gz",
+    "sha256": "456746b70862a744a0be75585a4e163a142111843661cbb7e483230dd85502c5",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b44-030325": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b44-030325-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b44-030325.tar.gz",
+    "sha256": "90d99e3e6272369215b317548fe2626694aa1ead57cec0251f7343d266d9b0ed",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b51-030512": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b51-030512-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b51-030512.tar.gz",
+    "sha256": "985fce55737848ce46c145cd357df247a3cd12d1c944d8cc325cfe46cde5a124",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b74-030811": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b74-030811-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b74-030811.tar.gz",
+    "sha256": "5c14bea69f68cf46498a4eab3e18ea89aff289e6e12c613c55ff2d05b06dd23c",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b75-030916": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b75-030916-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b75-030916.tar.gz",
+    "sha256": "f665dc6ce76f3551097a87cd1c36672d93cd23b10021ca412fbd23d38e3444d8",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b87-031208": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b87-031208-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b87-031208.tar.gz",
+    "sha256": "3718581319518c9a3cece4ded2951a5e7828123c069c9bbc4d854e8b1c46b718",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.1b95-040309": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.1b95-040309-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b95-040309.tar.gz",
+    "sha256": "6f9357a1e74b48e43466c8bcb7af9b1b3d69fa870eb9b37269708cd579351bbc",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0.3": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0.3-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.3-020716.tar.gz",
+    "sha256": "63f89baae691403294724178efbcfc9e1b9ac48151536b6a321b17eb8f9970e5",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "mwcps2-3.0.3-020716",
+      "mwcps2_303"
+    ]
+  },
+  "mwcps2-3.0b22-020926": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0b22-020926-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/ps2_compilers.tar.xz",
+    "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar-subpath:mwcps2-3.0b22-020926",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0b38-030307": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0b38-030307-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0b38-030307.tar.gz",
+    "sha256": "db3d0606c77d4335d2ad884a1285a4bc3b9e68cdd6161dd46d6e2a2cd3313276",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0b50-030527": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0b50-030527-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0b50-030527.tar.gz",
+    "sha256": "74afc8c7cc13d129d3da205ebaed749a3f5eb789a321c7a669709f11d3d7c653",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "mwcps2-3.0b52-030722": {
+    "family": "mwcps2",
+    "host_dir": "mwcps2/3.0b52-030722-ps2",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0b52-030722.tar.gz",
+    "sha256": "5c2f5f96c0a360cc6d4fc866226768f7ab9b290777bcd5cadeeba030b1d596a5",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": ""
+  },
+  "ndk-r8e-4.4.3": {
+    "family": "ndk",
+    "host_dir": "ndk/r8e-4.4.3-android-x86",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/android-ndk-r8e-linux-x86_64-gcc-4.4.3.tar.bz2",
+    "sha256": "13c57455e63dfb17a98853792ba1063fc640605a4ef2db4ad33a654171f48267",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar-bz2-subset",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ndk-r8e-gcc-4.4.3"
+    ]
+  },
+  "ndk-r8e-4.7": {
+    "family": "ndk",
+    "host_dir": "ndk/r8e-4.7-android-x86",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/android-ndk-r8e-linux-x86_64.tar.bz2",
+    "sha256": "126dce67022049dca1be063ea0f8a6c07070f9f0b139339fc9e6a8ff617ed7fc",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar-bz2-subset",
+    "in_repo_tarball": "",
+    "aliases": [
+      "ndk-r8e-gcc-4.7"
+    ]
+  },
+  "prodg-3.5": {
+    "family": "prodg",
+    "host_dir": "prodg/3.5-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:ProDG/3.5",
+    "in_repo_tarball": "",
+    "aliases": [
+      "prodg_35"
+    ]
+  },
+  "prodg-3.5b140": {
+    "family": "prodg",
+    "host_dir": "prodg/3.5b140-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:ProDG/3.5b140",
+    "in_repo_tarball": "",
+    "aliases": [
+      "prodg_35_b140"
+    ]
+  },
+  "prodg-3.7": {
+    "family": "prodg",
+    "host_dir": "prodg/3.7-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:ProDG/3.7",
+    "in_repo_tarball": "",
+    "aliases": [
+      "prodg_37"
+    ]
+  },
+  "prodg-3.8.1": {
+    "family": "prodg",
+    "host_dir": "prodg/3.8.1-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:ProDG/3.8.1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "prodg_381"
+    ]
+  },
+  "prodg-3.9.3": {
+    "family": "prodg",
+    "host_dir": "prodg/3.9.3-gc",
+    "url": "https://files.decomp.dev/compilers_20251015.zip",
+    "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "zip-subpath:ProDG/3.9.3",
+    "in_repo_tarball": "",
+    "aliases": [
+      "prodg_393"
+    ]
+  },
+  "psp-gcc-1.3.1": {
+    "family": "psp-gcc",
+    "host_dir": "psp-gcc/1.3.1-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/psp-gcc-1.3.1.tar.gz",
+    "sha256": "788b6d2c0ed920da6b1e5a350d23dd7ea05820526e23f9b5b967b3b238ea2e2e",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": []
+  },
+  "pspsnc-1.2.7503.0": {
+    "family": "pspsnc",
+    "host_dir": "pspsnc/1.2.7503.0-psp",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/pspsnc_1.2.7503.0.tar.gz",
+    "sha256": "0d10a4b387e45b62369eea21b6693fc5517335033bf65e65aa7b543a916f4d6d",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "pspsnc_1.2.7503.0"
+    ]
+  },
+  "psyq-2.6.3-221": {
+    "family": "psyq",
+    "host_dir": "psyq/2.6.3-ps1",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/psyq_263_221.tar.gz",
+    "sha256": "082a57e28efe06dc75f1c8be4f2b73ffa65ad5b995c6c345cf67b8dcd19192c5",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "psyq_263_221"
+    ]
+  },
+  "psyq-3.3": {
+    "family": "psyq",
+    "host_dir": "psyq/3.3-ps1",
+    "url": "https://github.com/mkst/esa/releases/download/psyq-binaries/psyq3.3.tar.gz",
+    "sha256": "6acc5bf3a2e406c35ec77b63f6f77986a2d61502906967f0f32ea75911e7f16f",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "psyq3.3"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "psyq-3.5": {
+    "family": "psyq",
+    "host_dir": "psyq/3.5-ps1",
+    "url": "https://github.com/mkst/esa/releases/download/psyq-binaries/psyq3.5.tar.gz",
+    "sha256": "0f9dff42081ad3cc3a1e2f740797b99c28657c3cfe6406deb9de4d176bd5387e",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "psyq3.5"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "psyq-3.6": {
+    "family": "psyq",
+    "host_dir": "psyq/3.6-ps1",
+    "url": "https://github.com/mkst/esa/releases/download/psyq-binaries/psyq3.6.tar.gz",
+    "sha256": "9445f4cd871ca85b764b8d2746b6122750af17ecfe2d6e8aae41d15461d8c41d",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "psyq3.6"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "psyq-4.0": {
+    "family": "psyq",
+    "host_dir": "psyq/4.0-ps1",
+    "url": "https://github.com/mkst/esa/releases/download/psyq-binaries/psyq4.0.tar.gz",
+    "sha256": "f25a4f6f044eb1b344bbbd3291aa9a4fc1a1124fc637eae9522c0a117d940e28",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "psyq4.0"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "psyq-4.1": {
+    "family": "psyq",
+    "host_dir": "psyq/4.1-ps1",
+    "url": "https://github.com/mkst/esa/releases/download/psyq-binaries/psyq4.1.tar.gz",
+    "sha256": "2a2650ceb5eaa73fdc581bec4a85ccaa6ff9eeea8a4810be25a638f3cd2ebac4",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "psyq4.1"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "psyq-4.3": {
+    "family": "psyq",
+    "host_dir": "psyq/4.3-ps1",
+    "url": "https://github.com/mkst/esa/releases/download/psyq-binaries/psyq4.3.tar.gz",
+    "sha256": "577038d66507d3aa5423de0ba3f540e121a4f60f637f4794aa4350135d4f9a46",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "psyq4.3"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "psyq-4.4": {
+    "family": "psyq",
+    "host_dir": "psyq/4.4-ps1",
+    "url": "https://github.com/mkst/esa/releases/download/psyq-binaries/psyq4.4.tar.gz",
+    "sha256": "72e73934bab0d51933eb95af514afb14f3d432f01530eac3ddb16dfbb57ab66c",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "psyq4.4"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "psyq-4.5": {
+    "family": "psyq",
+    "host_dir": "psyq/4.5-ps1",
+    "url": "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.8.1-psx.tar.gz",
+    "sha256": "f6f6e883942d4d3289d048236c672e71ed410e546aaae8ff655952f1567e1be0",
+    "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "sdk_url": "https://codeload.github.com/FoxdieTeam/psyq_sdk/tar.gz/91719fa5bdca0b7e55c5c4b9e045da407db93510",
+    "sdk_commit": "91719fa5bdca0b7e55c5c4b9e045da407db93510",
+    "aliases": [
+      "psyq4.5",
+      "psyq-4.5-ps1"
+    ]
+  },
+  "psyq-4.6": {
+    "family": "psyq",
+    "host_dir": "psyq/4.6-ps1",
+    "url": "https://github.com/mkst/esa/releases/download/psyq-binaries/psyq4.6.tar.gz",
+    "sha256": "635603e09a452c9c2923492fea8b8eb051959dd94f240933b88e94866814b894",
+    "commit": "",
+    "layout": "tar-strip1",
+    "in_repo_tarball": "",
+    "aliases": [
+      "psyq4.6"
+    ],
+    "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
+    "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e"
+  },
+  "saturn-cygnus-2.7-96Q3": {
+    "family": "saturn",
+    "host_dir": "saturn/cygnus-2.7-96Q3-saturn",
+    "url": "https://github.com/sozud/saturn-compilers/archive/af27f4aa6566c1b0fa5332b488e63d6ffd28bd48.zip",
+    "sha256": "f5460e3ea653a24fb011a94f2ce2c54b277877e60859ffc906b07dbbe6406595",
+    "commit": "af27f4aa6566c1b0fa5332b488e63d6ffd28bd48",
+    "layout": "zip-subpath:cygnus-2.7-96Q3-bin",
+    "in_repo_tarball": "",
+    "aliases": [
+      "cygnus-2.7-96Q3"
+    ]
+  },
+  "shc-5.0r10": {
+    "family": "shc",
+    "host_dir": "shc/5.0r10-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.0r10.tar.gz",
+    "sha256": "1932570b2f751c26b18e5c7f3a7f9ab453aa05a13d1c06787e60fba7711d0016",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.0r10"
+    ]
+  },
+  "shc-5.0r26": {
+    "family": "shc",
+    "host_dir": "shc/5.0r26-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.0r26.tar.gz",
+    "sha256": "a065c9b6bfe60af986c72c2d863b0b067fe839605b1131460ff786a8e0badc0d",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.0r26"
+    ]
+  },
+  "shc-5.0r28": {
+    "family": "shc",
+    "host_dir": "shc/5.0r28-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.0r28.tar.gz",
+    "sha256": "27eebe4e3938b7a5e3b5f6d921501d1ec0eed862f2f7743f9ff1032fc2ec5789",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.0r28"
+    ]
+  },
+  "shc-5.0r31": {
+    "family": "shc",
+    "host_dir": "shc/5.0r31-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.0r31.tar.gz",
+    "sha256": "1b67fce972207f3c72c72e1fd85db0371a5ef504f886a618079b25f1889e936b",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.0r31"
+    ]
+  },
+  "shc-5.0r32": {
+    "family": "shc",
+    "host_dir": "shc/5.0r32-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.0r32.tar.gz",
+    "sha256": "21f26227e48a2c9325f0aaf954e569b29db8db1dd1174aff32623017d713fdf5",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.0r32"
+    ]
+  },
+  "shc-5.1r01": {
+    "family": "shc",
+    "host_dir": "shc/5.1r01-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.1r01.tar.gz",
+    "sha256": "d42a0ff0f7c43bd19319cbc926cfb5b96f76827d6aafb995857b60b76c863cc0",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.1r01"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
+  },
+  "shc-5.1r03": {
+    "family": "shc",
+    "host_dir": "shc/5.1r03-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.1r03.tar.gz",
+    "sha256": "a5c41c4b9499c7593d141ee99fcbb9bf3519dbb803cdec9f22318b84b19a06ea",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.1r03"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
+  },
+  "shc-5.1r04": {
+    "family": "shc",
+    "host_dir": "shc/5.1r04-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.1r04.tar.gz",
+    "sha256": "277065890128db57816d40a968d510c6a7f9e3c97929d75fd45226755eebb34d",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.1r04"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
+  },
+  "shc-5.1r08": {
+    "family": "shc",
+    "host_dir": "shc/5.1r08-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.1r08.tar.gz",
+    "sha256": "2bcc5598a71a429d5e79ae12c9f69adee8950051da2db74c87769144fb80b814",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.1r08"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
+  },
+  "shc-5.1r11": {
+    "family": "shc",
+    "host_dir": "shc/5.1r11-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.1r11.tar.gz",
+    "sha256": "5fda932494434e31dd8b50754ba7b76c4bd1fb32a0e7c595b2f0d67ecaa5de39",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.1r11"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
+  },
+  "shc-5.1r13": {
+    "family": "shc",
+    "host_dir": "shc/5.1r13-dreamcast",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.1r13.tar.gz",
+    "sha256": "0da9982adc576171d93ceeeedff15c946fc570b0473e39b388e18d9e4ee1427a",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "shc-v5.1r13"
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
+  },
+  "watcom-10.0a": {
     "family": "watcom",
-    "host_dir": "watcom/2.0-win32",
+    "host_dir": "watcom/10.0a-win32",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/wcc10.0a.tar.gz",
+    "sha256": "920a9674d1b10f227ae65171c187212b06d7fc38b263313922615c4f5e9b24a6",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wcc10.0a"
+    ]
+  },
+  "watcom-10.0a-cxx": {
+    "family": "watcom",
+    "host_dir": "watcom/10.0a-cxx-win32",
+    "url": "https://github.com/decompme/compilers/releases/download/compilers/wcc10.0a.tar.gz",
+    "sha256": "920a9674d1b10f227ae65171c187212b06d7fc38b263313922615c4f5e9b24a6",
+    "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wpp10.0a"
+    ]
+  },
+  "watcom-10.5": {
+    "family": "watcom",
+    "host_dir": "watcom/10.5-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/wcc10.5/wcc10.5.tar.gz",
+    "sha256": "70acc3b4b4729e44c149b53553a3c35aa4070ed34d6790b034273506d5c5b3fb",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wcc10.5"
+    ]
+  },
+  "watcom-10.5-cxx": {
+    "family": "watcom",
+    "host_dir": "watcom/10.5-cxx-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/wcc10.5/wcc10.5.tar.gz",
+    "sha256": "70acc3b4b4729e44c149b53553a3c35aa4070ed34d6790b034273506d5c5b3fb",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wpp10.5"
+    ]
+  },
+  "watcom-10.5a": {
+    "family": "watcom",
+    "host_dir": "watcom/10.5a-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/wcc10.5/wcc10.5a.tar.gz",
+    "sha256": "fd82fd36594f1f1333d2b8a4b87956c1dfaacd2c9b3535db556bcf482f81adab",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wcc10.5a"
+    ]
+  },
+  "watcom-10.5a-cxx": {
+    "family": "watcom",
+    "host_dir": "watcom/10.5a-cxx-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/wcc10.5/wcc10.5a.tar.gz",
+    "sha256": "fd82fd36594f1f1333d2b8a4b87956c1dfaacd2c9b3535db556bcf482f81adab",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wpp10.5a"
+    ]
+  },
+  "watcom-10.6": {
+    "family": "watcom",
+    "host_dir": "watcom/10.6-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/wcc10.5/wcc10.6.tar.gz",
+    "sha256": "c455edf32dc73f29c2b4e0aa5c6988768809641033ef54700725242711b04e29",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wcc10.6"
+    ]
+  },
+  "watcom-10.6-cxx": {
+    "family": "watcom",
+    "host_dir": "watcom/10.6-cxx-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/wcc10.5/wcc10.6.tar.gz",
+    "sha256": "c455edf32dc73f29c2b4e0aa5c6988768809641033ef54700725242711b04e29",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wpp10.6"
+    ]
+  },
+  "watcom-11.0": {
+    "family": "watcom",
+    "host_dir": "watcom/11.0-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/wcc10.5/wcc11.0.tar.gz",
+    "sha256": "6ecbf03ad4d71285f5813c34a4f551720eec0dfb09996a7dda7cb591963df325",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wcc11.0"
+    ]
+  },
+  "watcom-11.0-cxx": {
+    "family": "watcom",
+    "host_dir": "watcom/11.0-cxx-win32",
+    "url": "https://github.com/OmniBlade/decomp.me/releases/download/wcc10.5/wcc11.0.tar.gz",
+    "sha256": "6ecbf03ad4d71285f5813c34a4f551720eec0dfb09996a7dda7cb591963df325",
+    "commit": "",
+    "layout": "tar",
+    "in_repo_tarball": "",
+    "aliases": [
+      "wpp11.0"
+    ]
+  },
+  "watcom-2.0-win16": {
+    "family": "watcom",
+    "host_dir": "watcom/2.0-win16",
     "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/2026-09-01-Build/ow-snapshot.tar.xz",
     "sha256": "bac354f3c75ffa49ff8d70a44e475de7e7c1823fff04b80c14787bd0792c9bdf",
     "commit": "",
     "layout": "tar-strip1",
     "in_repo_tarball": ""
   },
-  "watcom-2.0-win16": {
+  "watcom-2.0-win32": {
     "family": "watcom",
-    "host_dir": "watcom/2.0-win16",
+    "host_dir": "watcom/2.0-win32",
     "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/2026-09-01-Build/ow-snapshot.tar.xz",
     "sha256": "bac354f3c75ffa49ff8d70a44e475de7e7c1823fff04b80c14787bd0792c9bdf",
     "commit": "",

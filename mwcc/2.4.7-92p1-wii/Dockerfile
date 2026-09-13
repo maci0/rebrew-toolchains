@@ -1,0 +1,46 @@
+# MWCC 2.4.7 build 92p1 (CodeWarrior Wii) — decomp.me "mwcc_247_92p1".
+#
+# Inherits the shared rebrew/base; this image extracts the GC/2.0p1 tree
+# (mwcceppc.exe + assembler/linker/license DLL) from the pinned
+# files.decomp.dev compilers zip.  The compiler is a 32-bit Windows PE
+# binary, so the entrypoint runs it through the shared wine/wibo dispatcher.
+#
+# Build:  docker build -t rebrew/mwcc:2.4.7-92p1-wii mwcc/2.4.7-92p1-wii
+# Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/mwcc:2.4.7-92p1-wii -c t.c -o t.o
+
+ARG BASE_IMAGE=rebrew/base:1.0
+
+FROM ${BASE_IMAGE}
+
+USER root
+
+LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.title="rebrew MWCC 2.4.7 92p1 (Wii)" \
+      org.opencontainers.image.description="MWCC 2.4.7 build 92p1 (CodeWarrior Wii, PE/x86_32) toolchain image"
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Same pinned zip as the GameCube image; the Wii build lives at GC/2.0p1
+# (per decompme/compilers' mwcc_247_92p1 mapping).
+RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/compilers.zip \
+        "https://files.decomp.dev/compilers_20251015.zip" \
+    && echo "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e  /tmp/compilers.zip" | sha256sum -c - \
+    && mkdir -p /opt/mwcc-2.4.7 \
+    && unzip -q /tmp/compilers.zip 'GC/2.0p1/*' -d /tmp/mwcc \
+    && cp -a /tmp/mwcc/GC/2.0p1/. /opt/mwcc-2.4.7/ \
+    && rm -rf /tmp/mwcc /tmp/compilers.zip \
+    && ls /opt/mwcc-2.4.7/mwcceppc.exe
+
+RUN printf '%s\n' \
+        '#!/bin/sh' \
+        '. /usr/local/lib/rebrew/wrapper-common.sh' \
+        'rebrew_run /opt/mwcc-2.4.7/mwcceppc.exe "$@"' \
+        > /usr/local/bin/mwcceppc \
+    && chmod +x /usr/local/bin/mwcceppc
+
+ENTRYPOINT ["/usr/local/bin/mwcceppc"]
+
+USER rebrew

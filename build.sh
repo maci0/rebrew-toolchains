@@ -51,9 +51,17 @@ PINS="$(awk -F'"' '
     /^    "host_dir": "/ { dir[key] = $4 }
     /^    "url": "/      { url[key] = $4 }
     /^    "sha256": "/   { sha[key] = $4 }
+    /^    "aliases": \[/ { in_aliases = 1 }
+    in_aliases {
+      line = $0
+      sub(/^[^[]*\[/, "", line); sub(/\].*$/, "", line)
+      gsub(/[",]/, "", line); gsub(/[ \t]/, "", line)
+      alias[key] = alias[key] " " line   # space-separated: several names per profile
+      if ($0 ~ /\]/) in_aliases = 0
+    }
     END {
       for (k in seen)
-        print k "\t" dir[k] "\t" url[k] "\t" sha[k]
+        print k "\t" dir[k] "\t" url[k] "\t" sha[k] "\t" alias[k]
     }
 ' "$ROOT/sources.json")"
 [ -n "$PINS" ] || { echo "failed to parse $ROOT/sources.json" >&2; exit 2; }
@@ -63,7 +71,7 @@ PINS="$(awk -F'"' '
 # are kept in sync by hand.  Verify they agree before building anything: a
 # one-sided edit must fail the run, not fetch something sources.json does
 # not pin.
-while IFS=$'\t' read -r profile dir url sha; do
+while IFS=$'\t' read -r profile dir url sha _aliases; do
   if [ -z "$profile" ] || [ -z "$dir" ] || [ -z "$url" ] || [ -z "$sha" ]; then
     echo "sources.json: incomplete pin for profile '$profile':" \
       "host_dir, url and sha256 must all be present and non-empty" >&2
@@ -105,6 +113,32 @@ done
 # rebrew profile name -> toolchain dir (resolve_dir's profile lookup).
 PROFILE_DIRS="$(printf '%s\n' "$PINS" | awk -F'\t' '{ print $1 "=" $2 }')"
 
+# Community/legacy names -> toolchain dir, from each profile's optional
+# "aliases" list (decomp.me ids and the pre-normalization rebrew names, e.g.
+# `mwcc_233_163` or `ido7.1`).  An alias may not shadow a profile name or
+# another profile's dir; both would make `build.sh <name>` ambiguous, so they
+# fail here instead.
+ALIAS_DIRS=""
+while IFS=$'\t' read -r profile dir _url _sha aliases; do
+  for alias in $aliases; do
+    shadow="$(printf '%s\n' "$PROFILE_DIRS" | awk -F= -v a="$alias" \
+      '$1 == a { print "profile" }')"
+    [ -z "$shadow" ] || {
+      echo "sources.json: alias '$alias' of '$profile' shadows the profile" \
+        "of the same name — drop the alias" >&2
+      exit 2
+    }
+    for kv in $ALIAS_DIRS; do
+      if [ "${kv%%=*}" = "$alias" ] && [ "${kv#*=}" != "$dir" ]; then
+        echo "sources.json: alias '$alias' maps to both '${kv#*=}' and" \
+          "'$dir'" >&2
+        exit 2
+      fi
+    done
+    ALIAS_DIRS="$ALIAS_DIRS${ALIAS_DIRS:+ }$alias=$dir"
+  done
+done <<<"$PINS"
+
 
 resolve_dir() {
   local arg="$1"
@@ -138,6 +172,13 @@ resolve_dir() {
   [ "$count" -eq 1 ] && { echo "$match"; return; }
   # rebrew profile name (msvc-6.0, borland-5.5, watcom-2.0-win32, ...) -> dir
   for kv in $PROFILE_DIRS; do
+    if [ "${kv%%=*}" = "$arg" ]; then
+      echo "${kv#*=}"
+      return
+    fi
+  done
+  # community/legacy alias (mwcc_233_163, ido7.1, agbccpp, ...) -> dir
+  for kv in $ALIAS_DIRS; do
     if [ "${kv%%=*}" = "$arg" ]; then
       echo "${kv#*=}"
       return
@@ -228,15 +269,16 @@ build_pool() {
     echo "cannot create build log directory" >&2
     exit 1
   }
-  local dir log tag
+  local dir log tag base
   for dir in "$@"; do
     log="$LOG_DIR/${dir//\//-}.log"
     tag="$(tag_for "$dir")"
+    base="$(base_image_for "$dir")"
     echo "==> building $tag (from $dir)"
     # The direct background child must be `timeout` itself (no wrapping
     # subshell): $! then names the process cleanup() has to signal.
     timeout --kill-after=30 "$BUILD_TIMEOUT" docker build \
-      --build-arg "BASE_IMAGE=$PREFIX/base:1.0" -t "$tag" \
+      --build-arg "BASE_IMAGE=$base" -t "$tag" \
       "$ROOT/$dir" >>"$log" 2>&1 &
     PIDS+=("$!")
     JOB_PIDS+=("$!")
@@ -253,29 +295,51 @@ build_pool() {
   [ "$fail" -eq 0 ] || { echo "one or more image builds failed" >&2; exit 1; }
 }
 
-# base image first — tag :1.0 to match the FROM ${BASE_IMAGE} default and the
-# build-arg we pass to every toolchain Dockerfile.  It must exist before the
-# pool starts: every toolchain image's FROM resolves against it.
-# Backgrounded only so its pid is tracked and cleanup() can kill it if the
-# run is interrupted mid-build; the wait makes it effectively synchronous
-# and its output still streams to the terminal.
-echo "==> building $PREFIX/base:1.0"
-set +e
-timeout --kill-after=30 "$BUILD_TIMEOUT" docker build \
-  -t "$PREFIX/base:1.0" "$ROOT/base" &
-PIDS+=("$!")
-wait "${PIDS[0]}"
-_status=$?
-PIDS=("${PIDS[@]:1}")
-set -e
-if [ "$_status" -ne 0 ]; then
-  if [ "$_status" -eq 124 ]; then
-    echo "==> base image build exceeded ${BUILD_TIMEOUT}s (REBREW_BUILD_TIMEOUT)" \
-      "and was killed" >&2
+# base_image_for <dir> — the base image a toolchain Dockerfile declares in its
+# `ARG BASE_IMAGE=` default, with our own namespace re-pointed at $PREFIX so
+# `PREFIX=reg/` builds against a matching base.  The Dockerfile is the single
+# source of truth: most images inherit rebrew/base:1.0, the 16-bit DOS family
+# inherits rebrew/base-dosemu:1.0, and an image may legitimately build FROM a
+# distro image (ubuntu:noble) when its runtime is not packaged for Debian.
+base_image_for() {
+  local declared
+  declared="$(sed -n 's/^ARG BASE_IMAGE=//p' "$ROOT/$1/Dockerfile" | head -n 1)"
+  [ -n "$declared" ] || declared="rebrew/base:1.0"
+  case "$declared" in
+    rebrew/*) printf '%s/%s' "$PREFIX" "${declared#rebrew/}" ;;
+    *) printf '%s' "$declared" ;;
+  esac
+}
+
+# Base images first — every top-level base*/ directory is tagged :1.0 to match
+# the FROM ${BASE_IMAGE} defaults and the build-arg passed below.  They must
+# exist before the pool starts: every toolchain image's FROM resolves against
+# one of them.  Built sequentially (base-dosemu's helper stage pulls
+# rebrew/base:1.0 in, so order matters) and backgrounded only so the pid is
+# tracked and cleanup() can kill a base build if the run is interrupted; each
+# wait makes that build effectively synchronous, with output still streaming.
+for _base_dir in "$ROOT"/base*/; do
+  _base_name="$(basename "$_base_dir")"
+  [ -f "$_base_dir/Dockerfile" ] || continue
+  echo "==> building $PREFIX/$_base_name:1.0"
+  set +e
+  timeout --kill-after=30 "$BUILD_TIMEOUT" docker build \
+    --build-arg "HELPER_IMAGE=$PREFIX/base:1.0" \
+    -t "$PREFIX/$_base_name:1.0" "$_base_dir" &
+  PIDS+=("$!")
+  wait "${PIDS[0]}"
+  _status=$?
+  PIDS=("${PIDS[@]:1}")
+  set -e
+  if [ "$_status" -ne 0 ]; then
+    if [ "$_status" -eq 124 ]; then
+      echo "==> base image build exceeded ${BUILD_TIMEOUT}s (REBREW_BUILD_TIMEOUT)" \
+        "and was killed" >&2
+    fi
+    echo "==> FAILED $PREFIX/$_base_name:1.0 (see docker output above)" >&2
+    exit 1
   fi
-  echo "==> FAILED $PREFIX/base:1.0 (see docker output above)" >&2
-  exit 1
-fi
+done
 
 dirs=()
 if [ $# -eq 0 ]; then

@@ -165,6 +165,52 @@ rebrew_dosbox_run() {
     DOSBOX_STATUS=$(rebrew_watchdog_status "$_start" "$_dosbox_timeout" "$DOSBOX_STATUS")
 }
 
+# rebrew_dosemu_run <sandbox> <compiler-dir> <dos-command> — runs one DOS
+# command through dosemu2, which is what the 1994 DOS-extended compilers
+# (PSY-Q 3.x's CC1PSX.EXE, Saturn Cygnus's CPP/CC1/AS) need: DOSBox's DPMI
+# cannot load their DJGPP `go32` stubs, and they exit silently there.
+# The sandbox becomes drive D: (dosemu2's `+0 <dir> +1` directory image) and
+# <compiler-dir> is put on the DOS search path with -K, so a command can name
+# either D:\file or a compiler binary.  Output is kept in
+# <sandbox>/dosemu.log and the run's status in $DOSEMU_STATUS, mirroring
+# rebrew_dosbox_run.  REBREW_DOSEMU_TIMEOUT (seconds, default 600) caps it.
+#
+# dosemu2 needs /dev/kvm: fail with the fix rather than a dosemu config dump.
+rebrew_dosemu_run() {
+    _sandbox="$1"
+    _compiler="$2"
+    _command="$3"
+    DOSEMU_STATUS=0
+    [ -e /dev/kvm ] || rebrew_die \
+        "this image runs 16-bit DOS compilers under dosemu2, which needs KVM" \
+        "(run the container with --device /dev/kvm)"
+    # shellcheck disable=SC2310  # rebrew_timeout_secs prints its own error
+    _dosemu_timeout=$(rebrew_timeout_secs 600 \
+        "${REBREW_DOSEMU_TIMEOUT:-}" REBREW_DOSEMU_TIMEOUT) || exit 1
+    _start=$(rebrew_now_secs)
+    printf "\$_hdimage = '+0 %s +1'\n" "$_sandbox" > "$_sandbox/dosemurc"
+    # -t (terminal video) + -k s (stdio keyboard) are the headless pair; the
+    # emulator writes the DOS console to stdout, which lands in the log.
+    HOME="$_sandbox" TERM=xterm \
+        timeout --kill-after=10 "$_dosemu_timeout" \
+        /usr/libexec/dosemu2/dosemu2.bin -t -ks \
+        -f "$_sandbox/dosemurc" -K "$_compiler" -E "$_command" \
+        >"$_sandbox/dosemu.log" 2>&1 || DOSEMU_STATUS=$?
+    DOSEMU_STATUS=$(rebrew_watchdog_status "$_start" "$_dosemu_timeout" "$DOSEMU_STATUS")
+}
+
+# rebrew_dosemu_failure_note — the dosemu2 twin of rebrew_dosbox_failure_note.
+rebrew_dosemu_failure_note() {
+    if [ "${DOSEMU_STATUS:-0}" -eq 0 ]; then
+        return 0
+    fi
+    if [ "${DOSEMU_STATUS:-0}" -eq 124 ]; then
+        printf '; dosemu2 was killed after exceeding REBREW_DOSEMU_TIMEOUT'
+    else
+        printf '; dosemu2 exited abnormally (status %s)' "$DOSEMU_STATUS"
+    fi
+}
+
 # rebrew_dosbox_failure_note — diagnostic suffix describing how the DOSBox
 # run itself ended, appended to compile-failure messages so a crashed or
 # timed-out emulator is not misreported as a plain compile failure.
