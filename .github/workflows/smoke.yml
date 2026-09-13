@@ -4,8 +4,8 @@
 # it cannot prove an image produces an object.  This job runs `make smoke`,
 # which does — the same check every image passed by hand before landing.  It
 # needs Docker (present on the runner) and network for the first build of each
-# image.  GitHub's runners expose no /dev/kvm, so `make smoke` skips the
-# dosemu2 cases there and says so; those are verified locally.
+# image.  GitHub's ubuntu runners do expose /dev/kvm, so the dosemu2 cases run
+# there too; on a host without it `make smoke` skips them with a message.
 name: smoke
 
 permissions:

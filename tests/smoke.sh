@@ -11,8 +11,9 @@
 # Usage:  tests/smoke.sh [profile ...]     (default: one image per runtime)
 #
 # Needs Docker and network access for the first build of each image.  The
-# dosemu2 images additionally need /dev/kvm and are skipped without it, so the
-# same script runs on a developer machine and on a CI runner.
+# dosemu2 images additionally need /dev/kvm (GitHub's ubuntu runners have it)
+# and are skipped with a message where it is missing, so the same script runs
+# on a developer machine and in CI.
 set -eu
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
