@@ -120,7 +120,15 @@ just `uv run make lint`) reproduces exactly what CI installs.
 
 Every image's ENTRYPOINT is the compiler wrapper; the container sees your
 source through `/work` (bind-mount your dir, `-w /work`), flags and source
-follow, and the artifact lands back in the mounted dir:
+follow, and the artifact lands back in the mounted dir.
+
+Images drop to the unprivileged user `rebrew` (uid/gid 1000), so the mounted
+directory must be readable **and writable** by that uid — a `0700` scratch dir
+or a host account with a different uid will fail with `no readable source file`
+(or a silently missing object).  If your uid differs, either relax the
+directory's mode or map the user yourself with `--user "$(id -u):$(id -g)"`
+(only the native-ELF families support an arbitrary uid; wine needs the prefix
+owner, which is uid 1000):
 
 ```bash
 # MSVC 6.0 (wine inside the image)

@@ -20,6 +20,13 @@ cd "$REPO"
 
 work="$(mktemp -d "${TMPDIR:-/tmp}/rebrew-smoke.XXXXXX")"
 trap 'rm -rf "$work"' EXIT
+# The toolchain images drop to uid 1000 (`rebrew`), so the mount must be
+# readable *and writable* by that uid.  `mktemp -d` is 0700, and a CI runner's
+# user is uid 1001, not 1000: without this the container cannot traverse the
+# mount (every compile reports "no readable source file") or write the object
+# back.  0777 on a throwaway scratch dir is deliberate — a real `-v "$PWD":/work`
+# works because a developer's uid is normally 1000.
+chmod 777 "$work"
 
 fail=0
 
@@ -51,6 +58,7 @@ run_case() {
     tag="rebrew/${host_dir%%/*}:${host_dir#*/}"
     echo "== $profile ($tag)"
     printf 'int f(int x){return x+1;}\n' > "$work/t.c"
+    chmod 644 "$work/t.c"
     rm -f "$work/t.o" "$work/t.obj"
     if ! ./build.sh "$host_dir" >"$work/build.log" 2>&1; then
         echo "FAIL $profile: build failed" >&2
