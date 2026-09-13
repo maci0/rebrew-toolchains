@@ -135,7 +135,10 @@ SOURCES: dict[str, tuple[str, str]] = {
         (
             "`bwrsandman/icc5.0.1.010525Z`: the Intel C++ 5.0.1 (build 010525Z) "
             "tree, extracted from the archive.org item `latest-versions-of-c` "
-            "(`data1.cab` md5 e8dd2defb4754dafe9295f2087a52be0)"
+            "(`data1.cab` md5 e8dd2defb4754dafe9295f2087a52be0).  A personal "
+            "repository with one release, so the pin is sha256-verified and the "
+            "same content also exists as git blobs (codeload fallback); mirror it "
+            "before relying on it for a rebuild"
         ),
         "proprietary",
     ),

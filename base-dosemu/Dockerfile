@@ -1,5 +1,9 @@
 # rebrew/base-dosemu — the dosemu2 runtime layer for 16-bit DOS toolchains.
 #
+# Inherits base-noble (Ubuntu 24.04 + the shared wrapper helpers and user) and
+# adds only what the DOS toolchains need; see base-noble for why a non-Debian
+# base exists.
+#
 # The DOS-extended compilers of the early 1990s (PSY-Q 3.x's CC1PSX.EXE, Saturn
 # Cygnus's CPP/CC1/AS) are DJGPP `go32` binaries.  DOSBox cannot load their
 # stub — they exit silently with no object — so they need dosemu2 with the
@@ -17,31 +21,18 @@
 #
 # Build:  docker build -t rebrew/base-dosemu:1.0 base-dosemu
 
-ARG HELPER_IMAGE=rebrew/base:1.0
+# Overridable so `PREFIX=registry/ ./build.sh` builds against the matching
+# base-noble rather than the default namespace.
+ARG NOBLE_IMAGE=rebrew/base-noble:1.0
 
-FROM ${HELPER_IMAGE} AS helper
-
-FROM ubuntu:noble
+FROM ${NOBLE_IMAGE}
 
 USER root
 
 LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.title="rebrew base-dosemu (dosemu2 + dj64 runtime layer)" \
-      org.opencontainers.image.description="dosemu2 runtime base for 16-bit DOS toolchain images (needs --device /dev/kvm)"
-
-COPY --from=helper /usr/local/lib/rebrew /usr/local/lib/rebrew
-
-# Same unprivileged runtime user as base/ (uid/gid 1000, /work owned), so
-# images built on this base behave identically for volumes and `USER rebrew`.
-# Ubuntu's image already owns uid/gid 1000 as `ubuntu`, so rename it rather
-# than adding a second account.
-RUN groupmod -n rebrew ubuntu \
-    && usermod -l rebrew -d /home/rebrew -m ubuntu \
-    && mkdir -p /work \
-    && chown -R rebrew:rebrew /home/rebrew /work
-
-ENV HOME=/home/rebrew
+      org.opencontainers.image.description="dosemu2/dj64 runtime base for 16-bit DOS toolchain images (needs --device /dev/kvm)"
 
 # dosemu2's runtime libraries come from Ubuntu's archive (they are ordinary
 # distro packages); only the PPA-only packages below are pinned.

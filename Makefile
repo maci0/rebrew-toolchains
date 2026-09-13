@@ -12,7 +12,7 @@
 # --others --exclude-standard keeps the .gitignore'd trees out.
 SHELL_SCRIPTS := $(shell git ls-files --cached --others --exclude-standard '*.sh')
 
-.PHONY: lint test docs smoke
+.PHONY: lint test docs smoke pins
 lint:
 	shellcheck $(SHELL_SCRIPTS)
 	ruff check .
@@ -31,3 +31,9 @@ docs:
 # build of each image, and /dev/kvm for the dosemu2 family.
 smoke:
 	sh tests/smoke.sh
+
+# Network check: every pinned download URL must still resolve (see
+# tests/check_pins.py).  Scheduled in CI rather than run per-push, so a
+# transient upstream outage cannot block a change.
+pins:
+	uv run python tests/check_pins.py

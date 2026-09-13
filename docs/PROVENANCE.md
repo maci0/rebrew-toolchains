@@ -47,7 +47,7 @@ listed here, so a new upstream cannot arrive undocumented.
 | `earthsiege2` | `earthsiege2/borland-cpp-ide`: an archive of abandoned Borland C++ installations (the Borland C++ 5.6 command-line tree is extracted from it here) | proprietary | 1 |
 | `github.com/AngheloAlf` | `AngheloAlf/egcs_1.1.2-4`: the N64 EGCS tree (mips-linux-gcc driver) | GPL | 1 |
 | `github.com/SBird1337` | `SBird1337/camelot-gcc`: Camelot GCC 2.96 (GBA) | GPL | 1 |
-| `github.com/bwrsandman` | `bwrsandman/icc5.0.1.010525Z`: the Intel C++ 5.0.1 (build 010525Z) tree, extracted from the archive.org item `latest-versions-of-c` (`data1.cab` md5 e8dd2defb4754dafe9295f2087a52be0) | proprietary | 1 |
+| `github.com/bwrsandman` | `bwrsandman/icc5.0.1.010525Z`: the Intel C++ 5.0.1 (build 010525Z) tree, extracted from the archive.org item `latest-versions-of-c` (`data1.cab` md5 e8dd2defb4754dafe9295f2087a52be0).  A personal repository with one release, so the pin is sha256-verified and the same content also exists as git blobs (codeload fallback); mirror it before relying on it for a rebuild | proprietary | 1 |
 | `github.com/devwizard64` | `devwizard64/gcc4.4.0-mips64-elf`: a prebuilt mips64-elf GCC 4.4.0 tree | GPL | 1 |
 | `github.com/laqieer` | `laqieer/agbcc`: the FE8J agbcc fork | GPL | 1 |
 | `github.com/notyourav` | `notyourav/agbcc`: the agbcc C++ frontend fork | GPL | 1 |

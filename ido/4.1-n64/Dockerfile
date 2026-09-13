@@ -1,11 +1,12 @@
 # IDO 4.1 — SGI MIPS compiler (N64, original IRIX binaries under qemu-irix-4.0).
 #
-# Inherits the repository's Ubuntu-noble base (rebrew/base-dosemu) because the
-# IDO 4.1 asset bundles `qemu-irix-4.0`, which needs GLIBC_2.38: Debian
-# bookworm's 2.36 cannot load it (an earlier round proved the loader aborts on
-# `__tunable_is_initialized (GLIBC_PRIVATE)` when trixie's libc is mixed into
-# bookworm's).  Ubuntu noble's 2.39 satisfies it, so the same base that carries
-# the DOS emulator carries this one too; dosemu2 is dormant here.
+# Inherits rebrew/base-noble (Ubuntu 24.04) because the IDO 4.1 asset bundles
+# `qemu-irix-4.0`, which needs GLIBC_2.38: Debian bookworm's 2.36 cannot load
+# it (an earlier round proved the loader aborts on `__tunable_is_initialized
+# (GLIBC_PRIVATE)` when trixie's libc is mixed into bookworm's).  Noble's 2.39
+# satisfies it.  The two runtime pieces this image needs are declared here —
+# `libglib2.0-0` for the emulator and `python3` for `ecoff_tool.py` — so
+# nothing is inherited implicitly from another family's base.
 #
 # The entrypoint is decomp.me's recipe: the emulator running the vendor IRIX
 # `cc` with `-EL` (this is the little-endian N64 build), then the asset's own
@@ -14,7 +15,7 @@
 # Build:  docker build -t rebrew/ido:4.1-n64 ido/4.1-n64
 # Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/ido:4.1-n64 -c t.c -o t.o
 
-ARG BASE_IMAGE=rebrew/base-dosemu:1.0
+ARG BASE_IMAGE=rebrew/base-noble:1.0
 
 FROM ${BASE_IMAGE}
 
@@ -26,7 +27,7 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
       org.opencontainers.image.description="IDO 4.1 (SGI MIPS, N64 little-endian, IRIX binaries under qemu-irix-4.0) toolchain image"
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends libglib2.0-0 \
+    && apt-get install -y --no-install-recommends libglib2.0-0 python3 \
     && rm -rf /var/lib/apt/lists/*
 
 # decompme/compilers' `ido4.1` asset: the whole IRIX tool tree plus the

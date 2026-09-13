@@ -1,0 +1,34 @@
+# Upstream drift watch: does every pinned download still exist?
+#
+# Nothing in `lint.yml`/`smoke.yml` can notice an upstream *deleting* an asset
+# (PPAs prune old builds, GitHub release tags get retagged, `files.decomp.dev`
+# rotates dated bundles).  `make pins` asks each of the ~310 pinned URLs for
+# its headers and fails on 404/410, so drift is a failing scheduled run rather
+# than a broken build months later.  It is deliberately not part of the
+# per-push gate: it needs the network and a transient outage must not look
+# like a bad manifest.
+name: pins
+
+permissions:
+  contents: read
+
+on:
+  schedule:
+    # Weekly, Mondays 06:00 UTC.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  pins:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: astral-sh/setup-uv@v6
+      - name: Install pinned analyzers
+        run: uv sync --group lint --locked
+      - name: Check every pinned URL still resolves
+        run: uv run --no-sync make pins

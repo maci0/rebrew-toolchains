@@ -48,10 +48,13 @@ service is the reference consumer).
 ```
 
 `PREFIX` env var re-tags the images (`PREFIX=archaic ./build.sh` →
-`archaic/msvc:6.0-win32`).  Two shared bases are built first: `rebrew/base`
-(Debian + wine/wibo/dosbox) and `rebrew/base-dosemu` (Ubuntu + dosemu2 + dj64,
-for the 16-bit DOS toolchains); each Dockerfile declares the one it needs in
-its `ARG BASE_IMAGE=` default, and `build.sh` honours it.  Naming is normalized everywhere: a toolchain
+`archaic/msvc:6.0-win32`).  Three shared bases are built first, in
+dependency order: `rebrew/base` (Debian + wine/wibo/dosbox), `rebrew/base-noble`
+(Ubuntu 24.04 + the wrapper helpers and user, for toolchains Debian cannot
+host) and `rebrew/base-dosemu` (base-noble + dosemu2 + dj64, for the 16-bit DOS
+toolchains).  Each Dockerfile declares the one it needs in its `ARG BASE_IMAGE=`
+default, and `build.sh` honours it, so an image never inherits a runtime it does
+not use.  Naming is normalized everywhere: a toolchain
 lives in `<family>/<version>-<platform>` (platform suffixes: `win16`,
 `win32`, `linux-x64`, or the console — `n64`, `ps1`, `ps2`, `gba`, `nds`,
 `3ds`, `psp`, `gc`, `wii`, `wiiu`, `dreamcast`, `saturn`, `x360`, `switch`), its
@@ -89,6 +92,10 @@ hash-verified packages or fail loudly on drift:
   exclusion recorded and justified in the config (100-column hard cap).
 - **mypy** in `strict` mode, scoped to the whole tree: new Python files are
   checked by default, dot-directories are skipped automatically.
+
+`make pins` is the network check: every pinned download URL must still
+resolve (scheduled weekly in CI, since an upstream deleting an asset must not
+look like a broken manifest).
 
 `make smoke` is the Docker-requiring counterpart: it builds one image per
 runtime class and compiles with it, which is how "the build succeeded but the

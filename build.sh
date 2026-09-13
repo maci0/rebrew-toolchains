@@ -311,20 +311,29 @@ base_image_for() {
   esac
 }
 
-# Base images first — every top-level base*/ directory is tagged :1.0 to match
-# the FROM ${BASE_IMAGE} defaults and the build-arg passed below.  They must
-# exist before the pool starts: every toolchain image's FROM resolves against
-# one of them.  Built sequentially (base-dosemu's helper stage pulls
-# rebrew/base:1.0 in, so order matters) and backgrounded only so the pid is
-# tracked and cleanup() can kill a base build if the run is interrupted; each
-# wait makes that build effectively synchronous, with output still streaming.
+# Base images first, in dependency order — `base` (Debian + wine/wibo/dosbox)
+# is pulled in as a helper stage by every other base, and `base-noble`
+# (Ubuntu 24.04) is what `base-dosemu` builds FROM.  Any further base*/
+# directory discovered on disk is built after these, so a new layer that only
+# depends on `base` needs no edit here.  Bases are tagged :1.0 to match the
+# FROM ${BASE_IMAGE} defaults and the build-arg passed below, and must exist
+# before the pool starts because every toolchain image's FROM resolves against
+# one of them.  Backgrounded only so the pid is tracked and cleanup() can kill
+# a base build if the run is interrupted; each wait makes that build
+# effectively synchronous, with output still streaming.
+_extra_bases=""
 for _base_dir in "$ROOT"/base*/; do
-  _base_name="$(basename "$_base_dir")"
   [ -f "$_base_dir/Dockerfile" ] || continue
+  _name="$(basename "$_base_dir")"
+  case "$_name" in base | base-noble | base-dosemu) ;; *) _extra_bases="$_extra_bases $_name" ;; esac
+done
+for _base_name in base base-noble base-dosemu $_extra_bases; do
+  _base_dir="$ROOT/$_base_name/"
   echo "==> building $PREFIX/$_base_name:1.0"
   set +e
   timeout --kill-after=30 "$BUILD_TIMEOUT" docker build \
     --build-arg "HELPER_IMAGE=$PREFIX/base:1.0" \
+    --build-arg "NOBLE_IMAGE=$PREFIX/base-noble:1.0" \
     -t "$PREFIX/$_base_name:1.0" "$_base_dir" &
   PIDS+=("$!")
   wait "${PIDS[0]}"

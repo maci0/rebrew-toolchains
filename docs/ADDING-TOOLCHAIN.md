@@ -282,7 +282,7 @@ file t.o                               # an object of the right target, or the d
 ```
 
 Every image in this repo was smoke-tested that way before it landed — a
-build that succeeds but produces no artifact is not done.  Two traps that
+build that succeeds but produces no artifact is not done.  Three traps that
 have produced false results here:
 
 - **DOSBox artifacts are FAT-uppercased** (`f.obj` → `F.OBJ`).  A case-sensitive
@@ -303,6 +303,7 @@ Then:
 ```bash
 make lint && make test                 # analyzers + contract/catalog tests
 make smoke                             # build+compile one image per runtime (needs Docker)
+make pins                              # every pinned URL still resolves (needs network)
 ./build.sh this-is-not-a-toolchain     # exercises the manifest validation sweep
 ```
 
