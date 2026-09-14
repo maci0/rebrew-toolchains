@@ -160,16 +160,16 @@ The remaining work is mechanical but not small, and none of it is guesswork:
        make test                                            # the list shrinks
        sh tests/smoke.sh <one image of the new shape>        # and it compiles
 
-2. **`catalog.py` still greps the rendered Dockerfile** for the per-image notes
-   (`_runs`, `notes`).  The runtime column reads the recipe now; the notes are
-   about what a converter *does* (`rof2elf.py`, `psyq-obj-parser`), which the
-   recipe still knows only indirectly.
-3. **`layout`** duplicates the recipe's unpack step and is still read by the
-   catalog for its note.  Either the note moves to the recipe or the field does.
-4. `tools/migrate/` is scaffolding with a purpose: `verify_migration.py` is the
+2. **`tools/migrate/` is scaffolding with a purpose: `verify_migration.py` is the
    migration's proof and runs in CI; `derive_and_verify.py` and `apply.py` exist
    for (1), and `gitrev.py` holds the worktree checkout both of them use.  If no
    further shape is ever added, the pair can go — the proof cannot.
+
+Nothing else is outstanding.  `catalog.py` reads the manifest for everything it
+prints — the runtime from `recipe.runner`, the notes from the profile's `notes`
+— and the five helpers that grepped the rendered Dockerfile for it
+(`_image_sources`, `_wrapper_text`, `_runs`, `_PLUMBING`, the `blob`) are gone
+with the `layout` field they were reading.
 
 ## One rule worth keeping
 
