@@ -26,8 +26,7 @@ The recipe schema, per profile under `"recipe"`:
     steps       install operations, in order:
                 {"op": "tar", "from": ..., "into": ..., "strip": 1,
                  "compression": "gz"|"xz"|"bz2"}
-                {"op": "unzip", "from": ..., "into": ..., "subpath": "a/b"}
-                {"op": "7z", "from": ..., "into": ...}
+                {"op": "unzip", "from": ..., "into": ...}
                 {"op": "cp", "from": "src"|[sources], "into": ...}
                 {"op": "mkdir", "paths": [...]}
                 {"op": "chmod", "paths": [...]} | {"op": "chmod", "recursive": "/dir"}
@@ -45,10 +44,9 @@ The recipe schema, per profile under `"recipe"`:
                  "set_e": bool,
                  "env": [{"name": ..., "value": ..., "style": "prefix"|"export"}],
                  ...shape parameters}
-    handwritten a reason, for the few images whose pipeline is not expressible
                 (their Dockerfile and wrapper are left alone)
 
-Anything the schema cannot express must say so via `handwritten`, which a test
+Anything the schema cannot express is a `wrapper.shape` of `handwritten`, which a test
 counts and lists — silent special cases are what this file exists to prevent.
 """
 
@@ -124,9 +122,6 @@ def render_dockerfile(profile: str, entry: dict[str, object]) -> str:
     base = _text(rec, "base") or "base"
     _require(base in BASES, f"{profile}: unknown base {base}")
     lines = [MARKER, f"# profile: {profile}", ""]
-
-    if _text(rec, "handwritten"):
-        raise ValueError(f"{profile} is marked handwritten and must not be generated")
 
     lines += [f"ARG BASE_IMAGE=rebrew/{base}:1.0", "", "FROM ${BASE_IMAGE}", "", "USER root", ""]
     title, description = _title(profile, entry)
@@ -236,7 +231,7 @@ def entrypoint_name(entry: dict[str, object]) -> str:
     wrapper = rec.get("wrapper")
     if isinstance(wrapper, dict) and _text(wrapper, "name"):
         return _text(wrapper, "name")
-    return {"pe": "cl", "native": "cc", "cc1": "cc"}.get(_text(rec, "shape"), "cc")
+    return "cc"
 
 
 def wrapper_filename(entry: dict[str, object]) -> str:
@@ -273,15 +268,7 @@ def _render_steps(profile: str, steps: list[dict[str, object]]) -> list[str]:
             middle = f" {members}" if members else ""
             out.append(f"tar x{flag}f {step['from']}{strip}{wild} -C {step['into']}{middle}")
         elif op == "unzip":
-            if step.get("subpath"):
-                out.append(
-                    f"unzip -q {step['from']} -d {step['into']}"
-                    f" && cp -a {step['into']}/{step['subpath']}/. {step['into']}/"
-                )
-            else:
-                out.append(f"unzip -q {step['from']} -d {step['into']}")
-        elif op == "7z":
-            out.append(f"7z x {step['from']} -o{step['into']} -y")
+            out.append(f"unzip -q {step['from']} -d {step['into']}")
         elif op == "cp":
             raw = step.get("from")
             sources = raw if isinstance(raw, list) else [raw]
@@ -354,7 +341,7 @@ def _head(entry: dict[str, object], what: str, wrapper: dict[str, object]) -> li
 
 def _wrapper_passthrough(profile: str, entry: dict[str, object], wrapper: dict[str, object]) -> str:
     rec = recipe(entry)
-    runner = _text(rec, "runner") or ("wine" if _text(rec, "shape") == "pe" else "exec")
+    runner = _text(rec, "runner")
     helper = {"wibo": "rebrew_run", "wine": "rebrew_run", "exec": "rebrew_exec"}[runner]
     binary = _text(rec, "binary")
     _require(binary, f"{profile}: passthrough wrapper needs a binary")
@@ -723,8 +710,6 @@ def _wrapper_normalising(entry: dict[str, object], wrapper: dict[str, object]) -
 def render_all(entries: dict[str, dict[str, object]]) -> dict[pathlib.Path, str]:
     out: dict[pathlib.Path, str] = {}
     for profile, entry in entries.items():
-        if recipe(entry).get("handwritten"):
-            continue
         host = REPO / _text(entry, "host_dir")
         out[host / "Dockerfile"] = render_dockerfile(profile, entry)
         if not handwritten_wrapper(entry):

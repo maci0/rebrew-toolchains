@@ -1,9 +1,8 @@
 # Static analysis and behavioral tests for this repo.  The analyzers read
 # their settings from .shellcheckrc and pyproject.toml; `make lint` is the
-# one entry point that must stay green before any push, `make test` pins
-# the wrapper-common.sh runner/watchdog contract with stub runners, the
-# Quantum extractor's numeric contracts with unit tests, and the generated
-# toolchain catalog against the manifest.
+# one entry point that must stay green before any push, `make test` pins the
+# wrapper-common.sh runner/watchdog contract with stub runners and the
+# generated toolchain catalog against the manifest.
 #
 # `make docs` regenerates docs/TOOLCHAINS.md from sources.json + the
 # Dockerfiles; `make test` fails when the committed copy is stale.

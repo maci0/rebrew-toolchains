@@ -62,7 +62,7 @@ The same lesson paid twice more when shapes started landing:
   could delete a wrapper's prose and still compare equal.  It had: 18 wrappers
   (borland 5.5/5.6, four GCC rebuilds, every Watcom image) lost the paragraph
   that says how their compiler has to be driven;
-* `runner` was guessed by `apply.py` (any wrapper calling `rebrew_run` became
+* `runner` was guessed by the derivation harness (any wrapper calling `rebrew_run` became
   `wibo`) and the catalog sniffed the rendered file instead of reading the
   manifest, so 151 profiles recorded a runtime their image does not have.  The
   generated files never noticed, because both values render the same wrapper.
@@ -99,20 +99,20 @@ the *engineering* is — 272 copies of eight procedures.
 - `generate.py` — the generator and the recipe schema (documented in its
   docstring).  `--check` re-renders in memory and diffs, for a CI staleness
   gate mirroring `make docs`.
-- `tools/migrate/derive_and_verify.py` — throwaway harness that (a) derives a
-  recipe from each existing Dockerfile + wrapper, and (b) compares the *generated*
-  replacement with the original **semantically**: ordered pins, apt set, install
-  operations, env, entrypoint, and the commands the wrapper actually runs — with
-  paths, URLs, hashes, tar flag order and comments normalised away.
+- `tools/migrate/verify_migration.py` — the proof, and what runs in CI.  It
+  reads a Dockerfile and a wrapper the way Docker and a shell do and compares
+  the generated file with the original three ways (classified semantics, raw
+  install clauses, raw wrapper lines).  It carries its own parsers rather than
+  sharing a renderer's, because a comparison that shares them can agree with a
+  mistake by making it twice — which happened, repeatedly (see below).
+- `tools/migrate/gitrev.py` — the throw-away checkout of the baseline revision.
 
-## Where the derivation stands
-
-```
-derived         148 of 272 profiles
-identical        78            (generated == original, semantically)
-differing        70            (wrapper/ops derivation gaps)
-not derivable   124            (wrapper or install shape not yet expressed)
-```
+The *derivation* harness (a `derive_and_verify.py` that read a recipe out of
+each hand-written Dockerfile, and an `apply.py` that ran it over the corpus and
+regenerated everything) did its one job and is deleted.  Nothing needs it: the
+recipes are in `sources.json`, the proof re-checks them against the baseline
+without it, and a new toolchain is a recipe you write, which is what
+`docs/ADDING-TOOLCHAIN.md` describes.
 
 The remaining work is mechanical but not small, and none of it is guesswork:
 
@@ -133,7 +133,7 @@ The remaining work is mechanical but not small, and none of it is guesswork:
 ## Verification plan (already implemented, to run at the end)
 
 1. `generate.py --check` clean for every generated file.
-2. `derive_and_verify.py` reports **0 differing** — i.e. every generated image is
+2. `make verify` reports **0 differing** — i.e. every generated image is
    semantically identical to the one that ships today.
 3. `make lint && make test` (contract tests police generated output too).
 4. `make smoke` extended to one image per *shape* (~12 builds, including
@@ -152,18 +152,18 @@ The remaining work is mechanical but not small, and none of it is guesswork:
    template, it is a wrapper — the remaining work here is *none*, and that is
    the point of the list.
 
-   If a sibling ever appears, the loop is: teach the generator a shape, teach
-   `classify_wrapper` to recognise it, then
+   If a sibling ever appears, the loop is: teach `generate.py` a renderer for
+   the shape, write the recipe for the images that need it (their old wrappers
+   are in git history, and the deleted harness is how the first 29 were read
+   out of them), then
 
-       python3 tools/migrate/apply.py --baseline 07a7268     # re-derive
+       make generate                                        # render it
        make verify                                          # must stay 0 differ
        make test                                            # the list shrinks
        sh tests/smoke.sh <one image of the new shape>        # and it compiles
 
-2. **`tools/migrate/` is scaffolding with a purpose: `verify_migration.py` is the
-   migration's proof and runs in CI; `derive_and_verify.py` and `apply.py` exist
-   for (1), and `gitrev.py` holds the worktree checkout both of them use.  If no
-   further shape is ever added, the pair can go — the proof cannot.
+2. `tools/migrate/` holds the proof (`verify_migration.py`, run in CI) and the
+   worktree checkout it uses (`gitrev.py`).  Nothing else.
 
 Nothing else is outstanding.  `catalog.py` reads the manifest for everything it
 prints — the runtime from `recipe.runner`, the notes from the profile's `notes`

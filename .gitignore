@@ -7,7 +7,7 @@
 # <family>/<version>-<arch>/source (hundreds of MB, rebuilt on demand).
 source/
 
-# Python bytecode from the host-side dev tools (tools/pak_extract.py).
+# Python bytecode from the test suite and the migration tooling.
 __pycache__/
 
 # Analyzer state from `make lint` (ruff, mypy) and uv environments.

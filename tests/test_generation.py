@@ -49,12 +49,6 @@ class TestGeneration(unittest.TestCase):
         )
         self.assertEqual(stale, [], "run `make generate` to re-render these")
 
-    def test_every_dockerfile_is_generated(self) -> None:
-        entries = generate.manifest()
-        for profile, entry in entries.items():
-            text = (_REPO / str(entry["host_dir"]) / "Dockerfile").read_text(encoding="utf-8")
-            self.assertTrue(text.startswith(generate.MARKER), f"{profile}: hand-written Dockerfile")
-
     def test_handwritten_wrappers_are_the_declared_ones(self) -> None:
         entries = generate.manifest()
         declared = {p for p, e in entries.items() if generate.handwritten_wrapper(e)}

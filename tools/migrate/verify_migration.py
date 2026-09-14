@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Prove the generated images are the images that were already here.
 
+Carries its own Dockerfile and wrapper parsers: it must read a file the way
+Docker and a shell do, and it must not share that reading with a renderer whose
+mistakes it is supposed to catch.
+
     python3 tools/migrate/verify_migration.py [--baseline HEAD] [profile ...]
 
 The migration replaced 272 hand-written Dockerfiles (and 233 hand-written
@@ -20,21 +24,18 @@ from __future__ import annotations
 
 import argparse
 import collections
+import json
 import pathlib
 import re
 import sys
 import tempfile
+from typing import TypedDict
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "tools" / "migrate"))
 
 import gitrev  # noqa: E402
-from derive_and_verify import (  # noqa: E402
-    instructions,
-    semantics,
-    wrapper_text,
-)
 
 import generate  # noqa: E402
 
@@ -60,6 +61,238 @@ def copy_sources(directory: pathlib.Path) -> list[str]:
         if m and not m.group(1).startswith("$") and not (directory / m.group(1)).exists():
             problems.append(f"COPY {m.group(1)} has no such file")
     return problems
+
+
+# ---------------------------------------------------------------- the parsers
+#
+# These read a Dockerfile and its wrapper the way Docker and a shell do: line
+# continuations joined, comments dropped before that (a comment inside a
+# continued `RUN` swallows the rest of the command if you keep it), the
+# install steps and the entrypoint's delivery separated.  They were in
+# `derive_and_verify.py`, which existed to re-derive recipes from a baseline;
+# that tooling is gone and this proof is what needed them.
+
+
+def instructions(text: str) -> list[str]:
+    """The Dockerfile's instructions, joined across line continuations.
+
+    Comments are dropped wherever they appear, including *inside* a multi-line
+    instruction, which is what Docker itself does before joining.  Treating one
+    as part of the command swallowed everything after it on that command:
+    msvc-6.0-sp6 copies `MSPDB60.DLL` next to `CL.EXE` after a comment, and the
+    copy — which its wrapper needs — vanished from the derived recipe while the
+    comparison, using this same parser, called the result equal.
+    """
+    out, buf = [], ""
+    for raw in text.splitlines():
+        line = raw.rstrip()
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        buf = f"{buf} {line.strip()}" if buf else line.strip()
+        if buf.endswith("\\"):
+            buf = buf[:-1].rstrip()
+            continue
+        out.append(re.sub(r"\s+", " ", buf))
+        buf = ""
+    if buf:
+        out.append(re.sub(r"\s+", " ", buf))
+    return out
+
+
+def wrapper_text(d: pathlib.Path) -> tuple[str, str]:
+    sibs = sorted(p for p in d.glob("*.sh") if p.is_file())
+    if sibs:
+        return sibs[0].name, sibs[0].read_text()
+    lines: list[str] = []
+    for ins in instructions((d / "Dockerfile").read_text()):
+        if ins.startswith("RUN printf "):
+            for quoted in re.findall(r"'((?:[^']|'\\'')*)'", ins):
+                chunk = quoted.replace("'\\''", "'")
+                if not chunk.startswith("%s"):
+                    lines.append(chunk)
+    return "", "\n".join(lines) + "\n"
+
+
+class Semantics(TypedDict):
+    """The instruction-by-instruction meaning of one Dockerfile + wrapper."""
+
+    base: str
+    apt: list[str]
+    pins: list[str]
+    ops: list[str]
+    env: dict[str, str]
+    labels: dict[str, str]
+    copies: list[str]
+    delivery: list[str]
+    entrypoint: str
+
+
+def semantics(d: pathlib.Path) -> Semantics:
+    """What the image *does*, independent of formatting or comments."""
+    text = (d / "Dockerfile").read_text()
+    base = "base"
+    apt: list[str] = []
+    pins: list[str] = []
+    ops: list[str] = []
+    env: dict[str, str] = {}
+    labels: dict[str, str] = {}
+    copies: list[str] = []
+    delivery: list[str] = []
+    entrypoint = ""
+    for ins in instructions(text):
+        verb = ins.split(" ", 1)[0].upper()
+        if verb == "ARG":
+            m = re.match(r"ARG BASE_IMAGE=rebrew/(\S+):", ins)
+            if m:
+                base = m.group(1)
+        elif verb == "ENTRYPOINT":
+            m = re.search(r'"(/usr/local/bin/[^"]+)"', ins)
+            if m:
+                entrypoint = pathlib.Path(m.group(1)).name
+        elif verb == "LABEL":
+            # Labels are documentation, and documentation nobody compares is
+            # documentation that rots; a wrong title/description is a defect
+            # like any other.
+            labels.update(re.findall(r"(org\.opencontainers\.image\.[a-z]+)=\"([^\"]*)\"", ins))
+        elif verb == "COPY":
+            # A wrapper that is COPYed from the wrong file, or not COPYed at
+            # all, changes the image — the wrapper's *text* is read from the
+            # directory, so without this the file could be missing from the
+            # image and still compare equal.
+            m = re.match(r"COPY\s+(?:--from=\S+\s+)?(\S+)\s+(\S+)", ins)
+            if m:
+                copies.append(f"{m.group(1)} -> {m.group(2)}")
+        elif verb == "ENV":
+            env.update(re.findall(r"([A-Z_][A-Z0-9_]*)=(\S+)", ins[4:]))
+        elif verb == "RUN":
+            body = ins[4:]
+            # A printf'd inline wrapper and its trailing `chmod` share one RUN;
+            # only the printf itself is wrapper text, the rest is image setup.
+            if body.startswith("printf"):
+                body = body.split("> /usr/local/bin/", 1)[-1]
+                body = body[body.find("&&") + 2 :] if "&&" in body else ""
+            if "curl" in body:
+                pins += re.findall(r'"(https?://[^"]+)"', body)
+            m = re.search(r"apt-get install -y --no-install-recommends ([^&|;]+)", body)
+            if m:
+                apt += sorted(m.group(1).split())
+            for raw_cmd in re.split(r"\s*&&\s*", body):
+                cmd = raw_cmd.strip()
+                if not cmd or cmd.startswith(("curl ", "echo ", "printf ", "rm ")):
+                    continue
+                if cmd.startswith("apt-get"):
+                    continue
+                op = classify(cmd)
+                if op is not None and op.get("op") not in {"script", "apt_meta"}:
+                    if _is_entrypoint_chmod(op):
+                        # counted, not deduped: the entrypoint must be made
+                        # executable exactly once, after the COPY that puts it
+                        # there.  Deduping this is what hid 53 images whose
+                        # install step chmod'd a file that did not exist yet.
+                        delivery.append(_norm_op(cmd))
+                        continue
+                    ops.append(json.dumps(op, sort_keys=True))
+                else:
+                    ops.append(_norm_op(cmd))
+    # repeated idempotent operations are not a difference
+    seen: list[str] = []
+    for text_op in ops:
+        idempotent = any(word in text_op for word in ("mkdir", "rm ", "ls ", "chmod"))
+        if text_op in seen and idempotent:
+            continue
+        seen.append(text_op)
+    return {
+        "base": base,
+        "apt": apt,
+        "pins": pins,
+        "ops": seen,
+        "env": env,
+        "labels": labels,
+        "copies": copies,
+        "delivery": delivery,
+        "entrypoint": entrypoint,
+    }
+
+
+def _norm_op(cmd: str) -> str:
+    cmd = re.sub(r"/opt/[A-Za-z0-9_.+-]+", "/opt/X", cmd)
+    cmd = re.sub(r"/tmp/[A-Za-z0-9_.+-]+", "/tmp/F", cmd)  # noqa: S108  (pattern, not a path)
+    return re.sub(r"\s+", " ", cmd)
+
+
+def classify(cmd: str) -> dict[str, object] | None:
+    """One shell command -> one schema op (None = handled elsewhere)."""
+    if cmd.startswith(("curl ", "echo ", "printf ")):
+        return None
+    m = re.match(r"mkdir -p (.+)", cmd)
+    if m:
+        return {"op": "mkdir", "paths": m.group(1).split()}
+    m = re.match(r"tar x(\w)f (\S+) (.+)$", cmd)
+    if m and re.search(r"(^| )-C ", m.group(3)):
+        flags = m.group(3)
+        into = re.search(r"-C (\S+)", flags)
+        strip = re.search(r"--strip-components=(\d+)", flags)
+        wild = "--wildcards" in flags
+        into_dir = into.group(1) if into else ""
+        members = [tok for tok in flags.split() if not tok.startswith("-") and tok != into_dir]
+        if into:
+            op = {
+                "op": "tar",
+                "compression": {"z": "gz", "J": "xz", "j": "bz2"}.get(m.group(1), "gz"),
+                "from": m.group(2),
+                "into": into.group(1),
+            }
+            if strip:
+                op["strip"] = int(strip.group(1))
+            if members:
+                op["members"] = members
+            if wild:
+                op["wildcards"] = True
+            return op
+    m = re.match(r"unzip -q (\S+) -d (\S+)", cmd)
+    if m:
+        return {"op": "unzip", "from": m.group(1), "into": m.group(2)}
+    m = re.match(r"cp (-[ar]+) (.+)$", cmd)
+    if m:
+        parts = m.group(2).split()
+        if len(parts) >= 2:
+            # `-a` preserves owners and times, `-r` does not: not the same
+            # command, so the flag is carried rather than re-chosen.
+            return {
+                "op": "cp",
+                "flags": m.group(1),
+                "from": parts[0] if len(parts) == 2 else parts[:-1],
+                "into": parts[-1],
+            }
+    if cmd.startswith("chmod "):
+        return {"op": "chmod", "cmd": cmd}
+    # The source may be a quoted command substitution containing spaces and a
+    # pipeline — `ln -s "$(ldconfig -p | awk '/x/{print $NF; exit}')" /opt/…/y`
+    # — so the name is the last token and everything before it is the source.
+    # Matching on the first token instead read that command as `ln -s "$(ldconfig
+    # -p`, and because the comparison reused this classifier it agreed with
+    # itself and called the truncated render equal.
+    m = re.match(r"ln -s (.+) (\S+)$", cmd)
+    if m:
+        return {"op": "link", "target": m.group(1), "name": m.group(2)}
+    if cmd.startswith(("ls ", "find ")):
+        return {"op": "guard", "cmd": cmd}
+    if cmd.startswith("rm "):
+        return {"op": "rm", "cmd": cmd}
+    if re.match(r"^/opt/\S+ --version", cmd) or cmd.endswith("--version"):
+        return {"op": "check_run", "cmd": cmd}
+    m = re.match(r"apt-get install -y --no-install-recommends (.+)", cmd)
+    if m:
+        return {"op": "apt", "packages": m.group(1).split()}
+    if cmd.startswith("apt-get"):
+        return {"op": "apt_meta", "cmd": cmd}
+    return {"op": "script", "run": cmd}
+
+
+def _is_entrypoint_chmod(op: dict[str, object]) -> bool:
+    """True for the `chmod +x /usr/local/bin/<entrypoint>` delivery step."""
+    cmd = " ".join(str(part) for part in (op.get("cmd"), op.get("path")) if part)
+    return "chmod" in cmd and "/usr/local/bin/" in cmd
 
 
 #: Clauses that are the same command written by a different mechanism, or that
@@ -178,9 +411,9 @@ def diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
     old, new = semantics(old_dir), semantics(new_dir)
     # "copies" is deliberately absent: the old files printf'd the wrapper
     # inline and the generated ones COPY it from a sibling file, so the
-    # delivery differs while the wrapper *text* — compared as wrapper_cmds
-    # below — is identical.  copy_sources() checks the new COPY actually has
-    # a file to copy, which is the failure this would otherwise hide.
+    # delivery differs while the wrapper *text* — compared line by line in
+    # wrapper_diff() — is identical.  copy_sources() checks the new COPY has a
+    # file to copy, which is the failure this would otherwise hide.
     keys = (
         "base",
         "apt",
@@ -197,10 +430,7 @@ def diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
         for key in keys
         if (key in old or key in new) and old.get(key) != new.get(key)
     ]
-    for label, o, n in (
-        ("ops", old["ops"], new["ops"]),
-        ("wrapper_cmds", old["wrapper_cmds"], new["wrapper_cmds"]),
-    ):
+    for label, o, n in (("ops", old["ops"], new["ops"]),):
         if sorted(o) != sorted(n):
             missing = [x for x in o if x not in n]
             extra = [x for x in n if x not in o]

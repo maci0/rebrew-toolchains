@@ -112,34 +112,32 @@ if [ "$#" -gt 0 ]; then
     done
 else
     # One image per runtime: native ELF, qemu-irix, wibo, wine, DOSBox, and
-    # (below, when KVM is available) dosemu2.  One image per *generated wrapper
-    # shape* too, where the runtime list does not already cover it: the psyq-4.x
-    # pipeline is its own template.
-    while IFS='|' read -r profile args artifact expect; do
+    # dosemu2 — the last column is the one flag that separates them, rather
+    # than a second case list.  One image per *generated wrapper shape* too,
+    # where the runtime list does not already cover it: the psyq-4.x pipeline
+    # is its own template.
+    while IFS='|' read -r profile args artifact expect kvm; do
         [ -n "$profile" ] || continue
-        run_case "$profile" "$args" "$artifact" "$expect"
-    done <<'CASES'
-ido-7.1|-c t.c -o t.o|t.o|MIPS
-ido-4.1|-c t.c -o t.o|t.o|MIPS
-msvc-6.0-sp6|/c t.c|t.obj|COFF
-icc-5.0.1-010525z|-c t.c -o t.obj|t.obj|COFF
-borland-5.6|-c t.c|t.obj|relocatable
-msc-6.0|t.c|t.obj|relocatable
-psyq-4.0|-c t.c -o t.o|t.o|MIPS
-gcc-4.0.1-5363|-c t.c -o t.o|t.o|PowerPC
-psp-gcc-1.3.1|-c t.c -o t.o|t.o|MIPS
-CASES
-    if [ -e /dev/kvm ]; then
-        while IFS='|' read -r profile args artifact expect; do
-            [ -n "$profile" ] || continue
+        if [ -z "$kvm" ]; then
+            run_case "$profile" "$args" "$artifact" "$expect"
+        elif [ -e /dev/kvm ]; then
             run_case "$profile" "$args" "$artifact" "$expect" --device /dev/kvm
-        done <<'DOS_CASES'
-psyq-3.3|-c t.c -o t.o|t.o|MIPS
-saturn-cygnus-2.7-96Q3|-c t.c -o t.o|t.o|Renesas SH
-DOS_CASES
-    else
-        echo "-- skipping the dosemu2 cases: no /dev/kvm on this host"
-    fi
+        else
+            echo "-- skipping $profile: no /dev/kvm on this host"
+        fi
+    done <<'CASES'
+ido-7.1|-c t.c -o t.o|t.o|MIPS|
+ido-4.1|-c t.c -o t.o|t.o|MIPS|
+msvc-6.0-sp6|/c t.c|t.obj|COFF|
+icc-5.0.1-010525z|-c t.c -o t.obj|t.obj|COFF|
+borland-5.6|-c t.c|t.obj|relocatable|
+msc-6.0|t.c|t.obj|relocatable|
+psyq-4.0|-c t.c -o t.o|t.o|MIPS|
+gcc-4.0.1-5363|-c t.c -o t.o|t.o|PowerPC|
+psp-gcc-1.3.1|-c t.c -o t.o|t.o|MIPS|
+psyq-3.3|-c t.c -o t.o|t.o|MIPS|kvm
+saturn-cygnus-2.7-96Q3|-c t.c -o t.o|t.o|Renesas SH|kvm
+CASES
 fi
 
 [ "$fail" -eq 0 ] || { echo "smoke: FAILED" >&2; exit 1; }

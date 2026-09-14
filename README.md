@@ -103,13 +103,7 @@ compiler emitted nothing" gets caught (see below).  It is not part of
 `make test` because it needs network and, for the dosemu2 family, `/dev/kvm`.
 
 Behavioral tests (`make test`) pin the contracts: the wrapper
-runner/watchdog behavior via stub runners; the Quantum `.PAK`
-extractor's numeric contracts (bit-reader word assembly, adaptive-model
-frequency invariants, decoder symbol-selection intervals, archive field
-bounds) with unit tests over `tools/pak_extract.py` — a host-side tool
-that unpacks the Delphi installer `.PAK` archives the vendored tree is built
-from, deliberately not shipped in any image; the image
-matrix itself (every Dockerfile has a complete manifest pin that also
+runner/watchdog behavior via stub runners; the image matrix itself (every Dockerfile has a complete manifest pin that also
 appears inside it, the OCI labels, the `/opt` install root, the non-root
 runtime user and the shared wrapper helpers); and the generated
 [toolchain catalog](docs/TOOLCHAINS.md), which fails when `make docs` has
