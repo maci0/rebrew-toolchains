@@ -9,7 +9,10 @@ holds the classifier and the semantic comparison, `apply.py` performs the
 migration, `verify_migration.py` re-runs the comparison against any baseline
 revision.
 
-    python3 tools/migrate/derive_and_verify.py
+It is a library now: `apply.py` derives recipes with it and
+`verify_migration.py` compares with it.  Its own `compare()`/`main()` went when
+`verify_migration` grew three comparisons of its own — the classified one could
+agree with a renderer that mis-read a command, which is exactly what happened.
 """
 
 from __future__ import annotations
@@ -18,7 +21,6 @@ import json
 import pathlib
 import re
 import sys
-import tempfile
 from typing import TypedDict
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
@@ -215,69 +217,6 @@ def _norm_cmd(cmd: str) -> str:
         parts = cmd.split()
         return " ".join(sorted(parts))
     return cmd
-
-
-def compare(profile: str, entry: dict[str, object]) -> tuple[bool, list[str]]:
-    import generate
-
-    d = REPO / str(entry["host_dir"])
-    old = semantics(d)
-    try:
-        new_df = generate.render_dockerfile(profile, entry)
-        new_wr = generate.render_wrapper(profile, entry)
-    except (ValueError, AssertionError, KeyError) as error:
-        return False, [f"render failed: {error}"]
-    tmp = pathlib.Path(tempfile.mkdtemp(prefix="rebrew-probe-"))
-    (tmp / "Dockerfile").write_text(new_df)
-    for p in tmp.glob("*.sh"):
-        p.unlink()
-    (tmp / "cc-wrapper.sh").write_text(new_wr)
-    new = semantics(tmp)
-    # compared as plain mappings: mypy 2.1 (the version uv.lock pins) will not
-    # index a TypedDict with a loop variable, and the keys are strings here
-    old_flat: dict[str, object] = dict(old)
-    new_flat: dict[str, object] = dict(new)
-    diffs = [
-        f"{key}: {old_flat[key]!r} -> {new_flat[key]!r}"
-        for key in ("base", "apt", "pins", "env", "entrypoint")
-        if old_flat[key] != new_flat[key]
-    ]
-    old_ops, new_ops = old["ops"], new["ops"]
-    if sorted(old_ops) != sorted(new_ops):
-        missing = [o for o in old_ops if o not in new_ops]
-        extra = [o for o in new_ops if o not in old_ops]
-        diffs.append(f"ops: missing={missing[:3]} extra={extra[:3]}")
-    oc, nc = old["wrapper_cmds"], new["wrapper_cmds"]
-    if sorted(oc) != sorted(nc):
-        missing = [c for c in oc if c not in nc]
-        extra = [c for c in nc if c not in oc]
-        diffs.append(f"wrapper: missing={missing[:3]} extra={extra[:3]}")
-    return not diffs, diffs
-
-
-def main() -> int:
-    manifest = json.loads((REPO / "sources.json").read_text())
-    same = 0
-    failures: list[tuple[str, list[str]]] = []
-    for profile, entry in manifest.items():
-        if not isinstance(entry.get("recipe"), dict):
-            continue
-        ok, diffs = compare(profile, entry)
-        if ok:
-            same += 1
-        else:
-            failures.append((profile, diffs))
-    with_recipe = sum(1 for e in manifest.values() if isinstance(e.get("recipe"), dict))
-    print(f"profiles with a recipe: {with_recipe}")
-    print(f"semantically identical after generation: {same}")
-    print(f"not yet faithful: {len(failures)}")
-    for profile, diffs in failures[:30]:
-        print(f"  {profile}: {diffs[0][:150]}")
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
 
 
 # ---------------------------------------------------------------- derivation

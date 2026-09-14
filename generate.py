@@ -63,15 +63,6 @@ MARKER = "# Generated from sources.json by generate.py — do not edit; run `mak
 CURL = "curl -fsSL --retry 3 --retry-all-errors"
 PIN_KEYS = ("parser", "helper", "sdk", "binutils")
 BASES = ("base", "base-noble", "base-dosemu")
-RUNTIME = {
-    "pe": "wine, wibo via `REBREW_RUNNER=wibo`",
-    "native": "native",
-    "cc1": "native",
-    "dosbox": "DOSBox",
-    "dosemu2": "dosemu2 (needs `--device /dev/kvm`)",
-    "qemu-irix": "native",
-    "pipeline": "native",
-}
 
 
 def manifest() -> dict[str, dict[str, object]]:
