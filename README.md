@@ -102,7 +102,7 @@ runtime class and compiles with it, which is how "the build succeeded but the
 compiler emitted nothing" gets caught (see below).  It is not part of
 `make test` because it needs network and, for the dosemu2 family, `/dev/kvm`.
 
-Behavioral tests (`make test`) pin four contracts: the wrapper
+Behavioral tests (`make test`) pin the contracts: the wrapper
 runner/watchdog behavior via stub runners; the Quantum `.PAK`
 extractor's numeric contracts (bit-reader word assembly, adaptive-model
 frequency invariants, decoder symbol-selection intervals, archive field
@@ -111,7 +111,10 @@ matrix itself (every Dockerfile has a complete manifest pin that also
 appears inside it, the OCI labels, the `/opt` install root, the non-root
 runtime user and the shared wrapper helpers); and the generated
 [toolchain catalog](docs/TOOLCHAINS.md), which fails when `make docs` has
-not been re-run after a manifest change.
+not been re-run after a manifest change.  They also pin the generation
+direction: every Dockerfile and wrapper is rendered from `sources.json` by
+`make generate`, and a test fails when a committed one differs from its
+rendering — a hand edit is a change to the wrong file.
 
 After editing Python config locally, `uv sync --group lint --locked` (or
 just `uv run make lint`) reproduces exactly what CI installs.

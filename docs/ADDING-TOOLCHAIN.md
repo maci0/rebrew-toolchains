@@ -128,45 +128,69 @@ same directory. Two rules apply, both enforced at startup: an alias may not
 equal a profile name (that is a no-op — drop it) and may not map to two
 different directories.
 
-## 3. Write the Dockerfile
+## 3. Describe the install, then generate it
 
-Copy the closest existing image and adjust. The shape is fixed:
+You do not write the Dockerfile — you give the profile a `recipe` and render
+it.  Find the closest existing image, read its recipe, and adjust.
 
-```dockerfile
-# <one-line title> — <family/version/platform>, <source>.
-#
-# Inherits the shared rebrew/base; this image <what it installs> and exposes
-# <entrypoint> as the entrypoint.  <native ELF | Windows PE under wine/wibo>.
-#
-# Build:  docker build -t rebrew/<family>:<ver>-<platform> <dir>
-# Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/<family>:<ver>-<platform> <flags>
-
-ARG BASE_IMAGE=rebrew/base:1.0
-FROM ${BASE_IMAGE}
-
-USER root                       # install steps need root
-LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
-      org.opencontainers.image.licenses="MIT" \
-      org.opencontainers.image.title="..." \
-      org.opencontainers.image.description="..."
-
-RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/x.tar.gz "<url>" \
-    && echo "<sha256>  /tmp/x.tar.gz" | sha256sum -c - \
-    && mkdir -p /opt/<name> && tar xzf /tmp/x.tar.gz -C /opt/<name> \
-    && rm /tmp/x.tar.gz && ls /opt/<name>/<driver>      # fail loudly if absent
-
-RUN printf '%s\n' \
-        '#!/bin/sh' \
-        '. /usr/local/lib/rebrew/wrapper-common.sh' \
-        'rebrew_exec /opt/<name>/<driver> "$@"' \
-        > /usr/local/bin/<driver-name> && chmod +x /usr/local/bin/<driver-name>
-
-ENTRYPOINT ["/usr/local/bin/<driver-name>"]
-USER rebrew                     # runtime drops to the unprivileged user
+```bash
+$EDITOR sources.json      # add the profile with its `recipe`
+make generate             # writes <host_dir>/Dockerfile and its wrapper
+make test                 # fails if either differs from its rendering
 ```
 
-Wrapper choices (all of them dispatch through `base/wrapper-common.sh`, so
-the timeout watchdog and `REBREW_RUNNER` handling are shared):
+The recipe fields:
+
+| Field | Meaning |
+| --- | --- |
+| `base` | the shared base to inherit: `base`, `base-noble` (glibc 2.39 helpers), `base-dosemu` (DOS + `/dev/kvm`) |
+| `apt` | packages installed in one layer, with the list cleanup and the tarball hash checks |
+| `fetch` | `{pin, as}`: which pin downloads to which path inside the image. Every pin must carry a sha256; generation refuses one that does not. |
+| `steps` | the install operations, in order: `tar`, `unzip`, `7z`, `cp`, `mkdir`, `chmod`, `link`, `guard`, `check_run`, `script`, `rm` |
+| `env` | image-level `ENV` (the wrapper's own environment goes in `wrapper`) |
+| `root` | the install directory under `/opt` |
+| `binary` | the driver inside it, relative, or an absolute path for a shared prefix such as `/opt/cross` |
+| `entrypoint` | the name it is installed as in `/usr/local/bin` |
+| `runner` | `exec` (native), `wine`, `wibo` — picks `rebrew_exec` or `rebrew_run` |
+| `wrapper` | how the entrypoint is generated (below) |
+| `title`, `description` | the OCI labels; omitted, they fall back to the directory name, which is worse — write them |
+
+The smallest complete example, an old GCC release asset:
+
+```json
+"recipe": {
+  "base": "base",
+  "apt": ["binutils-mipsel-linux-gnu"],
+  "fetch": [{"pin": "primary", "as": "/tmp/gcc.tar.gz"}],
+  "steps": [
+    {"op": "tar", "from": "/tmp/gcc.tar.gz", "to": "/opt/cross", "compression": "z"},
+    {"op": "link", "path": "/opt/cross/lib/gcc-lib/mips-sony-psx/2.7.2/as", "target": "/usr/bin/mipsel-linux-gnu-as"},
+    {"op": "check_run", "cmd": ["/opt/cross/bin/gcc", "--version"]}
+  ],
+  "root": "cross",
+  "binary": "bin/gcc",
+  "entrypoint": "gcc",
+  "runner": "exec",
+  "wrapper": {"shape": "passthrough", "validate_source": true, "argv": []}
+}
+```
+
+Wrapper shapes:
+
+| `wrapper.shape` | What the generator writes |
+| --- | --- |
+| `passthrough` | `rebrew_exec` / `rebrew_run <binary> "$@"`, plus `rebrew_pick_source` when `validate_source` is set and the wrapper-scoped `env` |
+| `normalising` | the `-o`/`-c` argv rewriting the compilers need that name their own output object |
+| `handwritten` | nothing at all: the file is edited by hand and `why` says what a shape would have to do to replace it.  `tests/test_generation.py` lists every one of them, so adding an exception is a deliberate edit to that list. |
+
+Every generated file starts with `# Generated from sources.json by
+generate.py`.  `make test` fails when one differs from its rendering, so a
+hand edit is caught rather than silently overwritten: change the recipe and
+re-run `make generate`.
+
+Which helper the wrapper calls (all of them go through
+`base/wrapper-common.sh`, so the timeout watchdog and `REBREW_RUNNER` handling
+are shared):
 
 | Compiler is | Use | Notes |
 | --- | --- | --- |
@@ -267,16 +291,18 @@ Two provenance checks worth running before you trust a pin:
 
 ## 5. Register it
 
-Add the profile to `sources.json` (keys: `family`, `host_dir`, `url`,
-`sha256`, `commit`, `layout`, optional `aliases` and the
-secondary pins `binutils_url`/`binutils_sha256`, `parser_url`/`parser_sha256`,
-`helper_url`/`helper_sha256`, `sdk_url`/`sdk_sha256`/`sdk_commit`). Use the
-same `layout` vocabulary as the neighbouring profiles (`tar`, `tar-strip1`,
-`tar-root`, `7z-strip1`, `zip-subpath:<path>`).
+The profile lives in `sources.json`: `family`, `host_dir`, `url`, `sha256`,
+`commit`, `layout`, optional `aliases`, the secondary pins
+(`binutils_url`/`binutils_sha256`, `parser_url`/`parser_sha256`,
+`helper_url`/`helper_sha256`, `sdk_url`/`sdk_sha256`/`sdk_commit`) and the
+`recipe` from step 3.  A pin without a `sha256` is a manifest gap, not a
+choice: `make pins` re-checks that every URL still resolves, and the image
+contract test checks that every hash in the manifest reaches the Dockerfile.
 
-Then regenerate the catalog:
+Then render the image and the catalog:
 
 ```bash
+make generate
 make docs
 ```
 
@@ -364,6 +390,7 @@ EOF
 | `host_dir` | `<family>/<version>-<platform>`; the Dockerfile lives here |
 | `url`, `sha256` | the primary pinned download, verified inside the build |
 | `commit` | the git commit a branch-pinned URL came from; `""` for release assets |
-| `layout` | how the archive is unpacked (`tar-strip1`, `zip-subpath:GC/1.2.5`, …) |
+| `layout` | how the archive is unpacked (`tar-strip1`, `zip-subpath:GC/1.2.5`, …); the recipe's `steps` are what actually unpack it |
+| `recipe` | everything the Dockerfile is rendered from: base, apt, fetch, steps, env, root, binary, entrypoint, runner, wrapper, labels (see step 3) |
 | `aliases` | extra names `build.sh` accepts for this profile |
 | `*_url`/`*_sha256`/`*_commit` | additional pinned sources the image needs |
