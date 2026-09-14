@@ -82,7 +82,7 @@ class TestGeneration(unittest.TestCase):
     def test_every_dockerfile_is_generated(self) -> None:
         entries = generate.manifest()
         for profile, entry in entries.items():
-            text = (_REPO / entry["host_dir"] / "Dockerfile").read_text(encoding="utf-8")
+            text = (_REPO / str(entry["host_dir"]) / "Dockerfile").read_text(encoding="utf-8")
             self.assertTrue(text.startswith(generate.MARKER), f"{profile}: hand-written Dockerfile")
 
     def test_handwritten_wrappers_are_the_declared_ones(self) -> None:
@@ -95,7 +95,7 @@ class TestGeneration(unittest.TestCase):
 
     def test_generated_wrappers_are_marked_and_handwritten_ones_are_not(self) -> None:
         for profile, entry in generate.manifest().items():
-            wrapper = _REPO / entry["host_dir"] / generate.wrapper_filename(entry)
+            wrapper = _REPO / str(entry["host_dir"]) / generate.wrapper_filename(entry)
             text = wrapper.read_text(encoding="utf-8")
             if generate.handwritten_wrapper(entry):
                 self.assertNotIn(generate.MARKER, text, f"{profile}: generated but declared")
