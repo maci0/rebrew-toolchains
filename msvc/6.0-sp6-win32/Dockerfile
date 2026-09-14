@@ -18,7 +18,9 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc600_sp6.tar.gz \
 
 RUN mkdir -p /opt/msvc6.0-sp6 \
     && tar xzf /tmp/msvc600_sp6.tar.gz --strip-components=1 -C /opt/msvc6.0-sp6 \
-    && rm /tmp/msvc600_sp6.tar.gz # The repo stashes the PDB server DLL in the IDE dir (Common/MSDev98/Bin);
+    && rm /tmp/msvc600_sp6.tar.gz \
+    && cp /opt/msvc6.0-sp6/Common/MSDev98/Bin/MSPDB60.DLL /opt/msvc6.0-sp6/VC98/Bin/ \
+    && ls /opt/msvc6.0-sp6/VC98/Bin/CL.EXE
 
 COPY cl-wrapper.sh /usr/local/bin/cl
 RUN chmod +x /usr/local/bin/cl

@@ -18,7 +18,9 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc600_sp5_vcpp.tar.gz \
 
 RUN mkdir -p /opt/msvc6.0-sp5-pp \
     && tar xzf /tmp/msvc600_sp5_vcpp.tar.gz --strip-components=1 -C /opt/msvc6.0-sp5-pp \
-    && rm /tmp/msvc600_sp5_vcpp.tar.gz # CL statically imports mspdb60.dll and only searches its own dir; the
+    && rm /tmp/msvc600_sp5_vcpp.tar.gz \
+    && cp /opt/msvc6.0-sp5-pp/Common/MSDev98/Bin/MSPDB60.DLL /opt/msvc6.0-sp5-pp/VC98/Bin/ \
+    && ls /opt/msvc6.0-sp5-pp/VC98/Bin/CL.EXE /opt/msvc6.0-sp5-pp/VC98/Bin/ml.exe /opt/msvc6.0-sp5-pp/VC98/Include/xmmintrin.h /opt/msvc6.0-sp5-pp/VC98/Include/emmintrin.h /opt/msvc6.0-sp5-pp/VC98/PPreadme.htm
 
 COPY cl-wrapper.sh /usr/local/bin/cl
 RUN chmod +x /usr/local/bin/cl

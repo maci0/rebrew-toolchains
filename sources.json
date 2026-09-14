@@ -8883,7 +8883,15 @@
         },
         {
           "op": "rm",
-          "cmd": "rm /tmp/msvc600_sp5.tar.gz # The archaic sp5 repo stashes the PDB server DLL in the IDE dir"
+          "cmd": "rm /tmp/msvc600_sp5.tar.gz"
+        },
+        {
+          "op": "script",
+          "run": "cp /opt/msvc6.0-sp5/Common/MSDev98/Bin/MSPDB60.DLL /opt/msvc6.0-sp5/VC98/Bin/"
+        },
+        {
+          "op": "guard",
+          "cmd": "ls /opt/msvc6.0-sp5/VC98/Bin/CL.EXE /opt/msvc6.0-sp5/VC98/Bin/MSPDB60.DLL"
         }
       ],
       "env": {},
@@ -8936,7 +8944,15 @@
         },
         {
           "op": "rm",
-          "cmd": "rm /tmp/msvc600_sp5_vcpp.tar.gz # CL statically imports mspdb60.dll and only searches its own dir; the"
+          "cmd": "rm /tmp/msvc600_sp5_vcpp.tar.gz"
+        },
+        {
+          "op": "script",
+          "run": "cp /opt/msvc6.0-sp5-pp/Common/MSDev98/Bin/MSPDB60.DLL /opt/msvc6.0-sp5-pp/VC98/Bin/"
+        },
+        {
+          "op": "guard",
+          "cmd": "ls /opt/msvc6.0-sp5-pp/VC98/Bin/CL.EXE /opt/msvc6.0-sp5-pp/VC98/Bin/ml.exe /opt/msvc6.0-sp5-pp/VC98/Include/xmmintrin.h /opt/msvc6.0-sp5-pp/VC98/Include/emmintrin.h /opt/msvc6.0-sp5-pp/VC98/PPreadme.htm"
         }
       ],
       "env": {},
@@ -8989,7 +9005,15 @@
         },
         {
           "op": "rm",
-          "cmd": "rm /tmp/msvc600_sp6.tar.gz # The repo stashes the PDB server DLL in the IDE dir (Common/MSDev98/Bin);"
+          "cmd": "rm /tmp/msvc600_sp6.tar.gz"
+        },
+        {
+          "op": "script",
+          "run": "cp /opt/msvc6.0-sp6/Common/MSDev98/Bin/MSPDB60.DLL /opt/msvc6.0-sp6/VC98/Bin/"
+        },
+        {
+          "op": "guard",
+          "cmd": "ls /opt/msvc6.0-sp6/VC98/Bin/CL.EXE"
         }
       ],
       "env": {},

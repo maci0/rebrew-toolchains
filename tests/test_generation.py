@@ -112,6 +112,22 @@ class TestGeneration(unittest.TestCase):
             present = sorted(f.name for f in directory.glob("*.sh"))
             self.assertEqual(present, [wanted], f"{profile}: orphaned wrapper file")
 
+    def test_no_comment_inside_a_continued_instruction(self) -> None:
+        r"""A comment line in the middle of a `RUN … \` continuation is not a
+        comment: Docker joins the lines first, so everything after the `#` on
+        that command is lost — which is how the `cp` of MSPDB60.DLL, needed by
+        the MSVC 6.0 wrappers, silently left three images."""
+        for profile, entry in generate.manifest().items():
+            lines = (_REPO / str(entry["host_dir"]) / "Dockerfile").read_text().splitlines()
+            continued = False
+            for number, line in enumerate(lines, start=1):
+                if continued:
+                    self.assertFalse(
+                        line.lstrip().startswith("#"),
+                        f"{profile}: comment inside a continued instruction at line {number}",
+                    )
+                continued = line.rstrip().endswith("\\")
+
     def test_every_profile_has_a_complete_recipe(self) -> None:
         for profile, entry in generate.manifest().items():
             recipe = generate.recipe(entry)

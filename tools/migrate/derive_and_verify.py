@@ -31,10 +31,19 @@ SHA = r"[0-9a-f]{64}"
 
 
 def instructions(text: str) -> list[str]:
+    """The Dockerfile's instructions, joined across line continuations.
+
+    Comments are dropped wherever they appear, including *inside* a multi-line
+    instruction, which is what Docker itself does before joining.  Treating one
+    as part of the command swallowed everything after it on that command:
+    msvc-6.0-sp6 copies `MSPDB60.DLL` next to `CL.EXE` after a comment, and the
+    copy — which its wrapper needs — vanished from the derived recipe while the
+    comparison, using this same parser, called the result equal.
+    """
     out, buf = [], ""
     for raw in text.splitlines():
         line = raw.rstrip()
-        if not buf and (not line.strip() or line.lstrip().startswith("#")):
+        if not line.strip() or line.lstrip().startswith("#"):
             continue
         buf = f"{buf} {line.strip()}" if buf else line.strip()
         if buf.endswith("\\"):
