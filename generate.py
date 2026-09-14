@@ -676,13 +676,22 @@ def _wrapper_dosbox_compile(entry: dict[str, object], wrapper: dict[str, object]
 
 
 def _wrapper_normalising(entry: dict[str, object], wrapper: dict[str, object]) -> str:
-    """-o/-c argv normalisation shared by the compilers that need it."""
+    """The wrapper for a compiler that only needs `-o` normalised.
+
+    Its driver finds its own `cc1` and binutils through the prefix baked in at
+    build time, so the wrapper separates the output flag from the flags that go
+    to the driver and passes the source explicitly.  The template had been left
+    unused and did not render (it emitted a stray `extras=` and folded the flags
+    into one quoted string); psp-gcc 1.3.1 is the case that fixed it.
+    """
     rec = recipe(entry)
-    runner = _text(rec, "runner") or ("wine" if _text(rec, "shape") == "pe" else "exec")
+    runner = _text(rec, "runner") or "exec"
     helper = {"wibo": "rebrew_run", "wine": "rebrew_run", "exec": "rebrew_exec"}[runner]
     default_ext = _text(wrapper, "default_extension") or "o"
     compile_flag = _text(wrapper, "compile_flag") or "-c"
     prefix = " ".join(str(a) for a in _list(wrapper.get("argv")))
+    if prefix:
+        prefix += " "
     lines = _head(entry, "Entrypoint", wrapper)
     lines += [
         'rebrew_pick_source "$@"',
@@ -708,13 +717,8 @@ def _wrapper_normalising(entry: dict[str, object], wrapper: dict[str, object]) -
         'case "$SRC" in /*) SRC_ABS="$SRC" ;; *) SRC_ABS="$(pwd)/$SRC" ;; esac',
         'case "$OUT" in /*) OUT_ABS="$OUT" ;; *) OUT_ABS="$(pwd)/$OUT" ;; esac',
         "",
-        "extras=",
-    ]
-    for extra in _list(wrapper.get("convert")):
-        lines.append(f"# converter: {extra}")
-    lines += [
         "# shellcheck disable=SC2086  # CC_FLAGS is a deliberate flag list, word-split",
-        f'{helper} {binary_path(entry)} {prefix} "$CC_FLAGS -o "$OUT_ABS" "$SRC_ABS""',
+        f'{helper} {binary_path(entry)} {prefix}$CC_FLAGS -o "$OUT_ABS" "$SRC_ABS"',
     ]
     return "\n".join(lines) + "\n"
 

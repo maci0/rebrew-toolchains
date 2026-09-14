@@ -31,7 +31,6 @@ _HANDWRITTEN = (
     "gcc-2.8.1-snew-cxx",
     "icc-5.0.1-010525z",
     "ido-4.1",
-    "psp-gcc-1.3.1",
     "psyq-4.6",
     "saturn-cygnus-2.7-96Q3",
 )

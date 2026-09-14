@@ -1,14 +1,17 @@
 #!/bin/sh
+# Generated from sources.json by generate.py — do not edit; run `make generate`.
+# Entrypoint — psp-gcc/1.3.1-psp
 # cc wrapper — PSP GCC (mipsallegrex).
 #
 # The vendor driver is a 32-bit i386 binary and finds its cc1/binutils through
 # the prefix baked in at build time, so this wrapper only normalizes `-o` and
 # forwards every other flag.
 #
-#   cc -c f.c -o f.o
+# cc -c f.c -o f.o
 #
 # The driver prints a `pspspecs not found` warning: those scripts are for
 # linking, and compiling does not need them.
+#
 # shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
 

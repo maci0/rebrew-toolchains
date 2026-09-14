@@ -52,6 +52,7 @@ EXPRESSIBLE = {
     "psyq_native",
     "sn64_pe",
     "apple_gcc",
+    "normalising",
 }
 
 

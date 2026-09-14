@@ -16506,10 +16506,27 @@
       "description": "PSP GCC 1.3.1 (mipsallegrex, PS1-family MIPS, 32-bit host) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "/usr/local/psp/devkit/bin/gcc",
       "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "normalising",
+        "compile_flag": "-c",
+        "default_extension": "o",
+        "argv": [
+          "-c"
+        ],
+        "notes": [
+          "cc wrapper — PSP GCC (mipsallegrex).",
+          "",
+          "The vendor driver is a 32-bit i386 binary and finds its cc1/binutils through",
+          "the prefix baked in at build time, so this wrapper only normalizes `-o` and",
+          "forwards every other flag.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "The driver prints a `pspspecs not found` warning: those scripts are for",
+          "linking, and compiling does not need them."
+        ],
         "file": "cc-wrapper.sh"
       }
     }

@@ -127,6 +127,7 @@ borland-5.6|-c t.c|t.obj|relocatable
 msc-6.0|t.c|t.obj|relocatable
 psyq-4.0|-c t.c -o t.o|t.o|MIPS
 gcc-4.0.1-5363|-c t.c -o t.o|t.o|PowerPC
+psp-gcc-1.3.1|-c t.c -o t.o|t.o|MIPS
 CASES
     if [ -e /dev/kvm ]; then
         while IFS='|' read -r profile args artifact expect; do

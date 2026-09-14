@@ -673,10 +673,46 @@ def classify_apple_gcc(rec: Recipe, wtext: str) -> dict[str, object] | None:
     }
 
 
+def classify_normalising(wtext: str) -> tuple[dict[str, object], str] | None:
+    """A wrapper that only normalises `-o` and forwards everything else.
+
+    The driver finds its own `cc1` and binutils, so the wrapper's whole job is
+    to pull the output flag out of `"$@"`, pass the source explicitly and hand
+    the rest to the compiler.  The binary may sit outside `/opt` (psp-gcc's is
+    `/usr/local/psp/devkit/bin/gcc`), so it is taken from the call.
+    """
+    if 'OUT="$2"' not in wtext or 'CC_FLAGS="$CC_FLAGS $1"' not in wtext:
+        return None
+    call = re.search(
+        r'^(rebrew_exec|rebrew_run) (\S+) (.*?)\$CC_FLAGS -o "\$OUT_ABS" "\$SRC_ABS"$',
+        wtext,
+        re.MULTILINE,
+    )
+    flag = re.search(r"^\s+(\S+)\) shift ;;", wtext, re.MULTILINE)
+    extension = re.search(r'OUT="\$STEM\.(\w+)"', wtext)
+    if not call or not flag or not extension:
+        return None
+    argv = call.group(3).strip().split()
+    return (
+        {
+            "shape": "normalising",
+            "compile_flag": flag.group(1),
+            "default_extension": extension.group(1),
+            "argv": argv,
+            "notes": _prose(wtext),
+        },
+        call.group(2),
+    )
+
+
 def classify_wrapper(rec: Recipe, wtext: str) -> tuple[dict[str, object], str, str] | None:
     apple = classify_apple_gcc(rec, wtext)
     if apple is not None:
         return apple, str(rec.get("root") or ""), ""
+    normalising = classify_normalising(wtext)
+    if normalising is not None:
+        wrapper, binary = normalising
+        return wrapper, str(rec.get("root") or ""), binary
     sn64 = classify_sn64_pe(rec, wtext)
     if sn64 is not None:
         return sn64, str(rec.get("root") or ""), ""
