@@ -717,11 +717,13 @@ def urls_of(entry: dict[str, object]) -> list[str]:
 
 
 def source_of(url: str) -> str:
-    """The ``SOURCES`` key a pinned URL belongs to (``""`` when unknown)."""
-    for key in SOURCES:
-        if key in url:
-            return key
-    return ""
+    """The ``SOURCES`` key a pinned URL belongs to (``""`` when unknown).
+
+    The *longest* matching key wins, not the first in insertion order: keys are
+    host prefixes, so a more specific one (``host/org/repo``) must beat the
+    generic host (``host``) regardless of how the table is written.
+    """
+    return max((key for key in SOURCES if key in url), key=len, default="")
 
 
 def manifest() -> dict[str, dict[str, object]]:

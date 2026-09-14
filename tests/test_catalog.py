@@ -51,6 +51,27 @@ class TestCatalog(unittest.TestCase):
                 self.fail(f"{community}: {profile} has no alias list")
             self.assertIn(community, [str(a) for a in aliases], community)
 
+    def test_source_of_prefers_the_most_specific_upstream(self) -> None:
+        """Attribution must not depend on SOURCES' insertion order."""
+        original = catalog.SOURCES
+        try:
+            catalog.SOURCES = {
+                "example.com": ("generic host", "GPL"),
+                "example.com/org": ("org", "GPL"),
+                "example.com/org/repo": ("one repo", "MIT"),
+            }
+            self.assertEqual(
+                catalog.source_of("https://example.com/org/repo/asset.tar.gz"),
+                "example.com/org/repo",
+            )
+            self.assertEqual(
+                catalog.source_of("https://example.com/other/asset.tar.gz"),
+                "example.com",
+            )
+            self.assertEqual(catalog.source_of("https://elsewhere.test/x"), "")
+        finally:
+            catalog.SOURCES = original
+
     def test_catalog_covers_every_manifest_entry(self) -> None:
         rendered = catalog.render(catalog.manifest())
         for profile, entry in catalog.manifest().items():
