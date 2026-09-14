@@ -5,8 +5,7 @@
     "url": "https://github.com/pret/agbcc/releases/download/release/agbcc.tar.gz",
     "sha256": "bcf0197e3e27d8e08506a142e25fa68ea7f6679a98347a6406804eb3f9ff4d29",
     "commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "agbcc-arm-gba": {
     "family": "agbcc",
@@ -15,7 +14,6 @@
     "sha256": "bcf0197e3e27d8e08506a142e25fa68ea7f6679a98347a6406804eb3f9ff4d29",
     "commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "agbcc_arm"
     ]
@@ -26,8 +24,7 @@
     "url": "https://github.com/laqieer/agbcc/releases/download/fe8j-v1/agbcc.tar.gz",
     "sha256": "5bdeac906031476a341f09929d303c5834d8adda8dc00bd85934eb4b2463daa7",
     "commit": "",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "agbcc-old-gba": {
     "family": "agbcc",
@@ -36,7 +33,6 @@
     "sha256": "bcf0197e3e27d8e08506a142e25fa68ea7f6679a98347a6406804eb3f9ff4d29",
     "commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "old_agbcc"
     ]
@@ -47,8 +43,7 @@
     "url": "https://github.com/notyourav/agbcc/releases/download/cp/agbcc.tar.gz",
     "sha256": "05a30f03ee916563bba29efdc9da64c47909892aa878002cf07e8e7ae5bd32f5",
     "commit": "ac51b05a074197bffa51148ae543ce1e03c9c094",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "armcc-4.0-771": {
     "family": "armcc",
@@ -57,7 +52,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.0/b771",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_40_771"
     ]
@@ -69,7 +63,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.0/b821",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_40_821"
     ]
@@ -81,7 +74,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.0/b865",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_40_865"
     ]
@@ -93,7 +85,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.0/b902",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_40_902"
     ]
@@ -105,7 +96,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.1/b1049",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_41_1049"
     ]
@@ -117,7 +107,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.1/b1440",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_41_1440"
     ]
@@ -129,7 +118,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.1/b1454",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_41_1454"
     ]
@@ -141,7 +129,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.1/b561",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_41_561"
     ]
@@ -153,7 +140,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.1/b713",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_41_713"
     ]
@@ -165,7 +151,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.1/b791",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_41_791"
     ]
@@ -177,7 +162,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.1/b844",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_41_844"
     ]
@@ -189,7 +173,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.1/b894",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_41_894"
     ]
@@ -201,7 +184,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:4.1/b921",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_41_921"
     ]
@@ -213,7 +195,6 @@
     "sha256": "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:5.04/b82",
-    "in_repo_tarball": "",
     "aliases": [
       "armcc_504_82"
     ]
@@ -224,8 +205,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/tc20/tar.gz/refs/heads/main",
     "sha256": "2eca4c26c1b30ce2bd7e61573eb9f40096994405fc173c28143f06a93da269d1",
     "commit": "64b5ef09a7c18b65c38902a217bcfec67c4b113b",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "borland-2.0-decompme": {
     "family": "borland",
@@ -234,7 +214,6 @@
     "sha256": "6a8bb50e1d390e05ea8ef5ea076035eadda32eb1640b5b802538f2c3933565c3",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "bcc2.0"
     ]
@@ -245,8 +224,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/tc31/tar.gz/refs/heads/main",
     "sha256": "3d534741ebdc31ffdceb87db8de3b7d494ad5c912b7cd1a4f326b4a94d0c2ba1",
     "commit": "ba6af878392be5ea20f6bb54f7dd2359b3845b7b",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "borland-3.1-decompme": {
     "family": "borland",
@@ -255,7 +233,6 @@
     "sha256": "1fad5133fbe034f00e263e114993fbbcea5ff9ee061449b34e78704ed95af6fc",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "bcc3.1"
     ]
@@ -266,8 +243,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/borlandc55/tar.gz/refs/heads/main",
     "sha256": "e9319c3904303ca4424cfed855b17837d10aa9653a3d8e6329d2adb3326392b0",
     "commit": "fcdcaf5bc41fc166ef632329c72baf6d487b50d2",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "borland-5.6": {
     "family": "borland",
@@ -275,8 +251,7 @@
     "url": "https://codeload.github.com/earthsiege2/borland-cpp-ide/tar.gz/09bcecc81184",
     "sha256": "8e5a93db99330b816646a14bdfa1c90d2e80a41810ce8c65f4942378cb621882",
     "commit": "09bcecc81184",
-    "layout": "tar-subset",
-    "in_repo_tarball": ""
+    "layout": "tar-subset"
   },
   "clang-16.0.4": {
     "family": "clang",
@@ -284,8 +259,7 @@
     "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.4/clang+llvm-16.0.4-x86_64-linux-gnu-ubuntu-22.04.tar.xz",
     "sha256": "fd464333bd55b482eb7385f2f4e18248eb43129a3cda4c0920ad9ac3c12bdacf",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "clang-18.1.8": {
     "family": "clang",
@@ -293,8 +267,7 @@
     "url": "https://github.com/llvm/llvm-project/releases/download/llvmorg-18.1.8/clang+llvm-18.1.8-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
     "sha256": "54ec30358afcc9fb8aa74307db3046f5187f9fb89fb37064cdde906e062ebf36",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "clang-3.9.1": {
     "family": "clang",
@@ -302,8 +275,7 @@
     "url": "https://releases.llvm.org/3.9.1/clang+llvm-3.9.1-x86_64-linux-gnu-debian8.tar.xz",
     "sha256": "dbe2ad98cd9c2b718fdfb5dc72dcf9cfb91009d05a5b2b37457cccc958559b2a",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "clang-4.0.1": {
     "family": "clang",
@@ -311,8 +283,7 @@
     "url": "https://releases.llvm.org/4.0.1/clang+llvm-4.0.1-x86_64-linux-gnu-debian8.tar.xz",
     "sha256": "ca48a4def4cbc9dd6af3f46ce1dc2bd903d26c7ad51387f57884ad1eaa58e42f",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "clang-8.0.0": {
     "family": "clang",
@@ -320,8 +291,7 @@
     "url": "https://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
     "sha256": "0f5c314f375ebd5c35b8c1d5e5b161d9efaeff0523bac287f8b4e5b751272f51",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "clang-9.0.0": {
     "family": "clang",
@@ -329,8 +299,7 @@
     "url": "https://releases.llvm.org/9.0.0/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
     "sha256": "a23b082b30c128c9831dbdd96edad26b43f56624d0ad0ea9edec506f5385038d",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "delphi-1.0": {
     "family": "delphi",
@@ -338,8 +307,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/delphi10/tar.gz/refs/heads/main",
     "sha256": "24cd23f0ef555f3582eda27b4bb655e17215366b556dfaabd9f2ba5daf61b55e",
     "commit": "fd12406eeaa6b44099013c5a56d083919676967c",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "ee-gcc-2.9-990721": {
     "family": "ee-gcc",
@@ -348,7 +316,6 @@
     "sha256": "ad2ea68afff2be25d21a1d51a75e8a0eea8f259018e6580622355cd01b95676b",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.9-990721"
     ]
@@ -360,7 +327,6 @@
     "sha256": "99cb5db603cd985b50fc6851157020ad69489f2227309ccf825bd43ac7bc19dd",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.9-991111"
     ]
@@ -372,7 +338,6 @@
     "sha256": "ed684fd98f89d36b0121caab311052089103e3b36241fcef4338cc9ea41c75b8",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.9-991111-01"
     ]
@@ -384,7 +349,6 @@
     "sha256": "3ab52a7ea962100f2a7df3e04d3e7a758aad669eb365251682e769b755d9d586",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.9-991111-01-dtls13010"
     ]
@@ -396,7 +360,6 @@
     "sha256": "f07d1f38afa847197fb816237dbce64e79b2d37b738cb93fa4df3ac7aa1d16f3",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.9-991111a"
     ]
@@ -408,7 +371,6 @@
     "sha256": "9ebbb042eb1e5d33d772293c5e9286a54dbec29865a3d7fbb398c97436f33583",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.9-991111b-r4"
     ]
@@ -420,7 +382,6 @@
     "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar-subpath:ee-gcc2.95.2-273a",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.95.2-273a"
     ]
@@ -432,7 +393,6 @@
     "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar-subpath:ee-gcc2.95.2-274",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.95.2-274"
     ]
@@ -444,7 +404,6 @@
     "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar-subpath:ee-gcc2.95.3-107",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.95.3-107"
     ]
@@ -456,7 +415,6 @@
     "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar-subpath:ee-gcc2.95.3-114",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.95.3-114"
     ]
@@ -468,7 +426,6 @@
     "sha256": "3b6ae6897229ad005aaf1b0afaa1f3cb46e74b4c21a42e01130c07c0c598067f",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.95.3-136"
     ]
@@ -480,7 +437,6 @@
     "sha256": "0590d2ca9da8f5903889d66761220d14b47a8d14ba987ca53db84a1650a1fd0a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc2.96"
     ]
@@ -492,7 +448,6 @@
     "sha256": "5244521973d3fa9712cc9f945e6e45c489d69d846ca6639b0c07c3e885a923a1",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc3.2-030210-beta2"
     ]
@@ -504,7 +459,6 @@
     "sha256": "6b92b61e40f80835b165d14fadd57d4046dbee82195599f791626180fe79b8e9",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc3.2-030926"
     ]
@@ -516,7 +470,6 @@
     "sha256": "8c60ca7482523190e999524a7e4de2379dcf7ffee543c1b5663bfdf6a80ebf0f",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ee-gcc3.2-040921"
     ]
@@ -527,8 +480,7 @@
     "url": "https://ftp.gnu.org/gnu/gcc/gcc-12.3.0/gcc-12.3.0.tar.xz",
     "sha256": "949a5d4f99e786421a93b532b22ffab5578de7321369975b91aec97adfda8c3b",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "gcc-14.2.0": {
     "family": "gcc",
@@ -536,8 +488,7 @@
     "url": "https://ftp.gnu.org/gnu/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz",
     "sha256": "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "gcc-2.5.7-mipsel": {
     "family": "gcc",
@@ -546,7 +497,6 @@
     "sha256": "1cb0a3421d117477acd24e693a80968d04f977717ac5acc963c92f74f1a1360a",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.5.7-mipsel"
     ]
@@ -558,7 +508,6 @@
     "sha256": "0db1fb403c766e51b094354b9a136a6c1f01457aa41ccca28ac457b7cb67d871",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.5.7-psx"
     ]
@@ -570,7 +519,6 @@
     "sha256": "ca226713b4a303b2782eeae11888355b1fe92c941f9f70cd3548c926346a893e",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.6.0-mipsel"
     ]
@@ -582,7 +530,6 @@
     "sha256": "358dac949f0f566af9c6af93bba0d4ac04d56ca9df80c58bd66d81bbb50deceb",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.6.0-psx"
     ]
@@ -594,7 +541,6 @@
     "sha256": "b80ecdc052ccf459a85f538773b1373a7bfa267cf779641fae447ef6debca2a4",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.6.3-mipsel"
     ]
@@ -606,7 +552,6 @@
     "sha256": "01e6e8c4933414ea3f8d8e3bc766a1f5fafd4fc0110e0b75d1f691bd791989b1",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.6.3-psx",
       "gcc-2.6.3-psx"
@@ -619,7 +564,6 @@
     "sha256": "157a26ae5ecd60d395bf9ab0d9c8321920f62f789dec0223cb79ed6c9a96ee48",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.0-mipsel"
     ]
@@ -631,7 +575,6 @@
     "sha256": "e13476a0539055faf9aefc846a1b6b774ec84b8f02bbecaff09b6ce0774ca746",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.1-mipsel"
     ]
@@ -643,7 +586,6 @@
     "sha256": "42bb0df96db11a9b5d2e23d78bdc962791f40046280d3d360da93fe5eef6f0bb",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2-cdk"
     ]
@@ -655,7 +597,6 @@
     "sha256": "ff3e299c1d952c0a5cb39f7790a208d0c547cf93986eb5607f820c935cedc288",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2kmc"
     ],
@@ -669,7 +610,6 @@
     "sha256": "909b6b6834212e1e26a9b58b39dff54ea1a38c74afea788a75fe3bc62653d14d",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2-mipsel"
     ]
@@ -681,7 +621,6 @@
     "sha256": "500a459b3485e885a8d302cac23c2a4632f3900e03a09153f6190699fd723571",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2-psx"
     ]
@@ -693,7 +632,6 @@
     "sha256": "17c57ccd5f2305fe5445c576d4cc2c1fea681dd78b29dd3d1f15c5ca0fdf2cea",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2sn0001"
     ],
@@ -707,7 +645,6 @@
     "sha256": "17c57ccd5f2305fe5445c576d4cc2c1fea681dd78b29dd3d1f15c5ca0fdf2cea",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2sn0001-cxx"
     ],
@@ -721,7 +658,6 @@
     "sha256": "17b0d9dc6a80b2aaec90f912bb442321ec8bc5cecaf7071f5bd187e1d6525d49",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2sn0004"
     ],
@@ -741,7 +677,6 @@
     "sha256": "1a35a875278f38bfc285c2bd80b782cec38859dedfd925d8b8a2f1733ba9acad",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2sn0006"
     ],
@@ -755,7 +690,6 @@
     "sha256": "1a35a875278f38bfc285c2bd80b782cec38859dedfd925d8b8a2f1733ba9acad",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2sn0006-cxx"
     ],
@@ -769,7 +703,6 @@
     "sha256": "60abe17c2562f5ae28444fe4f783fa8217d84b73e59e29cf39c41f7551d968f4",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2snew"
     ],
@@ -787,7 +720,6 @@
     "sha256": "8fdfcd95768eca36c1b373f16f57f78ab90877a71e2886f0a07422332d759755",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2.1-mipsel"
     ]
@@ -799,7 +731,6 @@
     "sha256": "9f7ed2baae64dc0f2b3b1354914d34fee9aaaa3a3c5deda49a73b7183a9b5e28",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2.2-mipsel"
     ]
@@ -811,7 +742,6 @@
     "sha256": "34e525c1feb9a6f4ef98b590e72dacb4c79a67c5f135db11d6a9cb62a5e74edb",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.7.2.3-mipsel"
     ]
@@ -823,7 +753,6 @@
     "sha256": "f4d0bea985cd53bc7ee43f366a4058c631071e925b6ba25fc919d15e7c6a8ba0",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.8.0-mipsel"
     ]
@@ -835,7 +764,6 @@
     "sha256": "1a3c956fe8aea5ebdb251749d95de2c84f023530584d7bd663744b5ec24050b7",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.8.0-psx"
     ]
@@ -847,7 +775,6 @@
     "sha256": "2421097de375a67939713480ea2aa17ce4df6c92cf0c476e68e9ac08c09c759e",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.8.1-mipsel"
     ]
@@ -859,7 +786,6 @@
     "sha256": "1156cf0d6a88a64c20e2a10fc9445d99cb9a38518f432b1669528dfa82ebb45f",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.8.1pm"
     ],
@@ -873,7 +799,6 @@
     "sha256": "f6f6e883942d4d3289d048236c672e71ed410e546aaae8ff655952f1567e1be0",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.8.1-psx"
     ]
@@ -885,7 +810,6 @@
     "sha256": "d90df1028c46d826e37146dbcc3e3385f78c59e05a9ddd952daa94c9ad379d9c",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.8.1sn"
     ],
@@ -905,7 +829,6 @@
     "sha256": "d90df1028c46d826e37146dbcc3e3385f78c59e05a9ddd952daa94c9ad379d9c",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.8.1sn-cxx"
     ],
@@ -929,7 +852,6 @@
     "sha256": "d90df1028c46d826e37146dbcc3e3385f78c59e05a9ddd952daa94c9ad379d9c",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.8.1snew-cxx"
     ],
@@ -951,7 +873,6 @@
     "sha256": "3ab7b4aaa763a9b10d44c3f4b75a617f2aae38807fbd8ac5b61f9d73df5cfa85",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.91.66-mipsel"
     ]
@@ -963,7 +884,6 @@
     "sha256": "f773a0a9659fa4ff74313ac4363d939312e8125675cd09ad9f8c1202f587f1fd",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.91.66-psx"
     ]
@@ -975,7 +895,6 @@
     "sha256": "23da2192d39a6b829e8c5a26a1c8d211c4aa24849b71da088bc9a76e2e7ab781",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.95.2-mipsel"
     ]
@@ -987,7 +906,6 @@
     "sha256": "932ed3669710a82b12570c29c46ff42989b6505b2af10db84d4551d55dfc0b1c",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.95.2-psx"
     ]
@@ -999,7 +917,6 @@
     "sha256": "c0613784e1c3b228512db2abebdce1e7b8afc211dc904d9ae23b913fd9025af9",
     "commit": "",
     "layout": "tar-root",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc2.96"
     ]
@@ -1011,7 +928,6 @@
     "sha256": "3ef1f2422e3cb9ede9a3f9c16d898c62550adde870ac58cb3b4e86689bdd702a",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc3-1041"
     ],
@@ -1025,7 +941,6 @@
     "sha256": "4b6e6bb7b360dc62b3b2a3176563357ae651873e2b3e3523871b9c7d30417c7a",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "rh8_gcc3.2",
       "gcc3.2-rh8"
@@ -1038,7 +953,6 @@
     "sha256": "74c5c4fb729544ebeb376de8eaa6126edfa7e3c55fa01f071e1a6e597e9a0896",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc-5026",
       "gcc-5026-cpp"
@@ -1053,7 +967,6 @@
     "sha256": "57bac0e2082fafb581cd8a1f8d5bfe2a1e6b04ba69fde8a2ac1dd08c04b3bd7d",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc-5363",
       "gcc-5363-cpp"
@@ -1068,7 +981,6 @@
     "sha256": "0d55f044365ffd8b34b5d13854235779cfe54131d16a62e5a909ace889363448",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc-5370",
       "gcc-5370-cpp"
@@ -1083,7 +995,6 @@
     "sha256": "d1a9815f730582ff65f8c14371c62436790655b20a21a5f8ee8b39b4fafa2f58",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "gcc4.4.0-mips64-elf"
     ]
@@ -1095,7 +1006,6 @@
     "sha256": "c8d0adeecbe655db1631df5dea58781f4aa738f9762b907f58a6e70740d1815a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "egcs_1.1.2-4"
     ]
@@ -1107,7 +1017,6 @@
     "sha256": "47b8cfccbad18fba40daa3fb01f4d71da7895d9183ab3ab91d6d7b1d27a715ab",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "egcs_1.1.2-4c"
     ],
@@ -1125,7 +1034,6 @@
     "sha256": "41cd0a4723acfbddf8f70a9c3ff84bce7e85087b1d1ccef8bbf5f03d82c2b520",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ghs5.3.22"
     ]
@@ -1137,7 +1045,6 @@
     "sha256": "2661672232e8845004f40d8aaba15f19cde36750b72b3a864aa21f6a0d196564",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "icc5.0.1-010525z"
     ]
@@ -1149,7 +1056,6 @@
     "sha256": "16008087602fe1a39cdd7880a3c6987891ddb594cce4416670f2e96456e9b4d4",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ido4.1"
     ]
@@ -1161,7 +1067,6 @@
     "sha256": "870cd946d31d6abee24d47926328d15909771520240a0a4f5cb7d27aea90e1ad",
     "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ido5.2"
     ]
@@ -1173,7 +1078,6 @@
     "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506",
     "commit": "9c242adc890beef098020149d9554f48208f699d",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ido5.3"
     ]
@@ -1185,7 +1089,6 @@
     "sha256": "851426c63ffb0688c702793113c2d9aa3c703c7a4e9d4240fc99d1862f79e4b9",
     "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ido5.3_c++",
       "ido5.3_c++_irix",
@@ -1199,7 +1102,6 @@
     "sha256": "a8a5bfa1713cc63c157ed4d61d0fb19f2d2ab10612fd9df2ceeb1de517cda4d4",
     "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ido5.3_irix",
       "ido5.3_asm_irix",
@@ -1219,7 +1121,6 @@
     "sha256": "c56d4be020bdaf76310ceec455ebc0d443fb7a46c740491f74898b04f6a60356",
     "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ido6.0",
       "ido6.0_irix"
@@ -1232,7 +1133,6 @@
     "sha256": "0d411696e178fcca34c31c3bf02011b928d7fd9c1fa7f8bf45070e0781b58e15",
     "commit": "9c242adc890beef098020149d9554f48208f699d",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ido7.1",
       "ido7.1_irix"
@@ -1245,7 +1145,6 @@
     "sha256": "0d411696e178fcca34c31c3bf02011b928d7fd9c1fa7f8bf45070e0781b58e15",
     "commit": "9c242adc890beef098020149d9554f48208f699d",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "ido7.1_c++"
     ]
@@ -1257,7 +1156,6 @@
     "sha256": "df33be0d9605b00b44070e567121fc00283a9b1f97763403f0898d2216028d24",
     "commit": "d577d1654ca4b57585af59849cb067c0148874d7",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mips_pro_744",
       "mips_pro_744_irix"
@@ -1270,7 +1168,6 @@
     "sha256": "1f602e146f5be218cb3c84cda615432035bcf4a4f1a5f249164163a456ac929a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "iop-gcc2.8.1"
     ]
@@ -1282,7 +1179,6 @@
     "sha256": "84016c5899358f65bb320081087f7fb82e32fd5f4ab25733bec094d4baa9728a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "iop-gcc2.95.2-102"
     ]
@@ -1293,8 +1189,7 @@
     "url": "https://github.com/niXman/mingw-builds-binaries/releases/download/14.2.0-rt_v12-rev2/i686-14.2.0-release-posix-dwarf-msvcrt-rt_v12-rev2.7z",
     "sha256": "895d22c902e22d4b7b1c1b4160d1b3d70bbd6fc653b04f46b7736ef0ef5e4bc2",
     "commit": "",
-    "layout": "7z-strip1",
-    "in_repo_tarball": ""
+    "layout": "7z-strip1"
   },
   "mingw-16.2.0": {
     "family": "mingw",
@@ -1302,8 +1197,7 @@
     "url": "https://github.com/niXman/mingw-builds-binaries/releases/download/16.2.0-rt_v14-rev1/i686-16.2.0-release-posix-dwarf-msvcrt-rt_v14-rev1.7z",
     "sha256": "9773342cba88efe50e6f3ddd021ac6f1d9ac1957301705fe64def22f501f0dd4",
     "commit": "",
-    "layout": "7z-strip1",
-    "in_repo_tarball": ""
+    "layout": "7z-strip1"
   },
   "msc-5.1": {
     "family": "msc",
@@ -1312,7 +1206,6 @@
     "sha256": "97ca199c20ad09629ae7be0a653faac56612e0e03ed700a92dbfb75958207311",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "msc5.1"
     ]
@@ -1324,7 +1217,6 @@
     "sha256": "d918ee76b25f1e7c55fdcde6de37d4f47ad72e3e69c93e2323802fa951bd60c4",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "msc600"
     ]
@@ -1335,8 +1227,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/msvc10/tar.gz/refs/heads/main",
     "sha256": "4858446b957fe327fedbb3a511316bebc060b72f22557a47397b905522668ce9",
     "commit": "0cd3d8a2024119b6b08b384fd3487a64a59a25eb",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-1.5": {
     "family": "msvc",
@@ -1344,8 +1235,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/msvc15/tar.gz/refs/heads/main",
     "sha256": "5cd1e4d9fd70fe97587fd3edfd0cebe3276e7b59ea5eb0848510f15c95d79aec",
     "commit": "3649e12977c169bd60662362400677f28a716ef1",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-1.52": {
     "family": "msvc",
@@ -1353,8 +1243,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/msvc152/tar.gz/refs/heads/main",
     "sha256": "18fbdb547aa6a6cdbb3a77b00b5453f6fd9ae2b543a1c4842552643384e4711b",
     "commit": "3beb967dfc075d34a1a8f7d30e0428e447432270",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-10.0": {
     "family": "msvc",
@@ -1362,8 +1251,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc1000/tar.gz/refs/heads/master",
     "sha256": "5f0b4486eb68e0069bb11506bcc8834710ac92ac1e7f311b3e4400a9d5d9409f",
     "commit": "f8977e2cacbe6cab4f9e73eb2c05695a88519bfe",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-10.0-sp1": {
     "family": "msvc",
@@ -1371,8 +1259,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc1000_sp1/tar.gz/refs/heads/master",
     "sha256": "2e5fbb9b71ed8cb2673594484d6a8fad7484c809ecefffaf3319e0164af6f89b",
     "commit": "09a53c11f781ec9ab5e66772ba720b9d85e4c2a4",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-11.0": {
     "family": "msvc",
@@ -1380,8 +1267,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc1100/tar.gz/refs/heads/master",
     "sha256": "adba1882eb076cb774b7a5d0f2b1067544da7cd2f0bf0b12f284361516cbc825",
     "commit": "89087a636aea5e6f9450ee7e840ea71e08740ee1",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-2.0": {
     "family": "msvc",
@@ -1389,8 +1275,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc200/tar.gz/refs/heads/master",
     "sha256": "0b058f103fe6b615987a85d518d7fd23389fab67c9df3cadfae22f5a70d5d000",
     "commit": "6bf022c590fdea0526dc94975f3d91add444ac1a",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-4.0": {
     "family": "msvc",
@@ -1399,7 +1284,6 @@
     "sha256": "4996b91a8e075715238817ad567994b8dbf830d25d2c6e0fefe7adacc5b4ddec",
     "commit": "17122292d394baa5a08fea6c899cdf48b67efb15",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc4.0"
     ]
@@ -1410,8 +1294,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc410/tar.gz/refs/heads/master",
     "sha256": "21486aecd108397bdced6e2cf6a5170a3cc30280a3eba97a4a8f92985a9cc5c4",
     "commit": "373f5e621ac8fb7b219873b37334ef1d0a2149e6",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-4.2": {
     "family": "msvc",
@@ -1420,7 +1303,6 @@
     "sha256": "651db241202416be7e870ff8d98928179b94515068e7895008b8a82cb0b7001c",
     "commit": "b42c244f0a83ba15ba2ffb62b0dc240d7b2dea50",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc4.2"
     ]
@@ -1431,8 +1313,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc500/tar.gz/refs/heads/master",
     "sha256": "46745771c0805310212415450f097134f3871d1786434e86c080e0b8cb9a38fb",
     "commit": "8abf95ce980161ad87b0b02402269cce76988953",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-5.0-sp1": {
     "family": "msvc",
@@ -1440,8 +1321,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc500sp1/tar.gz/refs/heads/master",
     "sha256": "f41e9e5a05bd7a4da97fdcc9d168aaac7898e5bfec11791c630735a7da13d303",
     "commit": "401174749393c9991a6b91425a795e04e8bdeedb",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-5.0-sp2": {
     "family": "msvc",
@@ -1449,8 +1329,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc500sp2/tar.gz/refs/heads/master",
     "sha256": "551137506a6a98ca890bfe20df7d5833bc475cf7e2279d959eccce0485525c8e",
     "commit": "4ebf02022705b4c9e9108d3ed3f286ed80ba2ed9",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-5.0-sp3": {
     "family": "msvc",
@@ -1458,8 +1337,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc500sp3/tar.gz/refs/heads/master",
     "sha256": "cdba2878eaacd07cb289b73f08250e2c39596fc9b31a2ad7a4fd887879be1e38",
     "commit": "259a03f0bc863de5baf657ec064cb60cb20a2cdc",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-6.0": {
     "family": "msvc",
@@ -1467,8 +1345,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc600/tar.gz/refs/heads/master",
     "sha256": "19b72020c8225f91d7345b16aa0acf1b31a4608ae1299693021491e7338d0ee8",
     "commit": "34d4fc4004e880b8d5c44ae5babd7229eeaad993",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-6.0-sp1": {
     "family": "msvc",
@@ -1476,8 +1353,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp1/tar.gz/refs/heads/main",
     "sha256": "2c3d1a6d2e7d6248f1bcb5e46a54cd2bea94704df032056abef53828b0b79888",
     "commit": "6d9787482473ca46a1e6fb70be020755951eb16a",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-6.0-sp2": {
     "family": "msvc",
@@ -1485,8 +1361,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/msvc600_sp2/tar.gz/refs/heads/main",
     "sha256": "088cd189ce0ae3c7ff96a71bb3f364a397b2fe6c19e6a8f252cc575be3783574",
     "commit": "79157a87dec5e5ff014178f817f27a70098fd862",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-6.0-sp3": {
     "family": "msvc",
@@ -1495,7 +1370,6 @@
     "sha256": "f753adfa8a29d8b03fb67bbcaadd3e41d672b86e5e17e32084bd1b60a1771ab4",
     "commit": "ff28b93857087f787492eef603e243fcccb0b368",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc6.3"
     ]
@@ -1507,7 +1381,6 @@
     "sha256": "7aeb03f65858000bb6988a64cc066a4a2aec9fc591400db400ffe6fc99ae2dbc",
     "commit": "0ca69bae9e3ca739c5ce38c8cf39ffc51582080d",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc6.4"
     ]
@@ -1519,7 +1392,6 @@
     "sha256": "a95a9c17cbcbe0d97a3e80ef9596f12404eb28f36bab24e89aabcbe37acbbef6",
     "commit": "b0b07e29108e2695eb0274c2a377a7b7d7326150",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc6.5"
     ]
@@ -1531,7 +1403,6 @@
     "sha256": "1bbf177489054698fd5d29bf042692efdb5bec8719f9dc889b9b1c618c645991",
     "commit": "762e9382c751613c341daa766f0e22cdeb07152c",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc6.5pp"
     ]
@@ -1543,7 +1414,6 @@
     "sha256": "7c2aa3dd4c56b8054cc1ae0e00cd976005dd5b9b43ea8c33b22798a15c9c15c3",
     "commit": "1f4223a77122220d28e8670788b3f9fd6bb2c4d1",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc6.6"
     ]
@@ -1555,7 +1425,6 @@
     "sha256": "5c81e9c2ab0ac5545022c1418a23392cb514db950cf6dcb1f48327270403fcd3",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc6.0"
     ]
@@ -1567,16 +1436,9 @@
     "sha256": "5f75462fb6134ad56c3ae28cf8b1e3b2869578d4171568b7a1fcdfb0bf97830b",
     "commit": "97fe4cdeaeb0bb934591d4b05eb52c2e8ab3e34b",
     "layout": "tar-strip1",
-    "in_repo_tarball": ""
-  },
-  "msvc-7.0-rtm": {
-    "family": "msvc",
-    "host_dir": "msvc/7.0-rtm-win32",
-    "url": "https://codeload.github.com/archaic-msvc/msvc700/tar.gz/refs/heads/master",
-    "sha256": "5f75462fb6134ad56c3ae28cf8b1e3b2869578d4171568b7a1fcdfb0bf97830b",
-    "commit": "97fe4cdeaeb0bb934591d4b05eb52c2e8ab3e34b",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "aliases": [
+      "msvc-7.0-rtm"
+    ]
   },
   "msvc-7.0-sp1": {
     "family": "msvc",
@@ -1584,8 +1446,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc700_sp1/tar.gz/refs/heads/master",
     "sha256": "bc1300625c89e855e1c0160b43c6fe2576ad68426483bd73c3cde2682165ba8a",
     "commit": "8bd9502d74274667de198247a459d63dbd431068",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-7.1": {
     "family": "msvc",
@@ -1594,7 +1455,6 @@
     "sha256": "618e876bc06431498fa98e71a408d822a5fad979219ce3253318d099a6917b27",
     "commit": "2932d76fe417b0bc49010b26d4be2e5b743cc4be",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc7.1"
     ]
@@ -1605,8 +1465,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc710_sp1/tar.gz/refs/heads/master",
     "sha256": "44246ff2980d715c2d05eaed505344a0b87850a04606482c13ba4832ddf5ec70",
     "commit": "cf62606064633dd8441aa2feffe34792099cc366",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-8.0": {
     "family": "msvc",
@@ -1614,8 +1473,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc800/tar.gz/refs/heads/master",
     "sha256": "ab819164ebd9e9d367c1178a86eb9c3337b1a8d85d1357322a3252b63ad64453",
     "commit": "00ddaf58d09788f0b12e475dae5fb5674dd32578",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-8.0-portable": {
     "family": "msvc",
@@ -1624,7 +1482,6 @@
     "sha256": "b138c1b3c99a8a2b9c4324add058e0ddfda5def81f0ef821b10cbfcf383b2084",
     "commit": "52c8293f8b8d6441c594cf096542290c17a4d70e",
     "layout": "zip-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc8.0p"
     ]
@@ -1635,8 +1492,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc800_sp1/tar.gz/refs/heads/master",
     "sha256": "9b53b515d79839c7404944c29cdae862d3a8c1ff0d0a27a202bfc37a31f587c5",
     "commit": "4b1bafba636f67eb76f548f0f0e7f38864091a4a",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-9.0": {
     "family": "msvc",
@@ -1644,8 +1500,7 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc900/tar.gz/refs/heads/master",
     "sha256": "9121d184d9cb88c13b95d3d2e770c8d8ae9d2531a5d8ea90c53a14f765e3f904",
     "commit": "c9d710cef9a3dec08d7d2dca78a3b494335a5baa",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-9.0-sp1": {
     "family": "msvc",
@@ -1653,8 +1508,7 @@
     "url": "https://codeload.github.com/archaic-toolchains/msvc900_sp1/tar.gz/refs/heads/main",
     "sha256": "33a66c779da39ab40518f24b75656f1f93cb1837a3d65a9b79188f41c2f2bd97",
     "commit": "cebb3c9740c92de36937a401a3a3141358c8ac29",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "msvc-ppc-14.00.2110": {
     "family": "msvc-ppc",
@@ -1663,7 +1517,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:X360/14.00.2110",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc_ppc_14.00.2110"
     ]
@@ -1675,7 +1528,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:X360/16.00.11886.00",
-    "in_repo_tarball": "",
     "aliases": [
       "msvc_ppc_16.00.11886.00"
     ]
@@ -1687,7 +1539,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/1.0",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_233_144"
     ]
@@ -1699,7 +1550,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/1.1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_233_159"
     ]
@@ -1711,7 +1561,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/1.1p1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_233_159p1"
     ]
@@ -1723,7 +1572,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/1.2.5",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_233_163",
       "mwcc233_163"
@@ -1736,7 +1584,6 @@
     "sha256": "399889e059cc86804267eb9376c9c2c4e197d7204936421c45e35fb6c01256c5",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/1.2.5e",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_233_163e"
     ]
@@ -1748,7 +1595,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/1.2.5n",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_233_163n"
     ]
@@ -1760,7 +1606,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/1.3",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_242_53"
     ]
@@ -1772,7 +1617,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/1.3.2",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_242_81"
     ]
@@ -1784,7 +1628,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/1.3.2r",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_242_81r"
     ]
@@ -1796,7 +1639,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/2.5",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_247_105"
     ]
@@ -1808,7 +1650,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/2.6",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_247_107"
     ]
@@ -1820,7 +1661,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/2.7",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_247_108"
     ]
@@ -1832,7 +1672,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/2.0",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_247_92"
     ]
@@ -1844,7 +1683,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/2.0p1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_247_92p1"
     ]
@@ -1856,7 +1694,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/3.0a3",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_41_51213"
     ]
@@ -1868,7 +1705,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/3.0a3.2",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_41_60126"
     ]
@@ -1880,7 +1716,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/3.0a3.3",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_41_60209"
     ]
@@ -1892,7 +1727,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/3.0a5.2",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_41_60831"
     ]
@@ -1904,7 +1738,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:Wii/0x4201_127",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_42_127"
     ]
@@ -1916,7 +1749,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:Wii/1.0RC1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_42_140"
     ]
@@ -1928,7 +1760,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:Wii/1.0a",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_42_142"
     ]
@@ -1940,7 +1771,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/3.0a3.4",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_42_60308"
     ]
@@ -1952,7 +1782,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:GC/3.0a5",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_42_60422"
     ]
@@ -1964,7 +1793,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:Wii/1.0",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_43_145"
     ]
@@ -1976,7 +1804,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:Wii/1.1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_43_151"
     ]
@@ -1988,7 +1815,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:Wii/1.3",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_43_172"
     ]
@@ -2000,7 +1826,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:Wii/1.5",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_43_188"
     ]
@@ -2012,7 +1837,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:Wii/1.6",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_43_202"
     ]
@@ -2024,7 +1848,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:Wii/1.7",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_43_213"
     ]
@@ -2036,7 +1859,6 @@
     "sha256": "91e10b9826bb985641a6db075da444a51bf25dd53df3216cb8bc05548561ec45",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_20_56"
     ]
@@ -2048,7 +1870,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/1.2/base",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_20_72"
     ]
@@ -2060,7 +1881,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/1.2/sp2",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_20_79"
     ]
@@ -2072,7 +1892,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/1.2/sp2p3",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_20_82"
     ]
@@ -2084,7 +1903,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/1.2/sp3",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_20_84"
     ]
@@ -2096,7 +1914,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/1.2/sp4",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_20_87"
     ]
@@ -2108,7 +1925,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/base",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_114"
     ]
@@ -2120,7 +1936,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/sp1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_123"
     ]
@@ -2132,7 +1947,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/sp1p2",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_126"
     ]
@@ -2144,7 +1958,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/sp1p5",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_131"
     ]
@@ -2156,7 +1969,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/sp1p6",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_133"
     ]
@@ -2168,7 +1980,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/sp1p7",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_134"
     ]
@@ -2180,7 +1991,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/sp2",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_136"
     ]
@@ -2192,7 +2002,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/sp2p2",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_137"
     ]
@@ -2204,7 +2013,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/sp2p3",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_138"
     ]
@@ -2216,7 +2024,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/2.0/sp2p4",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_30_139"
     ]
@@ -2228,7 +2035,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/dsi/1.1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_40_1018"
     ]
@@ -2240,7 +2046,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/dsi/1.1p1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_40_1024"
     ]
@@ -2252,7 +2057,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/dsi/1.2",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_40_1026"
     ]
@@ -2264,7 +2068,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/dsi/1.2p1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_40_1027"
     ]
@@ -2276,7 +2079,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/dsi/1.2p2",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_40_1028"
     ]
@@ -2288,7 +2090,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/dsi/1.3",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_40_1034"
     ]
@@ -2300,7 +2101,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/dsi/1.3p1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_40_1036"
     ]
@@ -2312,7 +2112,6 @@
     "sha256": "dc386e37b2176e960954a733de928337d9b7e7620b9e94228008c31774339ace",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:mwccarm/dsi/1.6sp1",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcc_40_1051"
     ]
@@ -2324,7 +2123,6 @@
     "sha256": "44836bb4d19fbe216b55fbd638420c000f7dd373c84493de0e732e85f81656af",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_121"
     ]
@@ -2336,7 +2134,6 @@
     "sha256": "a4a00c2450ee2b6f7be29fc73470446994fcf2b1b1003b8ac34568f3358e1c99",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_134"
     ]
@@ -2348,7 +2145,6 @@
     "sha256": "932bae1cdd95df8e1c593af14c19c90c21ad8e2662d6cc5e537269543d8bdd8f",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_139"
     ]
@@ -2360,7 +2156,6 @@
     "sha256": "7b9c917d50f804617eb50897cb5b68e1f287f6f676f28078c04a9054b2e4586e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_147"
     ]
@@ -2372,7 +2167,6 @@
     "sha256": "168ee268ebd9a9dc756886c90b4fdd577b13b57ecad025c8b7d98acf47d3f76f",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_151"
     ]
@@ -2384,7 +2178,6 @@
     "sha256": "2d4ff76e4e5c9bd938dbc627e4219583d6119bc4af30548df43e06221ab7b32b",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_180"
     ]
@@ -2396,7 +2189,6 @@
     "sha256": "e68e0a281f90e0c5a96cd04defe01eabfad4b5592807bba983495fa07c1d55b3",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_192"
     ]
@@ -2408,7 +2200,6 @@
     "sha256": "1bf4b06615f56e6ca5b78287e8fab5c7737f5cd5766d1df052829d737928dbc8",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_201"
     ]
@@ -2420,7 +2211,6 @@
     "sha256": "ace61d4641fcdff55c08b7560c95915b20243f0f18023c3d4ce99fe37c5cdb00",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_205"
     ]
@@ -2432,7 +2222,6 @@
     "sha256": "a8a0bf3a0ec3545f6578717516aad0f262a40dd1538a6e462b77efc29e79a969",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_210"
     ]
@@ -2444,7 +2233,6 @@
     "sha256": "81a2a8664d779901f6fa2f298b663b4b0feeb1d7f6613fd14531f51e66926d78",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwccpsp_3.0.1_219"
     ]
@@ -2455,8 +2243,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/ps2_compilers.tar.xz",
     "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar-subpath:mwcps2-2.3-991202",
-    "in_repo_tarball": ""
+    "layout": "tar-subpath:mwcps2-2.3-991202"
   },
   "mwcps2-2.3.3-000906": {
     "family": "mwcps2",
@@ -2464,8 +2251,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-2.3.3-000906.tar.gz",
     "sha256": "c2a4e463f8f7b324350d6bfb26d6daed83f4d5cb46df8b20dcfec8617b22ad5d",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-2.4-001213": {
     "family": "mwcps2",
@@ -2473,8 +2259,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-2.4-001213.tar.gz",
     "sha256": "0ebe09436b4163c3a109b0431517281501d2de1bd5a0b049d33057710a943e3e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0-011126": {
     "family": "mwcps2",
@@ -2482,8 +2267,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0-011126.tar.gz",
     "sha256": "b83fef398fd765aaeb48576dae0fa0751bf9c1496036d0d878e7a2a0e71c2a7f",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1-020123": {
     "family": "mwcps2",
@@ -2491,8 +2275,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1-020123.tar.gz",
     "sha256": "72d823d85943c92ca13378e93d56ac1870298ccbfda0ef8a2efb9650692e968c",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b103-040528": {
     "family": "mwcps2",
@@ -2500,8 +2283,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b103-040528.tar.gz",
     "sha256": "a6db36760445e18da840bda70f3e7b97dc563ba421d13651c121e8867013c0c9",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b119-040914": {
     "family": "mwcps2",
@@ -2509,8 +2291,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b119-040914.tar.gz",
     "sha256": "5c6984d5d52f21b62b6bc9161749bde7bb14e136fbee41f0f4df7fcee7b06c13",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b145-050209": {
     "family": "mwcps2",
@@ -2518,8 +2299,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b145-050209.tar.gz",
     "sha256": "d021f7d02ab63da770c13dc246637276141321ca08221ee2333a7acadf82482b",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b151-050317": {
     "family": "mwcps2",
@@ -2527,8 +2307,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b151-050317.tar.gz",
     "sha256": "5050a211954f0828cf1c0f56333943407d20f7e85bc68b23e3c539bb5d8ee947",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b198-051011": {
     "family": "mwcps2",
@@ -2536,8 +2315,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b198-051011.tar.gz",
     "sha256": "436af8060249e7ea0aa2dfa98a86b4667ee3716b3384cca577c52c5b68e4934a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b205-051227": {
     "family": "mwcps2",
@@ -2545,8 +2323,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b205-051227.tar.gz",
     "sha256": "456cdfc1894f20bcaecc627ff674222888f093c3ec37c91e4f0fe6baae3b5a9d",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b210-060308": {
     "family": "mwcps2",
@@ -2554,8 +2331,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b210-060308.tar.gz",
     "sha256": "456746b70862a744a0be75585a4e163a142111843661cbb7e483230dd85502c5",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b44-030325": {
     "family": "mwcps2",
@@ -2563,8 +2339,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b44-030325.tar.gz",
     "sha256": "90d99e3e6272369215b317548fe2626694aa1ead57cec0251f7343d266d9b0ed",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b51-030512": {
     "family": "mwcps2",
@@ -2572,8 +2347,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b51-030512.tar.gz",
     "sha256": "985fce55737848ce46c145cd357df247a3cd12d1c944d8cc325cfe46cde5a124",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b74-030811": {
     "family": "mwcps2",
@@ -2581,8 +2355,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b74-030811.tar.gz",
     "sha256": "5c14bea69f68cf46498a4eab3e18ea89aff289e6e12c613c55ff2d05b06dd23c",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b75-030916": {
     "family": "mwcps2",
@@ -2590,8 +2363,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b75-030916.tar.gz",
     "sha256": "f665dc6ce76f3551097a87cd1c36672d93cd23b10021ca412fbd23d38e3444d8",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b87-031208": {
     "family": "mwcps2",
@@ -2599,8 +2371,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b87-031208.tar.gz",
     "sha256": "3718581319518c9a3cece4ded2951a5e7828123c069c9bbc4d854e8b1c46b718",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.1b95-040309": {
     "family": "mwcps2",
@@ -2608,8 +2379,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0.1b95-040309.tar.gz",
     "sha256": "6f9357a1e74b48e43466c8bcb7af9b1b3d69fa870eb9b37269708cd579351bbc",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0.3": {
     "family": "mwcps2",
@@ -2618,7 +2388,6 @@
     "sha256": "63f89baae691403294724178efbcfc9e1b9ac48151536b6a321b17eb8f9970e5",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "mwcps2-3.0.3-020716",
       "mwcps2_303"
@@ -2630,8 +2399,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/ps2_compilers.tar.xz",
     "sha256": "f337a65a4fbab5cf0e335efe266dcbc7cf69b19c665c6b3a8924736df151a02a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar-subpath:mwcps2-3.0b22-020926",
-    "in_repo_tarball": ""
+    "layout": "tar-subpath:mwcps2-3.0b22-020926"
   },
   "mwcps2-3.0b38-030307": {
     "family": "mwcps2",
@@ -2639,8 +2407,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0b38-030307.tar.gz",
     "sha256": "db3d0606c77d4335d2ad884a1285a4bc3b9e68cdd6161dd46d6e2a2cd3313276",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0b50-030527": {
     "family": "mwcps2",
@@ -2648,8 +2415,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0b50-030527.tar.gz",
     "sha256": "74afc8c7cc13d129d3da205ebaed749a3f5eb789a321c7a669709f11d3d7c653",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "mwcps2-3.0b52-030722": {
     "family": "mwcps2",
@@ -2657,8 +2423,7 @@
     "url": "https://github.com/decompme/compilers/releases/download/compilers/mwcps2-3.0b52-030722.tar.gz",
     "sha256": "5c2f5f96c0a360cc6d4fc866226768f7ab9b290777bcd5cadeeba030b1d596a5",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
-    "layout": "tar",
-    "in_repo_tarball": ""
+    "layout": "tar"
   },
   "ndk-r8e-4.4.3": {
     "family": "ndk",
@@ -2667,7 +2432,6 @@
     "sha256": "13c57455e63dfb17a98853792ba1063fc640605a4ef2db4ad33a654171f48267",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar-bz2-subset",
-    "in_repo_tarball": "",
     "aliases": [
       "ndk-r8e-gcc-4.4.3"
     ]
@@ -2679,7 +2443,6 @@
     "sha256": "126dce67022049dca1be063ea0f8a6c07070f9f0b139339fc9e6a8ff617ed7fc",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar-bz2-subset",
-    "in_repo_tarball": "",
     "aliases": [
       "ndk-r8e-gcc-4.7"
     ]
@@ -2691,7 +2454,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:ProDG/3.5",
-    "in_repo_tarball": "",
     "aliases": [
       "prodg_35"
     ]
@@ -2703,7 +2465,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:ProDG/3.5b140",
-    "in_repo_tarball": "",
     "aliases": [
       "prodg_35_b140"
     ]
@@ -2715,7 +2476,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:ProDG/3.7",
-    "in_repo_tarball": "",
     "aliases": [
       "prodg_37"
     ]
@@ -2727,7 +2487,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:ProDG/3.8.1",
-    "in_repo_tarball": "",
     "aliases": [
       "prodg_381"
     ]
@@ -2739,7 +2498,6 @@
     "sha256": "491cb62317c7f3669ac283ae159e82e3c97a5713b78299571ba4cf023dc7e95e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "zip-subpath:ProDG/3.9.3",
-    "in_repo_tarball": "",
     "aliases": [
       "prodg_393"
     ]
@@ -2751,7 +2509,6 @@
     "sha256": "788b6d2c0ed920da6b1e5a350d23dd7ea05820526e23f9b5b967b3b238ea2e2e",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": []
   },
   "pspsnc-1.2.7503.0": {
@@ -2761,7 +2518,6 @@
     "sha256": "0d10a4b387e45b62369eea21b6693fc5517335033bf65e65aa7b543a916f4d6d",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "pspsnc_1.2.7503.0"
     ]
@@ -2773,7 +2529,6 @@
     "sha256": "082a57e28efe06dc75f1c8be4f2b73ffa65ad5b995c6c345cf67b8dcd19192c5",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "psyq_263_221"
     ]
@@ -2785,7 +2540,6 @@
     "sha256": "6acc5bf3a2e406c35ec77b63f6f77986a2d61502906967f0f32ea75911e7f16f",
     "commit": "",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "psyq3.3"
     ],
@@ -2799,7 +2553,6 @@
     "sha256": "0f9dff42081ad3cc3a1e2f740797b99c28657c3cfe6406deb9de4d176bd5387e",
     "commit": "",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "psyq3.5"
     ],
@@ -2813,7 +2566,6 @@
     "sha256": "9445f4cd871ca85b764b8d2746b6122750af17ecfe2d6e8aae41d15461d8c41d",
     "commit": "",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "psyq3.6"
     ],
@@ -2827,7 +2579,6 @@
     "sha256": "f25a4f6f044eb1b344bbbd3291aa9a4fc1a1124fc637eae9522c0a117d940e28",
     "commit": "",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "psyq4.0"
     ],
@@ -2841,7 +2592,6 @@
     "sha256": "2a2650ceb5eaa73fdc581bec4a85ccaa6ff9eeea8a4810be25a638f3cd2ebac4",
     "commit": "",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "psyq4.1"
     ],
@@ -2855,7 +2605,6 @@
     "sha256": "577038d66507d3aa5423de0ba3f540e121a4f60f637f4794aa4350135d4f9a46",
     "commit": "",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "psyq4.3"
     ],
@@ -2869,7 +2618,6 @@
     "sha256": "72e73934bab0d51933eb95af514afb14f3d432f01530eac3ddb16dfbb57ab66c",
     "commit": "",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "psyq4.4"
     ],
@@ -2883,7 +2631,6 @@
     "sha256": "f6f6e883942d4d3289d048236c672e71ed410e546aaae8ff655952f1567e1be0",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
-    "in_repo_tarball": "",
     "sdk_url": "https://codeload.github.com/FoxdieTeam/psyq_sdk/tar.gz/91719fa5bdca0b7e55c5c4b9e045da407db93510",
     "sdk_commit": "91719fa5bdca0b7e55c5c4b9e045da407db93510",
     "aliases": [
@@ -2898,7 +2645,6 @@
     "sha256": "635603e09a452c9c2923492fea8b8eb051959dd94f240933b88e94866814b894",
     "commit": "",
     "layout": "tar-strip1",
-    "in_repo_tarball": "",
     "aliases": [
       "psyq4.6"
     ],
@@ -2912,7 +2658,6 @@
     "sha256": "f5460e3ea653a24fb011a94f2ce2c54b277877e60859ffc906b07dbbe6406595",
     "commit": "af27f4aa6566c1b0fa5332b488e63d6ffd28bd48",
     "layout": "zip-subpath:cygnus-2.7-96Q3-bin",
-    "in_repo_tarball": "",
     "aliases": [
       "cygnus-2.7-96Q3"
     ]
@@ -2924,7 +2669,6 @@
     "sha256": "1932570b2f751c26b18e5c7f3a7f9ab453aa05a13d1c06787e60fba7711d0016",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.0r10"
     ]
@@ -2936,7 +2680,6 @@
     "sha256": "a065c9b6bfe60af986c72c2d863b0b067fe839605b1131460ff786a8e0badc0d",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.0r26"
     ]
@@ -2948,7 +2691,6 @@
     "sha256": "27eebe4e3938b7a5e3b5f6d921501d1ec0eed862f2f7743f9ff1032fc2ec5789",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.0r28"
     ]
@@ -2960,7 +2702,6 @@
     "sha256": "1b67fce972207f3c72c72e1fd85db0371a5ef504f886a618079b25f1889e936b",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.0r31"
     ]
@@ -2972,7 +2713,6 @@
     "sha256": "21f26227e48a2c9325f0aaf954e569b29db8db1dd1174aff32623017d713fdf5",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.0r32"
     ]
@@ -2984,7 +2724,6 @@
     "sha256": "d42a0ff0f7c43bd19319cbc926cfb5b96f76827d6aafb995857b60b76c863cc0",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.1r01"
     ],
@@ -2998,7 +2737,6 @@
     "sha256": "a5c41c4b9499c7593d141ee99fcbb9bf3519dbb803cdec9f22318b84b19a06ea",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.1r03"
     ],
@@ -3012,7 +2750,6 @@
     "sha256": "277065890128db57816d40a968d510c6a7f9e3c97929d75fd45226755eebb34d",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.1r04"
     ],
@@ -3026,7 +2763,6 @@
     "sha256": "2bcc5598a71a429d5e79ae12c9f69adee8950051da2db74c87769144fb80b814",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.1r08"
     ],
@@ -3040,7 +2776,6 @@
     "sha256": "5fda932494434e31dd8b50754ba7b76c4bd1fb32a0e7c595b2f0d67ecaa5de39",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.1r11"
     ],
@@ -3054,7 +2789,6 @@
     "sha256": "0da9982adc576171d93ceeeedff15c946fc570b0473e39b388e18d9e4ee1427a",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "shc-v5.1r13"
     ],
@@ -3068,7 +2802,6 @@
     "sha256": "920a9674d1b10f227ae65171c187212b06d7fc38b263313922615c4f5e9b24a6",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wcc10.0a"
     ]
@@ -3080,7 +2813,6 @@
     "sha256": "920a9674d1b10f227ae65171c187212b06d7fc38b263313922615c4f5e9b24a6",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wpp10.0a"
     ]
@@ -3092,7 +2824,6 @@
     "sha256": "70acc3b4b4729e44c149b53553a3c35aa4070ed34d6790b034273506d5c5b3fb",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wcc10.5"
     ]
@@ -3104,7 +2835,6 @@
     "sha256": "70acc3b4b4729e44c149b53553a3c35aa4070ed34d6790b034273506d5c5b3fb",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wpp10.5"
     ]
@@ -3116,7 +2846,6 @@
     "sha256": "fd82fd36594f1f1333d2b8a4b87956c1dfaacd2c9b3535db556bcf482f81adab",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wcc10.5a"
     ]
@@ -3128,7 +2857,6 @@
     "sha256": "fd82fd36594f1f1333d2b8a4b87956c1dfaacd2c9b3535db556bcf482f81adab",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wpp10.5a"
     ]
@@ -3140,7 +2868,6 @@
     "sha256": "c455edf32dc73f29c2b4e0aa5c6988768809641033ef54700725242711b04e29",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wcc10.6"
     ]
@@ -3152,7 +2879,6 @@
     "sha256": "c455edf32dc73f29c2b4e0aa5c6988768809641033ef54700725242711b04e29",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wpp10.6"
     ]
@@ -3164,7 +2890,6 @@
     "sha256": "6ecbf03ad4d71285f5813c34a4f551720eec0dfb09996a7dda7cb591963df325",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wcc11.0"
     ]
@@ -3176,7 +2901,6 @@
     "sha256": "6ecbf03ad4d71285f5813c34a4f551720eec0dfb09996a7dda7cb591963df325",
     "commit": "",
     "layout": "tar",
-    "in_repo_tarball": "",
     "aliases": [
       "wpp11.0"
     ]
@@ -3187,8 +2911,7 @@
     "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/2026-09-01-Build/ow-snapshot.tar.xz",
     "sha256": "bac354f3c75ffa49ff8d70a44e475de7e7c1823fff04b80c14787bd0792c9bdf",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   },
   "watcom-2.0-win32": {
     "family": "watcom",
@@ -3196,7 +2919,6 @@
     "url": "https://github.com/open-watcom/open-watcom-v2/releases/download/2026-09-01-Build/ow-snapshot.tar.xz",
     "sha256": "bac354f3c75ffa49ff8d70a44e475de7e7c1823fff04b80c14787bd0792c9bdf",
     "commit": "",
-    "layout": "tar-strip1",
-    "in_repo_tarball": ""
+    "layout": "tar-strip1"
   }
 }

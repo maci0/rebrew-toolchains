@@ -364,10 +364,11 @@ EQUIVALENCES: tuple[tuple[str, str, str, str], ...] = (
         "msvc-7.0",
         "covered from our own repos",
         (
-            "we ship the RTM and SP1 trees from `archaic-msvc` (`msvc700`, "
-            "`msvc700_sp1`).  Note: this profile used to point at the *7.1* tree "
-            "(13.10.3077) — the same compiler as `msvc-7.1`; it now pins the real "
-            "7.0 (`msvc700`, 13.00.9466)"
+            "we ship the RTM tree as `msvc-7.0` (`archaic-msvc/msvc700`, "
+            "13.00.9466) and SP1 as `msvc-7.0-sp1`; the old `msvc-7.0-rtm` profile "
+            "pinned the same tarball byte-for-byte, so it is now an alias rather "
+            "than a second image.  Note: this profile used to point at the *7.1* "
+            "tree (13.10.3077) — the same compiler as `msvc-7.1`"
         ),
     ),
     (
@@ -973,6 +974,26 @@ def provenance(entries: dict[str, dict[str, object]]) -> str:
         label, licence = SOURCES.get(key, ("**UNDOCUMENTED — add to `SOURCES`**", "unknown"))
         profiles = sorted(set(per_source[key]))
         out.append(f"| `{key or '?'}` | {label} | {licence} | {len(profiles)} |")
+
+    # Upstreams that no *profile* pins belong to the shared bases, whose pins
+    # live in base-basename*/Dockerfile rather than in sources.json.  They are
+    # real runtime dependencies of whole families (the DOS images run on
+    # dosemu2 + dj64), so they are rendered here instead of sitting in SOURCES
+    # as unreachable data.
+    shared = [key for key in sorted(SOURCES) if key not in per_source]
+    if shared:
+        out += [
+            "",
+            "## Shared bases",
+            "",
+            "These upstreams are not pinned by any profile — they are what the",
+            "shared base images install, and each base Dockerfile carries the",
+            "sha256-pinned package list:",
+            "",
+        ]
+        for key in shared:
+            label, licence = SOURCES[key]
+            out.append(f"- `{key}` — {label} ({licence})")
 
     out += [
         "",

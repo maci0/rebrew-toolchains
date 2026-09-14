@@ -1,7 +1,8 @@
-# MSVC 7.0 — 32-bit PE compiler under wine (archaic-msvc/msvc710).
+# MSVC 7.0 (RTM) — 32-bit PE compiler under wine (archaic-msvc/msvc700).
 #
 # Inherits the shared rebrew/base; this image adds the MSVC 7.0
-# command-line toolchain (archaic-msvc/msvc710 tarball, sha256-pinned) and the
+# command-line toolchain (the archaic-msvc/msvc700 tarball — the real 7.0,
+# cl.exe 13.00.9466; msvc710 is the 7.1 tree pinned by msvc/7.1-win32)
 # `cl` entrypoint wrapper.  Fully self-contained: no host files.
 #
 # Build:  docker build -t rebrew/msvc:7.0-win32 msvc/7.0-win32
@@ -20,15 +21,15 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
       org.opencontainers.image.title="rebrew MSVC 7.0 (win32, wine)" \
       org.opencontainers.image.description="MSVC 7.0 (win32, wine) toolchain image"
 
-# MSVC 7.0 command-line toolchain — archaic-msvc/msvc710 tarball
+# MSVC 7.0 command-line toolchain — archaic-msvc/msvc700 tarball
 # (sha256-verified; same source the `rebrew toolchain vendor` host tree
 # assembles from — byte-identical to the vendored toolchain/msvc/7.0-win32).
-RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc710.tar.gz \
+RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc700.tar.gz \
         "https://codeload.github.com/archaic-msvc/msvc700/tar.gz/refs/heads/master" \
-    && echo "5f75462fb6134ad56c3ae28cf8b1e3b2869578d4171568b7a1fcdfb0bf97830b  /tmp/msvc710.tar.gz" | sha256sum -c - \
+    && echo "5f75462fb6134ad56c3ae28cf8b1e3b2869578d4171568b7a1fcdfb0bf97830b  /tmp/msvc700.tar.gz" | sha256sum -c - \
     && mkdir -p /opt/msvc7.0 \
-    && tar xzf /tmp/msvc710.tar.gz -C /opt/msvc7.0 --strip-components=1 \
-    && rm /tmp/msvc710.tar.gz \
+    && tar xzf /tmp/msvc700.tar.gz -C /opt/msvc7.0 --strip-components=1 \
+    && rm /tmp/msvc700.tar.gz \
     && ls /opt/msvc7.0/Vc7/bin/cl.exe
 
 # The `cl` wrapper: validate the source (common helper), then translate the

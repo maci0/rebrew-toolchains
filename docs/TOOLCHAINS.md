@@ -3,7 +3,7 @@
 
 # Toolchain catalog
 
-273 toolchains, one self-contained image each.  This file is generated
+272 toolchains, one self-contained image each.  This file is generated
 from `sources.json` and the toolchain Dockerfiles; see
 [ADDING-TOOLCHAIN.md](ADDING-TOOLCHAIN.md) to add another, and the
 [README](../README.md) for how to run the images.
@@ -35,7 +35,7 @@ the notes column flags the toolchains whose output needs a second step.
 | wii | 10 |
 | wiiu | 1 |
 | win16 | 9 |
-| win32 | 46 |
+| win32 | 45 |
 | x360 | 2 |
 
 ## agbcc
@@ -273,9 +273,8 @@ Microsoft Visual C/C++ 1.0-11.0
 | `rebrew/msvc:6.0-sp6-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc6.6` | `master` `7c2aa3dd4c56` @ `1f4223a77122` | — |
 | `rebrew/msvc:6.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `19b72020c822` @ `34d4fc4004e8` | — |
 | `rebrew/msvc:6.0-win9x-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc6.0` | `msvc6.0.tar.gz` `5c81e9c2ab0a` | — |
-| `rebrew/msvc:7.0-rtm-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `5f75462fb613` @ `97fe4cdeaeb0` | — |
 | `rebrew/msvc:7.0-sp1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `bc1300625c89` @ `8bd9502d7427` | — |
-| `rebrew/msvc:7.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `5f75462fb613` @ `97fe4cdeaeb0` | — |
+| `rebrew/msvc:7.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc-7.0-rtm` | `master` `5f75462fb613` @ `97fe4cdeaeb0` | — |
 | `rebrew/msvc:7.1-sp1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `44246ff2980d` @ `cf6260606463` | — |
 | `rebrew/msvc:7.1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc7.1` | `master` `618e876bc064` @ `2932d76fe417` | — |
 | `rebrew/msvc:8.0-portable-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc8.0p` | `52c8293f8b8d6441c594cf096542290c17a4d70e.zip` `b138c1b3c99a` @ `52c8293f8b8d` | unpacked from `zip-strip1` |

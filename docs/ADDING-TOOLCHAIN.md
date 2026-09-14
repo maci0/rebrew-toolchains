@@ -268,7 +268,7 @@ Two provenance checks worth running before you trust a pin:
 ## 5. Register it
 
 Add the profile to `sources.json` (keys: `family`, `host_dir`, `url`,
-`sha256`, `commit`, `layout`, `in_repo_tarball`, optional `aliases` and the
+`sha256`, `commit`, `layout`, optional `aliases` and the
 secondary pins `binutils_url`/`binutils_sha256`, `parser_url`/`parser_sha256`,
 `helper_url`/`helper_sha256`, `sdk_url`/`sdk_sha256`/`sdk_commit`). Use the
 same `layout` vocabulary as the neighbouring profiles (`tar`, `tar-strip1`,
@@ -367,4 +367,3 @@ EOF
 | `layout` | how the archive is unpacked (`tar-strip1`, `zip-subpath:GC/1.2.5`, …) |
 | `aliases` | extra names `build.sh` accepts for this profile |
 | `*_url`/`*_sha256`/`*_commit` | additional pinned sources the image needs |
-| `in_repo_tarball` | reserved: path of a vendored tarball; empty everywhere today |

@@ -26,7 +26,7 @@ listed here, so a new upstream cannot arrive undocumented.
 | `github.com/decompme` | decomp.me's compiler release assets (`decompme/compilers`: the vendor MWCCARM/ARMCC/MWCPS2/MWCCCPSP/SHC/PSY-Q/IRIX tools — proprietary — plus the Apache-2.0/GPL Android NDK repacks and psyq-obj-parser) | proprietary | 128 |
 | `files.decomp.dev` | dated decomp.me compiler bundles (the GameCube/Wii MWCC, ProDG and Xbox 360 MSVC trees; older dates stay addressable) | proprietary | 36 |
 | `github.com/decompals` | decompals rebuilds: `ido-static-recomp` (IDO for Linux), `old-gcc` (PS1/N64 GCC), `mips-gcc-2.7.2`, `mips-binutils-2.6` | GPL (rebuilds of GPL toolchains) | 29 |
-| `github.com/archaic-msvc` | our own preservation repos for the archived 32-bit Microsoft VC++ trees (`msvc1000` … `msvc900`, every service pack) | proprietary | 22 |
+| `github.com/archaic-msvc` | our own preservation repos for the archived 32-bit Microsoft VC++ trees (`msvc1000` … `msvc900`, every service pack) | proprietary | 21 |
 | `github.com/archaic-toolchains` | our own preservation repos: reconstructed 16-bit MSVC / Turbo C / Delphi trees, the MSVC 4.0 and service-pack repos, and Borland C++ 5.5 | proprietary | 13 |
 | `gist.githubusercontent.com` | revision-pinned converter scripts: `Mc-muffin`'s `rof2elf.py` (SHC ROF → ELF) and `ChrisNonyminus`'s `convert_gas_syntax.py` (Apple cc1 assembler → GNU as) | MIT (gists) | 10 |
 | `github.com/OmniBlade` | `OmniBlade/decomp.me` preservation releases: the DOS-era Watcom C/C++ 10.5/10.5a/10.6/11.0 trees (and the `msvcwin9x` repacks) | proprietary | 10 |
@@ -54,6 +54,15 @@ listed here, so a new upstream cannot arrive undocumented.
 | `github.com/sozud` | `sozud/saturn-compilers`: the Sega Saturn Cygnus 2.7-96Q3 compiler and SDK media, commit-pinned | proprietary | 1 |
 | `widberg` | `widberg/msvc8.0`: portable (patched) MSVC 8.0 repacks, commit-pinned per variant | proprietary | 1 |
 
+## Shared bases
+
+These upstreams are not pinned by any profile — they are what the
+shared base images install, and each base Dockerfile carries the
+sha256-pinned package list:
+
+- `ppa.launchpadcontent.net/dosemu2/ppa` — the `dosemu2/ppa` packages `dosemu2` (x86 virtualisation for DOS), `fdpp`/`libfdpp35`/`libfdldr35` (the FreeDOS++ kernel) and `comcom64`/`comcom32` — the DOS runtime the 16-bit toolchains run on (GPL)
+- `ppa.launchpadcontent.net/stsp-0/dj64` — the `stsp-0/dj64` PPA: the dj64 DPMI host (`dj64`, `djstub`, `libdjstub64-0`, `libdjdev64-0`) that lets DJGPP `go32` binaries run under dosemu2 (GPL)
+
 ## Community id mappings
 
 decomp.me names some of these compilers differently.  Where the images
@@ -75,7 +84,7 @@ version matches, the row says so rather than pretending to be a match.
 | `msvc4.0` | `msvc/4.0-win32` | verified alias | decomp.me serves `itsmattkc/MSVC400@821e942f` for this id; our `archaic-toolchains/msvc400` tree has the same compilers (`cl.exe` `f097e736bb04`, `c1.exe` `7a7c14aff963`, `c1xx.exe` `3376b1dfaff0`) |
 | `msvc4.2` | `msvc/4.2-win32` | verified alias | decomp.me serves `itsmattkc/MSVC420@df2c13aa`; byte-identical to our `archaic-msvc/msvc420` (`cl.exe` `c5bf7ad84482`, `c1.exe` `c5a62937d806`, `c1xx.exe` `9e0782ec157b`) |
 | `msvc7.1` | `msvc/7.1-win32` | verified alias | decomp.me serves OmniBlade's win9x repack (`msvc7.0.tar.gz`) under this id; our `archaic-msvc/msvc710` `Vc7/bin` carries the same compiler (`cl.exe` `2ecf86a3edfd`, `c1.dll` `11f452af93f8`, `c1xx.dll` `353f3d5dcd05`, `c2.dll` `bcd28f39b179`) — only stray `.config`/`.sql` files differ |
-| `msvc7.0` | `msvc/7.0-win32` | covered from our own repos | we ship the RTM and SP1 trees from `archaic-msvc` (`msvc700`, `msvc700_sp1`).  Note: this profile used to point at the *7.1* tree (13.10.3077) — the same compiler as `msvc-7.1`; it now pins the real 7.0 (`msvc700`, 13.00.9466) |
+| `msvc7.0` | `msvc/7.0-win32` | covered from our own repos | we ship the RTM tree as `msvc-7.0` (`archaic-msvc/msvc700`, 13.00.9466) and SP1 as `msvc-7.0-sp1`; the old `msvc-7.0-rtm` profile pinned the same tarball byte-for-byte, so it is now an alias rather than a second image.  Note: this profile used to point at the *7.1* tree (13.10.3077) — the same compiler as `msvc-7.1` |
 | `msvc8.0p` | `msvc/8.0-portable-win32` | verified alias (distinct build) | the portable repack decomp.me serves for this id: same banner (14.00.50727.42) as `msvc-8.0` but patched binaries (`cl.exe` `6e7de73a82ac` vs `3cbf4306526c`).  The repack's other commit (`msvc8.0`, d6c4aa20) *is* byte-identical to ours and is not shipped twice |
 | `ido5.3_c++_irix` | `ido/5.3-cxx-n64` | verified alias | decomp.me declares this as `base_compiler=IDO53_CXX`, so it is the same `ido5.3_c++.tar.xz` tree behind the same `usr/lib/CC` driver under qemu-irix — only the platform label differs from `ido5.3_c++` |
 | `ido6.0_irix` | `ido/6.0-n64` | verified alias | `base_compiler=IDO60`: same `ido6.0.tar.xz` tree, same `usr/lib/driver` under qemu-irix |
