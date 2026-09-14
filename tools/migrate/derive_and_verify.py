@@ -318,18 +318,27 @@ def classify(cmd: str) -> dict[str, object] | None:
     m = re.match(r"7z x (\S+) -o(\S+) -y", cmd)
     if m:
         return {"op": "7z", "from": m.group(1), "into": m.group(2)}
-    m = re.match(r"cp -[ar]+ (.+)$", cmd)
+    m = re.match(r"cp (-[ar]+) (.+)$", cmd)
     if m:
-        parts = m.group(1).split()
+        parts = m.group(2).split()
         if len(parts) >= 2:
+            # `-a` preserves owners and times, `-r` does not: not the same
+            # command, so the flag is carried rather than re-chosen.
             return {
                 "op": "cp",
+                "flags": m.group(1),
                 "from": parts[0] if len(parts) == 2 else parts[:-1],
                 "into": parts[-1],
             }
     if cmd.startswith("chmod "):
         return {"op": "chmod", "cmd": cmd}
-    m = re.match(r'ln -s ("[^"]*"\([^)]*\)"?|\S+) (\S+)', cmd)
+    # The source may be a quoted command substitution containing spaces and a
+    # pipeline — `ln -s "$(ldconfig -p | awk '/x/{print $NF; exit}')" /opt/…/y`
+    # — so the name is the last token and everything before it is the source.
+    # Matching on the first token instead read that command as `ln -s "$(ldconfig
+    # -p`, and because the comparison reused this classifier it agreed with
+    # itself and called the truncated render equal.
+    m = re.match(r"ln -s (.+) (\S+)$", cmd)
     if m:
         return {"op": "link", "target": m.group(1), "name": m.group(2)}
     if cmd.startswith(("ls ", "find ")):

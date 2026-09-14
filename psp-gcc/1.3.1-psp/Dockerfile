@@ -18,9 +18,9 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/psp.tar.gz \
 
 RUN mkdir -p /opt/psp-gcc-1.3.1 /tmp/psp \
     && tar xzf /tmp/psp.tar.gz -C /tmp/psp \
-    && cp -a /tmp/psp/. /opt/psp-gcc-1.3.1/ \
-    && cp -a /tmp/psp/psp/bin /tmp/psp/psp/include /opt/psp-gcc-1.3.1/ \
-    && cp -a /tmp/psp/psp/lib/. /opt/psp-gcc-1.3.1/lib/ \
+    && cp -r /tmp/psp/. /opt/psp-gcc-1.3.1/ \
+    && cp -r /tmp/psp/psp/bin /tmp/psp/psp/include /opt/psp-gcc-1.3.1/ \
+    && cp -r /tmp/psp/psp/lib/. /opt/psp-gcc-1.3.1/lib/ \
     && rm -rf /tmp/psp /tmp/psp.tar.gz \
     && chmod -R a+rX /opt/psp-gcc-1.3.1 \
     && mkdir -p /usr/local/psp \

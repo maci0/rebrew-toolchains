@@ -328,6 +328,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.0/b771/.",
           "into": "/opt/armcc-4.0-771/"
         },
@@ -396,6 +397,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.0/b821/.",
           "into": "/opt/armcc-4.0-821/"
         },
@@ -464,6 +466,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.0/b865/.",
           "into": "/opt/armcc-4.0-865/"
         },
@@ -532,6 +535,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/armcc/4.0/b902/.",
           "into": "/opt/armcc-4.0-902/"
         },
@@ -600,6 +604,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.1/b1049/.",
           "into": "/opt/armcc-4.1-1049/"
         },
@@ -668,6 +673,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.1/b1440/.",
           "into": "/opt/armcc-4.1-1440/"
         },
@@ -736,6 +742,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.1/b1454/.",
           "into": "/opt/armcc-4.1-1454/"
         },
@@ -804,6 +811,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.1/b561/.",
           "into": "/opt/armcc-4.1-561/"
         },
@@ -872,6 +880,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.1/b713/.",
           "into": "/opt/armcc-4.1-713/"
         },
@@ -940,6 +949,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.1/b791/.",
           "into": "/opt/armcc-4.1-791/"
         },
@@ -1008,6 +1018,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.1/b844/.",
           "into": "/opt/armcc-4.1-844/"
         },
@@ -1076,6 +1087,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.1/b894/.",
           "into": "/opt/armcc-4.1-894/"
         },
@@ -1144,6 +1156,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/4.1/b921/.",
           "into": "/opt/armcc-4.1-921/"
         },
@@ -1212,6 +1225,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/armcc/5.04/b82/.",
           "into": "/opt/armcc-5.04-82/"
         },
@@ -1832,8 +1846,8 @@
         },
         {
           "op": "link",
-          "target": "\"$(ldconfig",
-          "name": "-p"
+          "target": "\"$(ldconfig -p | awk '/libtinfo\\.so\\.6/{print $NF; exit}')\"",
+          "name": "/opt/clang-4.0.1/lib/libtinfo.so.5"
         },
         {
           "op": "check_run",
@@ -2471,6 +2485,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/ee-gcc2.95.2-273a/.",
           "into": "/opt/ee-gcc-2.95.2-273a/"
         },
@@ -2533,6 +2548,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/ee-gcc2.95.2-274/.",
           "into": "/opt/ee-gcc-2.95.2-274/"
         },
@@ -2595,6 +2611,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/ee-gcc2.95.3-107/.",
           "into": "/opt/ee-gcc-2.95.3-107/"
         },
@@ -2657,6 +2674,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/ee-gcc2.95.3-114/.",
           "into": "/opt/ee-gcc-2.95.3-114/"
         },
@@ -7598,6 +7616,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mingw/mingw32/.",
           "into": "/opt/mingw-14.2.0/"
         },
@@ -7662,6 +7681,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mingw/mingw32/.",
           "into": "/opt/mingw-16.2.0/"
         },
@@ -9417,6 +9437,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/msvc8p/x/msvc8.0-52c8293f8b8d6441c594cf096542290c17a4d70e/.",
           "into": "/opt/msvc8.0-portable/"
         },
@@ -9656,6 +9677,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x360/X360/14.00.2110/.",
           "into": "/opt/msvc-ppc-14.00.2110/"
         },
@@ -9721,6 +9743,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x360/X360/16.00.11886.00/.",
           "into": "/opt/msvc-ppc-16.00.11886/"
         },
@@ -9786,6 +9809,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/1.0/.",
           "into": "/opt/mwcc-2.3.3-144/"
         },
@@ -9851,6 +9875,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mwcc/GC/1.1/.",
           "into": "/opt/mwcc-2.3.3-159/"
         },
@@ -9916,6 +9941,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/1.1p1/.",
           "into": "/opt/mwcc-2.3.3-159p1/"
         },
@@ -9982,6 +10008,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mwcc/GC/1.2.5/.",
           "into": "/opt/mwcc-2.3.3/"
         },
@@ -10047,6 +10074,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/1.2.5e/.",
           "into": "/opt/mwcc-2.3.3-163e/"
         },
@@ -10112,6 +10140,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/1.2.5n/.",
           "into": "/opt/mwcc-2.3.3-163n/"
         },
@@ -10177,6 +10206,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/1.3/.",
           "into": "/opt/mwcc-2.4.2-53/"
         },
@@ -10242,6 +10272,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mwcc/GC/1.3.2/.",
           "into": "/opt/mwcc-2.4.2-81/"
         },
@@ -10307,6 +10338,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/1.3.2r/.",
           "into": "/opt/mwcc-2.4.2-81r/"
         },
@@ -10372,6 +10404,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/2.5/.",
           "into": "/opt/mwcc-2.4.7-105/"
         },
@@ -10437,6 +10470,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/2.6/.",
           "into": "/opt/mwcc-2.4.7-107/"
         },
@@ -10502,6 +10536,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mwcc/GC/2.7/.",
           "into": "/opt/mwcc-2.4.7-108/"
         },
@@ -10567,6 +10602,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/2.0/.",
           "into": "/opt/mwcc-2.4.7-92/"
         },
@@ -10632,6 +10668,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mwcc/GC/2.0p1/.",
           "into": "/opt/mwcc-2.4.7/"
         },
@@ -10697,6 +10734,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/3.0a3/.",
           "into": "/opt/mwcc-4.1-51213/"
         },
@@ -10762,6 +10800,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/3.0a3.2/.",
           "into": "/opt/mwcc-4.1-60126/"
         },
@@ -10827,6 +10866,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/3.0a3.3/.",
           "into": "/opt/mwcc-4.1-60209/"
         },
@@ -10892,6 +10932,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/3.0a5.2/.",
           "into": "/opt/mwcc-4.1-60831/"
         },
@@ -10957,6 +10998,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/Wii/0x4201_127/.",
           "into": "/opt/mwcc-4.2-127/"
         },
@@ -11022,6 +11064,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/Wii/1.0RC1/.",
           "into": "/opt/mwcc-4.2-140/"
         },
@@ -11087,6 +11130,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/Wii/1.0a/.",
           "into": "/opt/mwcc-4.2-142/"
         },
@@ -11152,6 +11196,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/3.0a3.4/.",
           "into": "/opt/mwcc-4.2-60308/"
         },
@@ -11217,6 +11262,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/GC/3.0a5/.",
           "into": "/opt/mwcc-4.2-60422/"
         },
@@ -11282,6 +11328,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/Wii/1.0/.",
           "into": "/opt/mwcc-4.3-145/"
         },
@@ -11347,6 +11394,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/Wii/1.1/.",
           "into": "/opt/mwcc-4.3-151/"
         },
@@ -11412,6 +11460,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/Wii/1.3/.",
           "into": "/opt/mwcc-4.3-172/"
         },
@@ -11477,6 +11526,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/Wii/1.5/.",
           "into": "/opt/mwcc-4.3-188/"
         },
@@ -11542,6 +11592,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/Wii/1.6/.",
           "into": "/opt/mwcc-4.3-202/"
         },
@@ -11607,6 +11658,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mwcc/Wii/1.7/.",
           "into": "/opt/mwcc-4.3-213/"
         },
@@ -11730,6 +11782,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/1.2/base/.",
           "into": "/opt/mwccarm-2.0-72/"
         },
@@ -11801,6 +11854,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/1.2/sp2/.",
           "into": "/opt/mwccarm-2.0-79/"
         },
@@ -11872,6 +11926,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/1.2/sp2p3/.",
           "into": "/opt/mwccarm-2.0-82/"
         },
@@ -11943,6 +11998,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/1.2/sp3/.",
           "into": "/opt/mwccarm-2.0-84/"
         },
@@ -12014,6 +12070,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mwccarm/mwccarm/1.2/sp4/.",
           "into": "/opt/mwccarm-2.0-87/"
         },
@@ -12085,6 +12142,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/2.0/base/.",
           "into": "/opt/mwccarm-3.0-114/"
         },
@@ -12156,6 +12214,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/2.0/sp1/.",
           "into": "/opt/mwccarm-3.0-123/"
         },
@@ -12227,6 +12286,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/2.0/sp1p2/.",
           "into": "/opt/mwccarm-3.0-126/"
         },
@@ -12298,6 +12358,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/2.0/sp1p5/.",
           "into": "/opt/mwccarm-3.0-131/"
         },
@@ -12369,6 +12430,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/2.0/sp1p6/.",
           "into": "/opt/mwccarm-3.0-133/"
         },
@@ -12440,6 +12502,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/2.0/sp1p7/.",
           "into": "/opt/mwccarm-3.0-134/"
         },
@@ -12511,6 +12574,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/2.0/sp2/.",
           "into": "/opt/mwccarm-3.0-136/"
         },
@@ -12582,6 +12646,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/2.0/sp2p2/.",
           "into": "/opt/mwccarm-3.0-137/"
         },
@@ -12653,6 +12718,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/2.0/sp2p3/.",
           "into": "/opt/mwccarm-3.0-138/"
         },
@@ -12724,6 +12790,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mwccarm/mwccarm/2.0/sp2p4/.",
           "into": "/opt/mwccarm-3.0-139/"
         },
@@ -12795,6 +12862,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/dsi/1.1/.",
           "into": "/opt/mwccarm-4.0-1018/"
         },
@@ -12866,6 +12934,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/dsi/1.1p1/.",
           "into": "/opt/mwccarm-4.0-1024/"
         },
@@ -12937,6 +13006,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/dsi/1.2/.",
           "into": "/opt/mwccarm-4.0-1026/"
         },
@@ -13008,6 +13078,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/dsi/1.2p1/.",
           "into": "/opt/mwccarm-4.0-1027/"
         },
@@ -13079,6 +13150,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/dsi/1.2p2/.",
           "into": "/opt/mwccarm-4.0-1028/"
         },
@@ -13150,6 +13222,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/dsi/1.3/.",
           "into": "/opt/mwccarm-4.0-1034/"
         },
@@ -13221,6 +13294,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwccarm/dsi/1.3p1/.",
           "into": "/opt/mwccarm-4.0-1036/"
         },
@@ -13292,6 +13366,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/mwccarm/mwccarm/dsi/1.6sp1/.",
           "into": "/opt/mwccarm-4.0-1051/"
         },
@@ -13418,6 +13493,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwccpsp-3.0.1-134/"
         },
@@ -13482,6 +13558,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwccpsp-3.0.1-139/"
         },
@@ -13546,6 +13623,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwccpsp-3.0.1-147/"
         },
@@ -13610,6 +13688,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwccpsp-3.0.1-151/"
         },
@@ -13674,6 +13753,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwccpsp-3.0.1-180/"
         },
@@ -13738,6 +13818,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwccpsp-3.0.1-192/"
         },
@@ -13802,6 +13883,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwccpsp-3.0.1-201/"
         },
@@ -13866,6 +13948,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwccpsp-3.0.1-205/"
         },
@@ -14043,6 +14126,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwcps2-2.3-991202/.",
           "into": "/opt/mwcps2-2.3-991202/"
         },
@@ -14104,6 +14188,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-2.3.3-000906/"
         },
@@ -14220,6 +14305,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0-011126/"
         },
@@ -14336,6 +14422,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b103-040528/"
         },
@@ -14397,6 +14484,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b119-040914/"
         },
@@ -14458,6 +14546,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b145-050209/"
         },
@@ -14519,6 +14608,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b151-050317/"
         },
@@ -14580,6 +14670,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b198-051011/"
         },
@@ -14641,6 +14732,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b205-051227/"
         },
@@ -14702,6 +14794,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b210-060308/"
         },
@@ -14763,6 +14856,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b44-030325/"
         },
@@ -14824,6 +14918,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b51-030512/"
         },
@@ -14885,6 +14980,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b74-030811/"
         },
@@ -14946,6 +15042,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b75-030916/"
         },
@@ -15007,6 +15104,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b87-031208/"
         },
@@ -15068,6 +15166,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0.1b95-040309/"
         },
@@ -15186,6 +15285,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/mwcps2-3.0b22-020926/.",
           "into": "/opt/mwcps2-3.0b22-020926/"
         },
@@ -15247,6 +15347,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0b38-030307/"
         },
@@ -15308,6 +15409,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0b50-030527/"
         },
@@ -15369,6 +15471,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/.",
           "into": "/opt/mwcps2-3.0b52-030722/"
         },
@@ -15576,6 +15679,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/prodg/ProDG/3.5/.",
           "into": "/opt/prodg-3.5/"
         },
@@ -15643,6 +15747,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/ProDG/3.5b140/.",
           "into": "/opt/prodg-3.5b140/"
         },
@@ -15710,6 +15815,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/x/ProDG/3.7/.",
           "into": "/opt/prodg-3.7/"
         },
@@ -15777,6 +15883,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/prodg/ProDG/3.8.1/.",
           "into": "/opt/prodg-3.8.1/"
         },
@@ -15844,6 +15951,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": "/tmp/prodg/ProDG/3.9.3/.",
           "into": "/opt/prodg-3.9.3/"
         },
@@ -15906,11 +16014,13 @@
         },
         {
           "op": "cp",
+          "flags": "-r",
           "from": "/tmp/psp/.",
           "into": "/opt/psp-gcc-1.3.1/"
         },
         {
           "op": "cp",
+          "flags": "-r",
           "from": [
             "/tmp/psp/psp/bin",
             "/tmp/psp/psp/include"
@@ -15919,6 +16029,7 @@
         },
         {
           "op": "cp",
+          "flags": "-r",
           "from": "/tmp/psp/psp/lib/.",
           "into": "/opt/psp-gcc-1.3.1/lib/"
         },
@@ -16701,6 +16812,7 @@
         },
         {
           "op": "cp",
+          "flags": "-a",
           "from": [
             "/tmp/psyq/psyq_4.5/include",
             "/tmp/psyq/psyq_4.5/lib"
@@ -16887,6 +16999,7 @@
         },
         {
           "op": "cp",
+          "flags": "-r",
           "from": "/tmp/tools/saturn-compilers-af27f4aa6566c1b0fa5332b488e63d6ffd28bd48/cygnus-2.7-96Q3-bin/.",
           "into": "/opt/saturn-cygnus/"
         },

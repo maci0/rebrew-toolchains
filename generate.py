@@ -288,7 +288,8 @@ def _render_steps(profile: str, steps: list[dict[str, object]]) -> list[str]:
         elif op == "cp":
             raw = step.get("from")
             sources = raw if isinstance(raw, list) else [raw]
-            out.append(f"cp -a {' '.join(str(s) for s in sources)} {step['into']}")
+            flags = _text(step, "flags") or "-a"
+            out.append(f"cp {flags} {' '.join(str(s) for s in sources)} {step['into']}")
         elif op == "mkdir":
             out.append("mkdir -p " + " ".join(str(p) for p in _list(step.get("paths"))))
         elif op in {"chmod", "guard", "rm"}:

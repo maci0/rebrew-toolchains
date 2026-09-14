@@ -27,3 +27,5 @@ jobs:
         run: uv run --no-sync make lint
       - name: Run behavioral tests
         run: uv run --no-sync make test
+      - name: Verify generated images against the hand-written ones
+        run: uv run --no-sync make verify

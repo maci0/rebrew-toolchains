@@ -12,7 +12,7 @@
 # --others --exclude-standard keeps the .gitignore'd trees out.
 SHELL_SCRIPTS := $(shell git ls-files --cached --others --exclude-standard '*.sh')
 
-.PHONY: lint test docs generate smoke pins
+.PHONY: lint test docs generate verify smoke pins
 lint:
 	shellcheck $(SHELL_SCRIPTS)
 	ruff check .
@@ -31,6 +31,14 @@ docs:
 # generated file is caught rather than silently overwritten later.
 generate:
 	uv run python generate.py
+
+# The migration's contract, re-checked: every image rendered from sources.json
+# still does what the hand-written file it replaced did.  Two independent
+# comparisons (classified semantics, and raw install clauses) against the last
+# revision that held the hand-written files.  Slow (~30s) because it checks out
+# that revision, so it is its own target rather than part of `make test`.
+verify:
+	uv run python tools/migrate/verify_migration.py --baseline 07a7268
 
 # Docker-requiring check: builds one image per runtime class and compiles with
 # it (see tests/smoke.sh).  Not part of `test` — it needs network for the first

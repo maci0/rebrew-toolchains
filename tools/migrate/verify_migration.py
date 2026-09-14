@@ -30,7 +30,7 @@ REPO = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "tools" / "migrate"))
 
-from derive_and_verify import semantics  # noqa: E402
+from derive_and_verify import instructions, semantics  # noqa: E402
 
 import generate  # noqa: E402
 
@@ -69,6 +69,63 @@ def copy_sources(directory: pathlib.Path) -> list[str]:
         if m and not m.group(1).startswith("$") and not (directory / m.group(1)).exists():
             problems.append(f"COPY {m.group(1)} has no such file")
     return problems
+
+
+#: Clauses that are the same command written by a different mechanism, or that
+#: another stage already compares: the download, its in-build hash check, the
+#: entrypoint's delivery, and the apt bookkeeping.
+_DROPPED_CLAUSES = (
+    re.compile(r"^curl -fsSL"),
+    re.compile(r'^echo "[0-9a-f]{64} '),
+    re.compile(r"^chmod \+x /usr/local/bin/"),
+    re.compile(r"^rm -rf /var/lib/apt/lists"),
+    re.compile(r"^apt-get (update|install)"),
+)
+
+
+def _canonical_tar(clause: str) -> str:
+    """GNU tar reads long options anywhere before the members, so where
+    `--strip-components=1` sits relative to `-C` is not part of the command."""
+    tokens = clause.split(" ")
+    if tokens[0] != "tar":
+        return clause
+    flags = [token for token in tokens[1:] if token.startswith("--")]
+    rest = [token for token in tokens[1:] if not token.startswith("--")]
+    return " ".join(["tar", *flags, *rest])
+
+
+def install_clauses(text: str) -> list[str]:
+    """The clauses an image runs to install its toolchain, as written.
+
+    A second, independent comparison to the classified one: this reads the
+    clauses as text, so it cannot agree with a renderer by mis-reading a
+    command the same way twice.  The classified stage missed a truncated
+    `ln -s "$(ldconfig -p | awk …)"` for exactly that reason.
+    """
+    out: list[str] = []
+    for ins in instructions(text):
+        # the inline-wrapper RUN of a pre-migration file is wrapper text, and
+        # the wrapper is compared as a wrapper
+        if not ins.startswith("RUN ") or ins.startswith("RUN printf"):
+            continue
+        for part in ins[4:].split("&&"):
+            clause = re.sub(r"\s+", " ", part).strip()
+            if clause and not any(pattern.match(clause) for pattern in _DROPPED_CLAUSES):
+                out.append(_canonical_tar(clause))
+    return sorted(out)
+
+
+def clause_diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
+    """Raw install clauses that changed, beyond the ones already accounted for."""
+    old = install_clauses((old_dir / "Dockerfile").read_text(encoding="utf-8"))
+    new = install_clauses((new_dir / "Dockerfile").read_text(encoding="utf-8"))
+    if old == new:
+        return []
+    lost = [clause for clause in old if clause not in new]
+    gained = [clause for clause in new if clause not in old]
+    return [f"clause lost: {clause}" for clause in lost[:4]] + [
+        f"clause gained: {clause}" for clause in gained[:4]
+    ]
 
 
 def diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
@@ -140,7 +197,9 @@ def main(argv: list[str]) -> int:
                 print(f"  {profile}: no generated Dockerfile at {host}", file=sys.stderr)
                 differ.append((profile, [f"missing {host}/Dockerfile"]))
                 continue
-            problems = diff(old_dir, new_dir) + copy_sources(new_dir)
+            problems = (
+                diff(old_dir, new_dir) + clause_diff(old_dir, new_dir) + copy_sources(new_dir)
+            )
             if not problems:
                 continue
             if profile in ACKNOWLEDGED and all(

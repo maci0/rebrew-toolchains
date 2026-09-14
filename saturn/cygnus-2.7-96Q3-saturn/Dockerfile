@@ -22,7 +22,7 @@ RUN mkdir -p /opt/saturn-cygnus /tmp/tools && curl -fsSL --retry 3 --retry-all-e
 
 RUN rm -rf /var/lib/apt/lists/* \
     && unzip -q /tmp/tools/saturn.zip -d /tmp/tools \
-    && cp -a /tmp/tools/saturn-compilers-af27f4aa6566c1b0fa5332b488e63d6ffd28bd48/cygnus-2.7-96Q3-bin/. /opt/saturn-cygnus/ \
+    && cp -r /tmp/tools/saturn-compilers-af27f4aa6566c1b0fa5332b488e63d6ffd28bd48/cygnus-2.7-96Q3-bin/. /opt/saturn-cygnus/ \
     && rm -rf /tmp/tools \
     && chmod +x /opt/saturn-cygnus/*.EXE \
     && ls /opt/saturn-cygnus/OBJCOPY.EXE

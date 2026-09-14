@@ -26,7 +26,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && mkdir -p /opt/clang-4.0.1 \
     && tar xJf /tmp/clang.tar.xz --strip-components=1 -C /opt/clang-4.0.1 \
     && rm /tmp/clang.tar.xz \
-    && ln -s "$(ldconfig -p \
+    && ln -s "$(ldconfig -p | awk '/libtinfo\.so\.6/{print $NF; exit}')" /opt/clang-4.0.1/lib/libtinfo.so.5 \
     && LD_LIBRARY_PATH=/opt/clang-4.0.1/lib /opt/clang-4.0.1/bin/clang --version
 
 COPY clang-wrapper.sh /usr/local/bin/clang
