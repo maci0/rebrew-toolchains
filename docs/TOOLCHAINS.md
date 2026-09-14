@@ -258,7 +258,7 @@ Microsoft Visual C/C++ 1.0-11.0
 | `rebrew/msvc:11.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `adba1882eb07` @ `89087a636aea` | — |
 | `rebrew/msvc:2.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `0b058f103fe6` @ `6bf022c590fd` | — |
 | `rebrew/msvc:4.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc4.0` | `main` `4996b91a8e07` @ `17122292d394` | — |
-| `rebrew/msvc:4.1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `21486aecd108` @ `373f5e621ac8` | — |
+| `rebrew/msvc:4.1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc4.1` | `master` `21486aecd108` @ `373f5e621ac8` | — |
 | `rebrew/msvc:4.2-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc4.2` | `master` `651db2412024` @ `b42c244f0a83` | — |
 | `rebrew/msvc:5.0-sp1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `f41e9e5a05bd` @ `401174749393` | — |
 | `rebrew/msvc:5.0-sp2-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `551137506a6a` @ `4ebf02022705` | — |
@@ -274,7 +274,7 @@ Microsoft Visual C/C++ 1.0-11.0
 | `rebrew/msvc:6.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `19b72020c822` @ `34d4fc4004e8` | — |
 | `rebrew/msvc:6.0-win9x-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc6.0` | `msvc6.0.tar.gz` `5c81e9c2ab0a` | — |
 | `rebrew/msvc:7.0-sp1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `bc1300625c89` @ `8bd9502d7427` | — |
-| `rebrew/msvc:7.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc-7.0-rtm` | `master` `5f75462fb613` @ `97fe4cdeaeb0` | — |
+| `rebrew/msvc:7.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc-7.0-rtm`, `msvc7.0` | `master` `5f75462fb613` @ `97fe4cdeaeb0` | — |
 | `rebrew/msvc:7.1-sp1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `44246ff2980d` @ `cf6260606463` | — |
 | `rebrew/msvc:7.1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc7.1` | `master` `618e876bc064` @ `2932d76fe417` | — |
 | `rebrew/msvc:8.0-portable-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc8.0p` | `52c8293f8b8d6441c594cf096542290c17a4d70e.zip` `b138c1b3c99a` @ `52c8293f8b8d` | unpacked from `zip-strip1` |

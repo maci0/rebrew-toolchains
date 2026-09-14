@@ -72,6 +72,26 @@ class TestCatalog(unittest.TestCase):
         finally:
             catalog.SOURCES = original
 
+    def test_every_documented_community_id_resolves(self) -> None:
+        """A row in EQUIVALENCES is a promise that `build.sh <id>` works.
+
+        Three statuses ("verified alias", "covered by the profile key") only
+        needed the alias *list* to be right; nothing checked that a
+        "covered from our own repos" id — which is also a name users type — can
+        actually be resolved.  msvc4.1 and msvc7.0 were documented as covered
+        while `./build.sh msvc4.1` answered "unknown toolchain".
+        """
+        manifest = catalog.manifest()
+        resolvable = set(manifest)
+        for entry in manifest.values():
+            declared = entry.get("aliases")
+            if isinstance(declared, list):
+                resolvable |= {str(alias) for alias in declared}
+        for community, profile, _status, _evidence in catalog.EQUIVALENCES:
+            self.assertIn(
+                community, resolvable, f"{community} ({profile}) is documented but unresolvable"
+            )
+
     def test_catalog_covers_every_manifest_entry(self) -> None:
         rendered = catalog.render(catalog.manifest())
         for profile, entry in catalog.manifest().items():

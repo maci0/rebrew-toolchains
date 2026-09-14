@@ -1294,7 +1294,10 @@
     "url": "https://codeload.github.com/archaic-msvc/msvc410/tar.gz/refs/heads/master",
     "sha256": "21486aecd108397bdced6e2cf6a5170a3cc30280a3eba97a4a8f92985a9cc5c4",
     "commit": "373f5e621ac8fb7b219873b37334ef1d0a2149e6",
-    "layout": "tar-strip1"
+    "layout": "tar-strip1",
+    "aliases": [
+      "msvc4.1"
+    ]
   },
   "msvc-4.2": {
     "family": "msvc",
@@ -1437,7 +1440,8 @@
     "commit": "97fe4cdeaeb0bb934591d4b05eb52c2e8ab3e34b",
     "layout": "tar-strip1",
     "aliases": [
-      "msvc-7.0-rtm"
+      "msvc-7.0-rtm",
+      "msvc7.0"
     ]
   },
   "msvc-7.0-sp1": {
