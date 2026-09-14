@@ -30,7 +30,12 @@ REPO = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "tools" / "migrate"))
 
-from derive_and_verify import instructions, semantics  # noqa: E402
+from derive_and_verify import (  # noqa: E402
+    _join_continuations,
+    instructions,
+    semantics,
+    wrapper_text,
+)
 
 import generate  # noqa: E402
 
@@ -126,6 +131,32 @@ def install_clauses(text: str) -> list[str]:
     return sorted(out)
 
 
+def wrapper_lines(directory: pathlib.Path) -> list[str]:
+    """The wrapper's shell lines, exactly as written.
+
+    Compared as text for the same reason the install clauses are: the
+    classified wrapper comparison sorts the tokens of a `rebrew_…` call, which
+    would hide a swapped argument, and an argument is the whole point of a
+    compiler wrapper.
+    """
+    _, text = wrapper_text(directory)
+    out = []
+    for line in _join_continuations(text):
+        stripped = re.sub(r"\s+", " ", line.strip())
+        if stripped and not stripped.startswith("#"):
+            out.append(stripped)
+    return out
+
+
+def wrapper_diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
+    old, new = wrapper_lines(old_dir), wrapper_lines(new_dir)
+    if old == new:
+        return []
+    return [f"wrapper line lost: {line}" for line in old if line not in new][:4] + [
+        f"wrapper line gained: {line}" for line in new if line not in old
+    ][:4]
+
+
 def clause_diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
     """Raw install clauses that changed, beyond the ones already accounted for."""
     old = install_clauses((old_dir / "Dockerfile").read_text(encoding="utf-8"))
@@ -209,7 +240,10 @@ def main(argv: list[str]) -> int:
                 differ.append((profile, [f"missing {host}/Dockerfile"]))
                 continue
             problems = (
-                diff(old_dir, new_dir) + clause_diff(old_dir, new_dir) + copy_sources(new_dir)
+                diff(old_dir, new_dir)
+                + clause_diff(old_dir, new_dir)
+                + wrapper_diff(old_dir, new_dir)
+                + copy_sources(new_dir)
             )
             if not problems:
                 continue
