@@ -1,0 +1,8 @@
+#!/bin/sh
+# Generated from sources.json by generate.py — do not edit; run `make generate`.
+# Entrypoint — clang/8.0.0-switch
+#
+# shellcheck source=base/wrapper-common.sh
+. /usr/local/lib/rebrew/wrapper-common.sh
+
+rebrew_exec /opt/clang-8.0.0/bin/clang "$@"

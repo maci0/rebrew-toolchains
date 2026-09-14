@@ -172,7 +172,8 @@ SOURCES: dict[str, tuple[str, str]] = {
     "FoxdieTeam": (
         (
             "`FoxdieTeam/psyq_sdk`: the PSY-Q 4.5 headers and libraries "
-            "(commit-pinned branch tarball, no byte-stable hash — see psyq/4.5-ps1)"
+            "(commit-pinned tarball; the codeload archive hashes the same on "
+            "repeat fetches, so the pin is sha256-verified like every other)"
         ),
         "proprietary",
     ),

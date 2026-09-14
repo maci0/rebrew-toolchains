@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import unittest
+from collections.abc import Mapping
 from pathlib import Path
 
 _REPO = Path(__file__).resolve().parents[1]
@@ -44,6 +45,28 @@ def _manifest() -> dict[str, dict[str, str]]:
     return data
 
 
+def _pins(entry: Mapping[str, object]) -> list[tuple[str, str, str]]:
+    """Every pinned download as ``(name, url, sha256)``.
+
+    The primary pin plus each secondary pin (``<name>_url`` /
+    ``<name>_sha256``: a parser, a helper, an SDK, binutils) and each
+    ``extra_pins`` entry.  Secondary pins once slipped past this file — the
+    PSY-Q 4.5 SDK download lived here with no hash at all — so they are swept
+    too.
+    """
+    pins = [("primary", str(entry.get("url", "")), str(entry.get("sha256", "")))]
+    for key, value in entry.items():
+        if key.endswith("_url"):
+            name = key[: -len("_url")]
+            pins.append((name, str(value), str(entry.get(f"{name}_sha256", ""))))
+    extra = entry.get("extra_pins")
+    if isinstance(extra, list):
+        for index, pin in enumerate(extra):
+            if isinstance(pin, dict):
+                pins.append((f"extra{index}", str(pin.get("url", "")), str(pin.get("sha256", ""))))
+    return pins
+
+
 class TestManifest(unittest.TestCase):
     def test_every_entry_is_complete(self) -> None:
         for profile, entry in _manifest().items():
@@ -54,6 +77,9 @@ class TestManifest(unittest.TestCase):
             self.assertTrue(entry["url"].startswith("https://"), profile)
             self.assertEqual(len(entry["sha256"]), 64, f"{profile}: bad sha256")
             self.assertTrue(entry["layout"], profile)
+            for name, url, sha in _pins(entry):
+                self.assertTrue(url.startswith("https://"), f"{profile}: {name} url")
+                self.assertEqual(len(sha), 64, f"{profile}: {name} has no sha256")
             # A branch tarball moves, so its pin must name the commit it came
             # from.  A release asset is content-addressed by its sha256 alone
             # and has no commit to record (Open Watcom's `Last-CI-build`
@@ -64,8 +90,9 @@ class TestManifest(unittest.TestCase):
     def test_every_pin_appears_in_its_dockerfile(self) -> None:
         for profile, entry in _manifest().items():
             text = (_REPO / entry["host_dir"] / "Dockerfile").read_text(encoding="utf-8")
-            self.assertIn(entry["url"], text, f"{profile}: url not in its Dockerfile")
-            self.assertIn(entry["sha256"], text, f"{profile}: sha256 not in its Dockerfile")
+            for name, url, sha in _pins(entry):
+                self.assertIn(url, text, f"{profile}: {name} url not in its Dockerfile")
+                self.assertIn(sha, text, f"{profile}: {name} sha256 not in its Dockerfile")
 
     def test_every_dockerfile_has_a_manifest_entry(self) -> None:
         """Reverse sweep: a Dockerfile whose download pins nothing is a gap."""

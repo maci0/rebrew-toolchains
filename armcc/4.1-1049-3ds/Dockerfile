@@ -1,12 +1,5 @@
-# ARMCC 4.1-1049 (CodeWarrior for 3DS) — decomp.me "armcc_41_1049".
-#
-# Inherits the shared rebrew/base; this image extracts the 4.1/b1049 subtree
-# (armcc.exe + license DLLs) from the pinned decompme/compilers
-# armcc.zip.  The compiler is a 32-bit Windows PE binary, so the entrypoint
-# runs it through the shared wine/wibo dispatcher.
-#
-# Build:  docker build -t rebrew/armcc:4.1-1049-3ds armcc/4.1-1049-3ds
-# Invoke: docker run --rm -v "$PWD":/work -w /work rebrew/armcc:4.1-1049-3ds -c --cpu=MPCore t.c -o t.o
+# Generated from sources.json by generate.py — do not edit; run `make generate`.
+# profile: armcc-4.1-1049
 
 ARG BASE_IMAGE=rebrew/base:1.0
 
@@ -25,19 +18,17 @@ RUN apt-get update \
 
 RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/compilers.zip \
         "https://github.com/decompme/compilers/releases/download/compilers/armcc.zip?2026-03-04" \
-    && echo "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb  /tmp/compilers.zip" | sha256sum -c - \
+    && echo "bda0cea5b13a9c3f08322fa76f9f9dcda59bda290f57f1a06e05cd80044fafdb  /tmp/compilers.zip" | sha256sum -c -
+
+RUN rm -rf /var/lib/apt/lists/* \
     && mkdir -p /opt/armcc-4.1-1049 \
     && unzip -q /tmp/compilers.zip '4.1/b1049/*' -d /tmp/x \
     && cp -a /tmp/x/4.1/b1049/. /opt/armcc-4.1-1049/ \
     && rm -rf /tmp/x /tmp/compilers.zip \
     && ls /opt/armcc-4.1-1049/bin/armcc.exe
 
-RUN printf '%s\n' \
-        '#!/bin/sh' \
-        '. /usr/local/lib/rebrew/wrapper-common.sh' \
-        'rebrew_run /opt/armcc-4.1-1049/bin/armcc.exe -I /opt/armcc-4.1-1049/include "$@"' \
-        > /usr/local/bin/armcc \
-    && chmod +x /usr/local/bin/armcc
+COPY armcc-wrapper.sh /usr/local/bin/armcc
+RUN chmod +x /usr/local/bin/armcc
 
 ENTRYPOINT ["/usr/local/bin/armcc"]
 

@@ -3,6 +3,27 @@
 Branch `toolchain-generation`.  `main` is untouched: nothing here is wired into
 `build.sh`, the tests or CI until the corpus verifies end to end.
 
+## Outcome
+
+The migration is done and verified.  Every one of the 272 images is now
+rendered from `sources.json`; the semantics of each — base, apt packages, pins
+and their hashes, env, labels, install steps, wrapper commands — were compared
+against the file it replaced, checked out from the baseline revision:
+
+    python3 tools/migrate/verify_migration.py --baseline main
+    verify: 272 compared, 0 new, 3 acknowledged, 0 differ
+
+The three acknowledged differences are the clang images' `libtinfo5` pin, which
+was fetched over plaintext http and now uses https (same sha256, verified).  Two
+more findings came out of the migration and were fixed rather than papered over:
+the PYQ-Q 4.5 SDK download had no hash at all in the manifest (it is stable
+across fetches, so it is now verified like the other 309 pins), and the contract
+test only ever checked the *primary* pin, which is why it went unnoticed.
+
+39 wrappers stay hand-written and say so in the manifest
+(`wrapper.shape == "handwritten"` plus a reason); a test counts and lists them,
+so the exception list cannot grow quietly.
+
 ## Why generation is the right target
 
 Measured on `main` (272 images):
@@ -68,12 +89,12 @@ The remaining work is mechanical but not small, and none of it is guesswork:
 
 ## Next round, concretely
 
-1. Implement the `normalising` wrapper shape (largest missing group) and re-run
-   the comparator until those 46 profiles report identical.
-2. Add the DOSBox and dosemu2 shapes; then the pipeline shapes one family at a
-   time (SN64, Apple GCC, PSY-Q 4.x, SHC), each verified by the comparator.
-3. Close the derivation gaps listed under (2) above.
-4. Inject the recipes into `sources.json`, generate, and only then wire
-   `make generate` + the CI staleness check, the handwritten-exception test, and
-   the catalog reading runtime/notes from the recipe instead of grepping text.
-5. Merge to `main` only when the comparator reports zero differences.
+1. Implement the `normalising` wrapper shape (largest missing group, 39 profiles
+   across msvc/watcom/psyq/DOSBox/dosemu2/pipelines) and re-run the comparator
+   until those report identical.  Each shape is added the same way: teach the
+   generator, generate, and let `verify_migration.py` prove the file did not
+   change.
+2. Wire `make generate` + the staleness check into CI.
+3. Make `catalog.py` read the runtime and per-image notes from the recipe
+   instead of grepping the rendered Dockerfile.
+4. Merge to `main`.

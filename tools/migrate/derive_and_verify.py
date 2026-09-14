@@ -3,24 +3,31 @@
 replacements against them, semantically.
 
 Migration tooling for the branch that introduces `generate.py` (see REPORT.md
-next to this file).  It is not part of `make lint`/`make test` yet: it is
-throwaway, it exists to derive the recipe data from files that already work and
-to prove that what generation produces is the same image, and it is deleted
-once the recipes are in the manifest.
+next to this file).  It derives recipe data from files that already work and
+proves that what generation produces is the same image; `derive_and_verify.py`
+holds the classifier and the semantic comparison, `apply.py` performs the
+migration, `verify_migration.py` re-runs the comparison against any baseline
+revision.
 
     python3 tools/migrate/derive_and_verify.py
 """
+
 from __future__ import annotations
 
 import json
 import pathlib
 import re
 import sys
+import tempfile
+from typing import TypedDict
 
-sys.path.insert(0, "/home/maci/Desktop/Projects/relumea/rebrew-toolchains")
-REPO = pathlib.Path("/home/maci/Desktop/Projects/relumea/rebrew-toolchains")
+REPO = pathlib.Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO))
+sys.path.insert(0, str(REPO / "tools" / "migrate"))
+
+import generate  # noqa: E402  (needs REPO on sys.path first)
+
 SHA = r"[0-9a-f]{64}"
-import generate
 
 
 def instructions(text: str) -> list[str]:
@@ -47,41 +54,85 @@ def wrapper_text(d: pathlib.Path) -> tuple[str, str]:
     lines: list[str] = []
     for ins in instructions((d / "Dockerfile").read_text()):
         if ins.startswith("RUN printf "):
-            for chunk in re.findall(r"'((?:[^']|'\\'')*)'", ins):
-                chunk = chunk.replace("'\\''", "'")
+            for quoted in re.findall(r"'((?:[^']|'\\'')*)'", ins):
+                chunk = quoted.replace("'\\''", "'")
                 if not chunk.startswith("%s"):
                     lines.append(chunk)
     return "", "\n".join(lines) + "\n"
 
 
+class Recipe(TypedDict, total=False):
+    """A generated image's install recipe (the manifest's ``recipe`` value)."""
+
+    base: str
+    apt: list[str]
+    fetch: list[dict[str, str]]
+    steps: list[dict[str, object]]
+    env: dict[str, str]
+    title: str
+    description: str
+    entrypoint: str
+    wrapper_file: str
+    root: str
+    binary: str
+    runner: str
+    wrapper: dict[str, object]
+
+
 # ---------------------------------------------------------------- semantics
 
-def semantics(d: pathlib.Path) -> dict[str, object]:
+
+class Semantics(TypedDict):
+    """The instruction-by-instruction meaning of one Dockerfile + wrapper."""
+
+    base: str
+    apt: list[str]
+    pins: list[str]
+    ops: list[str]
+    env: dict[str, str]
+    labels: dict[str, str]
+    copies: list[str]
+    entrypoint: str
+    wrapper_cmds: list[str]
+
+
+def semantics(d: pathlib.Path) -> Semantics:
     """What the image *does*, independent of formatting or comments."""
     text = (d / "Dockerfile").read_text()
-    name, wrapper = wrapper_text(d)
-    sem: dict[str, object] = {
-        "base": "base",
-        "apt": [],
-        "pins": [],
-        "ops": [],
-        "env": {},
-        "entrypoint": "",
-        "wrapper_cmds": [],
-    }
+    _, wrapper = wrapper_text(d)
+    base = "base"
+    apt: list[str] = []
+    pins: list[str] = []
+    ops: list[str] = []
+    env: dict[str, str] = {}
+    labels: dict[str, str] = {}
+    copies: list[str] = []
+    entrypoint = ""
     for ins in instructions(text):
         verb = ins.split(" ", 1)[0].upper()
         if verb == "ARG":
             m = re.match(r"ARG BASE_IMAGE=rebrew/(\S+):", ins)
             if m:
-                sem["base"] = m.group(1)
+                base = m.group(1)
         elif verb == "ENTRYPOINT":
             m = re.search(r'"(/usr/local/bin/[^"]+)"', ins)
             if m:
-                sem["entrypoint"] = pathlib.Path(m.group(1)).name
+                entrypoint = pathlib.Path(m.group(1)).name
+        elif verb == "LABEL":
+            # Labels are documentation, and documentation nobody compares is
+            # documentation that rots; a wrong title/description is a defect
+            # like any other.
+            labels.update(re.findall(r"(org\.opencontainers\.image\.[a-z]+)=\"([^\"]*)\"", ins))
+        elif verb == "COPY":
+            # A wrapper that is COPYed from the wrong file, or not COPYed at
+            # all, changes the image — the wrapper's *text* is read from the
+            # directory, so without this the file could be missing from the
+            # image and still compare equal.
+            m = re.match(r"COPY\s+(?:--from=\S+\s+)?(\S+)\s+(\S+)", ins)
+            if m:
+                copies.append(f"{m.group(1)} -> {m.group(2)}")
         elif verb == "ENV":
-            for k, v in re.findall(r"([A-Z_][A-Z0-9_]*)=(\S+)", ins[4:]):
-                sem["env"][k] = v  # type: ignore[index]
+            env.update(re.findall(r"([A-Z_][A-Z0-9_]*)=(\S+)", ins[4:]))
         elif verb == "RUN":
             body = ins[4:]
             # A printf'd inline wrapper and its trailing `chmod` share one RUN;
@@ -90,28 +141,50 @@ def semantics(d: pathlib.Path) -> dict[str, object]:
                 body = body.split("> /usr/local/bin/", 1)[-1]
                 body = body[body.find("&&") + 2 :] if "&&" in body else ""
             if "curl" in body:
-                sem["pins"] += re.findall(r'"(https?://[^"]+)"', body)  # type: ignore[operator]
+                pins += re.findall(r'"(https?://[^"]+)"', body)
             m = re.search(r"apt-get install -y --no-install-recommends ([^&|;]+)", body)
             if m:
-                sem["apt"] += sorted(m.group(1).split())  # type: ignore[operator]
-            for cmd in re.split(r"\s*&&\s*", body):
-                cmd = cmd.strip()
+                apt += sorted(m.group(1).split())
+            for raw_cmd in re.split(r"\s*&&\s*", body):
+                cmd = raw_cmd.strip()
                 if not cmd or cmd.startswith(("curl ", "echo ", "printf ", "rm ")):
                     continue
                 if cmd.startswith("apt-get"):
                     continue
-                sem["ops"].append(_norm_op(cmd))  # type: ignore[attr-defined]
-    for line in wrapper.splitlines():
+                op = classify(cmd)
+                if op is not None and op.get("op") not in {"script", "apt_meta"}:
+                    ops.append(json.dumps(op, sort_keys=True))
+                else:
+                    ops.append(_norm_op(cmd))
+    # repeated idempotent operations are not a difference
+    seen: list[str] = []
+    for text_op in ops:
+        idempotent = any(word in text_op for word in ("mkdir", "rm ", "ls ", "chmod"))
+        if text_op in seen and idempotent:
+            continue
+        seen.append(text_op)
+    wrapper_cmds: list[str] = []
+    for line in _join_continuations(wrapper):
         s = line.strip()
         if s.startswith("#") or not s or s in {"fi", "}", "done", ";;"}:
             continue
-        sem["wrapper_cmds"].append(_norm_cmd(s))  # type: ignore[attr-defined]
-    return sem
+        wrapper_cmds.append(_norm_cmd(s))
+    return {
+        "base": base,
+        "apt": apt,
+        "pins": pins,
+        "ops": seen,
+        "env": env,
+        "labels": labels,
+        "copies": copies,
+        "entrypoint": entrypoint,
+        "wrapper_cmds": wrapper_cmds,
+    }
 
 
 def _norm_op(cmd: str) -> str:
     cmd = re.sub(r"/opt/[A-Za-z0-9_.+-]+", "/opt/X", cmd)
-    cmd = re.sub(r"/tmp/[A-Za-z0-9_.+-]+", "/tmp/F", cmd)
+    cmd = re.sub(r"/tmp/[A-Za-z0-9_.+-]+", "/tmp/F", cmd)  # noqa: S108  (pattern, not a path)
     cmd = re.sub(r"\s+", " ", cmd)
     if cmd.startswith("tar "):
         head, *rest = cmd.split(" ")
@@ -141,23 +214,23 @@ def compare(profile: str, entry: dict[str, object]) -> tuple[bool, list[str]]:
         new_wr = generate.render_wrapper(profile, entry)
     except (ValueError, AssertionError, KeyError) as error:
         return False, [f"render failed: {error}"]
-    tmp = pathlib.Path("/tmp/_gen_probe")
-    tmp.mkdir(parents=True, exist_ok=True)
+    tmp = pathlib.Path(tempfile.mkdtemp(prefix="rebrew-probe-"))
     (tmp / "Dockerfile").write_text(new_df)
     for p in tmp.glob("*.sh"):
         p.unlink()
     (tmp / "cc-wrapper.sh").write_text(new_wr)
     new = semantics(tmp)
-    diffs = []
-    for key in ("base", "apt", "pins", "env", "entrypoint"):
-        if old[key] != new[key]:
-            diffs.append(f"{key}: {old[key]!r} -> {new[key]!r}")
-    old_ops, new_ops = list(old["ops"]), list(new["ops"])  # type: ignore[arg-type]
+    diffs = [
+        f"{key}: {old[key]!r} -> {new[key]!r}"
+        for key in ("base", "apt", "pins", "env", "entrypoint")
+        if old[key] != new[key]
+    ]
+    old_ops, new_ops = old["ops"], new["ops"]
     if sorted(old_ops) != sorted(new_ops):
         missing = [o for o in old_ops if o not in new_ops]
         extra = [o for o in new_ops if o not in old_ops]
         diffs.append(f"ops: missing={missing[:3]} extra={extra[:3]}")
-    oc, nc = list(old["wrapper_cmds"]), list(new["wrapper_cmds"])  # type: ignore[arg-type]
+    oc, nc = old["wrapper_cmds"], new["wrapper_cmds"]
     if sorted(oc) != sorted(nc):
         missing = [c for c in oc if c not in nc]
         extra = [c for c in nc if c not in oc]
@@ -177,7 +250,8 @@ def main() -> int:
             same += 1
         else:
             failures.append((profile, diffs))
-    print(f"profiles with a recipe: {sum(1 for e in manifest.values() if isinstance(e.get('recipe'), dict))}")
+    with_recipe = sum(1 for e in manifest.values() if isinstance(e.get("recipe"), dict))
+    print(f"profiles with a recipe: {with_recipe}")
     print(f"semantically identical after generation: {same}")
     print(f"not yet faithful: {len(failures)}")
     for profile, diffs in failures[:30]:
@@ -191,6 +265,7 @@ if __name__ == "__main__":
 
 # ---------------------------------------------------------------- derivation
 
+
 def classify(cmd: str) -> dict[str, object] | None:
     """One shell command -> one schema op (None = handled elsewhere)."""
     if cmd.startswith(("curl ", "echo ", "printf ")):
@@ -199,12 +274,15 @@ def classify(cmd: str) -> dict[str, object] | None:
     if m:
         return {"op": "mkdir", "paths": m.group(1).split()}
     m = re.match(r"tar x(\w)f (\S+) (.+)$", cmd)
-    if m and " -C " in f" {m.group(3)} ":
+    if m and re.search(r"(^| )-C ", m.group(3)):
         flags = m.group(3)
         into = re.search(r"-C (\S+)", flags)
         strip = re.search(r"--strip-components=(\d+)", flags)
+        wild = "--wildcards" in flags
+        into_dir = into.group(1) if into else ""
+        members = [tok for tok in flags.split() if not tok.startswith("-") and tok != into_dir]
         if into:
-            op: dict[str, object] = {
+            op = {
                 "op": "tar",
                 "compression": {"z": "gz", "J": "xz", "j": "bz2"}.get(m.group(1), "gz"),
                 "from": m.group(2),
@@ -212,6 +290,10 @@ def classify(cmd: str) -> dict[str, object] | None:
             }
             if strip:
                 op["strip"] = int(strip.group(1))
+            if members:
+                op["members"] = members
+            if wild:
+                op["wildcards"] = True
             return op
     m = re.match(r"unzip -q (\S+) -d (\S+)", cmd)
     if m:
@@ -230,7 +312,7 @@ def classify(cmd: str) -> dict[str, object] | None:
             }
     if cmd.startswith("chmod "):
         return {"op": "chmod", "cmd": cmd}
-    m = re.match(r"ln -s (\S+) (\S+)", cmd)
+    m = re.match(r'ln -s ("[^"]*"\([^)]*\)"?|\S+) (\S+)', cmd)
     if m:
         return {"op": "link", "target": m.group(1), "name": m.group(2)}
     if cmd.startswith(("ls ", "find ")):
@@ -247,20 +329,43 @@ def classify(cmd: str) -> dict[str, object] | None:
     return {"op": "script", "run": cmd}
 
 
-def derive(d: pathlib.Path, entry: dict[str, object]) -> dict[str, object] | None:
+def _paths(step: dict[str, object]) -> list[str]:
+    """The paths a ``mkdir``-style step names (empty when it names none)."""
+    value = step.get("paths")
+    if isinstance(value, list):
+        return [str(item) for item in value]
+    return []
+
+
+def derive(
+    d: pathlib.Path, entry: dict[str, object], *, ignore_wrapper: bool = False
+) -> Recipe | None:
     text = (d / "Dockerfile").read_text()
     ins_list = instructions(text)
-    rec: dict[str, object] = {"base": "base", "apt": [], "fetch": [], "steps": [], "env": {}}
-    pins: list[tuple[str, str, str]] = []          # url, sha, dest
+    base = "base"
+    apt: list[str] = []
+    steps: list[dict[str, object]] = []
+    env: dict[str, str] = {}
+    fetch: list[dict[str, str]] = []
+    title = ""
+    description = ""
+    pins: list[tuple[str, str, str]] = []  # url, sha, dest
     for ins in ins_list:
         verb = ins.split(" ", 1)[0].upper()
         if verb == "ARG":
             m = re.match(r"ARG BASE_IMAGE=rebrew/(\S+):", ins)
             if m:
-                rec["base"] = m.group(1)
+                base = m.group(1)
+        elif verb == "LABEL":
+            # The OCI title/description are recipe data: the generator renders
+            # them, so derivation has to carry them across.
+            for key, value in re.findall(r"(org\.opencontainers\.image\.[a-z]+)=\"([^\"]*)\"", ins):
+                if key == "org.opencontainers.image.title":
+                    title = value
+                elif key == "org.opencontainers.image.description":
+                    description = value
         elif verb == "ENV":
-            for k, v in re.findall(r"([A-Z_][A-Z0-9_]*)=(\S+)", ins[4:]):
-                rec["env"][k] = v  # type: ignore[index]
+            env.update(re.findall(r"([A-Z_][A-Z0-9_]*)=(\S+)", ins[4:]))
         elif verb == "RUN":
             body = ins[4:]
             if body.lstrip().startswith("printf"):
@@ -269,26 +374,34 @@ def derive(d: pathlib.Path, entry: dict[str, object]) -> dict[str, object] | Non
                 rf'curl -fsSL[^"]*"(https?://[^"]+)"\s*&&\s*echo "({SHA})\s+([^"]+)"', body
             ):
                 pins.append((url, sha, dest.strip()))
-            for cmd in re.split(r"\s*&&\s*", body):
-                cmd = cmd.strip()
+            for raw_cmd in re.split(r"\s*&&\s*", body):
+                cmd = raw_cmd.strip()
                 if not cmd or cmd.startswith(("curl", "echo")):
                     continue
                 op = classify(cmd)
-                if op is None:
-                    continue
-                if op["op"] in {"apt_meta"}:
+                if op is None or op["op"] == "apt_meta":
                     continue
                 if op["op"] == "apt":
-                    rec["apt"] = op["packages"]  # type: ignore[assignment]
+                    packages = op["packages"]
+                    if isinstance(packages, list):
+                        apt = [str(package) for package in packages]
                     continue
-                rec["steps"].append(op)  # type: ignore[attr-defined]
+                steps.append(op)
     # map each downloaded file to a manifest pin by URL
     known = generate.pin_urls(entry)
     for url, sha, dest in pins:
         name = next((k for k, (u, s) in known.items() if u == url), None)
         if name is None or known[name][1] != sha:
             return None
-        rec["fetch"].append({"pin": name, "as": dest})  # type: ignore[attr-defined]
+        fetch.append({"pin": name, "as": dest})
+    # pins that carry no hash (a republished branch tarball) are still fetched;
+    # they are downloaded without a checksum on purpose, and documented as such
+    for name, (url, sha) in known.items():
+        if sha or pathlib.Path(url).name in {f["as"].rsplit("/", 1)[-1] for f in fetch}:
+            continue
+        if url in (d / "Dockerfile").read_text():
+            # the destination is a path inside the image, not a temp file here
+            fetch.append({"pin": name, "as": f"/tmp/{name}.tar.gz"})  # noqa: S108
     # entrypoint + wrapper
     entrypoint = ""
     for ins in ins_list:
@@ -296,34 +409,91 @@ def derive(d: pathlib.Path, entry: dict[str, object]) -> dict[str, object] | Non
             m = re.search(r'"(/usr/local/bin/[^"]+)"', ins)
             if m:
                 entrypoint = pathlib.Path(m.group(1)).name
-    rec["entrypoint"] = entrypoint
     wfile, wtext = wrapper_text(d)
-    rec["wrapper_file"] = wfile
     # The install root is what the Dockerfile creates under /opt (it is not the
     # host_dir name for agbcc/arm-gba, ido/7.1, psp-gcc, camelot, ...).
-    roots = [p for step in rec["steps"] if step.get("op") == "mkdir" for p in step["paths"] if p.startswith("/opt/")]  # type: ignore[attr-defined]
-    root = roots[0][len("/opt/"):] if roots else str(entry["host_dir"]).split("/", 1)[1]
-    rec["root"] = root
-    classified = classify_wrapper(rec, entry, wtext)
+    roots = [
+        str(path)
+        for step in steps
+        if step.get("op") == "mkdir"
+        for path in _paths(step)
+        if path.startswith("/opt/")
+    ]
+    root = roots[0][len("/opt/") :] if roots else str(entry["host_dir"]).split("/", 1)[1]
+    rec: Recipe = {
+        "base": base,
+        "apt": apt,
+        "fetch": fetch,
+        "steps": steps,
+        "env": env,
+        "root": root,
+    }
+    if title:
+        rec["title"] = title
+    if description:
+        rec["description"] = description
+    rec["entrypoint"] = entrypoint
+    rec["wrapper_file"] = wfile
+    if ignore_wrapper:
+        return rec
+    classified = classify_wrapper(rec, wtext)
     if classified is None:
         return None
-    shape, path_root, binary = classified
+    shape, _, binary = classified
     rec["binary"] = binary
-    rec["runner"] = shape.pop("runner", "wibo" if "rebrew_run" in wtext else "exec")
+    runner = shape.pop("runner", "wibo" if "rebrew_run" in wtext else "exec")
+    rec["runner"] = str(runner)
+    deduped: list[dict[str, object]] = []
+    for step in steps:
+        if step.get("op") in {"mkdir", "rm", "guard"} and step in deduped:
+            continue
+        deduped.append(step)
+    rec["steps"] = deduped
     rec["wrapper"] = shape
     return rec
 
 
-def classify_wrapper(rec: dict[str, object], entry: dict[str, object], wtext: str) -> dict[str, object] | None:
-    body = [l.strip() for l in wtext.splitlines() if l.strip() and not l.strip().startswith("#")]
-    body = [l for l in body if l not in {". /usr/local/lib/rebrew/wrapper-common.sh", "set -e", "#!/bin/sh"}]
-    exec_line = next((l for l in body if "rebrew_exec" in l or "rebrew_run" in l), "")
+def _join_continuations(text: str) -> list[str]:
+    """Shell lines joined on trailing backslashes — an exec call split over
+    several lines is still one command."""
+    out: list[str] = []
+    buf = ""
+    for raw in text.splitlines():
+        line = raw.rstrip()
+        if not buf and (not line.strip() or line.lstrip().startswith("#")):
+            continue
+        stripped = line.strip()
+        buf = f"{buf} {stripped}" if buf else stripped
+        if buf.endswith("\\"):
+            buf = buf[:-1].rstrip()
+            continue
+        out.append(buf)
+        buf = ""
+    if buf:
+        out.append(buf)
+    return out
+
+
+def classify_wrapper(rec: Recipe, wtext: str) -> tuple[dict[str, object], str, str] | None:
+    body = [line.strip() for line in _join_continuations(wtext) if line.strip()]
+    body = [
+        line
+        for line in body
+        if line not in {". /usr/local/lib/rebrew/wrapper-common.sh", "set -e", "#!/bin/sh"}
+    ]
+    exec_line = next((line for line in body if "rebrew_exec" in line or "rebrew_run" in line), "")
     if not exec_line:
         return None
-    m = re.search(r"(rebrew_exec|rebrew_run) (/opt/\S+)", exec_line)
+    prefix_env = []
+    head = exec_line
+    while re.match(r"^[A-Z_][A-Z0-9_]*=\S*\s", head):
+        token, head = head.split(None, 1)
+        prefix_env.append(token)
+    m = re.search(r"(rebrew_exec|rebrew_run) (/opt/\S+)", head)
     if not m:
         return None
-    helper, path = m.group(1), m.group(2)
+    path = m.group(2)
+    exec_line = head
     root = str(rec["root"])
     if not path.startswith(f"/opt/{root}/"):
         # a shared prefix such as /opt/cross: keep the absolute path
@@ -333,10 +503,13 @@ def classify_wrapper(rec: dict[str, object], entry: dict[str, object], wtext: st
         return None
     argv = tail[: -len('"$@"')].strip().split()
     # everything else in the body must be a simple assignment or be nothing
-    other = [l for l in body if l != exec_line]
-    if any("rebrew_" in l for l in other):
+    other = [line for line in body if line != exec_line and "rebrew_pick_source" not in line]
+    if any("rebrew_" in line for line in other):
         return None
-    wrap_env: list[dict[str, str]] = []
+    wrap_env: list[dict[str, str]] = [
+        {"name": token.split("=", 1)[0], "value": token.split("=", 1)[1], "style": "prefix"}
+        for token in prefix_env
+    ]
     exported: set[str] = set()
     for line in other:
         if re.match(r"export [A-Z_][A-Z0-9_ ]*$", line):
@@ -353,8 +526,6 @@ def classify_wrapper(rec: dict[str, object], entry: dict[str, object], wtext: st
     for item in wrap_env:
         if item["name"] not in exported:
             item["style"] = "export" if not exported else "prefix"
-    if wrap_env:
-        shape_env = wrap_env
     binary = path if not root else path[len(f"/opt/{root}/") :]
     shape: dict[str, object] = {
         "shape": "passthrough",

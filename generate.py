@@ -51,6 +51,7 @@ The recipe schema, per profile under `"recipe"`:
 Anything the schema cannot express must say so via `handwritten`, which a test
 counts and lists — silent special cases are what this file exists to prevent.
 """
+
 from __future__ import annotations
 
 import json
@@ -106,7 +107,7 @@ def pin_urls(entry: dict[str, object]) -> dict[str, tuple[str, str]]:
     return pins
 
 
-def _title(profile: str, entry: dict[str, object]) -> tuple[str, str]:
+def _title(entry: dict[str, object]) -> tuple[str, str]:
     rec = recipe(entry)
     if _text(rec, "title"):
         return _text(rec, "title"), _text(rec, "description")
@@ -117,21 +118,26 @@ def _title(profile: str, entry: dict[str, object]) -> tuple[str, str]:
     return f"rebrew {family} {version}{kind}", f"{family} {version} toolchain image"
 
 
+def _require(condition: object, message: str) -> None:
+    """Validation that survives `python -O`; `assert` does not."""
+    if not condition:
+        raise ValueError(message)
+
+
 def render_dockerfile(profile: str, entry: dict[str, object]) -> str:
     rec = recipe(entry)
-    host_dir = _text(entry, "host_dir")
     base = _text(rec, "base") or "base"
-    assert base in BASES, f"{profile}: unknown base {base}"
+    _require(base in BASES, f"{profile}: unknown base {base}")
     lines = [MARKER, f"# profile: {profile}", ""]
 
     if _text(rec, "handwritten"):
         raise ValueError(f"{profile} is marked handwritten and must not be generated")
 
     lines += [f"ARG BASE_IMAGE=rebrew/{base}:1.0", "", "FROM ${BASE_IMAGE}", "", "USER root", ""]
-    title, description = _title(profile, entry)
+    title, description = _title(entry)
     lines += [
-        "LABEL org.opencontainers.image.source=\"https://github.com/maci0/rebrew\" \\",
-        "      org.opencontainers.image.licenses=\"MIT\" \\",
+        'LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \\',
+        '      org.opencontainers.image.licenses="MIT" \\',
         f'      org.opencontainers.image.title="{title}" \\',
         f'      org.opencontainers.image.description="{description}"',
         "",
@@ -153,10 +159,15 @@ def render_dockerfile(profile: str, entry: dict[str, object]) -> str:
 
     pins = pin_urls(entry)
     for fetch in _list(rec.get("fetch")):
-        assert isinstance(fetch, dict)
+        if not isinstance(fetch, dict):
+            raise ValueError(f"{profile}: fetch entry is not an object")
         name = str(fetch.get("pin", "primary"))
         url, sha = pins.get(name, ("", ""))
-        assert url and sha, f"{profile}: fetch names unknown pin {name}"
+        _require(url, f"{profile}: fetch names unknown pin {name}")
+        # Every download is verified in-build; a pin with no hash is a manifest
+        # gap, not a licence to fetch blind (the image contract test enforces
+        # the same rule for the manifest itself).
+        _require(sha, f"{profile}: pin {name} has no sha256 in sources.json")
         dest = str(fetch["as"])
         lines += [
             f"RUN {CURL} -o {dest} \\",
@@ -175,24 +186,17 @@ def render_dockerfile(profile: str, entry: dict[str, object]) -> str:
         lines.append(f"    && {body[-1]}")
         lines.append("")
 
-    for name, value in _list(env_pairs(entry)):
-        pass
-
-    wrapper_file = _wrapper_filename(profile, entry)
-    lines += [f"COPY {wrapper_file} /usr/local/bin/{_entrypoint(profile, entry)}"]
+    wrapper_file = _wrapper_filename(entry)
+    lines += [f"COPY {wrapper_file} /usr/local/bin/{entrypoint_name(entry)}"]
     lines += [
-        f"RUN chmod +x /usr/local/bin/{_entrypoint(profile, entry)}",
+        f"RUN chmod +x /usr/local/bin/{entrypoint_name(entry)}",
         "",
-        f'ENTRYPOINT ["/usr/local/bin/{_entrypoint(profile, entry)}"]',
+        f'ENTRYPOINT ["/usr/local/bin/{entrypoint_name(entry)}"]',
         "",
         "USER rebrew",
         "",
     ]
     return "\n".join(lines)
-
-
-def env_pairs(entry: dict[str, object]) -> list[tuple[str, str]]:
-    return []
 
 
 def install_root(entry: dict[str, object]) -> str:
@@ -209,7 +213,7 @@ def binary_path(entry: dict[str, object]) -> str:
     return f"/opt/{install_root(entry)}/{binary}"
 
 
-def _entrypoint(profile: str, entry: dict[str, object]) -> str:
+def entrypoint_name(entry: dict[str, object]) -> str:
     rec = recipe(entry)
     name = _text(rec, "entrypoint")
     if name:
@@ -220,11 +224,13 @@ def _entrypoint(profile: str, entry: dict[str, object]) -> str:
     return {"pe": "cl", "native": "cc", "cc1": "cc"}.get(_text(rec, "shape"), "cc")
 
 
-def _wrapper_filename(profile: str, entry: dict[str, object]) -> str:
+def _wrapper_filename(entry: dict[str, object]) -> str:
     rec = recipe(entry)
     wrapper = rec.get("wrapper")
     name = _text(wrapper, "file") if isinstance(wrapper, dict) else ""
-    return name or f"{_entrypoint(profile, entry)}-wrapper.sh"
+    if not name and _text(rec, "wrapper_file"):
+        name = _text(rec, "wrapper_file")
+    return name or f"{entrypoint_name(entry)}-wrapper.sh"
 
 
 def _render_steps(profile: str, steps: list[dict[str, object]]) -> list[str]:
@@ -275,20 +281,29 @@ def _render_steps(profile: str, steps: list[dict[str, object]]) -> list[str]:
     return out
 
 
+def handwritten_wrapper(entry: dict[str, object]) -> str:
+    """The reason this image's wrapper is not generated ("" when it is)."""
+    wrapper = recipe(entry).get("wrapper")
+    if isinstance(wrapper, dict) and _text(wrapper, "shape") == "handwritten":
+        return _text(wrapper, "why") or "no reason given"
+    return ""
+
+
 def render_wrapper(profile: str, entry: dict[str, object]) -> str:
     rec = recipe(entry)
     wrapper = rec.get("wrapper")
     wrapper = wrapper if isinstance(wrapper, dict) else {}
     shape = _text(wrapper, "shape")
+    if shape == "handwritten":
+        raise ValueError(f"{profile}: wrapper is declared hand-written")
     if shape == "passthrough":
         return _wrapper_passthrough(profile, entry, wrapper)
     if shape == "normalising":
-        return _wrapper_normalising(profile, entry, wrapper)
+        return _wrapper_normalising(entry, wrapper)
     raise ValueError(f"{profile}: wrapper shape {shape!r} is not expressible; mark it handwritten")
 
 
-def _head(profile: str, entry: dict[str, object], what: str) -> list[str]:
-    rec = recipe(entry)
+def _head(entry: dict[str, object], what: str) -> list[str]:
     return [
         "#!/bin/sh",
         MARKER,
@@ -300,17 +315,15 @@ def _head(profile: str, entry: dict[str, object], what: str) -> list[str]:
     ]
 
 
-def _wrapper_passthrough(
-    profile: str, entry: dict[str, object], wrapper: dict[str, object]
-) -> str:
+def _wrapper_passthrough(profile: str, entry: dict[str, object], wrapper: dict[str, object]) -> str:
     rec = recipe(entry)
     runner = _text(rec, "runner") or ("wine" if _text(rec, "shape") == "pe" else "exec")
     helper = {"wibo": "rebrew_run", "wine": "rebrew_run", "exec": "rebrew_exec"}[runner]
     binary = _text(rec, "binary")
-    assert binary, f"{profile}: passthrough wrapper needs a binary"
+    _require(binary, f"{profile}: passthrough wrapper needs a binary")
     argv = " ".join(str(a) for a in _list(wrapper.get("argv")))
 
-    lines = _head(profile, entry, "Entrypoint")
+    lines = _head(entry, "Entrypoint")
     if wrapper.get("set_e"):
         lines.append("set -e")
     if wrapper.get("validate_source"):
@@ -344,18 +357,15 @@ def _wrapper_passthrough(
     return "\n".join(lines) + "\n"
 
 
-def _wrapper_normalising(
-    profile: str, entry: dict[str, object], wrapper: dict[str, object]
-) -> str:
+def _wrapper_normalising(entry: dict[str, object], wrapper: dict[str, object]) -> str:
     """-o/-c argv normalisation shared by the compilers that need it."""
     rec = recipe(entry)
     runner = _text(rec, "runner") or ("wine" if _text(rec, "shape") == "pe" else "exec")
     helper = {"wibo": "rebrew_run", "wine": "rebrew_run", "exec": "rebrew_exec"}[runner]
-    binary = _text(rec, "binary")
     default_ext = _text(wrapper, "default_extension") or "o"
     compile_flag = _text(wrapper, "compile_flag") or "-c"
     prefix = " ".join(str(a) for a in _list(wrapper.get("argv")))
-    lines = _head(profile, entry, "Entrypoint")
+    lines = _head(entry, "Entrypoint")
     lines += [
         'rebrew_pick_source "$@"',
         "",
@@ -386,15 +396,14 @@ def _wrapper_normalising(
         lines.append(f"# converter: {extra}")
     lines += [
         "# shellcheck disable=SC2086  # CC_FLAGS is a deliberate flag list, word-split",
-        f'{helper} {binary_path(entry)} {prefix} "$CC_FLAGS -o \"$OUT_ABS\" \"$SRC_ABS\""',
+        f'{helper} {binary_path(entry)} {prefix} "$CC_FLAGS -o "$OUT_ABS" "$SRC_ABS""',
     ]
     return "\n".join(lines) + "\n"
 
 
 def generated_paths(entry: dict[str, object]) -> list[pathlib.Path]:
     host = REPO / _text(entry, "host_dir")
-    profile = _text(entry, "host_dir")
-    return [host / "Dockerfile", host / _wrapper_filename(profile, entry)]
+    return [host / "Dockerfile", host / _wrapper_filename(entry)]
 
 
 def render_all(entries: dict[str, dict[str, object]]) -> dict[pathlib.Path, str]:
@@ -404,7 +413,8 @@ def render_all(entries: dict[str, dict[str, object]]) -> dict[pathlib.Path, str]
             continue
         host = REPO / _text(entry, "host_dir")
         out[host / "Dockerfile"] = render_dockerfile(profile, entry)
-        out[host / _wrapper_filename(profile, entry)] = render_wrapper(profile, entry)
+        if not handwritten_wrapper(entry):
+            out[host / _wrapper_filename(entry)] = render_wrapper(profile, entry)
     return out
 
 
@@ -428,9 +438,9 @@ def main(argv: list[str]) -> int:
             return 1
         print(f"generate: {len(rendered)} file(s) up to date")
         return 0
-    for path, text in rendered.items():
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(text, encoding="utf-8")
+    for target, text in rendered.items():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(text, encoding="utf-8")
     print(f"generate: wrote {len(rendered)} file(s)")
     return 0
 
