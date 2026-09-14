@@ -279,7 +279,7 @@ Microsoft Visual C/C++ 1.0-11.0
 | `rebrew/msvc:7.1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc7.1` | `master` `618e876bc064` @ `2932d76fe417` | — |
 | `rebrew/msvc:8.0-portable-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc8.0p` | `52c8293f8b8d6441c594cf096542290c17a4d70e.zip` `b138c1b3c99a` @ `52c8293f8b8d` | unpacked from `zip-strip1` |
 | `rebrew/msvc:8.0-sp1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `9b53b515d798` @ `4b1bafba636f` | — |
-| `rebrew/msvc:8.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `ab819164ebd9` @ `00ddaf58d097` | — |
+| `rebrew/msvc:8.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc8.0` | `master` `ab819164ebd9` @ `00ddaf58d097` | — |
 | `rebrew/msvc:9.0-sp1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `main` `33a66c779da3` @ `cebb3c9740c9` | — |
 | `rebrew/msvc:9.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `9121d184d9cb` @ `c9d710cef9a3` | — |
 

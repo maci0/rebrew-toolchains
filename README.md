@@ -232,6 +232,12 @@ REBREW_RUNNER=wine` still forces wine.
   aliases, the pinned source and any second-step caveat.  **Generated** from
   `sources.json` + the Dockerfiles by `make docs`, and verified by
   `make test`, so it cannot drift from the images.
+- **[tools/decompme_drift.py](tools/decompme_drift.py)** — how this catalogue
+  stands against decomp.me's: which of its compiler ids resolve to an image
+  here, how many pin the same upstream artifact, and which ids are not
+  provided.  Every gap is declared in the tool with a reason, so a change on
+  their side fails rather than passing unnoticed.  Needs network; not part of
+  `make test`.
 - **[docs/PROVENANCE.md](docs/PROVENANCE.md)** — where every pinned download
   comes from, which upstreams are our own preservation repos, the licence
   class of each, and the catalogued-but-not-shipped list with its reasons.
