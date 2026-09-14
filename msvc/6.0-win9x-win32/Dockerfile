@@ -26,7 +26,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && rm /tmp/msvc6.tar.gz \
     && ls /opt/msvc6.0-win9x/Bin/CL.EXE
 
-COPY cc-wrapper.sh /usr/local/bin/cl
+COPY cl-wrapper.sh /usr/local/bin/cl
 RUN chmod +x /usr/local/bin/cl
 
 ENTRYPOINT ["/usr/local/bin/cl"]

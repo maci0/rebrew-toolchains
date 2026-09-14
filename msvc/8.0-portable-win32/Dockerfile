@@ -27,7 +27,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/msvc8p \
     && ls /opt/msvc8.0-portable/bin/cl.exe
 
-COPY cc-wrapper.sh /usr/local/bin/cl
+COPY cl-wrapper.sh /usr/local/bin/cl
 RUN chmod +x /usr/local/bin/cl
 
 ENTRYPOINT ["/usr/local/bin/cl"]

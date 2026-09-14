@@ -353,7 +353,7 @@ def derive(
     fetch: list[dict[str, str]] = []
     title = ""
     description = ""
-    pins: list[tuple[str, str, str]] = []  # url, sha, dest
+    downloads: list[tuple[str, str, str]] = []  # url, dest, sha (sha may be "")
     for ins in ins_list:
         verb = ins.split(" ", 1)[0].upper()
         if verb == "ARG":
@@ -374,10 +374,19 @@ def derive(
             body = ins[4:]
             if body.lstrip().startswith("printf"):
                 continue
-            for url, sha, dest in re.findall(
-                rf'curl -fsSL[^"]*"(https?://[^"]+)"\s*&&\s*echo "({SHA})\s+([^"]+)"', body
+            # Every pinned download is found by its URL.  The in-build
+            # `sha256sum -c` check is attached afterwards when the image has
+            # one: whether a download is verified is the manifest's decision,
+            # and requiring the check here silently dropped the one hashless
+            # fetch in the corpus (the PSY-Q 4.5 SDK tarball).
+            for dest, url in re.findall(r'curl -fsSL[^"]*?-o (\S+)\s+"(https?://[^"]+)"', body):
+                downloads.append((url, dest, ""))
+            for sha, checked in re.findall(
+                r'echo "([0-9a-f]{64})\s+(\S+)"\s*\|\s*sha256sum -c -', body
             ):
-                pins.append((url, sha, dest.strip()))
+                for index, (url, dest, _) in enumerate(downloads):
+                    if dest == checked:
+                        downloads[index] = (url, dest, sha)
             for raw_cmd in re.split(r"\s*&&\s*", body):
                 cmd = raw_cmd.strip()
                 if not cmd or cmd.startswith(("curl", "echo")):
@@ -391,21 +400,16 @@ def derive(
                         apt = [str(package) for package in packages]
                     continue
                 steps.append(op)
-    # map each downloaded file to a manifest pin by URL
+    # map each download to the manifest pin that names it
     known = generate.pin_urls(entry)
-    for url, sha, dest in pins:
-        name = next((k for k, (u, s) in known.items() if u == url), None)
-        if name is None or known[name][1] != sha:
-            return None
+    by_url = {url: name for name, (url, _sha) in known.items()}
+    for url, dest, sha in downloads:
+        name = by_url.get(url)
+        if name is None:
+            return None  # a download the manifest does not pin
+        if sha and known[name][1] != sha:
+            return None  # the Dockerfile and the manifest disagree about the bytes
         fetch.append({"pin": name, "as": dest})
-    # pins that carry no hash (a republished branch tarball) are still fetched;
-    # they are downloaded without a checksum on purpose, and documented as such
-    for name, (url, sha) in known.items():
-        if sha or pathlib.Path(url).name in {f["as"].rsplit("/", 1)[-1] for f in fetch}:
-            continue
-        if url in (d / "Dockerfile").read_text():
-            # the destination is a path inside the image, not a temp file here
-            fetch.append({"pin": name, "as": f"/tmp/{name}.tar.gz"})  # noqa: S108
     # entrypoint + wrapper
     entrypoint = ""
     for ins in ins_list:
@@ -518,6 +522,20 @@ def classify_wrapper(rec: Recipe, wtext: str) -> tuple[dict[str, object], str, s
     for line in other:
         if re.match(r"export [A-Z_][A-Z0-9_ ]*$", line):
             exported |= set(line.split()[1:])
+            continue
+        # `export NAME=value` on one line is the same statement as
+        # `NAME=value` followed by `export NAME`; keep the spelling the image
+        # already uses so the rendered wrapper is the wrapper it replaces.
+        inline = re.match(r"export ([A-Z_][A-Z0-9_]*)=(.*)", line)
+        if inline:
+            exported.add(inline.group(1))
+            wrap_env.append(
+                {
+                    "name": inline.group(1),
+                    "value": inline.group(2).rstrip("\\").strip(),
+                    "style": "export_inline",
+                }
+            )
             continue
         m2 = re.match(r"([A-Z_][A-Z0-9_]*)=(.*)", line)
         if not m2:

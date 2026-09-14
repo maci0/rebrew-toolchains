@@ -21,7 +21,7 @@ RUN mkdir -p /opt/msvc6.0 \
     && rm /tmp/msvc600.tar.gz \
     && ls /opt/msvc6.0/VC98/Bin/CL.EXE
 
-COPY cc-wrapper.sh /usr/local/bin/cl
+COPY cl-wrapper.sh /usr/local/bin/cl
 RUN chmod +x /usr/local/bin/cl
 
 ENTRYPOINT ["/usr/local/bin/cl"]

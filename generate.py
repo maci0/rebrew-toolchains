@@ -339,7 +339,10 @@ def _wrapper_passthrough(profile: str, entry: dict[str, object], wrapper: dict[s
         if not isinstance(item, dict):
             continue
         name, value = _text(item, "name"), _text(item, "value")
-        if _text(item, "style") == "export":
+        style = _text(item, "style")
+        if style == "export_inline":
+            lines.append(f"export {name}={value}")
+        elif style == "export":
             lines.append(f"{name}={value}")
             exported.append(name)
         else:

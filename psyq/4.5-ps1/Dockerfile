@@ -20,9 +20,9 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/gcc281.tar.gz \
         "https://github.com/decompals/old-gcc/releases/download/0.17/gcc-2.8.1-psx.tar.gz" \
     && echo "f6f6e883942d4d3289d048236c672e71ed410e546aaae8ff655952f1567e1be0  /tmp/gcc281.tar.gz" | sha256sum -c -
 
-RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/sdk.tar.gz \
+RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/psyq.tar.gz \
         "https://codeload.github.com/FoxdieTeam/psyq_sdk/tar.gz/91719fa5bdca0b7e55c5c4b9e045da407db93510" \
-    && echo "495697696a3288866d83ff7b7aff423560ffaffd3e212274417f3348cc0b29f8  /tmp/sdk.tar.gz" | sha256sum -c -
+    && echo "495697696a3288866d83ff7b7aff423560ffaffd3e212274417f3348cc0b29f8  /tmp/psyq.tar.gz" | sha256sum -c -
 
 RUN mkdir -p /opt/psyq/4.5/bin \
     && tar xzf /tmp/gcc281.tar.gz -C /opt/psyq/4.5/bin \

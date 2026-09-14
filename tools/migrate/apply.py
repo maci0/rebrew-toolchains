@@ -23,7 +23,10 @@ from __future__ import annotations
 import argparse
 import json
 import pathlib
+import shutil
+import subprocess
 import sys
+import tempfile
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
@@ -78,6 +81,47 @@ def shape_reason(text: str) -> str:
     return "per-family argv normalisation — template pending"
 
 
+def baseline_tree(rev: str, into: pathlib.Path) -> pathlib.Path:
+    """Check ``rev`` out into ``into``: the files to derive *from*.
+
+    Deriving from the working tree only works while the tree still holds the
+    hand-written files.  After the migration it holds the generated ones, so a
+    newly taught wrapper shape is applied by deriving from the revision that
+    still had the originals.
+    """
+    if into.exists():
+        shutil.rmtree(into)
+    subprocess.run(  # noqa: S603  (fixed argv, no shell)
+        ["git", "worktree", "add", "--detach", str(into), rev],  # noqa: S607
+        cwd=REPO,
+        check=True,
+        capture_output=True,
+    )
+    return into
+
+
+def _require_handwritten(
+    source: pathlib.Path, rev: str, manifest: dict[str, dict[str, object]]
+) -> None:
+    """Refuse to derive from a revision that is already generated.
+
+    Deriving from generated files bakes their scaffolding into the recipes —
+    the post-COPY `chmod +x`, the wrapper file name, the rendered labels — and
+    the result then renders the image twice over.  It still *compares* equal,
+    which is how such a mistake slips through, so it is checked here instead.
+    """
+    generated = [
+        profile
+        for profile, entry in manifest.items()
+        if generate.MARKER in (source / str(entry["host_dir"]) / "Dockerfile").read_text()
+    ]
+    if generated:
+        raise SystemExit(
+            f"apply: {rev} is already generated ({len(generated)} Dockerfiles carry the "
+            f"marker, e.g. {generated[0]}); pass the revision before the migration"
+        )
+
+
 def derive_install(d: pathlib.Path, entry: dict[str, object]) -> RecipeType | None:
     """The install half: everything except the wrapper."""
     rec = derive(d, entry)
@@ -93,16 +137,28 @@ def derive_install(d: pathlib.Path, entry: dict[str, object]) -> RecipeType | No
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true", help="report, write nothing")
+    parser.add_argument(
+        "--baseline",
+        metavar="REV",
+        help="derive from REV's files (the hand-written ones) instead of the working tree",
+    )
     args = parser.parse_args()
 
     sources = REPO / "sources.json"
     manifest: dict[str, dict[str, object]] = json.loads(sources.read_text())
+
+    scratch: pathlib.Path | None = None
+    source = REPO
+    if args.baseline:
+        scratch = pathlib.Path(tempfile.mkdtemp(prefix="rebrew-derive-"))
+        source = baseline_tree(args.baseline, scratch / "tree")
+        _require_handwritten(source, args.baseline, manifest)
     handwritten: list[tuple[str, str]] = []
     failed: list[tuple[str, str]] = []
     injected = 0
 
     for profile, entry in manifest.items():
-        d = REPO / str(entry["host_dir"])
+        d = source / str(entry["host_dir"])
         rec = derive_install(d, entry)
         if rec is None:
             failed.append((profile, "install recipe not derivable"))
@@ -113,9 +169,12 @@ def main() -> int:
             why = shape_reason(text)
             if not name:
                 # the wrapper is inline in the Dockerfile today; write it out so
-                # the generated Dockerfile has a file to COPY
+                # the generated Dockerfile has a file to COPY.  It belongs in
+                # the repository, never in the baseline copy.
                 name = f"{generate.entrypoint_name(entry)}-wrapper.sh"
-                (d / name).write_text(_with_source_directive(text), encoding="utf-8")
+                target = REPO / str(entry["host_dir"]) / name
+                if not target.exists():
+                    target.write_text(_with_source_directive(text), encoding="utf-8")
             rec["wrapper"] = {"shape": "handwritten", "why": why, "file": name}
             handwritten.append((profile, why))
         else:
@@ -135,10 +194,26 @@ def main() -> int:
     for profile, why in failed:
         print(f"  NOT DERIVED: {profile} — {why}")
     if args.check:
+        if scratch is not None:
+            _drop(source, scratch)
         return 1 if failed else 0
 
-    sources.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
-    return generate.main([])
+    try:
+        sources.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+        return generate.main([])
+    finally:
+        if scratch is not None:
+            _drop(source, scratch)
+
+
+def _drop(source: pathlib.Path, scratch: pathlib.Path) -> None:
+    subprocess.run(  # noqa: S603  (fixed argv, no shell)
+        ["git", "worktree", "remove", "--force", str(source)],  # noqa: S607
+        cwd=REPO,
+        check=False,
+        capture_output=True,
+    )
+    shutil.rmtree(scratch, ignore_errors=True)
 
 
 if __name__ == "__main__":

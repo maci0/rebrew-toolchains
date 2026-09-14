@@ -22,7 +22,9 @@ _REPO = Path(__file__).resolve().parents[1]
 #: new exception is a deliberate edit here, in the same change that adds it,
 #: and the reasons behind the clusters are the queue of shapes still to
 #: implement (DOSBox harness, dosemu2 pipeline, compiler pipeline, per-family
-#: argv normalisation).
+#: argv normalisation).  The three msvc entries that used `export NAME=value`
+#: on one line were the first to leave this list, once the classifier learned
+#: that spelling.
 _HANDWRITTEN = (
     "borland-2.0",
     "borland-2.0-decompme",
@@ -49,9 +51,6 @@ _HANDWRITTEN = (
     "msvc-1.0",
     "msvc-1.5",
     "msvc-1.52",
-    "msvc-6.0",
-    "msvc-6.0-win9x",
-    "msvc-8.0-portable",
     "psp-gcc-1.3.1",
     "psyq-2.6.3-221",
     "psyq-3.3",
