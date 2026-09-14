@@ -94,6 +94,40 @@ class TestManifest(unittest.TestCase):
                 self.assertIn(url, text, f"{profile}: {name} url not in its Dockerfile")
                 self.assertIn(sha, text, f"{profile}: {name} sha256 not in its Dockerfile")
 
+    def test_declared_runner_is_the_one_the_wrapper_uses(self) -> None:
+        """The manifest says how each image runs its compiler; the wrapper is
+        what actually does it.  They disagreed for 151 profiles — every image
+        whose wrapper calls `rebrew_run` was recorded as `wibo` (the opt-in
+        runner, not the default) and the DOSBox ones as `exec` — because the
+        catalog sniffed the artifact instead of reading the manifest.
+        """
+        for profile, entry in _manifest().items():
+            directory = _REPO / str(entry["host_dir"])
+            dockerfile = (directory / "Dockerfile").read_text(encoding="utf-8")
+            # code, not comments: a wrapper's prose mentions the helpers it
+            # does *not* call ("the shared rebrew_run/rebrew_exec dispatcher")
+            wrappers = "\n".join(
+                line
+                for path in sorted(directory.glob("*.sh"))
+                for line in path.read_text(encoding="utf-8").splitlines()
+                if not line.strip().startswith("#")
+            )
+            if "rebrew_dosemu_run" in wrappers:
+                observed = "dosemu2"
+            elif "rebrew_dosbox_run" in wrappers or "rebrew_dosbox_compile" in wrappers:
+                observed = "dosbox"
+            elif "rebrew_run" in wrappers:
+                # wine is the default; `REBREW_RUNNER=wibo` opts into the
+                # minimal loader some decomp.me-packaged tools need
+                observed = "wibo" if "ENV REBREW_RUNNER=wibo" in dockerfile else "wine"
+            elif "rebrew_exec" in wrappers:
+                observed = "exec"
+            else:
+                self.fail(f"{profile}: wrapper calls no known runner helper")
+            recipe = entry.get("recipe")
+            declared = recipe.get("runner") if isinstance(recipe, dict) else None
+            self.assertEqual(declared, observed, f"{profile}: declared runner")
+
     def test_variants_name_a_base_they_share_a_build_with(self) -> None:
         """`variant_of` is a claim about the data, so it is checked against it.
 

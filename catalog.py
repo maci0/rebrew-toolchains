@@ -771,19 +771,24 @@ def _image_sources(host_dir: str) -> str:
     return "\n".join(parts)
 
 
-def _runtime(dockerfile: str) -> str:
-    """How the image executes its compiler, from the wrapper it installs."""
-    if "rebrew_dosemu_run" in dockerfile:
-        return "dosemu2 (needs `--device /dev/kvm`)"
-    if "rebrew_dosbox" in dockerfile:
-        return "DOSBox"
-    if "ENV REBREW_RUNNER=wibo" in dockerfile:
-        return "wibo (default), wine via `REBREW_RUNNER=wine`"
-    if "rebrew_run" in dockerfile:
-        return "wine, wibo via `REBREW_RUNNER=wibo`"
-    if "rebrew_exec" in dockerfile:
-        return "native"
-    return "?"
+#: How each recipe's runner is described in the catalog.  This used to be
+#: sniffed out of the rendered Dockerfile, which read `?` for every image with
+#: an external wrapper and quietly disagreed with the manifest; the recipe
+#: carries the answer, and a contract test keeps the two in step.
+_RUNTIME = {
+    "exec": "native",
+    "wine": "wine, wibo via `REBREW_RUNNER=wibo`",
+    "wibo": "wibo (default), wine via `REBREW_RUNNER=wine`",
+    "dosbox": "DOSBox",
+    "dosemu2": "dosemu2 (needs `--device /dev/kvm`)",
+}
+
+
+def _runtime(entry: dict[str, object]) -> str:
+    """How the image executes its compiler, from the recipe it declares."""
+    recipe = entry.get("recipe")
+    runner = _text(recipe, "runner") if isinstance(recipe, dict) else ""
+    return _RUNTIME.get(runner, "?")
 
 
 #: Install plumbing that mentions a helper's name without running it: the
@@ -943,7 +948,7 @@ def render(entries: dict[str, dict[str, object]]) -> str:
             blob = _image_sources(host_dir)
             out.append(
                 f"| `rebrew/{family}:{version_arch}` | {_platform(host_dir)} | {entrypoint} "
-                f"| {_runtime(blob)} | {aliases} | {_pin(entry)} "
+                f"| {_runtime(entry)} | {aliases} | {_pin(entry)} "
                 f"| {_notes(_profile, entry, blob)} |"
             )
     out.append("")
