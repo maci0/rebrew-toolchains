@@ -720,11 +720,6 @@ def _wrapper_normalising(entry: dict[str, object], wrapper: dict[str, object]) -
     return "\n".join(lines) + "\n"
 
 
-def generated_paths(entry: dict[str, object]) -> list[pathlib.Path]:
-    host = REPO / _text(entry, "host_dir")
-    return [host / "Dockerfile", host / wrapper_filename(entry)]
-
-
 def render_all(entries: dict[str, dict[str, object]]) -> dict[pathlib.Path, str]:
     out: dict[pathlib.Path, str] = {}
     for profile, entry in entries.items():
