@@ -186,7 +186,7 @@ def render_dockerfile(profile: str, entry: dict[str, object]) -> str:
         lines.append(f"    && {body[-1]}")
         lines.append("")
 
-    wrapper_file = _wrapper_filename(entry)
+    wrapper_file = wrapper_filename(entry)
     lines += [f"COPY {wrapper_file} /usr/local/bin/{entrypoint_name(entry)}"]
     lines += [
         f"RUN chmod +x /usr/local/bin/{entrypoint_name(entry)}",
@@ -224,7 +224,7 @@ def entrypoint_name(entry: dict[str, object]) -> str:
     return {"pe": "cl", "native": "cc", "cc1": "cc"}.get(_text(rec, "shape"), "cc")
 
 
-def _wrapper_filename(entry: dict[str, object]) -> str:
+def wrapper_filename(entry: dict[str, object]) -> str:
     rec = recipe(entry)
     wrapper = rec.get("wrapper")
     name = _text(wrapper, "file") if isinstance(wrapper, dict) else ""
@@ -403,7 +403,7 @@ def _wrapper_normalising(entry: dict[str, object], wrapper: dict[str, object]) -
 
 def generated_paths(entry: dict[str, object]) -> list[pathlib.Path]:
     host = REPO / _text(entry, "host_dir")
-    return [host / "Dockerfile", host / _wrapper_filename(entry)]
+    return [host / "Dockerfile", host / wrapper_filename(entry)]
 
 
 def render_all(entries: dict[str, dict[str, object]]) -> dict[pathlib.Path, str]:
@@ -414,7 +414,7 @@ def render_all(entries: dict[str, dict[str, object]]) -> dict[pathlib.Path, str]
         host = REPO / _text(entry, "host_dir")
         out[host / "Dockerfile"] = render_dockerfile(profile, entry)
         if not handwritten_wrapper(entry):
-            out[host / _wrapper_filename(entry)] = render_wrapper(profile, entry)
+            out[host / wrapper_filename(entry)] = render_wrapper(profile, entry)
     return out
 
 

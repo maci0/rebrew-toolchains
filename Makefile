@@ -12,7 +12,7 @@
 # --others --exclude-standard keeps the .gitignore'd trees out.
 SHELL_SCRIPTS := $(shell git ls-files --cached --others --exclude-standard '*.sh')
 
-.PHONY: lint test docs smoke pins
+.PHONY: lint test docs generate smoke pins
 lint:
 	shellcheck $(SHELL_SCRIPTS)
 	ruff check .
@@ -25,6 +25,12 @@ test:
 
 docs:
 	uv run python catalog.py
+
+# Re-render every Dockerfile and wrapper from sources.json.  `make test` fails
+# when the committed files differ from their rendering, so a hand edit to a
+# generated file is caught rather than silently overwritten later.
+generate:
+	uv run python generate.py
 
 # Docker-requiring check: builds one image per runtime class and compiles with
 # it (see tests/smoke.sh).  Not part of `test` — it needs network for the first

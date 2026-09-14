@@ -16,7 +16,7 @@ against the file it replaced, checked out from the baseline revision:
 The three acknowledged differences are the clang images' `libtinfo5` pin, which
 was fetched over plaintext http and now uses https (same sha256, verified).  Two
 more findings came out of the migration and were fixed rather than papered over:
-the PYQ-Q 4.5 SDK download had no hash at all in the manifest (it is stable
+the PSY-Q 4.5 SDK download had no hash at all in the manifest (it is stable
 across fetches, so it is now verified like the other 309 pins), and the contract
 test only ever checked the *primary* pin, which is why it went unnoticed.
 
