@@ -2194,12 +2194,12 @@
       "description": "Delphi 1.0 (win16, DOSBox) toolchain image",
       "entrypoint": "dcc",
       "wrapper_file": "dcc-wrapper.sh",
+      "runner": "dosbox",
       "wrapper": {
         "shape": "handwritten",
         "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
         "file": "dcc-wrapper.sh"
-      },
-      "runner": "dosbox"
+      }
     }
   },
   "ee-gcc-2.9-990721": {
@@ -4439,12 +4439,12 @@
       "description": "GCC 2.7.2 SN0001 (N64) (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wibo"
+      }
     }
   },
   "gcc-2.7.2-sn0001-cxx": {
@@ -4524,12 +4524,12 @@
       "description": "GCC 2.7.2 SN0001 C++ (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wibo"
+      }
     }
   },
   "gcc-2.7.2-sn0004": {
@@ -4611,12 +4611,12 @@
       "description": "GCC 2.7.2 SN0004 (N64) (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wibo"
+      }
     }
   },
   "gcc-2.7.2-sn0006": {
@@ -4695,12 +4695,12 @@
       "description": "GCC 2.7.2 SN0006 (N64) (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wibo"
+      }
     }
   },
   "gcc-2.7.2-sn0006-cxx": {
@@ -4780,12 +4780,12 @@
       "description": "GCC 2.7.2 SN0006 C++ (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wibo"
+      }
     }
   },
   "gcc-2.7.2-snew": {
@@ -4853,12 +4853,12 @@
       "description": "GCC 2.7.2 SNEW (SN64, N64, native x86_64 + modern-asn64.py) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "exec"
+      }
     }
   },
   "gcc-2.7.2.1-mipsel": {
@@ -5645,12 +5645,12 @@
       "description": "GCC 2.8.1 SN (N64) (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wibo"
+      }
     }
   },
   "gcc-2.8.1-sn-cxx": {
@@ -5737,12 +5737,12 @@
       "description": "GCC 2.8.1 SN C++ (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wibo"
+      }
     }
   },
   "gcc-2.8.1-snew-cxx": {
@@ -5815,12 +5815,12 @@
       "description": "GCC 2.8.1 SNEW C++ (N64, PE/x86_32 + modern-asn64.py) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wibo"
+      }
     }
   },
   "gcc-2.91.66-mipsel": {
@@ -6315,12 +6315,12 @@
       "description": "powerpc-apple-darwin (Apple GCC 3.1, build 1041) cross compiler (native x86_64) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
         "why": "Apple GCC pipeline (cc1 | convert_gas_syntax.py | GNU as) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "exec"
+      }
     }
   },
   "gcc-3.2-rh8": {
@@ -6467,12 +6467,12 @@
       "description": "powerpc-apple-darwin (Apple GCC 4.0.0 build 5026) cross compiler (native x86_64) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
         "why": "Apple GCC pipeline (cc1 | convert_gas_syntax.py | GNU as) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "exec"
+      }
     }
   },
   "gcc-4.0.1-5363": {
@@ -6537,12 +6537,12 @@
       "description": "powerpc-apple-darwin (Apple GCC 4.0.1 build 5363) cross compiler (native x86_64) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
         "why": "Apple GCC pipeline (cc1 | convert_gas_syntax.py | GNU as) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "exec"
+      }
     }
   },
   "gcc-4.0.1-5370": {
@@ -6607,12 +6607,12 @@
       "description": "powerpc-apple-darwin (Apple GCC 4.0.1 build 5370) cross compiler (native x86_64) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
         "why": "Apple GCC pipeline (cc1 | convert_gas_syntax.py | GNU as) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "exec"
+      }
     }
   },
   "gcc-4.4.0-mips64-elf": {
@@ -6963,12 +6963,12 @@
       "description": "Intel C++ Compiler 5.0.1 build 010525Z (i386 COFF, wine/wibo) toolchain image",
       "entrypoint": "icl",
       "wrapper_file": "icl-wrapper.sh",
+      "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "icl-wrapper.sh"
-      },
-      "runner": "wibo"
+      }
     }
   },
   "ido-4.1": {
@@ -7029,12 +7029,12 @@
       "description": "IDO 4.1 (SGI MIPS, N64 little-endian, IRIX binaries under qemu-irix-4.0) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "exec"
+      }
     }
   },
   "ido-5.2": {
@@ -16306,12 +16306,12 @@
       "description": "PSP GCC 1.3.1 (mipsallegrex, PS1-family MIPS, 32-bit host) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "exec"
+      }
     }
   },
   "pspsnc-1.2.7503.0": {
@@ -16419,12 +16419,24 @@
       "description": "PSY-Q 2.6.3 (MIPS R3000, PS1, DOS binaries under dosemu2) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
+      "runner": "dosemu2",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "dosemu2 pipeline (COMPILE.BAT / multi-stage DOS) — template pending",
+        "shape": "psyq_dosemu",
+        "notes": [
+          "cc wrapper — PSY-Q 2.6.3 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
+          "",
+          "These are 1994 DOS binaries, so each stage runs in its own dosemu2 session",
+          "(see rebrew_dosemu_run; DOSBox cannot load their DJGPP stub).  decomp.me's",
+          "recipe, with the host cpp doing the preprocessing and the image's",
+          "psyq-obj-parser converting the Sony object to an ELF relocatable.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to CC1PSX."
+        ],
         "file": "cc-wrapper.sh"
-      },
-      "runner": "dosemu2"
+      }
     }
   },
   "psyq-3.3": {
@@ -16495,12 +16507,24 @@
       "description": "PSY-Q 3.3 (MIPS R3000, PS1, DOS binaries under dosemu2) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
+      "runner": "dosemu2",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "dosemu2 pipeline (COMPILE.BAT / multi-stage DOS) — template pending",
+        "shape": "psyq_dosemu",
+        "notes": [
+          "cc wrapper — PSY-Q 3.3 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
+          "",
+          "These are 1994 DOS binaries, so each stage runs in its own dosemu2 session",
+          "(see rebrew_dosemu_run; DOSBox cannot load their DJGPP stub).  decomp.me's",
+          "recipe, with the host cpp doing the preprocessing and the image's",
+          "psyq-obj-parser converting the Sony object to an ELF relocatable.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to CC1PSX."
+        ],
         "file": "cc-wrapper.sh"
-      },
-      "runner": "dosemu2"
+      }
     }
   },
   "psyq-3.5": {
@@ -16571,12 +16595,24 @@
       "description": "PSY-Q 3.5 (MIPS R3000, PS1, DOS binaries under dosemu2) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
+      "runner": "dosemu2",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "dosemu2 pipeline (COMPILE.BAT / multi-stage DOS) — template pending",
+        "shape": "psyq_dosemu",
+        "notes": [
+          "cc wrapper — PSY-Q 3.5 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
+          "",
+          "These are 1994 DOS binaries, so each stage runs in its own dosemu2 session",
+          "(see rebrew_dosemu_run; DOSBox cannot load their DJGPP stub).  decomp.me's",
+          "recipe, with the host cpp doing the preprocessing and the image's",
+          "psyq-obj-parser converting the Sony object to an ELF relocatable.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to CC1PSX."
+        ],
         "file": "cc-wrapper.sh"
-      },
-      "runner": "dosemu2"
+      }
     }
   },
   "psyq-3.6": {
@@ -16647,12 +16683,24 @@
       "description": "PSY-Q 3.6 (MIPS R3000, PS1, DOS binaries under dosemu2) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
+      "runner": "dosemu2",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "dosemu2 pipeline (COMPILE.BAT / multi-stage DOS) — template pending",
+        "shape": "psyq_dosemu",
+        "notes": [
+          "cc wrapper — PSY-Q 3.6 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
+          "",
+          "These are 1994 DOS binaries, so each stage runs in its own dosemu2 session",
+          "(see rebrew_dosemu_run; DOSBox cannot load their DJGPP stub).  decomp.me's",
+          "recipe, with the host cpp doing the preprocessing and the image's",
+          "psyq-obj-parser converting the Sony object to an ELF relocatable.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to CC1PSX."
+        ],
         "file": "cc-wrapper.sh"
-      },
-      "runner": "dosemu2"
+      }
     }
   },
   "psyq-4.0": {
@@ -16733,12 +16781,12 @@
       "description": "PSY-Q 4.0 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wine",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wine"
+      }
     }
   },
   "psyq-4.1": {
@@ -16819,12 +16867,12 @@
       "description": "PSY-Q 4.1 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wine",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wine"
+      }
     }
   },
   "psyq-4.3": {
@@ -16905,12 +16953,12 @@
       "description": "PSY-Q 4.3 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wine",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wine"
+      }
     }
   },
   "psyq-4.4": {
@@ -16991,12 +17039,12 @@
       "description": "PSY-Q 4.4 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "wine",
       "wrapper": {
         "shape": "handwritten",
         "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wine"
+      }
     }
   },
   "psyq-4.5": {
@@ -17204,12 +17252,12 @@
       "description": "PSY-Q 4.6 (Sony CCPSX.EXE + obj parser, PE/x86_32) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "",
+      "runner": "wine",
       "wrapper": {
         "shape": "handwritten",
         "why": "per-family argv normalisation — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "wine"
+      }
     }
   },
   "saturn-cygnus-2.7-96Q3": {
@@ -17276,12 +17324,12 @@
       "description": "Cygnus 2.7-96Q3 (SH-2, Sega Saturn, DOS binaries under dosemu2) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "runner": "dosemu2",
       "wrapper": {
         "shape": "handwritten",
         "why": "dosemu2 pipeline (COMPILE.BAT / multi-stage DOS) — template pending",
         "file": "cc-wrapper.sh"
-      },
-      "runner": "dosemu2"
+      }
     }
   },
   "shc-5.0r10": {

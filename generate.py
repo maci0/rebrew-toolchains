@@ -326,6 +326,8 @@ def render_wrapper(profile: str, entry: dict[str, object]) -> str:
         return _wrapper_normalising(entry, wrapper)
     if shape == "dosbox_compile":
         return _wrapper_dosbox_compile(entry, wrapper)
+    if shape == "psyq_dosemu":
+        return _wrapper_psyq_dosemu(entry, wrapper)
     raise ValueError(f"{profile}: wrapper shape {shape!r} is not expressible; mark it handwritten")
 
 
@@ -390,6 +392,78 @@ def _wrapper_passthrough(profile: str, entry: dict[str, object], wrapper: dict[s
             lines.append(f"{item} \\")
     lines.append(f'{call} "$@"')
     return "\n".join(lines) + "\n"
+
+
+#: The PSY-Q 2.6.3 / 3.x pipeline, verbatim: the host `cpp` preprocesses
+#: with DOS line endings, CC1PSX and ASPSX each run in their own dosemu2
+#: session (their DJGPP `go32` stub cannot load under DOSBox), and the
+#: image's `psyq-obj-parser` turns the Sony object into an ELF relocatable.
+#: Four images run exactly this, so the body lives here once; `{dir}` is the
+#: recipe's install root.  Raw string on purpose: the printf formats below
+#: contain literal `\r\n`, which a regular literal would turn into bytes.
+_PSYQ_DOSEMU_BODY = r"""rebrew_pick_source "$@"
+
+OUT=""
+CC_FLAGS=""
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        -o)
+            [ "$#" -ge 2 ] || rebrew_die "-o requires an output file"
+            OUT="$2"
+            shift 2
+            ;;
+        -c) shift ;;
+        "$SRC") shift ;;
+        *)
+            CC_FLAGS="$CC_FLAGS $1"
+            shift
+            ;;
+    esac
+done
+[ -n "$OUT" ] || OUT="$STEM.o"
+case "$SRC" in /*) SRC_ABS="$SRC" ;; *) SRC_ABS="$(pwd)/$SRC" ;; esac
+case "$OUT" in /*) OUT_ABS="$OUT" ;; *) OUT_ABS="$(pwd)/$OUT" ;; esac
+
+_work="$(mktemp -d)" || rebrew_die "cannot create a temporary directory"
+# shellcheck disable=SC2064  # expand $_work now: the trap runs after it may be unset
+trap "rm -rf '$_work'" EXIT
+cd "$_work" || rebrew_die "cannot enter temporary directory"
+
+# CC1PSX wants preprocessed input with DOS line endings; the DOS side sees this
+# directory as drive D: (dosemu2's `+0 <dir> +1` image, set by the helper).
+# shellcheck disable=SC2086  # CC_FLAGS is a deliberate flag list, word-split
+/usr/bin/cpp -E "$SRC_ABS" | unix2dos > dos_src.c \
+    || rebrew_die "preprocessing $SRC failed"
+{
+    printf '@echo off\r\n'
+    printf 'CC1PSX.EXE -quiet %s D:\\dos_src.c -o D:\\output.s\r\n' "$CC_FLAGS"
+    printf 'EXIT /B\r\n'
+} > COMPILE.BAT
+
+rebrew_dosemu_run "$_work" {dir} "D:\\COMPILE.BAT"
+if [ ! -s "$_work/output.s" ]; then
+    # Assign first: SC2312 — a command substitution inside the message would
+    # mask rebrew_dosemu_failure_note's own exit status.
+    _note=$(rebrew_dosemu_failure_note)
+    printf 'cc1psx produced no assembly for %s%s\n' "$SRC" "$_note" >&2
+    sed -n '$p' "$_work/dosemu.log" >&2 2>/dev/null
+    exit 1
+fi
+
+rebrew_dosemu_run "$_work" {dir} "ASPSX.EXE -quiet D:\\output.s -o D:\\output.obj"
+if [ ! -s "$_work/output.obj" ]; then
+    _note=$(rebrew_dosemu_failure_note)
+    rebrew_die "aspsx produced no object for $SRC$_note"
+fi
+
+{dir}/psyq-obj-parser "$_work/output.obj" -o "$OUT_ABS"
+"""
+
+
+def _wrapper_psyq_dosemu(entry: dict[str, object], wrapper: dict[str, object]) -> str:
+    """The PSY-Q 2.6.3/3.x compile pipeline, from recipe data."""
+    body = _PSYQ_DOSEMU_BODY.replace("{dir}", f"/opt/{install_root(entry)}")
+    return "\n".join(_head(entry, "Entrypoint", wrapper)) + body
 
 
 def _wrapper_dosbox_compile(entry: dict[str, object], wrapper: dict[str, object]) -> str:

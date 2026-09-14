@@ -1,4 +1,6 @@
 #!/bin/sh
+# Generated from sources.json by generate.py — do not edit; run `make generate`.
+# Entrypoint — psyq/2.6.3-ps1
 # cc wrapper — PSY-Q 2.6.3 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).
 #
 # These are 1994 DOS binaries, so each stage runs in its own dosemu2 session
@@ -6,12 +8,12 @@
 # recipe, with the host cpp doing the preprocessing and the image's
 # psyq-obj-parser converting the Sony object to an ELF relocatable.
 #
-#   cc -c f.c -o f.o
+# cc -c f.c -o f.o
 #
 # -o names the output (default <stem>.o); every other argument goes to CC1PSX.
+#
 # shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
-
 rebrew_pick_source "$@"
 
 OUT=""

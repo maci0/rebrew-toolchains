@@ -478,14 +478,17 @@ def derive(
     rec["entrypoint"] = entrypoint
     rec["wrapper_file"] = wfile
     if ignore_wrapper:
+        # a hand-written wrapper still runs its compiler some way, and the
+        # catalog asks the recipe rather than grepping the file for it
+        rec["runner"] = runner_of(text, wtext)
         return rec
     classified = classify_wrapper(rec, wtext)
     if classified is None:
         return None
     shape, _, binary = classified
     rec["binary"] = binary
-    runner = shape.pop("runner", "wibo" if "rebrew_run" in wtext else "exec")
-    rec["runner"] = str(runner)
+    runner = shape.pop("runner", "")
+    rec["runner"] = str(runner) or runner_of(text, wtext)
     deduped: list[dict[str, object]] = []
     for step in steps:
         if step.get("op") in {"mkdir", "rm", "guard"} and step in deduped:
@@ -516,6 +519,27 @@ def _join_continuations(text: str) -> list[str]:
     if buf:
         out.append(buf)
     return out
+
+
+def runner_of(dockerfile_text: str, wtext: str) -> str:
+    """How the image runs its compiler, from the wrapper that actually does it.
+
+    `rebrew_run` is wine unless the image sets `REBREW_RUNNER=wibo`, and the
+    DOSBox/dosemu2 wrappers call neither `rebrew_exec` nor `rebrew_run` — both
+    of which the old guess in `apply.py` got wrong for 151 profiles.
+    Comments are stripped first: a wrapper's prose mentions helpers it does not
+    call ("the shared rebrew_run/rebrew_exec dispatcher").
+    """
+    code = "\n".join(line for line in wtext.splitlines() if not line.strip().startswith("#"))
+    if "rebrew_dosemu_run" in code:
+        return "dosemu2"
+    if "rebrew_dosbox_run" in code or "rebrew_dosbox_compile" in code:
+        return "dosbox"
+    if "rebrew_run" in code:
+        return "wibo" if "ENV REBREW_RUNNER=wibo" in dockerfile_text else "wine"
+    if "rebrew_exec" in code:
+        return "exec"
+    return ""
 
 
 def _prose(wtext: str) -> list[str]:
@@ -571,7 +595,26 @@ def classify_dosbox_compile(wtext: str) -> dict[str, object] | None:
     }
 
 
+def classify_psyq_dosemu(wtext: str) -> dict[str, object] | None:
+    """The PSY-Q 2.6.3/3.x pipeline: cpp, then CC1PSX and ASPSX under dosemu2,
+    then the image's obj parser.
+
+    Recognition is deliberately shallow — the markers, not a body comparison.
+    The renderer owns the body and `verify_migration.py` compares the result
+    line by line against the file it replaces, so a wrong body fails the check
+    rather than passing a round-trip that the classifier itself defined.
+    """
+    if "COMPILE.BAT" not in wtext or "psyq-obj-parser" not in wtext:
+        return None
+    if "rebrew_dosemu_run" not in wtext:
+        return None
+    return {"shape": "psyq_dosemu", "notes": _prose(wtext)}
+
+
 def classify_wrapper(rec: Recipe, wtext: str) -> tuple[dict[str, object], str, str] | None:
+    psyq = classify_psyq_dosemu(wtext)
+    if psyq is not None:
+        return psyq, str(rec.get("root") or ""), ""
     dosbox = classify_dosbox_compile(wtext)
     if dosbox is not None:
         # this shape names its toolchain itself, so root/binary stay unused
