@@ -5,19 +5,18 @@
 
 decomp.me is the compatibility target: a compiler id its front end accepts is
 an id a user may arrive with, and `build.sh <alias>` is how they get an image
-for it.  Its corpus is public — `decompme/compilers` keeps one image spec per
-id in `values.yaml`, and `decompme/decomp.me` lists the ids in
-`backend/coreapp/compilers.py` — so the difference between the two catalogues
-can be computed rather than guessed.
+for it.  Its corpus is public: `decompme/compilers` keeps one image spec per id in
+`values.yaml`, so the difference between the two catalogues can be computed
+rather than guessed.
 
-It reports three things: which of their ids resolve to an image here, how many
-of those pin at least one byte-identical URL (the two projects independently
-choosing the same upstream artifact), and which ids do not resolve.  Every gap
+It reports which of their ids resolve to an image here, how many of those pin
+at least one byte-identical URL (the two projects independently choosing the
+same upstream artifact), and which ids do not resolve.  Every gap
 has to be declared in ``GAPS`` with a reason: an undeclared one fails the run,
 so a corpus change on their side shows up as a failing check rather than as a
 silently missing image.
 
-Needs network for their two files (``--values`` reads a local copy instead).
+Needs network for their file (``--values`` reads a local copy instead).
 The YAML is read with a regex on its two shapes (`file:` and a `- ` list under
 `files:`) rather than with PyYAML, which this repo does not depend on.
 """
@@ -33,7 +32,6 @@ import urllib.request
 
 REPO = pathlib.Path(__file__).resolve().parents[1]
 VALUES = "https://raw.githubusercontent.com/decompme/compilers/main/values.yaml"
-COMPILERS = "https://raw.githubusercontent.com/decompme/decomp.me/main/backend/coreapp/compilers.py"
 
 #: decomp.me ids this repo does not provide, each with the reason.  An id that
 #: is neither provided nor listed here fails the run.
@@ -112,13 +110,11 @@ def ours() -> tuple[dict[str, str], set[str]]:
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--values", help="read a local values.yaml instead of fetching")
-    parser.add_argument("--quiet", action="store_true", help="only report problems")
     args = parser.parse_args(argv)
 
     theirs = entries(
         pathlib.Path(args.values).read_text(encoding="utf-8") if args.values else fetch(VALUES)
     )
-    ids_in_code = set(re.findall(r'id="([^"]+)"', fetch(COMPILERS))) if not args.quiet else set()
     resolves, urls = ours()
 
     covered = sorted(i for i in theirs if i in resolves)
@@ -129,10 +125,6 @@ def main(argv: list[str]) -> int:
     print(f"decomp.me ids with an image spec: {len(theirs)}")
     print(f"  resolve to an image here:       {len(covered)}")
     print(f"  pin a byte-identical URL:       {len(shared)}")
-    if ids_in_code:
-        print(f"  ids in their compilers.py:      {len(ids_in_code)}")
-        unknown = sorted(ids_in_code - set(theirs))
-        print(f"  of those, without a spec there: {len(unknown)}")
     print(f"  not provided here:              {len(missing)}")
     for name in missing:
         print(f"    {name}: {GAPS.get(name, 'UNDECLARED GAP')}")
