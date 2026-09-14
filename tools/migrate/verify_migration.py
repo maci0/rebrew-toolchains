@@ -45,6 +45,17 @@ ACKNOWLEDGED = dict.fromkeys(
 
 def baseline_tree(rev: str, into: pathlib.Path) -> pathlib.Path:
     """Check ``rev`` out into ``into`` and return that path."""
+    known = subprocess.run(  # noqa: S603  (fixed argv, no shell)
+        ["git", "cat-file", "-e", f"{rev}^{{commit}}"],  # noqa: S607
+        cwd=REPO,
+        check=False,
+        capture_output=True,
+    )
+    if known.returncode:
+        raise SystemExit(
+            f"verify: {rev} is not in this clone — a shallow checkout hides it, "
+            f"so fetch the full history or pass another --baseline"
+        )
     if into.exists():
         shutil.rmtree(into)
     subprocess.run(  # noqa: S603  (fixed argv, no shell)
