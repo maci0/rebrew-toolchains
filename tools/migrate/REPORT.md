@@ -34,7 +34,7 @@ the PSY-Q 4.5 SDK download had no hash at all in the manifest (it is stable
 across fetches, so it is now verified like the other 309 pins), and the contract
 test only ever checked the *primary* pin, which is why it went unnoticed.
 
-36 wrappers stay hand-written and say so in the manifest
+23 wrappers stay hand-written and say so in the manifest
 (`wrapper.shape == "handwritten"` plus a reason); a test counts and lists them,
 so the exception list cannot grow quietly.
 
@@ -55,6 +55,21 @@ with, all fixed:
 The lesson worth keeping: none of these were found by the comparison that
 reused the renderer's own assumptions, and all of them were found by something
 that did not — a smoke build, or a comparison written from scratch.
+
+The same lesson paid twice more when shapes started landing:
+
+* the wrapper comparison skipped comment lines on both sides, so the generator
+  could delete a wrapper's prose and still compare equal.  It had: 18 wrappers
+  (borland 5.5/5.6, four GCC rebuilds, every Watcom image) lost the paragraph
+  that says how their compiler has to be driven;
+* `runner` was guessed by `apply.py` (any wrapper calling `rebrew_run` became
+  `wibo`) and the catalog sniffed the rendered file instead of reading the
+  manifest, so 151 profiles recorded a runtime their image does not have.  The
+  generated files never noticed, because both values render the same wrapper.
+
+Both are now data with a test: wrappers carry their prose as `notes`, recipes
+carry `runner`, and the contract test reads the wrapper's *code* (not its
+comments) to check the declared value.
 
 ## Why generation is the right target
 
@@ -121,12 +136,12 @@ The remaining work is mechanical but not small, and none of it is guesswork:
 
 ## What is left
 
-1. **The 36 hand-written wrappers.** Their reasons in the manifest are the
-   queue: DOSBox harness (10: borland 2.0/3.1 ×2, delphi, msc 5.1/6.0, msvc
-   1.0/1.5/1.52), SN64 and Apple pipelines (13), dosemu2 COMPILE.BAT (5),
-   PSY-Q 4.x (5), and three one-offs (icc 5.0.1, ido 4.1, psp-gcc 1.3.1).  Each
-   is the same loop: teach the generator a shape, teach `classify_wrapper` to
-   recognise it, then
+1. **The 19 hand-written wrappers.** Their reasons in the manifest are the
+   queue: the SN64 pipeline (9: gcc 2.7.2-sn0001/0004/0006 ×2 and snew, 2.8.1-sn
+   ×2 and snew-cxx), Apple GCC (4: 3.1-1041, 4.0.0-5026, 4.0.1-5363/5370),
+   saturn-cygnus (1), psyq-4.6 (1), delphi (1: staged DOSBox run + collect) and
+   three one-offs (icc 5.0.1, ido 4.1, psp-gcc 1.3.1).  Each is the same loop:
+   teach the generator a shape, teach `classify_wrapper` to recognise it, then
 
        python3 tools/migrate/apply.py --baseline 07a7268     # re-derive
        make verify                                          # must stay 0 differ
@@ -137,10 +152,10 @@ The remaining work is mechanical but not small, and none of it is guesswork:
    the revision that held the hand-written ones.  It refuses a generated
    revision, because deriving from generated files bakes their scaffolding into
    the recipes and still compares equal.
-2. **`catalog.py` still greps the rendered Dockerfile** for the runtime and the
-   per-image notes (`_runs`, `notes`).  The recipe knows the runner and the
-   wrapper shape, so those greps can go; the notes have no home in the manifest
-   yet, which is why the grep survives.
+2. **`catalog.py` still greps the rendered Dockerfile** for the per-image notes
+   (`_runs`, `notes`).  The runtime column reads the recipe now; the notes are
+   about what a converter *does* (`rof2elf.py`, `psyq-obj-parser`), which the
+   recipe still knows only indirectly.
 3. **`layout`** duplicates the recipe's unpack step and is still read by the
    catalog for its note.  Either the note moves to the recipe or the field does.
 4. `tools/migrate/` is scaffolding with a purpose: `verify_migration.py` is the
