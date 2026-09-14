@@ -101,6 +101,17 @@ class TestGeneration(unittest.TestCase):
             else:
                 self.assertIn(generate.MARKER, text, f"{profile}: not generated, not declared")
 
+    def test_no_orphaned_wrapper_files(self) -> None:
+        """A wrapper file the recipe does not name is dead weight from the
+        migration: it is not COPYed, so nothing keeps it in step."""
+        for profile, entry in generate.manifest().items():
+            directory = _REPO / str(entry["host_dir"])
+            wanted = generate.wrapper_filename(entry)
+            # every script in the directory is the entrypoint wrapper: the
+            # names are not uniform (two DOSBox images ship `tc20-run.sh`)
+            present = sorted(f.name for f in directory.glob("*.sh"))
+            self.assertEqual(present, [wanted], f"{profile}: orphaned wrapper file")
+
     def test_every_profile_has_a_complete_recipe(self) -> None:
         for profile, entry in generate.manifest().items():
             recipe = generate.recipe(entry)
