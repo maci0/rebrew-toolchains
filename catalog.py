@@ -757,20 +757,6 @@ def _platform(host_dir: str) -> str:
     return next((p for p in PLATFORMS if version_arch.endswith(p)), "host")
 
 
-def _image_sources(host_dir: str) -> str:
-    """A Dockerfile plus its sibling wrapper files, as one blob.
-
-    Wrappers live either inline (``printf`` into ``/usr/local/bin``) or in a
-    ``*.sh`` next to the Dockerfile.  Reading only the Dockerfile made the
-    runtime column read ``?`` for every image that shipped an external wrapper
-    — 32 rows of the catalog — and hid their notes.
-    """
-    d = REPO / host_dir
-    parts = [(d / "Dockerfile").read_text(encoding="utf-8")]
-    parts += [p.read_text(encoding="utf-8") for p in sorted(d.glob("*.sh"))]
-    return "\n".join(parts)
-
-
 #: How each recipe's runner is described in the catalog.  This used to be
 #: sniffed out of the rendered Dockerfile, which read `?` for every image with
 #: an external wrapper and quietly disagreed with the manifest; the recipe
@@ -791,96 +777,33 @@ def _runtime(entry: dict[str, object]) -> str:
     return _RUNTIME.get(runner, "?")
 
 
-#: Install plumbing that mentions a helper's name without running it: the
-#: download/checksum/chmod lines and the tarball steps around them.
-_PLUMBING = (
-    "curl ",
-    "tar ",
-    "chmod ",
-    "sha256sum",
-    "mkdir -p",
-    "rm -rf",
-    "rm /tmp",
-    "ls /opt",
-    "apt-get",
-    "COPY ",
-)
+def _notes(entry: dict[str, object]) -> str:
+    """Per-image caveats a consumer has to know before invoking it.
 
-
-def _wrapper_text(blob: str) -> str:
-    """The blob minus comments and install plumbing — i.e. what actually runs.
-
-    A substring search over the whole Dockerfile cannot tell `rof2elf.py` being
-    *downloaded* from being *invoked* (and `chmod +x .../rof2elf.py ...` is on
-    the same line as the tool's name).  Only a command that reaches the tool
-    with arguments counts here.
+    The structural ones are computed from the manifest (a variant relation, a
+    second pinned source); the rest are the image's own `recipe.notes`.  They
+    used to be sniffed out of the rendered Dockerfile and its wrapper — which
+    meant the docs could disagree with the manifest, and did: the runtime
+    column read `?` for every externally-wrapped image, and `runner` was wrong
+    on 151 profiles while the docs looked fine.
     """
-    keep = []
-    for line in blob.splitlines():
-        stripped = line.strip()
-        if stripped.startswith("#") or any(tok in line for tok in _PLUMBING):
-            continue
-        keep.append(line)
-    return "\n".join(keep)
-
-
-def _runs(blob: str, tool: str) -> bool:
-    """True when the wrapper executes ``tool`` with an argument."""
-    return re.search(rf"{re.escape(tool)}[ \t]+(?![\\\n])", _wrapper_text(blob)) is not None
-
-
-def _notes(profile: str, entry: dict[str, object], dockerfile: str) -> str:
-    """Per-image caveats a consumer has to know before invoking it."""
     notes: list[str] = []
     base = _text(entry, "variant_of")
     if base:
         notes.append(f"the same build as `{base}`, with a different front end")
-    layout = _text(entry, "layout")
-    if layout not in ("tar", "tar-strip1", ""):
-        notes.append(f"unpacked from `{layout}`")
-    if "rof2elf.py" in dockerfile:
-        notes.append(
-            "converts its ROF `.obj` with the image's `rof2elf.py`"
-            if _runs(dockerfile, "rof2elf.py")
-            else "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-        )
-    if "psyq-obj-parser" in dockerfile:
-        notes.append(
-            "converts its Sony object with the image's `psyq-obj-parser`"
-            if _runs(dockerfile, "psyq-obj-parser")
-            else "emits a Sony object; convert with the image's `psyq-obj-parser`"
-        )
-    if "usr/lib/CC" in dockerfile:
-        notes.append(
-            "entered through the vendor C++ driver (`usr/lib/CC`): `.C`/`.cc` only, "
-            "`.cpp` is silently ignored"
-        )
-    if "/7.1/NCC" in dockerfile:
-        notes.append("entered through the vendor C++ driver (`NCC`)")
-    if profile.startswith(("agbcc", "agbccpp")):
-        notes.append("cc1-style: emits assembly, not an object")
-    if _text(entry, "binutils_url"):
-        notes.append("pins a second source (binutils)")
-    if _text(entry, "parser_url"):
-        notes.append("pins a second source (obj parser)")
-    if _text(entry, "helper_url"):
-        notes.append("pins a second source (converter script)")
-    if _text(entry, "sdk_url"):
-        notes.append("pins a second source (SDK headers/libs)")
-    if "release" in _text(entry, "url") and profile.startswith("agbcc"):
-        notes.append("upstream release tag is rebuilt on every push — re-pin on drift")
-    if "rebrew_dosemu_run" in dockerfile:
-        notes.append(
-            "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load "
-            "their stub — so the container needs `--device /dev/kvm`"
-        )
-    if "convert_gas_syntax.py" in dockerfile:
-        notes.append(
-            "Apple cc1 output goes through decomp.me's `convert_gas_syntax.py`, which "
-            "emits only the translation unit's first function"
-        )
-    if "cc1pln64.exe" in dockerfile:
-        notes.append("C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe`")
+    for field, what in (
+        ("binutils_url", "binutils"),
+        ("parser_url", "obj parser"),
+        ("helper_url", "converter script"),
+        ("sdk_url", "SDK headers/libs"),
+    ):
+        if _text(entry, field):
+            notes.append(f"pins a second source ({what})")
+    recipe = entry.get("recipe")
+    if isinstance(recipe, dict):
+        declared = recipe.get("notes")
+        if isinstance(declared, list):
+            notes += [str(note) for note in declared]
     return "; ".join(notes) or "—"
 
 
@@ -921,7 +844,7 @@ def render(entries: dict[str, dict[str, object]]) -> str:
         "| --- | --- |",
     ]
     by_platform: dict[str, int] = {}
-    for _profile, entry in entries.items():
+    for entry in entries.values():
         platform = _platform(_text(entry, "host_dir"))
         by_platform[platform] = by_platform.get(platform, 0) + 1
     for platform, count in sorted(by_platform.items()):
@@ -938,18 +861,17 @@ def render(entries: dict[str, dict[str, object]]) -> str:
             "| --- | --- | --- | --- | --- | --- | --- |",
         ]
         family_rows: list[tuple[str, dict[str, object]]] = rows[family]
-        for _profile, entry in sorted(family_rows, key=lambda item: _text(item[1], "host_dir")):
+        for _, entry in sorted(family_rows, key=lambda item: _text(item[1], "host_dir")):
             host_dir = _text(entry, "host_dir")
             version_arch = host_dir.split("/", 1)[1] if "/" in host_dir else host_dir
             dockerfile = (REPO / host_dir / "Dockerfile").read_text(encoding="utf-8")
             match = _ENTRYPOINT.search(dockerfile)
             entrypoint = f"`{match.group(1)}`" if match else "—"
             aliases = ", ".join(f"`{a}`" for a in _aliases(entry)) or "—"
-            blob = _image_sources(host_dir)
             out.append(
                 f"| `rebrew/{family}:{version_arch}` | {_platform(host_dir)} | {entrypoint} "
                 f"| {_runtime(entry)} | {aliases} | {_pin(entry)} "
-                f"| {_notes(_profile, entry, blob)} |"
+                f"| {_notes(entry)} |"
             )
     out.append("")
     return "\n".join(out)
@@ -1049,7 +971,7 @@ def provenance(entries: dict[str, dict[str, object]]) -> str:
         "- The **IRIX IDO/MIPSpro images** combine a GPL emulator (`qemu-irix`,",
         "  vendored in the same bundle) with proprietary IRIX binaries.",
         "",
-        "Per-profile pins — URL, sha256, commit, archive layout — are in the",
+        "Per-profile pins — URL, sha256, commit — are in the",
         "[toolchain catalog](TOOLCHAINS.md) and in [`sources.json`](../sources.json).",
         "",
         "## Catalogued but not shipped",

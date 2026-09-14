@@ -133,7 +133,7 @@ version matches, the row says so rather than pretending to be a match.
 - The **IRIX IDO/MIPSpro images** combine a GPL emulator (`qemu-irix`,
   vendored in the same bundle) with proprietary IRIX binaries.
 
-Per-profile pins — URL, sha256, commit, archive layout — are in the
+Per-profile pins — URL, sha256, commit — are in the
 [toolchain catalog](TOOLCHAINS.md) and in [`sources.json`](../sources.json).
 
 ## Catalogued but not shipped

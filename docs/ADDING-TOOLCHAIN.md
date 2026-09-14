@@ -25,9 +25,9 @@ Prefer, in order:
 2. **[decompme/compilers](https://github.com/decompme/compilers)** —
    `values.yaml` lists every preserved console compiler with its download
    URLs, and `platforms/<platform>/<id>/Dockerfile` shows the **exact
-   subtree** each id maps to. Copy that mapping into our `layout` verbatim;
-   do not guess it from the id (the ids use internal build numbers, the
-   archives use marketing versions: `mwcc_20_87` is `mwccarm/1.2/sp4`).
+   subtree** each id maps to. Copy that mapping into the recipe's unpack step
+   verbatim; do not guess it from the id (the ids use internal build numbers,
+   the archives use marketing versions: `mwcc_20_87` is `mwccarm/1.2/sp4`).
 3. **The vendor/community release asset** (GCC tarballs, LLVM prebuilts,
    `archaic-toolchains` repos, …).
 
@@ -292,7 +292,7 @@ Two provenance checks worth running before you trust a pin:
 ## 5. Register it
 
 The profile lives in `sources.json`: `family`, `host_dir`, `url`, `sha256`,
-`commit`, `layout`, optional `aliases`, the secondary pins
+`commit`, optional `aliases`, the secondary pins
 (`binutils_url`/`binutils_sha256`, `parser_url`/`parser_sha256`,
 `helper_url`/`helper_sha256`, `sdk_url`/`sdk_sha256`/`sdk_commit`) and the
 `recipe` from step 3.  A pin without a `sha256` is a manifest gap, not a
@@ -390,7 +390,6 @@ EOF
 | `host_dir` | `<family>/<version>-<platform>`; the Dockerfile lives here |
 | `url`, `sha256` | the primary pinned download, verified inside the build |
 | `commit` | the git commit a branch-pinned URL came from; `""` for release assets |
-| `layout` | how the archive is unpacked (`tar-strip1`, `zip-subpath:GC/1.2.5`, …); the recipe's `steps` are what actually unpack it |
 | `recipe` | everything the Dockerfile is rendered from: base, apt, fetch, steps, env, root, binary, entrypoint, runner, wrapper, labels (see step 3) |
 | `aliases` | extra names `build.sh` accepts for this profile |
 | `*_url`/`*_sha256`/`*_commit` | additional pinned sources the image needs |

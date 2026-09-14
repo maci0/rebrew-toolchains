@@ -70,13 +70,12 @@ def _pins(entry: Mapping[str, object]) -> list[tuple[str, str, str]]:
 class TestManifest(unittest.TestCase):
     def test_every_entry_is_complete(self) -> None:
         for profile, entry in _manifest().items():
-            for key in ("family", "host_dir", "url", "sha256", "commit", "layout"):
+            for key in ("family", "host_dir", "url", "sha256", "commit"):
                 self.assertIn(key, entry, f"{profile}: missing {key}")
             self.assertTrue(entry["family"], profile)
             self.assertTrue(entry["host_dir"], profile)
             self.assertTrue(entry["url"].startswith("https://"), profile)
             self.assertEqual(len(entry["sha256"]), 64, f"{profile}: bad sha256")
-            self.assertTrue(entry["layout"], profile)
             for name, url, sha in _pins(entry):
                 self.assertTrue(url.startswith("https://"), f"{profile}: {name} url")
                 self.assertEqual(len(sha), 64, f"{profile}: {name} has no sha256")
