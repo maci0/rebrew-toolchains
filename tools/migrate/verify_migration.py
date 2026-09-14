@@ -189,9 +189,7 @@ def _differences(label: str, old: list[str], new: list[str]) -> list[str]:
 
 
 def wrapper_diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
-    return _differences(
-        "wrapper line", wrapper_lines(old_dir), wrapper_lines(new_dir)
-    )
+    return _differences("wrapper line", wrapper_lines(old_dir), wrapper_lines(new_dir))
 
 
 def clause_diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
