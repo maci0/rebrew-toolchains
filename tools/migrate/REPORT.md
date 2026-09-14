@@ -1,7 +1,8 @@
 # Toolchain generation: state of the migration
 
-Branch `toolchain-generation`.  `main` is untouched: nothing here is wired into
-`build.sh`, the tests or CI until the corpus verifies end to end.
+Merged to `main`.  `make generate`, `make verify` and the tests in
+`tests/test_generation.py` are the gates now; this file records how the
+migration was done and what is left.
 
 ## Outcome
 
@@ -10,8 +11,21 @@ rendered from `sources.json`; the semantics of each — base, apt packages, pins
 and their hashes, env, labels, install steps, wrapper commands — were compared
 against the file it replaced, checked out from the baseline revision:
 
-    python3 tools/migrate/verify_migration.py --baseline main
+    make verify                       # (== verify_migration.py --baseline 07a7268)
     verify: 272 compared, 0 new, 3 acknowledged, 0 differ
+
+`07a7268` is the last revision that held the hand-written files; `--baseline
+main` stopped meaning anything the moment the migration landed on `main`.
+
+Three *independent* comparisons run, because a comparison that shares a parser
+with the renderer can agree with it by making the same mistake twice — which
+happened, repeatedly:
+
+| stage | what it compares | what it caught |
+| --- | --- | --- |
+| classified semantics | base, apt, pins, env, labels, entrypoint, ops, wrapper cmds (deduped, normalised) | the label regression, the duplicate `chmod` delivery |
+| raw install clauses | the `&&`-separated clauses as written | the truncated `ln -s "$(ldconfig -p`, `cp -r` vs `cp -a` |
+| raw wrapper lines | the wrapper as written (the classified one sorts tokens) | a swapped argument would be invisible otherwise |
 
 The three acknowledged differences are the clang images' `libtinfo5` pin, which
 was fetched over plaintext http and now uses https (same sha256, verified).  Two
@@ -20,9 +34,27 @@ the PSY-Q 4.5 SDK download had no hash at all in the manifest (it is stable
 across fetches, so it is now verified like the other 309 pins), and the contract
 test only ever checked the *primary* pin, which is why it went unnoticed.
 
-39 wrappers stay hand-written and say so in the manifest
+36 wrappers stay hand-written and say so in the manifest
 (`wrapper.shape == "handwritten"` plus a reason); a test counts and lists them,
 so the exception list cannot grow quietly.
+
+`main`'s smoke job caught five real defects that the comparisons had agreed
+with, all fixed:
+
+* 53 images ran `chmod +x /usr/local/bin/<entrypoint>` *before* the COPY that
+  installed it — the install RUN failed, because the file did not exist yet;
+* msvc-6.0-sp5/-sp5-pp/-sp6 lost the `cp` of `MSPDB60.DLL`, because a comment
+  inside a continued `RUN` swallowed the rest of the command (and the
+  comparison read the comment the same way);
+* two images downloaded into `/tmp/tools` and `/tmp/msc` before the `mkdir`
+  that creates those directories ran;
+* `tar` was rendered with the archive's members before its options, which GNU
+  tar reads as members;
+* clang-4.0.1's `libtinfo` symlink was truncated at the pipe by the classifier.
+
+The lesson worth keeping: none of these were found by the comparison that
+reused the renderer's own assumptions, and all of them were found by something
+that did not — a smoke build, or a comparison written from scratch.
 
 ## Why generation is the right target
 
@@ -87,14 +119,30 @@ The remaining work is mechanical but not small, and none of it is guesswork:
 5. Everything else (variants as `variant_of` rows, the decomp.me drift check,
    the registry publisher) only after 1–4 pass.
 
-## Next round, concretely
+## What is left
 
-1. Implement the `normalising` wrapper shape (largest missing group, 39 profiles
-   across msvc/watcom/psyq/DOSBox/dosemu2/pipelines) and re-run the comparator
-   until those report identical.  Each shape is added the same way: teach the
-   generator, generate, and let `verify_migration.py` prove the file did not
-   change.
-2. Wire `make generate` + the staleness check into CI.
-3. Make `catalog.py` read the runtime and per-image notes from the recipe
-   instead of grepping the rendered Dockerfile.
-4. Merge to `main`.
+1. **The 36 hand-written wrappers.** Their reasons in the manifest are the
+   queue: DOSBox harness (10: borland 2.0/3.1 ×2, delphi, msc 5.1/6.0, msvc
+   1.0/1.5/1.52), SN64 and Apple pipelines (13), dosemu2 COMPILE.BAT (5),
+   PSY-Q 4.x (5), and three one-offs (icc 5.0.1, ido 4.1, psp-gcc 1.3.1).  Each
+   is the same loop: teach the generator a shape, teach `classify_wrapper` to
+   recognise it, then
+
+       python3 tools/migrate/apply.py --baseline 07a7268     # re-derive
+       make verify                                          # must stay 0 differ
+       make test                                            # the list shrinks
+
+   `apply.py --baseline` is what makes this possible after the migration: the
+   working tree holds generated files now, so the *derivation source* has to be
+   the revision that held the hand-written ones.  It refuses a generated
+   revision, because deriving from generated files bakes their scaffolding into
+   the recipes and still compares equal.
+2. **`catalog.py` still greps the rendered Dockerfile** for the runtime and the
+   per-image notes (`_runs`, `notes`).  The recipe knows the runner and the
+   wrapper shape, so those greps can go; the notes have no home in the manifest
+   yet, which is why the grep survives.
+3. **`layout`** duplicates the recipe's unpack step and is still read by the
+   catalog for its note.  Either the note moves to the recipe or the field does.
+4. `tools/migrate/` is scaffolding with a purpose: `verify_migration.py` is the
+   migration's proof and runs in CI; `derive_and_verify.py` and `apply.py` exist
+   for (1).  If no further shape is ever added, the two can go.
