@@ -34,7 +34,7 @@ the PSY-Q 4.5 SDK download had no hash at all in the manifest (it is stable
 across fetches, so it is now verified like the other 309 pins), and the contract
 test only ever checked the *primary* pin, which is why it went unnoticed.
 
-23 wrappers stay hand-written and say so in the manifest
+7 wrappers stay hand-written and say so in the manifest
 (`wrapper.shape == "handwritten"` plus a reason); a test counts and lists them,
 so the exception list cannot grow quietly.
 
@@ -70,6 +70,13 @@ The same lesson paid twice more when shapes started landing:
 Both are now data with a test: wrappers carry their prose as `notes`, recipes
 carry `runner`, and the contract test reads the wrapper's *code* (not its
 comments) to check the declared value.
+
+And a third time, in the comparison itself: `old == new` had failed correctly,
+but the report was built with `line not in new` — so a *duplicated* line was
+invisible, because it is present on both sides.  Seven wrappers sourced the
+shared helper twice and `make verify` called them equal.  Both diff helpers now
+count occurrences before comparing.  The general rule this file keeps
+rediscovering: a comparison is only worth what its weakest report is.
 
 ## Why generation is the right target
 
@@ -136,22 +143,23 @@ The remaining work is mechanical but not small, and none of it is guesswork:
 
 ## What is left
 
-1. **The 19 hand-written wrappers.** Their reasons in the manifest are the
-   queue: the SN64 pipeline (9: gcc 2.7.2-sn0001/0004/0006 ×2 and snew, 2.8.1-sn
-   ×2 and snew-cxx), Apple GCC (4: 3.1-1041, 4.0.0-5026, 4.0.1-5363/5370),
-   saturn-cygnus (1), psyq-4.6 (1), delphi (1: staged DOSBox run + collect) and
-   three one-offs (icc 5.0.1, ido 4.1, psp-gcc 1.3.1).  Each is the same loop:
-   teach the generator a shape, teach `classify_wrapper` to recognise it, then
+1. **The 7 hand-written wrappers are one-offs, and should stay that way.**
+   Each reason in the manifest names what the wrapper does that no sibling
+   does: delphi's staged DOSBox run (DCC.CFG, SRC.EXE), the two `modern-asn64`
+   images that differ from each other, ICC's Windows `Z:` paths, qemu-irix
+   driving the IRIX cc, psyq-4.6's SN.INI-driven `CCPSX.EXE`, and saturn's
+   dosemu2 `COMPILE.BAT` with `sh-elf-objcopy`.  A shape with one user is not a
+   template, it is a wrapper — the remaining work here is *none*, and that is
+   the point of the list.
+
+   If a sibling ever appears, the loop is: teach the generator a shape, teach
+   `classify_wrapper` to recognise it, then
 
        python3 tools/migrate/apply.py --baseline 07a7268     # re-derive
        make verify                                          # must stay 0 differ
        make test                                            # the list shrinks
+       sh tests/smoke.sh <one image of the new shape>        # and it compiles
 
-   `apply.py --baseline` is what makes this possible after the migration: the
-   working tree holds generated files now, so the *derivation source* has to be
-   the revision that held the hand-written ones.  It refuses a generated
-   revision, because deriving from generated files bakes their scaffolding into
-   the recipes and still compares equal.
 2. **`catalog.py` still greps the rendered Dockerfile** for the per-image notes
    (`_runs`, `notes`).  The runtime column reads the recipe now; the notes are
    about what a converter *does* (`rof2elf.py`, `psyq-obj-parser`), which the
