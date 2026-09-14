@@ -1303,9 +1303,29 @@
       "description": "Turbo C 2.0 (win16, DOSBox) toolchain image",
       "entrypoint": "tcc",
       "wrapper_file": "tc20-run.sh",
+      "binary": "",
+      "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "shape": "dosbox_compile",
+        "dir": "/opt/tc20",
+        "tool": "tc20",
+        "command": "C:\\\\BIN\\\\TCC.EXE -c -I\\\\INCLUDE -oSRC.OBJ $FLAGS SRC.C > C:\\\\tcout.txt",
+        "log": "tcout.txt",
+        "notes": [
+          "tc20 wrapper — compile one translation unit with the vendored Turbo C 2.0",
+          "tree under DOSBox (uses the shared wrapper helpers).",
+          "",
+          "Invoke:  tcc <source.c> [flags...]",
+          "",
+          "Design notes (same contract as the other 16-bit wrappers):",
+          "- TCC 2.0 is a 16-bit DOS program.  The source is staged under the fixed",
+          "short name SRC.C, and the produced object is copied back to /work as",
+          "<source-stem>.OBJ.",
+          "- All other args are forwarded to TCC verbatim, so the GA flag sweep",
+          "(-O1, -G1, ...) actually reaches the compiler.",
+          "- The vendored include dir reaches TCC via -I\\INCLUDE; compiles are -c",
+          "object-only, so no library path is configured."
+        ],
         "file": "tc20-run.sh"
       }
     }
@@ -1358,9 +1378,25 @@
       "description": "Borland C++ 2.0 (decomp.me preservation repack, 16-bit DOS, DOSBox) toolchain image",
       "entrypoint": "bcc",
       "wrapper_file": "bcc-wrapper.sh",
+      "binary": "",
+      "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "shape": "dosbox_compile",
+        "dir": "/opt/bcc2.0dm",
+        "tool": "bcc2.0",
+        "command": "set INCLUDE=C:\\\\INCLUDE\nC:\\\\BIN\\\\BCC.EXE -c $FLAGS SRC.C > C:\\\\bccout.txt",
+        "log": "bccout.txt",
+        "notes": [
+          "bcc wrapper — Borland C++ 2.0 (decomp.me repack) under DOSBox.",
+          "",
+          "Invoke:  bcc <source.c> [flags...]",
+          "",
+          "Design notes (same contract as the other 16-bit wrappers):",
+          "- The compiler is a DOS program, so the source is staged under the fixed",
+          "short name SRC.C and the object is copied back to /work as",
+          "<source-stem>.OBJ.  INCLUDE points at the vendored tree.",
+          "- Every other argument is forwarded to BCC verbatim."
+        ],
         "file": "bcc-wrapper.sh"
       }
     }
@@ -1410,9 +1446,29 @@
       "description": "Turbo C++ 3.1 (win16, DOSBox) toolchain image",
       "entrypoint": "tcc",
       "wrapper_file": "tc16-run.sh",
+      "binary": "",
+      "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "shape": "dosbox_compile",
+        "dir": "/opt/tc31",
+        "tool": "tc16",
+        "command": "C:\\\\BIN\\\\TCC.EXE -c -I\\\\INCLUDE -oSRC.OBJ $FLAGS SRC.C > C:\\\\tcout.txt",
+        "log": "tcout.txt",
+        "notes": [
+          "tc16 wrapper — compile one translation unit with the vendored Turbo C++ 3.1",
+          "tree under DOSBox (uses the shared wrapper helpers).",
+          "",
+          "Invoke:  tcc <source.c> [flags...]",
+          "",
+          "Design notes (same contract as the other 16-bit wrappers):",
+          "- TCC 3.1 is a 16-bit DOS program.  The source is staged under the fixed",
+          "short name SRC.C, and the produced object is copied back to /work as",
+          "<source-stem>.OBJ.",
+          "- All other args are forwarded to TCC verbatim, so the GA flag sweep",
+          "(-O1, -G1, ...) actually reaches the compiler.",
+          "- The vendored include dir reaches TCC via -I\\INCLUDE; compiles are -c",
+          "object-only, so no library path is configured."
+        ],
         "file": "tc16-run.sh"
       }
     }
@@ -1465,9 +1521,25 @@
       "description": "Borland C++ 3.1 (decomp.me preservation repack, 16-bit DOS, DOSBox) toolchain image",
       "entrypoint": "bcc",
       "wrapper_file": "bcc-wrapper.sh",
+      "binary": "",
+      "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "shape": "dosbox_compile",
+        "dir": "/opt/bcc3.1dm",
+        "tool": "bcc3.1",
+        "command": "set INCLUDE=C:\\\\INCLUDE\nC:\\\\BIN\\\\BCC.EXE -c $FLAGS SRC.C > C:\\\\bccout.txt",
+        "log": "bccout.txt",
+        "notes": [
+          "bcc wrapper — Borland C++ 3.1 (decomp.me repack) under DOSBox.",
+          "",
+          "Invoke:  bcc <source.c> [flags...]",
+          "",
+          "Design notes (same contract as the other 16-bit wrappers):",
+          "- The compiler is a DOS program, so the source is staged under the fixed",
+          "short name SRC.C and the object is copied back to /work as",
+          "<source-stem>.OBJ.  INCLUDE points at the vendored tree.",
+          "- Every other argument is forwarded to BCC verbatim."
+        ],
         "file": "bcc-wrapper.sh"
       }
     }
@@ -1525,6 +1597,16 @@
         "argv": [
           "-I/opt/bcc55/Include",
           "-L/opt/bcc55/Lib"
+        ],
+        "notes": [
+          "bcc wrapper — Borland C++ 5.5 (bcc32) under wine or wibo (uses the shared",
+          "helpers; set REBREW_RUNNER=wibo to skip wine for faster runs).",
+          "",
+          "Invoke:  bcc <source.c> [flags...]",
+          "",
+          "bcc32 has no built-in include/lib path (unlike the MSVC trees), so the",
+          "vendored Include/Lib are passed explicitly.  Flags are POSIX-style",
+          "(-c -I<dir> -o...); the object defaults to <source>.obj."
         ],
         "set_e": true,
         "file": "bcc-wrapper.sh"
@@ -1589,6 +1671,16 @@
         "argv": [
           "-I/opt/bcc56/INCLUDE",
           "-L/opt/bcc56/LIB"
+        ],
+        "notes": [
+          "bcc wrapper — Borland C++ 5.6 (bcc32) under wine or wibo (uses the shared",
+          "helpers; set REBREW_RUNNER=wibo to skip wine for faster runs).",
+          "",
+          "Invoke:  bcc <source.c> [flags...]",
+          "",
+          "bcc32 has no built-in include/lib path (unlike the MSVC trees), so the",
+          "vendored Include/Lib are passed explicitly.  Flags are POSIX-style",
+          "(-c -I<dir> -o...); the object defaults to <source>.obj."
         ],
         "set_e": true,
         "file": "bcc-wrapper.sh"
@@ -3236,7 +3328,7 @@
         }
       ],
       "env": {},
-      "root": "2.5.7-mipsel-ps1",
+      "root": "gcc-2.5.7",
       "title": "rebrew GCC 2.5.7 (PS1)",
       "description": "GCC 2.5.7 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -3326,7 +3418,7 @@
         }
       ],
       "env": {},
-      "root": "2.5.7-psx-ps1",
+      "root": "gcc-2.5.7-psx",
       "title": "rebrew GCC 2.5.7-psx (PS1)",
       "description": "GCC 2.5.7-psx (psx flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -3416,7 +3508,7 @@
         }
       ],
       "env": {},
-      "root": "2.6.0-mipsel-ps1",
+      "root": "gcc-2.6.0",
       "title": "rebrew GCC 2.6.0 (PS1)",
       "description": "GCC 2.6.0 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -3506,7 +3598,7 @@
         }
       ],
       "env": {},
-      "root": "2.6.0-psx-ps1",
+      "root": "gcc-2.6.0-psx",
       "title": "rebrew GCC 2.6.0-psx (PS1)",
       "description": "GCC 2.6.0-psx (psx flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -3596,7 +3688,7 @@
         }
       ],
       "env": {},
-      "root": "2.6.3-mipsel-ps1",
+      "root": "gcc-2.6.3",
       "title": "rebrew GCC 2.6.3 (PS1)",
       "description": "GCC 2.6.3 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -3692,7 +3784,7 @@
         }
       ],
       "env": {},
-      "root": "2.6.3-ps1",
+      "root": "gcc-2.6.3-ps1",
       "title": "rebrew GCC 2.6.3 (PS1)",
       "description": "GCC 2.6.3 (mips-sony-psx, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -3782,7 +3874,7 @@
         }
       ],
       "env": {},
-      "root": "2.7.0-mipsel-ps1",
+      "root": "gcc-2.7.0-mipsel",
       "title": "rebrew GCC 2.7.0-mipsel (PS1)",
       "description": "GCC 2.7.0-mipsel (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -3872,7 +3964,7 @@
         }
       ],
       "env": {},
-      "root": "2.7.1-mipsel-ps1",
+      "root": "gcc-2.7.1-mipsel",
       "title": "rebrew GCC 2.7.1-mipsel (PS1)",
       "description": "GCC 2.7.1-mipsel (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -3962,7 +4054,7 @@
         }
       ],
       "env": {},
-      "root": "2.7.2-cdk-ps1",
+      "root": "gcc-2.7.2-cdk",
       "title": "rebrew GCC 2.7.2-cdk (PS1)",
       "description": "GCC 2.7.2-cdk (CDK/cygnus flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -4076,7 +4168,7 @@
         }
       ],
       "env": {},
-      "root": "2.7.2-kmc-n64",
+      "root": "gcc-2.7.2-kmc",
       "title": "rebrew GCC 2.7.2 KMC (N64)",
       "description": "GCC 2.7.2 KMC (mips-mips-gnu, decompals mips-gcc-2.7.2 prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -4166,7 +4258,7 @@
         }
       ],
       "env": {},
-      "root": "2.7.2-mipsel-ps1",
+      "root": "gcc-2.7.2",
       "title": "rebrew GCC 2.7.2 (PS1)",
       "description": "GCC 2.7.2 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -4256,7 +4348,7 @@
         }
       ],
       "env": {},
-      "root": "2.7.2-psx-ps1",
+      "root": "gcc-2.7.2-psx",
       "title": "rebrew GCC 2.7.2 psx (PS1)",
       "description": "GCC 2.7.2 (mips-sony-psx, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -4838,7 +4930,7 @@
         }
       ],
       "env": {},
-      "root": "2.7.2.1-mipsel-ps1",
+      "root": "gcc-2.7.2.1",
       "title": "rebrew GCC 2.7.2.1 (PS1)",
       "description": "GCC 2.7.2.1 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -4928,7 +5020,7 @@
         }
       ],
       "env": {},
-      "root": "2.7.2.2-mipsel-ps1",
+      "root": "gcc-2.7.2.2",
       "title": "rebrew GCC 2.7.2.2 (PS1)",
       "description": "GCC 2.7.2.2 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -5018,7 +5110,7 @@
         }
       ],
       "env": {},
-      "root": "2.7.2.3-mipsel-ps1",
+      "root": "gcc-2.7.2.3",
       "title": "rebrew GCC 2.7.2.3 (PS1)",
       "description": "GCC 2.7.2.3 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -5108,7 +5200,7 @@
         }
       ],
       "env": {},
-      "root": "2.8.0-mipsel-ps1",
+      "root": "gcc-2.8.0",
       "title": "rebrew GCC 2.8.0 (PS1)",
       "description": "GCC 2.8.0 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -5198,7 +5290,7 @@
         }
       ],
       "env": {},
-      "root": "2.8.0-psx-ps1",
+      "root": "gcc-2.8.0-psx",
       "title": "rebrew GCC 2.8.0-psx (PS1)",
       "description": "GCC 2.8.0-psx (psx flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -5288,7 +5380,7 @@
         }
       ],
       "env": {},
-      "root": "2.8.1-mipsel-ps1",
+      "root": "gcc-2.8.1",
       "title": "rebrew GCC 2.8.1 (PS1)",
       "description": "GCC 2.8.1 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -5453,7 +5545,7 @@
         }
       ],
       "env": {},
-      "root": "2.8.1-psx-ps1",
+      "root": "gcc-2.8.1-psx",
       "title": "rebrew GCC 2.8.1-psx (PS1)",
       "description": "GCC 2.8.1-psx (psx flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -5797,7 +5889,7 @@
         }
       ],
       "env": {},
-      "root": "2.91.66-mipsel-ps1",
+      "root": "gcc-2.91.66-mipsel",
       "title": "rebrew GCC 2.91.66-mipsel (PS1)",
       "description": "GCC 2.91.66-mipsel (mipsel flavour (egcs), decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -5887,7 +5979,7 @@
         }
       ],
       "env": {},
-      "root": "2.91.66-psx-ps1",
+      "root": "gcc-2.91.66-psx",
       "title": "rebrew GCC 2.91.66-psx (PS1)",
       "description": "GCC 2.91.66-psx (psx flavour (egcs), decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -5977,7 +6069,7 @@
         }
       ],
       "env": {},
-      "root": "2.95.2-mipsel-ps1",
+      "root": "gcc-2.95.2",
       "title": "rebrew GCC 2.95.2 (PS1)",
       "description": "GCC 2.95.2 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -6072,7 +6164,7 @@
         }
       ],
       "env": {},
-      "root": "2.95.2-ps1",
+      "root": "gcc-2.95.2-ps1",
       "title": "rebrew GCC 2.95.2 (PS1)",
       "description": "GCC 2.95.2 (mips-sony-psx, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
@@ -6275,6 +6367,16 @@
         "shape": "passthrough",
         "validate_source": false,
         "argv": [],
+        "notes": [
+          "gcc wrapper — Red Hat 8 GCC 3.2 (i386-redhat-linux, native, under the shared",
+          "watchdog contract).",
+          "",
+          "Invoke:  gcc [flags...] <source.c>",
+          "",
+          "The tree is a relocated Red Hat prefix: COMPILER_PATH points the driver at",
+          "its own bin/ (cc1, as) and LD_LIBRARY_PATH at the bundled shared libraries",
+          "(libbfd and friends) that its assembler links."
+        ],
         "set_e": true,
         "env": [
           {
@@ -6560,6 +6662,13 @@
           "-I",
           "/opt/gcc-4.4.0-mips64-elf/mips64-elf/include"
         ],
+        "notes": [
+          "cc wrapper — native N64 compiler from a flat vendor tree.",
+          "",
+          "The tree is a flat dump (driver, cc1, cpp, binutils) whose driver resolves",
+          "its tools through COMPILER_PATH, so the wrapper points that at the install",
+          "directory and execs the driver with the caller's arguments unchanged."
+        ],
         "env": [
           {
             "name": "COMPILER_PATH",
@@ -6625,6 +6734,13 @@
         "shape": "passthrough",
         "validate_source": true,
         "argv": [],
+        "notes": [
+          "cc wrapper — native N64 compiler from a flat vendor tree.",
+          "",
+          "The tree is a flat dump (driver, cc1, cpp, binutils) whose driver resolves",
+          "its tools through COMPILER_PATH, so the wrapper points that at the install",
+          "directory and execs the driver with the caller's arguments unchanged."
+        ],
         "env": [
           {
             "name": "COMPILER_PATH",
@@ -6706,6 +6822,13 @@
         "shape": "passthrough",
         "validate_source": true,
         "argv": [],
+        "notes": [
+          "cc wrapper — native N64 compiler from a flat vendor tree.",
+          "",
+          "The tree is a flat dump (driver, cc1, cpp, binutils) whose driver resolves",
+          "its tools through COMPILER_PATH, so the wrapper points that at the install",
+          "directory and execs the driver with the caller's arguments unchanged."
+        ],
         "env": [
           {
             "name": "COMPILER_PATH",
@@ -7766,9 +7889,26 @@
       "description": "Microsoft C 5.1 (16-bit DOS compiler, DOSBox) toolchain image",
       "entrypoint": "mscl",
       "wrapper_file": "msc51-wrapper.sh",
+      "binary": "",
+      "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "shape": "dosbox_compile",
+        "dir": "/opt/msc51",
+        "tool": "msc51",
+        "command": "set INCLUDE=C:\\\\INCLUDE\nC:\\\\BIN\\\\CL.EXE /c $FLAGS SRC.C > C:\\\\mscout.txt",
+        "log": "mscout.txt",
+        "notes": [
+          "msc51 wrapper — Microsoft C 5.1 compiler under DOSBox (shared helpers).",
+          "",
+          "Invoke:  mscl <source.c> [flags...]",
+          "",
+          "Design notes (same contract as the other 16-bit wrappers):",
+          "- CL 5.1 is a 16-bit DOS program, so the source is staged under the fixed",
+          "short name SRC.C and the object is copied back to /work as",
+          "<source-stem>.OBJ.  Compiles are object-only (/c), so no library path is",
+          "configured; INCLUDE points at the vendored tree.",
+          "- Every other argument is forwarded to CL verbatim."
+        ],
         "file": "msc51-wrapper.sh"
       }
     }
@@ -7821,9 +7961,26 @@
       "description": "Microsoft C 6.0 (16-bit DOS compiler, DOSBox) toolchain image",
       "entrypoint": "msc60",
       "wrapper_file": "msc60-wrapper.sh",
+      "binary": "",
+      "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "shape": "dosbox_compile",
+        "dir": "/opt/msc60",
+        "tool": "msc60",
+        "command": "set INCLUDE=C:\\\\INCLUDE\nC:\\\\BIN\\\\CL.EXE /c $FLAGS SRC.C > C:\\\\msc60out.txt",
+        "log": "msc60out.txt",
+        "notes": [
+          "msc60 wrapper — Microsoft C 6.0 compiler under DOSBox (shared helpers).",
+          "",
+          "Invoke:  msc60 <source.c> [flags...]",
+          "",
+          "Design notes (same contract as the other 16-bit wrappers):",
+          "- CL 6.0 is a 16-bit DOS program, so the source is staged under the fixed",
+          "short name SRC.C and the object is copied back to /work as",
+          "<source-stem>.OBJ.  Compiles are object-only (/c), so no library path is",
+          "configured; INCLUDE points at the vendored tree.",
+          "- Every other argument is forwarded to CL verbatim."
+        ],
         "file": "msc60-wrapper.sh"
       }
     }
@@ -7873,9 +8030,29 @@
       "description": "MSVC 1.0 (win16, DOSBox) toolchain image",
       "entrypoint": "cl10",
       "wrapper_file": "cl10-wrapper.sh",
+      "binary": "",
+      "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "shape": "dosbox_compile",
+        "dir": "/opt/msvc10",
+        "tool": "cl10",
+        "command": "set INCLUDE=C:\\\\INCLUDE\nset LIB=C:\\\\LIB\nC:\\\\BIN\\\\CL.EXE /nologo /c $FLAGS SRC.C > C:\\\\clout.txt",
+        "log": "clout.txt",
+        "notes": [
+          "cl10 wrapper — compile one translation unit with the vendored MSVC 1.0",
+          "tree under DOSBox (uses the shared wrapper helpers).",
+          "",
+          "Invoke:  cl10 <source.c> [flags...]",
+          "",
+          "Design notes (same contract as the other 16-bit wrappers):",
+          "- CL 1.0 is a 16-bit Phar Lap DOS program: it cannot open long",
+          "filenames (DOSBox 8.3-truncates them, C1083).  The source is staged",
+          "under the fixed short name SRC.C, and the produced object is copied",
+          "back to /work as <source-stem>.OBJ.",
+          "- All other args are forwarded to CL verbatim, so the GA flag sweep",
+          "(/O1, /Gs, ...) actually reaches the compiler.",
+          "- INCLUDE/LIB point at the vendored tree baked into the image."
+        ],
         "file": "cl10-wrapper.sh"
       }
     }
@@ -7925,9 +8102,29 @@
       "description": "MSVC 1.5 (win16, DOSBox) toolchain image",
       "entrypoint": "cl15",
       "wrapper_file": "cl15-wrapper.sh",
+      "binary": "",
+      "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "shape": "dosbox_compile",
+        "dir": "/opt/msvc15",
+        "tool": "cl15",
+        "command": "set INCLUDE=C:\\\\INCLUDE\nset LIB=C:\\\\LIB\nC:\\\\BIN\\\\CL.EXE /nologo /c $FLAGS SRC.C > C:\\\\clout.txt",
+        "log": "clout.txt",
+        "notes": [
+          "cl15 wrapper — compile one translation unit with the vendored MSVC 1.5",
+          "tree under DOSBox (uses the shared wrapper helpers).",
+          "",
+          "Invoke:  cl15 <source.c> [flags...]",
+          "",
+          "Design notes (same contract as the other 16-bit wrappers):",
+          "- CL 1.5 is a 16-bit Phar Lap DOS program: it cannot open long",
+          "filenames (DOSBox 8.3-truncates them, C1083).  The source is staged",
+          "under the fixed short name SRC.C, and the produced object is copied",
+          "back to /work as <source-stem>.OBJ.",
+          "- All other args are forwarded to CL verbatim, so the GA flag sweep",
+          "(/O1, /Gs, ...) actually reaches the compiler.",
+          "- INCLUDE/LIB point at the vendored tree baked into the image."
+        ],
         "file": "cl15-wrapper.sh"
       }
     }
@@ -7977,9 +8174,29 @@
       "description": "MSVC 1.52 (win16, DOSBox) toolchain image",
       "entrypoint": "cl16",
       "wrapper_file": "cl16-wrapper.sh",
+      "binary": "",
+      "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "shape": "dosbox_compile",
+        "dir": "/opt/msvc152",
+        "tool": "cl16",
+        "command": "set INCLUDE=C:\\\\INCLUDE\nset LIB=C:\\\\LIB\nC:\\\\BIN\\\\CL.EXE /nologo /c $FLAGS SRC.C > C:\\\\clout.txt",
+        "log": "clout.txt",
+        "notes": [
+          "cl16 wrapper — compile one translation unit with the vendored MSVC 1.52",
+          "tree under DOSBox (uses the shared wrapper helpers).",
+          "",
+          "Invoke:  cl16 <source.c> [flags...]",
+          "",
+          "Design notes (same contract as the other 16-bit wrappers):",
+          "- CL 1.52 is a 16-bit Phar Lap DOS program: it cannot open long",
+          "filenames (DOSBox 8.3-truncates them, C1083).  The source is staged",
+          "under the fixed short name SRC.C, and the produced object is copied",
+          "back to /work as <source-stem>.OBJ.",
+          "- All other args are forwarded to CL verbatim, so the GA flag sweep",
+          "(/O1, /Gs, ...) actually reaches the compiler.",
+          "- INCLUDE/LIB point at the vendored tree baked into the image."
+        ],
         "file": "cl16-wrapper.sh"
       }
     }
@@ -16877,7 +17094,7 @@
         }
       ],
       "env": {},
-      "root": "4.5-ps1",
+      "root": "psyq/4.5/bin",
       "title": "rebrew PSY-Q 4.5 (PS1)",
       "description": "PSY-Q 4.5 (gcc 2.8.1-psx + SDK headers/libs, native x86_64) toolchain image",
       "entrypoint": "cc",
@@ -18024,6 +18241,17 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.0a\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-10.0a\\\\h\\\\nt\""
         ],
+        "notes": [
+          "wcc386 wrapper — Watcom C/C++ 10.0a 32-bit compiler (Windows PE).",
+          "",
+          "Invoke:  wcc386 [flags...] <source.c>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
+        ],
         "set_e": true,
         "file": "wcc386-wrapper.sh"
       }
@@ -18090,6 +18318,17 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.0a-cxx\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-10.0a-cxx\\\\h\\\\nt\""
         ],
+        "notes": [
+          "wpp386 wrapper — Watcom C/C++ 10.0a 32-bit C++ compiler (Windows PE).",
+          "",
+          "Invoke:  wpp386 [flags...] <source.cpp>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
+        ],
         "set_e": true,
         "file": "wpp386-wrapper.sh"
       }
@@ -18154,6 +18393,17 @@
         "argv": [
           "-i=\"Z:\\\\opt\\\\watcom-10.5\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-10.5\\\\h\\\\nt\""
+        ],
+        "notes": [
+          "wcc386 wrapper — Watcom C/C++ 10.5 32-bit compiler (Windows PE).",
+          "",
+          "Invoke:  wcc386 [flags...] <source.c>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
         ],
         "set_e": true,
         "file": "wcc386-wrapper.sh"
@@ -18221,6 +18471,17 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.5-cxx\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-10.5-cxx\\\\h\\\\nt\""
         ],
+        "notes": [
+          "wpp386 wrapper — Watcom C/C++ 10.5 32-bit C++ compiler (Windows PE).",
+          "",
+          "Invoke:  wpp386 [flags...] <source.cpp>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
+        ],
         "set_e": true,
         "file": "wpp386-wrapper.sh"
       }
@@ -18285,6 +18546,17 @@
         "argv": [
           "-i=\"Z:\\\\opt\\\\watcom-10.5a\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-10.5a\\\\h\\\\nt\""
+        ],
+        "notes": [
+          "wcc386 wrapper — Watcom C/C++ 10.5a 32-bit compiler (Windows PE).",
+          "",
+          "Invoke:  wcc386 [flags...] <source.c>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
         ],
         "set_e": true,
         "file": "wcc386-wrapper.sh"
@@ -18352,6 +18624,17 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.5a-cxx\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-10.5a-cxx\\\\h\\\\nt\""
         ],
+        "notes": [
+          "wpp386 wrapper — Watcom C/C++ 10.5a 32-bit C++ compiler (Windows PE).",
+          "",
+          "Invoke:  wpp386 [flags...] <source.cpp>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
+        ],
         "set_e": true,
         "file": "wpp386-wrapper.sh"
       }
@@ -18416,6 +18699,17 @@
         "argv": [
           "-i=\"Z:\\\\opt\\\\watcom-10.6\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-10.6\\\\h\\\\nt\""
+        ],
+        "notes": [
+          "wcc386 wrapper — Watcom C/C++ 10.6 32-bit compiler (Windows PE).",
+          "",
+          "Invoke:  wcc386 [flags...] <source.c>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
         ],
         "set_e": true,
         "file": "wcc386-wrapper.sh"
@@ -18483,6 +18777,17 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.6-cxx\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-10.6-cxx\\\\h\\\\nt\""
         ],
+        "notes": [
+          "wpp386 wrapper — Watcom C/C++ 10.6 32-bit C++ compiler (Windows PE).",
+          "",
+          "Invoke:  wpp386 [flags...] <source.cpp>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
+        ],
         "set_e": true,
         "file": "wpp386-wrapper.sh"
       }
@@ -18547,6 +18852,17 @@
         "argv": [
           "-i=\"Z:\\\\opt\\\\watcom-11.0\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-11.0\\\\h\\\\nt\""
+        ],
+        "notes": [
+          "wcc386 wrapper — Watcom C/C++ 11.0 32-bit compiler (Windows PE).",
+          "",
+          "Invoke:  wcc386 [flags...] <source.c>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
         ],
         "set_e": true,
         "file": "wcc386-wrapper.sh"
@@ -18614,6 +18930,17 @@
           "-i=\"Z:\\\\opt\\\\watcom-11.0-cxx\\\\h\"",
           "-i=\"Z:\\\\opt\\\\watcom-11.0-cxx\\\\h\\\\nt\""
         ],
+        "notes": [
+          "wpp386 wrapper — Watcom C/C++ 11.0 32-bit C++ compiler (Windows PE).",
+          "",
+          "Invoke:  wpp386 [flags...] <source.cpp>",
+          "",
+          "The compiler is a Windows binary, so it runs through the shared",
+          "wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal",
+          "loader decomp.me's own images rely on) under the common watchdog.  The",
+          "header search paths are baked in as Windows-style Z: paths because Watcom",
+          "rejects Unix '/' in them."
+        ],
         "set_e": true,
         "file": "wpp386-wrapper.sh"
       }
@@ -18674,6 +19001,17 @@
         "shape": "passthrough",
         "validate_source": false,
         "argv": [],
+        "notes": [
+          "wcc wrapper — native 16-bit Open Watcom compiler under the shared watchdog",
+          "contract (uses the wrapper-common helpers).",
+          "",
+          "Invoke:  wcc [flags...] <source.c>",
+          "",
+          "wcc is a native Linux binary, so there is no PE loader to select and",
+          "REBREW_RUNNER does not apply.  The run is still capped by",
+          "REBREW_RUNNER_TIMEOUT (seconds, default 600) so a hung compile fails",
+          "loudly like every other entrypoint."
+        ],
         "set_e": true,
         "file": "wcc-wrapper.sh"
       }
@@ -18735,6 +19073,17 @@
         "shape": "passthrough",
         "validate_source": false,
         "argv": [],
+        "notes": [
+          "wcc386 wrapper — native Open Watcom compiler under the shared watchdog",
+          "contract (uses the wrapper-common helpers).",
+          "",
+          "Invoke:  wcc386 [flags...] <source.c>",
+          "",
+          "wcc386 is a native Linux binary, so there is no PE loader to select and",
+          "REBREW_RUNNER does not apply.  The run is still capped by",
+          "REBREW_RUNNER_TIMEOUT (seconds, default 600) so a hung compile fails",
+          "loudly like every other entrypoint."
+        ],
         "set_e": true,
         "file": "wcc386-wrapper.sh"
       }

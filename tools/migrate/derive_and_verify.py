@@ -502,10 +502,11 @@ def _join_continuations(text: str) -> list[str]:
     out: list[str] = []
     buf = ""
     for raw in text.splitlines():
-        line = raw.rstrip()
-        if not buf and (not line.strip() or line.lstrip().startswith("#")):
+        stripped = raw.strip()
+        # a comment is a comment, inside a continuation or not — joining one
+        # into the command swallows whatever follows it on that command
+        if not stripped or stripped.startswith("#"):
             continue
-        stripped = line.strip()
         buf = f"{buf} {stripped}" if buf else stripped
         if buf.endswith("\\"):
             buf = buf[:-1].rstrip()
@@ -517,8 +518,69 @@ def _join_continuations(text: str) -> list[str]:
     return out
 
 
+def _prose(wtext: str) -> list[str]:
+    """The wrapper's leading comment block, minus the shebang and the
+    shellcheck directive.
+
+    It is recipe data: the prose says how the compiler has to be driven and why
+    (`Watcom rejects Unix '/' in the header paths`, `CL 1.52 cannot open long
+    filenames`), so a generated wrapper that drops it is a documentation
+    regression — which is exactly what happened to 18 wrappers until the
+    comparison stopped skipping comments.
+    """
+    notes: list[str] = []
+    for raw in wtext.splitlines():
+        stripped = raw.strip()
+        if stripped.startswith("#!"):
+            continue
+        if stripped.startswith("# shellcheck"):
+            break
+        if stripped.startswith("#"):
+            notes.append(stripped[1:].strip())
+            continue
+        if stripped:
+            break
+    while notes and not notes[-1]:
+        notes.pop()
+    return notes
+
+
+def classify_dosbox_compile(wtext: str) -> dict[str, object] | None:
+    """The DOSBox compile shape: `rebrew_dosbox_compile <dir> <tag> "<cmd>" <log>`.
+
+    The wrapper's prose header is part of the recipe (`notes`): it is the
+    documentation for the image's entrypoint, and generating the file without
+    it would quietly delete nine paragraphs of it.
+    """
+    call = re.search(
+        r"rebrew_dosbox_compile (\S+) (\S+) \\\n"
+        r'    "(.*?)" \\\n'
+        r"    (\S+)\s*$",
+        wtext,
+        re.DOTALL,
+    )
+    if not call:
+        return None
+    return {
+        "shape": "dosbox_compile",
+        "dir": call.group(1),
+        "tool": call.group(2),
+        "command": call.group(3),
+        "log": call.group(4),
+        "notes": _prose(wtext),
+    }
+
+
 def classify_wrapper(rec: Recipe, wtext: str) -> tuple[dict[str, object], str, str] | None:
-    body = [line.strip() for line in _join_continuations(wtext) if line.strip()]
+    dosbox = classify_dosbox_compile(wtext)
+    if dosbox is not None:
+        # this shape names its toolchain itself, so root/binary stay unused
+        return dosbox, str(rec.get("root") or ""), ""
+    body = [
+        line.strip()
+        for line in _join_continuations(wtext)
+        if line.strip() and not line.strip().startswith("#")
+    ]
     body = [
         line
         for line in body
@@ -589,6 +651,9 @@ def classify_wrapper(rec: Recipe, wtext: str) -> tuple[dict[str, object], str, s
         "validate_source": "rebrew_pick_source" in wtext,
         "argv": argv,
     }
+    notes = _prose(wtext)
+    if notes:
+        shape["notes"] = notes
     if "set -e" in wtext:
         shape["set_e"] = True
     if wrap_env:

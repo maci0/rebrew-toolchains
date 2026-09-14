@@ -45,7 +45,7 @@ import generate  # noqa: E402
 
 #: Wrapper shapes this branch can express.  Everything else keeps its
 #: hand-written wrapper and is listed by the test that guards this list.
-EXPRESSIBLE = {"passthrough"}
+EXPRESSIBLE = {"passthrough", "dosbox_compile"}
 
 
 #: Wrappers that were printf'd inline in a Dockerfile were never linted, so
@@ -179,7 +179,10 @@ def main() -> int:
             handwritten.append((profile, why))
         else:
             wrapper, root, binary = shape
-            rec["root"], rec["binary"] = root, binary
+            if root:
+                rec["root"] = root
+            if binary:
+                rec["binary"] = binary
             if name:
                 wrapper["file"] = name
             rec["wrapper"] = wrapper

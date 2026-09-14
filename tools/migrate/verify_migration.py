@@ -31,7 +31,6 @@ sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "tools" / "migrate"))
 
 from derive_and_verify import (  # noqa: E402
-    _join_continuations,
     instructions,
     semantics,
     wrapper_text,
@@ -132,19 +131,43 @@ def install_clauses(text: str) -> list[str]:
 
 
 def wrapper_lines(directory: pathlib.Path) -> list[str]:
-    """The wrapper's shell lines, exactly as written.
+    """The wrapper, exactly as written — commands *and* prose.
 
     Compared as text for the same reason the install clauses are: the
     classified wrapper comparison sorts the tokens of a `rebrew_…` call, which
     would hide a swapped argument, and an argument is the whole point of a
-    compiler wrapper.
+    compiler wrapper.  Comments are kept too (minus the generator's own
+    header): the wrapper's prose says how the compiler has to be driven, and a
+    generated file that drops a paragraph is a documentation regression, not a
+    formatting difference.
     """
     _, text = wrapper_text(directory)
-    out = []
-    for line in _join_continuations(text):
-        stripped = re.sub(r"\s+", " ", line.strip())
-        if stripped and not stripped.startswith("#"):
+    out: list[str] = []
+    buf = ""
+    for raw in text.splitlines():
+        stripped = re.sub(r"\s+", " ", raw.strip())
+        if not stripped or stripped == "#":
+            continue
+        if stripped.startswith("#!"):
+            continue
+        if stripped.startswith("#"):
+            # prose is its own entry; a comment inside a continued command does
+            # not continue it
+            if buf:
+                out.append(buf)
+                buf = ""
+            if stripped.startswith((generate.MARKER, "# Entrypoint —", "# shellcheck source=")):
+                continue
             out.append(stripped)
+            continue
+        buf = f"{buf} {stripped}" if buf else stripped
+        if buf.endswith("\\"):
+            buf = buf[:-1].rstrip()
+            continue
+        out.append(buf)
+        buf = ""
+    if buf:
+        out.append(buf)
     return out
 
 

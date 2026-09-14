@@ -1,6 +1,15 @@
 #!/bin/sh
 # Generated from sources.json by generate.py — do not edit; run `make generate`.
 # Entrypoint — watcom/10.0a-win32
+# wcc386 wrapper — Watcom C/C++ 10.0a 32-bit compiler (Windows PE).
+#
+# Invoke:  wcc386 [flags...] <source.c>
+#
+# The compiler is a Windows binary, so it runs through the shared
+# wine/wibo dispatcher (wine by default; REBREW_RUNNER=wibo uses the minimal
+# loader decomp.me's own images rely on) under the common watchdog.  The
+# header search paths are baked in as Windows-style Z: paths because Watcom
+# rejects Unix '/' in them.
 #
 # shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh

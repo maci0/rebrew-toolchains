@@ -1,4 +1,6 @@
 #!/bin/sh
+# Generated from sources.json by generate.py — do not edit; run `make generate`.
+# Entrypoint — borland/3.1-win16
 # tc16 wrapper — compile one translation unit with the vendored Turbo C++ 3.1
 # tree under DOSBox (uses the shared wrapper helpers).
 #
@@ -6,12 +8,13 @@
 #
 # Design notes (same contract as the other 16-bit wrappers):
 # - TCC 3.1 is a 16-bit DOS program.  The source is staged under the fixed
-#   short name SRC.C, and the produced object is copied back to /work as
-#   <source-stem>.OBJ.
+# short name SRC.C, and the produced object is copied back to /work as
+# <source-stem>.OBJ.
 # - All other args are forwarded to TCC verbatim, so the GA flag sweep
-#   (-O1, -G1, ...) actually reaches the compiler.
+# (-O1, -G1, ...) actually reaches the compiler.
 # - The vendored include dir reaches TCC via -I\INCLUDE; compiles are -c
-#   object-only, so no library path is configured.
+# object-only, so no library path is configured.
+#
 # shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
 

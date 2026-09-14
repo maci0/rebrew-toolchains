@@ -26,10 +26,6 @@ _REPO = Path(__file__).resolve().parents[1]
 #: on one line were the first to leave this list, once the classifier learned
 #: that spelling.
 _HANDWRITTEN = (
-    "borland-2.0",
-    "borland-2.0-decompme",
-    "borland-3.1",
-    "borland-3.1-decompme",
     "delphi-1.0",
     "gcc-2.7.2-sn0001",
     "gcc-2.7.2-sn0001-cxx",
@@ -46,11 +42,6 @@ _HANDWRITTEN = (
     "gcc-4.0.1-5370",
     "icc-5.0.1-010525z",
     "ido-4.1",
-    "msc-5.1",
-    "msc-6.0",
-    "msvc-1.0",
-    "msvc-1.5",
-    "msvc-1.52",
     "psp-gcc-1.3.1",
     "psyq-2.6.3-221",
     "psyq-3.3",

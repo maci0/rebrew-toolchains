@@ -1,4 +1,6 @@
 #!/bin/sh
+# Generated from sources.json by generate.py — do not edit; run `make generate`.
+# Entrypoint — msvc/1.0-win16
 # cl10 wrapper — compile one translation unit with the vendored MSVC 1.0
 # tree under DOSBox (uses the shared wrapper helpers).
 #
@@ -6,12 +8,13 @@
 #
 # Design notes (same contract as the other 16-bit wrappers):
 # - CL 1.0 is a 16-bit Phar Lap DOS program: it cannot open long
-#   filenames (DOSBox 8.3-truncates them, C1083).  The source is staged
-#   under the fixed short name SRC.C, and the produced object is copied
-#   back to /work as <source-stem>.OBJ.
+# filenames (DOSBox 8.3-truncates them, C1083).  The source is staged
+# under the fixed short name SRC.C, and the produced object is copied
+# back to /work as <source-stem>.OBJ.
 # - All other args are forwarded to CL verbatim, so the GA flag sweep
-#   (/O1, /Gs, ...) actually reaches the compiler.
+# (/O1, /Gs, ...) actually reaches the compiler.
 # - INCLUDE/LIB point at the vendored tree baked into the image.
+#
 # shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
 

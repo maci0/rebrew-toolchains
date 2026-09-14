@@ -324,14 +324,22 @@ def render_wrapper(profile: str, entry: dict[str, object]) -> str:
         return _wrapper_passthrough(profile, entry, wrapper)
     if shape == "normalising":
         return _wrapper_normalising(entry, wrapper)
+    if shape == "dosbox_compile":
+        return _wrapper_dosbox_compile(entry, wrapper)
     raise ValueError(f"{profile}: wrapper shape {shape!r} is not expressible; mark it handwritten")
 
 
-def _head(entry: dict[str, object], what: str) -> list[str]:
+def _head(entry: dict[str, object], what: str, wrapper: dict[str, object]) -> list[str]:
+    """The wrapper's opening block: marker, entrypoint line, then its prose.
+
+    The prose is the wrapper's documentation and lives in the recipe as
+    `notes`; it sits between the generated header and the shellcheck directive,
+    where a reader looks for it.
+    """
+    lines = ["#!/bin/sh", MARKER, f"# {what} — {_text(entry, 'host_dir')}"]
+    lines.extend(f"# {note}".rstrip() for note in _list(wrapper.get("notes")))
     return [
-        "#!/bin/sh",
-        MARKER,
-        f"# {what} — {_text(entry, 'host_dir')}",
+        *lines,
         "#",
         "# shellcheck source=base/wrapper-common.sh",
         ". /usr/local/lib/rebrew/wrapper-common.sh",
@@ -347,7 +355,7 @@ def _wrapper_passthrough(profile: str, entry: dict[str, object], wrapper: dict[s
     _require(binary, f"{profile}: passthrough wrapper needs a binary")
     argv = " ".join(str(a) for a in _list(wrapper.get("argv")))
 
-    lines = _head(entry, "Entrypoint")
+    lines = _head(entry, "Entrypoint", wrapper)
     if wrapper.get("set_e"):
         lines.append("set -e")
     if wrapper.get("validate_source"):
@@ -384,6 +392,27 @@ def _wrapper_passthrough(profile: str, entry: dict[str, object], wrapper: dict[s
     return "\n".join(lines) + "\n"
 
 
+def _wrapper_dosbox_compile(entry: dict[str, object], wrapper: dict[str, object]) -> str:
+    """A 16-bit compiler run through the shared DOSBox compile flow.
+
+    Nine images do exactly this and differ only in data: the toolchain's home
+    in the image, the tag DOSBox mounts it under, the DOS command line, the log
+    file it writes, and the prose at the top of the wrapper (which is recipe
+    data — `notes` — because a good wrapper says what it is doing and why).
+    """
+    lines = _head(entry, "Entrypoint", wrapper)
+    lines += [
+        "set -e",
+        'rebrew_pick_source "$@"',
+        'rebrew_flags_except_source "$@"',
+        "",
+        f"rebrew_dosbox_compile {_text(wrapper, 'dir')} {_text(wrapper, 'tool')} \\",
+        f'    "{_text(wrapper, "command")}" \\',
+        f"    {_text(wrapper, 'log')}",
+    ]
+    return "\n".join(lines) + "\n"
+
+
 def _wrapper_normalising(entry: dict[str, object], wrapper: dict[str, object]) -> str:
     """-o/-c argv normalisation shared by the compilers that need it."""
     rec = recipe(entry)
@@ -392,7 +421,7 @@ def _wrapper_normalising(entry: dict[str, object], wrapper: dict[str, object]) -
     default_ext = _text(wrapper, "default_extension") or "o"
     compile_flag = _text(wrapper, "compile_flag") or "-c"
     prefix = " ".join(str(a) for a in _list(wrapper.get("argv")))
-    lines = _head(entry, "Entrypoint")
+    lines = _head(entry, "Entrypoint", wrapper)
     lines += [
         'rebrew_pick_source "$@"',
         "",
