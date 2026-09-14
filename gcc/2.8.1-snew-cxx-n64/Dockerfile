@@ -33,8 +33,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /opt/gcc-2.8.1-snew-cxx-n64/moder
 RUN rm -rf /var/lib/apt/lists/* \
     && mkdir -p /opt/gcc-2.8.1-snew-cxx-n64 \
     && chmod +x /opt/gcc-2.8.1-snew-cxx-n64/*.exe \
-    && chmod +x /opt/gcc-2.8.1-snew-cxx-n64/modern-asn64.py \
-    && chmod +x /usr/local/bin/cc
+    && chmod +x /opt/gcc-2.8.1-snew-cxx-n64/modern-asn64.py
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

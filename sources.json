@@ -1279,10 +1279,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/tc20/BIN/TCC.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/tcc"
         }
       ],
       "env": {},
@@ -1338,10 +1334,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/bcc2.0dm/bin/bcc.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/bcc"
         }
       ],
       "env": {},
@@ -1394,10 +1386,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/tc31/BIN/TCC.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/tcc"
         }
       ],
       "env": {},
@@ -1453,10 +1441,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/bcc3.1dm/bin/bcc.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/bcc"
         }
       ],
       "env": {},
@@ -1509,10 +1493,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/bcc55/Bin/bcc32.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/bcc"
         }
       ],
       "env": {},
@@ -1577,10 +1557,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/bcc56/BIN/BCC32.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/bcc"
         }
       ],
       "env": {},
@@ -2102,10 +2078,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/delphi10/DCC.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/dcc"
         }
       ],
       "env": {},
@@ -4344,10 +4316,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-2.7.2-sn0001/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -4431,10 +4399,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-2.7.2-sn0001-cxx-n64/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -4521,10 +4485,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-2.7.2-sn0004/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -4608,10 +4568,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-2.7.2-sn0006/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -4695,10 +4651,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-2.7.2-sn0006-cxx-n64/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -4773,10 +4725,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-2.7.2-snew/*.py /opt/gcc-2.7.2-snew/cc1"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -5566,10 +5514,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-2.8.1-sn/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -5660,10 +5604,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-2.8.1-sn-cxx-n64/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -5740,10 +5680,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-2.8.1-snew-cxx-n64/modern-asn64.py"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -6245,10 +6181,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-3.1-1041/cc1 /opt/gcc-3.1-1041/convert_gas_syntax.py"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -6305,10 +6237,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/rh8/bin/i386-redhat-linux-gcc"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/gcc"
         }
       ],
       "env": {},
@@ -6394,10 +6322,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-4.0.0-5026/cc1 /opt/gcc-4.0.0-5026/convert_gas_syntax.py"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -6467,10 +6391,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-4.0.1-5363/cc1 /opt/gcc-4.0.1-5363/convert_gas_syntax.py"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -6540,10 +6460,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/gcc-4.0.1-5370/powerpc-darwin-cross/bin/cc1 /opt/gcc-4.0.1-5370/convert_gas_syntax.py"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -6603,10 +6519,6 @@
         {
           "op": "rm",
           "cmd": "rm -rf /tmp/tools"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -6675,10 +6587,6 @@
         {
           "op": "rm",
           "cmd": "rm -rf /tmp/tools"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -6760,10 +6668,6 @@
         {
           "op": "rm",
           "cmd": "rm -rf /tmp/tools"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -6888,10 +6792,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/icc-5.0.1/Bin/icl.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/icl"
         }
       ],
       "env": {
@@ -6959,10 +6859,6 @@
         {
           "op": "check_run",
           "cmd": "/opt/ido-4.1/usr/bin/qemu-irix-4.0 --version 2>&1 | head -1 || true"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -7835,10 +7731,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/msc51/BIN/CL.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/mscl"
         }
       ],
       "env": {},
@@ -7894,10 +7786,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/msc60/BIN/CL.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/msc60"
         }
       ],
       "env": {},
@@ -7950,10 +7838,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/msvc10/BIN/CL.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cl10"
         }
       ],
       "env": {},
@@ -8006,10 +7890,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/msvc15/BIN/CL.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cl15"
         }
       ],
       "env": {},
@@ -8062,10 +7942,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/msvc152/BIN/CL.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cl16"
         }
       ],
       "env": {},
@@ -16044,10 +15920,6 @@
         {
           "op": "guard",
           "cmd": "find /opt/psp-gcc-1.3.1 -name cc1 | grep ."
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -16160,10 +16032,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/psyq-2.6.3/*.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -16239,10 +16107,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/psyq-3.3/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -16318,10 +16182,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/psyq-3.5/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -16397,10 +16257,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/psyq-3.6/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -16483,10 +16339,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/psyq-4.0/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -16572,10 +16424,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/psyq-4.1/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -16661,10 +16509,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/psyq-4.3/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -16750,10 +16594,6 @@
         {
           "op": "chmod",
           "cmd": "chmod +x /opt/psyq-4.4/psyq-obj-parser"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {
@@ -17037,10 +16877,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/saturn-cygnus/OBJCOPY.EXE"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/cc"
         }
       ],
       "env": {},
@@ -18020,10 +17856,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-10.0a/binnt/wcc386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wcc386"
         }
       ],
       "env": {
@@ -18089,10 +17921,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-10.0a-cxx/binnt/wpp386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wpp386"
         }
       ],
       "env": {
@@ -18158,10 +17986,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-10.5/binnt/wcc386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wcc386"
         }
       ],
       "env": {
@@ -18227,10 +18051,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-10.5-cxx/binnt/wpp386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wpp386"
         }
       ],
       "env": {
@@ -18296,10 +18116,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-10.5a/binnt/wcc386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wcc386"
         }
       ],
       "env": {
@@ -18365,10 +18181,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-10.5a-cxx/binnt/wpp386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wpp386"
         }
       ],
       "env": {
@@ -18434,10 +18246,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-10.6/binnt/wcc386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wcc386"
         }
       ],
       "env": {
@@ -18503,10 +18311,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-10.6-cxx/binnt/wpp386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wpp386"
         }
       ],
       "env": {
@@ -18572,10 +18376,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-11.0/binnt/wcc386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wcc386"
         }
       ],
       "env": {
@@ -18641,10 +18441,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom-11.0-cxx/binnt/wpp386.exe"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wpp386"
         }
       ],
       "env": {
@@ -18707,10 +18503,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom/binl/wcc"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wcc"
         }
       ],
       "env": {
@@ -18771,10 +18563,6 @@
         {
           "op": "guard",
           "cmd": "ls /opt/watcom/binl/wcc386"
-        },
-        {
-          "op": "chmod",
-          "cmd": "chmod +x /usr/local/bin/wcc386"
         }
       ],
       "env": {

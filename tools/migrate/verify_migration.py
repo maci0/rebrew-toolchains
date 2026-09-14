@@ -78,7 +78,17 @@ def diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
     # delivery differs while the wrapper *text* — compared as wrapper_cmds
     # below — is identical.  copy_sources() checks the new COPY actually has
     # a file to copy, which is the failure this would otherwise hide.
-    keys = ("base", "apt", "pins", "env", "labels", "entrypoint", "user", "workdir")
+    keys = (
+        "base",
+        "apt",
+        "pins",
+        "env",
+        "labels",
+        "delivery",
+        "entrypoint",
+        "user",
+        "workdir",
+    )
     out = [
         f"{key}: {old.get(key)!r} -> {new.get(key)!r}"
         for key in keys

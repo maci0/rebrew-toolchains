@@ -28,8 +28,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && mkdir -p /opt/gcc-2.7.2-snew /tmp/tools \
     && tar xzf /tmp/tools/sn64-new.tar.gz -C /opt/gcc-2.7.2-snew \
     && rm -rf /tmp/tools \
-    && chmod +x /opt/gcc-2.7.2-snew/*.py /opt/gcc-2.7.2-snew/cc1 \
-    && chmod +x /usr/local/bin/cc
+    && chmod +x /opt/gcc-2.7.2-snew/*.py /opt/gcc-2.7.2-snew/cc1
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

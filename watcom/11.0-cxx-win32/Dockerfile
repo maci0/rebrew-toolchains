@@ -22,8 +22,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/watcom/watcom.tar.gz \
 RUN mkdir -p /opt/watcom-11.0-cxx /tmp/watcom \
     && tar xzf /tmp/watcom/watcom.tar.gz -C /opt/watcom-11.0-cxx \
     && rm -rf /tmp/watcom \
-    && ls /opt/watcom-11.0-cxx/binnt/wpp386.exe \
-    && chmod +x /usr/local/bin/wpp386
+    && ls /opt/watcom-11.0-cxx/binnt/wpp386.exe
 
 COPY wpp386-wrapper.sh /usr/local/bin/wpp386
 RUN chmod +x /usr/local/bin/wpp386

@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc10.tar.gz \
 RUN mkdir -p /opt/msvc10 \
     && tar xzf /tmp/msvc10.tar.gz --strip-components=1 -C /opt/msvc10 \
     && rm /tmp/msvc10.tar.gz \
-    && ls /opt/msvc10/BIN/CL.EXE \
-    && chmod +x /usr/local/bin/cl10
+    && ls /opt/msvc10/BIN/CL.EXE
 
 COPY cl10-wrapper.sh /usr/local/bin/cl10
 RUN chmod +x /usr/local/bin/cl10

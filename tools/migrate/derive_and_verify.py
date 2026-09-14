@@ -92,6 +92,7 @@ class Semantics(TypedDict):
     env: dict[str, str]
     labels: dict[str, str]
     copies: list[str]
+    delivery: list[str]
     entrypoint: str
     wrapper_cmds: list[str]
 
@@ -107,6 +108,7 @@ def semantics(d: pathlib.Path) -> Semantics:
     env: dict[str, str] = {}
     labels: dict[str, str] = {}
     copies: list[str] = []
+    delivery: list[str] = []
     entrypoint = ""
     for ins in instructions(text):
         verb = ins.split(" ", 1)[0].upper()
@@ -153,6 +155,13 @@ def semantics(d: pathlib.Path) -> Semantics:
                     continue
                 op = classify(cmd)
                 if op is not None and op.get("op") not in {"script", "apt_meta"}:
+                    if _is_entrypoint_chmod(op):
+                        # counted, not deduped: the entrypoint must be made
+                        # executable exactly once, after the COPY that puts it
+                        # there.  Deduping this is what hid 53 images whose
+                        # install step chmod'd a file that did not exist yet.
+                        delivery.append(_norm_op(cmd))
+                        continue
                     ops.append(json.dumps(op, sort_keys=True))
                 else:
                     ops.append(_norm_op(cmd))
@@ -177,6 +186,7 @@ def semantics(d: pathlib.Path) -> Semantics:
         "env": env,
         "labels": labels,
         "copies": copies,
+        "delivery": delivery,
         "entrypoint": entrypoint,
         "wrapper_cmds": wrapper_cmds,
     }
@@ -333,6 +343,12 @@ def classify(cmd: str) -> dict[str, object] | None:
     return {"op": "script", "run": cmd}
 
 
+def _is_entrypoint_chmod(op: dict[str, object]) -> bool:
+    """True for the `chmod +x /usr/local/bin/<entrypoint>` delivery step."""
+    cmd = " ".join(str(part) for part in (op.get("cmd"), op.get("path")) if part)
+    return "chmod" in cmd and "/usr/local/bin/" in cmd
+
+
 def _paths(step: dict[str, object]) -> list[str]:
     """The paths a ``mkdir``-style step names (empty when it names none)."""
     value = step.get("paths")
@@ -393,6 +409,13 @@ def derive(
                     continue
                 op = classify(cmd)
                 if op is None or op["op"] == "apt_meta":
+                    continue
+                if _is_entrypoint_chmod(op):
+                    # Making the entrypoint executable is how the image
+                    # delivers its wrapper (COPY then chmod); the generator
+                    # emits that itself, so deriving it here would render it
+                    # twice — and the first one runs before the COPY, where
+                    # the file does not exist yet.
                     continue
                 if op["op"] == "apt":
                     packages = op["packages"]

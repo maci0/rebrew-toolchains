@@ -23,8 +23,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/ow.tar.xz \
 RUN mkdir -p /opt/watcom \
     && tar xJf /tmp/ow.tar.xz --strip-components=1 -C /opt/watcom \
     && rm /tmp/ow.tar.xz \
-    && ls /opt/watcom/binl/wcc \
-    && chmod +x /usr/local/bin/wcc
+    && ls /opt/watcom/binl/wcc
 
 COPY wcc-wrapper.sh /usr/local/bin/wcc
 RUN chmod +x /usr/local/bin/wcc

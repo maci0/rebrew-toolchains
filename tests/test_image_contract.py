@@ -101,6 +101,32 @@ class TestManifest(unittest.TestCase):
 
 
 class TestImageContract(unittest.TestCase):
+    def test_entrypoint_is_chmodded_after_it_is_copied(self) -> None:
+        """The wrapper is COPYed in, then made executable.
+
+        A `chmod +x /usr/local/bin/<entrypoint>` in the install steps runs
+        before the COPY, when there is no such file — the image fails to
+        build.  It is a cheap contract to state and needs no Docker daemon to
+        check, which is why it caught nothing until the smoke run did.
+        """
+        for d in _toolchain_dirs():
+            lines = (d / "Dockerfile").read_text(encoding="utf-8").splitlines()
+            copied = next(
+                (
+                    i
+                    for i, line in enumerate(lines)
+                    if line.startswith("COPY ") and "/usr/local/bin/" in line
+                ),
+                None,
+            )
+            if copied is None:
+                continue
+            for index, line in enumerate(lines):
+                if "chmod +x /usr/local/bin/" in line:
+                    self.assertGreater(
+                        index, copied, f"{d}: chmod of the entrypoint before its COPY"
+                    )
+
     def test_carries_the_oci_labels(self) -> None:
         for d in _toolchain_dirs():
             text = (d / "Dockerfile").read_text(encoding="utf-8")

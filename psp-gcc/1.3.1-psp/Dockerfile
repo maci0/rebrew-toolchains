@@ -25,8 +25,7 @@ RUN mkdir -p /opt/psp-gcc-1.3.1 /tmp/psp \
     && chmod -R a+rX /opt/psp-gcc-1.3.1 \
     && mkdir -p /usr/local/psp \
     && ln -s /opt/psp-gcc-1.3.1 /usr/local/psp/devkit \
-    && find /opt/psp-gcc-1.3.1 -name cc1 | grep . \
-    && chmod +x /usr/local/bin/cc
+    && find /opt/psp-gcc-1.3.1 -name cc1 | grep .
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

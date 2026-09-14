@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/rh8/rh8.tar.gz \
 RUN mkdir -p /opt/rh8 /tmp/rh8 \
     && tar xzf /tmp/rh8/rh8.tar.gz -C /opt/rh8 \
     && rm -rf /tmp/rh8 \
-    && ls /opt/rh8/bin/i386-redhat-linux-gcc \
-    && chmod +x /usr/local/bin/gcc
+    && ls /opt/rh8/bin/i386-redhat-linux-gcc
 
 COPY gcc-wrapper.sh /usr/local/bin/gcc
 RUN chmod +x /usr/local/bin/gcc

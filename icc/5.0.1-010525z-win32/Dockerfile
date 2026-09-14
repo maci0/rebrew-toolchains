@@ -22,8 +22,7 @@ RUN mkdir -p /opt/icc-5.0.1 \
     && tar xzf /tmp/icc.tar.gz -C /opt/icc-5.0.1 \
     && rm /tmp/icc.tar.gz \
     && chmod +x /opt/icc-5.0.1/Bin/*.exe \
-    && ls /opt/icc-5.0.1/Bin/icl.exe \
-    && chmod +x /usr/local/bin/icl
+    && ls /opt/icc-5.0.1/Bin/icl.exe
 
 COPY icl-wrapper.sh /usr/local/bin/icl
 RUN chmod +x /usr/local/bin/icl

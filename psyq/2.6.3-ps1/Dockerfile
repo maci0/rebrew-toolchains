@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/psyq.tar.gz \
 RUN mkdir -p /opt/psyq-2.6.3 \
     && tar xzf /tmp/psyq.tar.gz -C /opt/psyq-2.6.3 \
     && rm /tmp/psyq.tar.gz \
-    && chmod +x /opt/psyq-2.6.3/*.EXE \
-    && chmod +x /usr/local/bin/cc
+    && chmod +x /opt/psyq-2.6.3/*.EXE
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

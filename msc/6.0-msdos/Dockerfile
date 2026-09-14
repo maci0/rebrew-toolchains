@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msc/msc.tar.gz \
 RUN mkdir -p /opt/msc60 /tmp/msc \
     && tar xzf /tmp/msc/msc.tar.gz -C /opt/msc60 \
     && rm -rf /tmp/msc \
-    && ls /opt/msc60/BIN/CL.EXE \
-    && chmod +x /usr/local/bin/msc60
+    && ls /opt/msc60/BIN/CL.EXE
 
 COPY msc60-wrapper.sh /usr/local/bin/msc60
 RUN chmod +x /usr/local/bin/msc60

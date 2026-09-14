@@ -20,8 +20,7 @@ RUN mkdir -p /opt/delphi10/DELPHI \
     && tar xzf /tmp/delphi10.tar.gz --strip-components=1 -C /opt/delphi10 \
     && rm /tmp/delphi10.tar.gz \
     && mv /opt/delphi10/delphi-lib /opt/delphi10/DELPHI/LIB \
-    && ls /opt/delphi10/DCC.EXE \
-    && chmod +x /usr/local/bin/dcc
+    && ls /opt/delphi10/DCC.EXE
 
 COPY dcc-wrapper.sh /usr/local/bin/dcc
 RUN chmod +x /usr/local/bin/dcc

@@ -25,8 +25,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && tar xzf /tmp/ido41.tar.gz -C /opt/ido-4.1 \
     && rm /tmp/ido41.tar.gz \
     && chmod +x /opt/ido-4.1/usr/bin/qemu-irix-4.0 \
-    && /opt/ido-4.1/usr/bin/qemu-irix-4.0 --version 2>&1 | head -1 || true \
-    && chmod +x /usr/local/bin/cc
+    && /opt/ido-4.1/usr/bin/qemu-irix-4.0 --version 2>&1 | head -1 || true
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

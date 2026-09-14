@@ -24,8 +24,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && mkdir -p /opt/gcc-egcs-1.1.2-4c /tmp/tools \
     && tar xzf /tmp/tools/mips-gcc-egcs.tar.gz -C /opt/gcc-egcs-1.1.2-4c \
     && tar xzf /tmp/tools/binutils-egcs.tar.gz -C /opt/gcc-egcs-1.1.2-4c \
-    && rm -rf /tmp/tools \
-    && chmod +x /usr/local/bin/cc
+    && rm -rf /tmp/tools
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

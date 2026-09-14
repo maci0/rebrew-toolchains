@@ -36,8 +36,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && chmod +x /opt/gcc-2.7.2-sn0004/*.exe \
     && tar xzf /tmp/parser.tar.gz -C /opt/gcc-2.7.2-sn0004 \
     && rm /tmp/parser.tar.gz \
-    && chmod +x /opt/gcc-2.7.2-sn0004/psyq-obj-parser \
-    && chmod +x /usr/local/bin/cc
+    && chmod +x /opt/gcc-2.7.2-sn0004/psyq-obj-parser
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

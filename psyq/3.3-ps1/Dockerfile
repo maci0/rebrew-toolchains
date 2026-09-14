@@ -26,8 +26,7 @@ RUN mkdir -p /opt/psyq-3.3 \
     && chmod +x /opt/psyq-3.3/*.EXE \
     && tar xzf /tmp/parser.tar.gz -C /opt/psyq-3.3 \
     && rm /tmp/parser.tar.gz \
-    && chmod +x /opt/psyq-3.3/psyq-obj-parser \
-    && chmod +x /usr/local/bin/cc
+    && chmod +x /opt/psyq-3.3/psyq-obj-parser
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

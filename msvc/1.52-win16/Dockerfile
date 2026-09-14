@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc152.tar.gz \
 RUN mkdir -p /opt/msvc152 \
     && tar xzf /tmp/msvc152.tar.gz --strip-components=1 -C /opt/msvc152 \
     && rm /tmp/msvc152.tar.gz \
-    && ls /opt/msvc152/BIN/CL.EXE \
-    && chmod +x /usr/local/bin/cl16
+    && ls /opt/msvc152/BIN/CL.EXE
 
 COPY cl16-wrapper.sh /usr/local/bin/cl16
 RUN chmod +x /usr/local/bin/cl16

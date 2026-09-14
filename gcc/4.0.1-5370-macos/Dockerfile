@@ -28,8 +28,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && mkdir -p /opt/gcc-4.0.1-5370 /tmp/tools \
     && tar xzf /tmp/tools/gcc-5370.tar.gz -C /opt/gcc-4.0.1-5370 \
     && rm -rf /tmp/tools \
-    && chmod +x /opt/gcc-4.0.1-5370/powerpc-darwin-cross/bin/cc1 /opt/gcc-4.0.1-5370/convert_gas_syntax.py \
-    && chmod +x /usr/local/bin/cc
+    && chmod +x /opt/gcc-4.0.1-5370/powerpc-darwin-cross/bin/cc1 /opt/gcc-4.0.1-5370/convert_gas_syntax.py
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

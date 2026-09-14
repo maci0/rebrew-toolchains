@@ -23,8 +23,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/tools/gcc440-mips64.tar.gz \
 RUN rm -rf /var/lib/apt/lists/* \
     && mkdir -p /opt/gcc-4.4.0-mips64-elf /tmp/tools \
     && tar xzf /tmp/tools/gcc440-mips64.tar.gz -C /opt/gcc-4.4.0-mips64-elf \
-    && rm -rf /tmp/tools \
-    && chmod +x /usr/local/bin/cc
+    && rm -rf /tmp/tools
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

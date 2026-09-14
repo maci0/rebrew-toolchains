@@ -26,8 +26,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     && cp -a /tmp/tools/saturn-compilers-af27f4aa6566c1b0fa5332b488e63d6ffd28bd48/cygnus-2.7-96Q3-bin/. /opt/saturn-cygnus/ \
     && rm -rf /tmp/tools \
     && chmod +x /opt/saturn-cygnus/*.EXE \
-    && ls /opt/saturn-cygnus/OBJCOPY.EXE \
-    && chmod +x /usr/local/bin/cc
+    && ls /opt/saturn-cygnus/OBJCOPY.EXE
 
 COPY cc-wrapper.sh /usr/local/bin/cc
 RUN chmod +x /usr/local/bin/cc

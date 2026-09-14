@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/tc31.tar.gz \
 RUN mkdir -p /opt/tc31 \
     && tar xzf /tmp/tc31.tar.gz --strip-components=1 -C /opt/tc31 \
     && rm /tmp/tc31.tar.gz \
-    && ls /opt/tc31/BIN/TCC.EXE \
-    && chmod +x /usr/local/bin/tcc
+    && ls /opt/tc31/BIN/TCC.EXE
 
 COPY tc16-run.sh /usr/local/bin/tcc
 RUN chmod +x /usr/local/bin/tcc

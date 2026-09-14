@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/bcc55.tar.gz \
 RUN mkdir -p /opt/bcc55 \
     && tar xzf /tmp/bcc55.tar.gz --strip-components=1 -C /opt/bcc55 \
     && rm /tmp/bcc55.tar.gz \
-    && ls /opt/bcc55/Bin/bcc32.exe \
-    && chmod +x /usr/local/bin/bcc
+    && ls /opt/bcc55/Bin/bcc32.exe
 
 COPY bcc-wrapper.sh /usr/local/bin/bcc
 RUN chmod +x /usr/local/bin/bcc

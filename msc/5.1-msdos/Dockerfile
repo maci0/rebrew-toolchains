@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msc/msc.tar.gz \
 RUN mkdir -p /opt/msc51 /tmp/msc \
     && tar xzf /tmp/msc/msc.tar.gz -C /opt/msc51 \
     && rm -rf /tmp/msc \
-    && ls /opt/msc51/BIN/CL.EXE \
-    && chmod +x /usr/local/bin/mscl
+    && ls /opt/msc51/BIN/CL.EXE
 
 COPY msc51-wrapper.sh /usr/local/bin/mscl
 RUN chmod +x /usr/local/bin/mscl

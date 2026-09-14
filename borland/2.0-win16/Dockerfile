@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/tc20.tar.gz \
 RUN mkdir -p /opt/tc20 \
     && tar xzf /tmp/tc20.tar.gz --strip-components=1 -C /opt/tc20 \
     && rm /tmp/tc20.tar.gz \
-    && ls /opt/tc20/BIN/TCC.EXE \
-    && chmod +x /usr/local/bin/tcc
+    && ls /opt/tc20/BIN/TCC.EXE
 
 COPY tc20-run.sh /usr/local/bin/tcc
 RUN chmod +x /usr/local/bin/tcc

@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc15.tar.gz \
 RUN mkdir -p /opt/msvc15 \
     && tar xzf /tmp/msvc15.tar.gz --strip-components=1 -C /opt/msvc15 \
     && rm /tmp/msvc15.tar.gz \
-    && ls /opt/msvc15/BIN/CL.EXE \
-    && chmod +x /usr/local/bin/cl15
+    && ls /opt/msvc15/BIN/CL.EXE
 
 COPY cl15-wrapper.sh /usr/local/bin/cl15
 RUN chmod +x /usr/local/bin/cl15

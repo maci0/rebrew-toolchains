@@ -19,8 +19,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/bcc56.tar.gz \
 RUN mkdir -p /opt/bcc56 \
     && tar xzf /tmp/bcc56.tar.gz borland-cpp-ide-09bcecc81184/BIN borland-cpp-ide-09bcecc81184/INCLUDE borland-cpp-ide-09bcecc81184/LIB --strip-components=1 -C /opt/bcc56 \
     && rm /tmp/bcc56.tar.gz \
-    && ls /opt/bcc56/BIN/BCC32.EXE \
-    && chmod +x /usr/local/bin/bcc
+    && ls /opt/bcc56/BIN/BCC32.EXE
 
 COPY bcc-wrapper.sh /usr/local/bin/bcc
 RUN chmod +x /usr/local/bin/bcc
