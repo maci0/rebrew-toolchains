@@ -17,8 +17,6 @@
 #
 # shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
-. /usr/local/lib/rebrew/wrapper-common.sh
-
 rebrew_pick_source "$@"
 
 OUT=""

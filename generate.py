@@ -532,9 +532,7 @@ cd "$_work" || rebrew_die "cannot enter temporary directory"
 #: holes below; `{root}` is the recipe's install root.  Raw string on
 #: purpose: the trailing `\` line continuations are the shell's, not
 #: Python's.
-_SN64_PE_BODY = r""". /usr/local/lib/rebrew/wrapper-common.sh
-
-rebrew_pick_source "$@"
+_SN64_PE_BODY = r"""rebrew_pick_source "$@"
 
 OUT=""
 CC_FLAGS=""

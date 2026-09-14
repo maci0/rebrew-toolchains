@@ -19,6 +19,7 @@ is non-zero.
 from __future__ import annotations
 
 import argparse
+import collections
 import pathlib
 import re
 import shutil
@@ -171,26 +172,33 @@ def wrapper_lines(directory: pathlib.Path) -> list[str]:
     return out
 
 
-def wrapper_diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
-    old, new = wrapper_lines(old_dir), wrapper_lines(new_dir)
+def _differences(label: str, old: list[str], new: list[str]) -> list[str]:
+    """What changed between two line lists, counting duplicates.
+
+    Membership was the wrong test: `line not in new` finds nothing when a line
+    was *duplicated*, and `old == new` had already failed — so a wrapper that
+    sourced the shared helper twice was reported as no difference at all.
+    """
     if old == new:
         return []
-    return [f"wrapper line lost: {line}" for line in old if line not in new][:4] + [
-        f"wrapper line gained: {line}" for line in new if line not in old
-    ][:4]
+    lost = collections.Counter(old) - collections.Counter(new)
+    gained = collections.Counter(new) - collections.Counter(old)
+    problems = [f"{label} lost: {line}" for line in list(lost.elements())[:4]]
+    problems += [f"{label} gained: {line}" for line in list(gained.elements())[:4]]
+    return problems or [f"{label}: the same lines in a different order"]
+
+
+def wrapper_diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
+    return _differences(
+        "wrapper line", wrapper_lines(old_dir), wrapper_lines(new_dir)
+    )
 
 
 def clause_diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
     """Raw install clauses that changed, beyond the ones already accounted for."""
     old = install_clauses((old_dir / "Dockerfile").read_text(encoding="utf-8"))
     new = install_clauses((new_dir / "Dockerfile").read_text(encoding="utf-8"))
-    if old == new:
-        return []
-    lost = [clause for clause in old if clause not in new]
-    gained = [clause for clause in new if clause not in old]
-    return [f"clause lost: {clause}" for clause in lost[:4]] + [
-        f"clause gained: {clause}" for clause in gained[:4]
-    ]
+    return _differences("clause", sorted(old), sorted(new))
 
 
 def diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
