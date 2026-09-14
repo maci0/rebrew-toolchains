@@ -275,7 +275,13 @@
     "url": "https://releases.llvm.org/3.9.1/clang+llvm-3.9.1-x86_64-linux-gnu-debian8.tar.xz",
     "sha256": "dbe2ad98cd9c2b718fdfb5dc72dcf9cfb91009d05a5b2b37457cccc958559b2a",
     "commit": "",
-    "layout": "tar-strip1"
+    "layout": "tar-strip1",
+    "extra_pins": [
+      {
+        "url": "http://deb.debian.org/debian/pool/main/n/ncurses/libtinfo5_6.4-4_amd64.deb",
+        "sha256": "dd347f794e651039e7b4c391f86c674fed7f415b3dca6b0937beb0d470f09c1a"
+      }
+    ]
   },
   "clang-4.0.1": {
     "family": "clang",
@@ -291,7 +297,13 @@
     "url": "https://releases.llvm.org/8.0.0/clang+llvm-8.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
     "sha256": "0f5c314f375ebd5c35b8c1d5e5b161d9efaeff0523bac287f8b4e5b751272f51",
     "commit": "",
-    "layout": "tar-strip1"
+    "layout": "tar-strip1",
+    "extra_pins": [
+      {
+        "url": "http://deb.debian.org/debian/pool/main/n/ncurses/libtinfo5_6.4-4_amd64.deb",
+        "sha256": "dd347f794e651039e7b4c391f86c674fed7f415b3dca6b0937beb0d470f09c1a"
+      }
+    ]
   },
   "clang-9.0.0": {
     "family": "clang",
@@ -299,7 +311,13 @@
     "url": "https://releases.llvm.org/9.0.0/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz",
     "sha256": "a23b082b30c128c9831dbdd96edad26b43f56624d0ad0ea9edec506f5385038d",
     "commit": "",
-    "layout": "tar-strip1"
+    "layout": "tar-strip1",
+    "extra_pins": [
+      {
+        "url": "http://deb.debian.org/debian/pool/main/n/ncurses/libtinfo5_6.4-4_amd64.deb",
+        "sha256": "dd347f794e651039e7b4c391f86c674fed7f415b3dca6b0937beb0d470f09c1a"
+      }
+    ]
   },
   "delphi-1.0": {
     "family": "delphi",
@@ -2675,7 +2693,9 @@
     "layout": "tar",
     "aliases": [
       "shc-v5.0r10"
-    ]
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
   },
   "shc-5.0r26": {
     "family": "shc",
@@ -2686,7 +2706,9 @@
     "layout": "tar",
     "aliases": [
       "shc-v5.0r26"
-    ]
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
   },
   "shc-5.0r28": {
     "family": "shc",
@@ -2697,7 +2719,9 @@
     "layout": "tar",
     "aliases": [
       "shc-v5.0r28"
-    ]
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
   },
   "shc-5.0r31": {
     "family": "shc",
@@ -2708,7 +2732,9 @@
     "layout": "tar",
     "aliases": [
       "shc-v5.0r31"
-    ]
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
   },
   "shc-5.0r32": {
     "family": "shc",
@@ -2719,7 +2745,9 @@
     "layout": "tar",
     "aliases": [
       "shc-v5.0r32"
-    ]
+    ],
+    "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
+    "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821"
   },
   "shc-5.1r01": {
     "family": "shc",

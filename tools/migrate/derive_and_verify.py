@@ -219,9 +219,15 @@ def classify(cmd: str) -> dict[str, object] | None:
     m = re.match(r"7z x (\S+) -o(\S+) -y", cmd)
     if m:
         return {"op": "7z", "from": m.group(1), "into": m.group(2)}
-    m = re.match(r"cp -[ar]+ (\S+) (\S+)", cmd)
+    m = re.match(r"cp -[ar]+ (.+)$", cmd)
     if m:
-        return {"op": "cp", "from": m.group(1), "into": m.group(2)}
+        parts = m.group(1).split()
+        if len(parts) >= 2:
+            return {
+                "op": "cp",
+                "from": parts[0] if len(parts) == 2 else parts[:-1],
+                "into": parts[-1],
+            }
     if cmd.startswith("chmod "):
         return {"op": "chmod", "cmd": cmd}
     m = re.match(r"ln -s (\S+) (\S+)", cmd)
@@ -303,7 +309,7 @@ def derive(d: pathlib.Path, entry: dict[str, object]) -> dict[str, object] | Non
         return None
     shape, path_root, binary = classified
     rec["binary"] = binary
-    rec["runner"] = shape.pop("runner")
+    rec["runner"] = shape.pop("runner", "wibo" if "rebrew_run" in wtext else "exec")
     rec["wrapper"] = shape
     return rec
 
@@ -320,7 +326,8 @@ def classify_wrapper(rec: dict[str, object], entry: dict[str, object], wtext: st
     helper, path = m.group(1), m.group(2)
     root = str(rec["root"])
     if not path.startswith(f"/opt/{root}/"):
-        return None
+        # a shared prefix such as /opt/cross: keep the absolute path
+        root = ""
     tail = exec_line.split(path, 1)[1].strip()
     if not tail.endswith('"$@"'):
         return None
@@ -329,15 +336,33 @@ def classify_wrapper(rec: dict[str, object], entry: dict[str, object], wtext: st
     other = [l for l in body if l != exec_line]
     if any("rebrew_" in l for l in other):
         return None
+    wrap_env: list[dict[str, str]] = []
+    exported: set[str] = set()
     for line in other:
-        m2 = re.match(r"([A-Z_][A-Z0-9_]*)=(.*?)\\$", line) or re.match(r"([A-Z_][A-Z0-9_]*)=(.*)", line)
+        if re.match(r"export [A-Z_][A-Z0-9_ ]*$", line):
+            exported |= set(line.split()[1:])
+            continue
+        m2 = re.match(r"([A-Z_][A-Z0-9_]*)=(.*)", line)
         if not m2:
             return None
-        rec.setdefault("env", {})
-        rec["env"][m2.group(1)] = m2.group(2).strip("'\"")  # type: ignore[union-attr]
-    return {
+        # a wrapper that assigns before the exec is either exporting (a later
+        # `export` line names it) or scoping (prefix style)
+        wrap_env.append(
+            {"name": m2.group(1), "value": m2.group(2).rstrip("\\").strip(), "style": "export"}
+        )
+    for item in wrap_env:
+        if item["name"] not in exported:
+            item["style"] = "export" if not exported else "prefix"
+    if wrap_env:
+        shape_env = wrap_env
+    binary = path if not root else path[len(f"/opt/{root}/") :]
+    shape: dict[str, object] = {
         "shape": "passthrough",
-        "runner": "wibo" if helper == "rebrew_run" else "exec",
         "validate_source": "rebrew_pick_source" in wtext,
         "argv": argv,
-    }, root, path[len(f"/opt/{root}/") :]
+    }
+    if "set -e" in wtext:
+        shape["set_e"] = True
+    if wrap_env:
+        shape["env"] = wrap_env
+    return shape, root, binary

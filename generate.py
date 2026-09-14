@@ -28,7 +28,7 @@ The recipe schema, per profile under `"recipe"`:
                  "compression": "gz"|"xz"|"bz2"}
                 {"op": "unzip", "from": ..., "into": ..., "subpath": "a/b"}
                 {"op": "7z", "from": ..., "into": ...}
-                {"op": "cp", "from": ..., "into": ...}
+                {"op": "cp", "from": "src"|[sources], "into": ...}
                 {"op": "mkdir", "paths": [...]}
                 {"op": "chmod", "paths": [...]} | {"op": "chmod", "recursive": "/dir"}
                 {"op": "link", "target": ..., "name": ...}
@@ -37,10 +37,14 @@ The recipe schema, per profile under `"recipe"`:
                 {"op": "script", "run": "..."}      # last resort, discouraged
     env         environment variables for the image
     root        the image's install directory under /opt (defaults to the
-                `<version>-<platform>` directory name)
-    binary      path of the compiler, relative to /opt/<root>
-    wrapper     {"shape": "passthrough"|"normalising"|<handwritten name>,
-                 "validate_source": true|false, ...shape parameters}
+                `<version>-<platform>` directory name); unused when `binary` is
+                absolute
+    binary      path of the compiler, relative to /opt/<root> — or absolute
+                when the wrapper reaches a shared prefix (`/opt/cross/bin/gcc`)
+    wrapper     {"shape": "passthrough"|"normalising", "validate_source": bool,
+                 "set_e": bool,
+                 "env": [{"name": ..., "value": ..., "style": "prefix"|"export"}],
+                 ...shape parameters}
     handwritten a reason, for the few images whose pipeline is not expressible
                 (their Dockerfile and wrapper are left alone)
 
@@ -199,7 +203,10 @@ def install_root(entry: dict[str, object]) -> str:
 
 
 def binary_path(entry: dict[str, object]) -> str:
-    return f"/opt/{install_root(entry)}/{_text(recipe(entry), 'binary')}"
+    binary = _text(recipe(entry), "binary")
+    if binary.startswith("/"):
+        return binary
+    return f"/opt/{install_root(entry)}/{binary}"
 
 
 def _entrypoint(profile: str, entry: dict[str, object]) -> str:
@@ -235,7 +242,10 @@ def _render_steps(profile: str, steps: list[dict[str, object]]) -> list[str]:
         if op == "tar":
             strip = f" --strip-components={step['strip']}" if step.get("strip") else ""
             flag = {"gz": "z", "xz": "J", "bz2": "j"}[_text(step, "compression") or "gz"]
-            out.append(f"tar x{flag}f {step['from']}{strip} -C {step['into']}")
+            members = " ".join(str(m) for m in _list(step.get("members")))
+            wild = " --wildcards" if step.get("wildcards") else ""
+            middle = f" {members}{wild}" if members else ""
+            out.append(f"tar x{flag}f {step['from']}{middle}{strip} -C {step['into']}")
         elif op == "unzip":
             if step.get("subpath"):
                 out.append(
@@ -247,7 +257,9 @@ def _render_steps(profile: str, steps: list[dict[str, object]]) -> list[str]:
         elif op == "7z":
             out.append(f"7z x {step['from']} -o{step['into']} -y")
         elif op == "cp":
-            out.append(f"cp -a {step['from']} {step['into']}")
+            raw = step.get("from")
+            sources = raw if isinstance(raw, list) else [raw]
+            out.append(f"cp -a {' '.join(str(s) for s in sources)} {step['into']}")
         elif op == "mkdir":
             out.append("mkdir -p " + " ".join(str(p) for p in _list(step.get("paths"))))
         elif op in {"chmod", "guard", "rm"}:
@@ -297,15 +309,37 @@ def _wrapper_passthrough(
     binary = _text(rec, "binary")
     assert binary, f"{profile}: passthrough wrapper needs a binary"
     argv = " ".join(str(a) for a in _list(wrapper.get("argv")))
+
     lines = _head(profile, entry, "Entrypoint")
+    if wrapper.get("set_e"):
+        lines.append("set -e")
     if wrapper.get("validate_source"):
         lines.append('rebrew_pick_source "$@"')
-    env = rec.get("env")
-    for key, value in (env.items() if isinstance(env, dict) else []):
-        lines.append(f"{key}='{value}' \\")
+
+    # Wrapper-scoped environment, in the style the image already uses: an
+    # `export`ed assignment (visible to everything the wrapper runs) or a
+    # command-scoped prefix.  Image-level env belongs in the Dockerfile and is
+    # not repeated here.
+    exported: list[str] = []
+    prefixed: list[str] = []
+    for item in _list(wrapper.get("env")):
+        if not isinstance(item, dict):
+            continue
+        name, value = _text(item, "name"), _text(item, "value")
+        if _text(item, "style") == "export":
+            lines.append(f"{name}={value}")
+            exported.append(name)
+        else:
+            prefixed.append(f"{name}={value}")
+    if exported:
+        lines.append("export " + " ".join(exported))
+
     call = f"{helper} {binary_path(entry)}"
     if argv:
         call = f"{call} {argv}"
+    if prefixed:
+        for item in prefixed:
+            lines.append(f"{item} \\")
     lines.append(f'{call} "$@"')
     return "\n".join(lines) + "\n"
 
