@@ -44,10 +44,10 @@ GBA decomp compilers (pret agbcc, the notyourav C++ fork, FE8J fork)
 
 | Image tag | Platform | Entrypoint | Runtime | Aliases | Pinned source | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| `rebrew/agbcc:arm-gba` | gba | `agbcc_arm` | native | `agbcc_arm` | `agbcc.tar.gz` `bcf0197e3e27` @ `da598c1d9184` | cc1-style: emits assembly, not an object; upstream release tag is rebuilt on every push — re-pin on drift |
+| `rebrew/agbcc:arm-gba` | gba | `agbcc_arm` | native | `agbcc_arm` | `agbcc.tar.gz` `bcf0197e3e27` @ `da598c1d9184` | the same build as `agbcc`, with a different front end; cc1-style: emits assembly, not an object; upstream release tag is rebuilt on every push — re-pin on drift |
 | `rebrew/agbcc:fe8j-gba` | gba | `agbcc` | native | — | `agbcc.tar.gz` `5bdeac906031` | cc1-style: emits assembly, not an object; upstream release tag is rebuilt on every push — re-pin on drift |
 | `rebrew/agbcc:gba` | gba | `agbcc` | native | — | `agbcc.tar.gz` `bcf0197e3e27` @ `da598c1d9184` | cc1-style: emits assembly, not an object; upstream release tag is rebuilt on every push — re-pin on drift |
-| `rebrew/agbcc:old-gba` | gba | `old_agbcc` | native | `old_agbcc` | `agbcc.tar.gz` `bcf0197e3e27` @ `da598c1d9184` | cc1-style: emits assembly, not an object; upstream release tag is rebuilt on every push — re-pin on drift |
+| `rebrew/agbcc:old-gba` | gba | `old_agbcc` | native | `old_agbcc` | `agbcc.tar.gz` `bcf0197e3e27` @ `da598c1d9184` | the same build as `agbcc`, with a different front end; cc1-style: emits assembly, not an object; upstream release tag is rebuilt on every push — re-pin on drift |
 
 ## agbccpp
 
@@ -154,10 +154,10 @@ GNU/egcs and vendor GCC rebuilds (native and cross)
 | `rebrew/gcc:2.7.2-kmc-n64` | n64 | `gcc` | native | `gcc2.7.2kmc` | `gcc-2.7.2-linux.tar.gz` `ff3e299c1d95` | pins a second source (binutils) |
 | `rebrew/gcc:2.7.2-mipsel-ps1` | ps1 | `gcc` | native | `gcc2.7.2-mipsel` | `gcc-2.7.2.tar.gz` `909b6b683421` @ `b74211c9d959` | — |
 | `rebrew/gcc:2.7.2-psx-ps1` | ps1 | `gcc` | native | `gcc2.7.2-psx` | `gcc-2.7.2-psx.tar.gz` `500a459b3485` @ `b74211c9d959` | — |
-| `rebrew/gcc:2.7.2-sn0001-cxx-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.7.2sn0001-cxx` | `n64_sn272_0001.tar.gz` `17c57ccd5f23` @ `0884197d3e4a` | converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser); C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe` |
+| `rebrew/gcc:2.7.2-sn0001-cxx-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.7.2sn0001-cxx` | `n64_sn272_0001.tar.gz` `17c57ccd5f23` @ `0884197d3e4a` | the same build as `gcc-2.7.2-sn0001`, with a different front end; converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser); C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe` |
 | `rebrew/gcc:2.7.2-sn0001-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.7.2sn0001` | `n64_sn272_0001.tar.gz` `17c57ccd5f23` @ `0884197d3e4a` | converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser) |
 | `rebrew/gcc:2.7.2-sn0004-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.7.2sn0004` | `cc1n64.exe` `17b0d9dc6a80` @ `0884197d3e4a` | converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser) |
-| `rebrew/gcc:2.7.2-sn0006-cxx-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.7.2sn0006-cxx` | `n64_sn272_0006.tar.gz` `1a35a875278f` @ `0884197d3e4a` | converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser); C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe` |
+| `rebrew/gcc:2.7.2-sn0006-cxx-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.7.2sn0006-cxx` | `n64_sn272_0006.tar.gz` `1a35a875278f` @ `0884197d3e4a` | the same build as `gcc-2.7.2-sn0006`, with a different front end; converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser); C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe` |
 | `rebrew/gcc:2.7.2-sn0006-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.7.2sn0006` | `n64_sn272_0006.tar.gz` `1a35a875278f` @ `0884197d3e4a` | converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser) |
 | `rebrew/gcc:2.7.2-snew-n64` | n64 | `cc` | native | `gcc2.7.2snew` | `SN64-gcc-2.7.2-970404-linux.tar.gz` `60abe17c2562` @ `0884197d3e4a` | — |
 | `rebrew/gcc:2.7.2.1-mipsel-ps1` | ps1 | `gcc` | native | `gcc2.7.2.1-mipsel` | `gcc-2.7.2.1.tar.gz` `8fdfcd95768e` @ `b74211c9d959` | — |
@@ -168,9 +168,9 @@ GNU/egcs and vendor GCC rebuilds (native and cross)
 | `rebrew/gcc:2.8.1-mipsel-ps1` | ps1 | `gcc` | native | `gcc2.8.1-mipsel` | `gcc-2.8.1.tar.gz` `2421097de375` @ `b74211c9d959` | — |
 | `rebrew/gcc:2.8.1-pm-n64` | n64 | `gcc` | native | `gcc2.8.1pm` | `linux.tar.gz` `1156cf0d6a88` | pins a second source (binutils) |
 | `rebrew/gcc:2.8.1-psx-ps1` | ps1 | `gcc` | native | `gcc2.8.1-psx` | `gcc-2.8.1-psx.tar.gz` `f6f6e883942d` @ `b74211c9d959` | — |
-| `rebrew/gcc:2.8.1-sn-cxx-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.8.1sn-cxx` | `cc1n64.exe` `d90df1028c46` @ `0884197d3e4a` | converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser); C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe` |
+| `rebrew/gcc:2.8.1-sn-cxx-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.8.1sn-cxx` | `cc1n64.exe` `d90df1028c46` @ `0884197d3e4a` | the same build as `gcc-2.8.1-sn`, with a different front end; converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser); C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe` |
 | `rebrew/gcc:2.8.1-sn-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.8.1sn` | `cc1n64.exe` `d90df1028c46` @ `0884197d3e4a` | converts its Sony object with the image's `psyq-obj-parser`; pins a second source (obj parser) |
-| `rebrew/gcc:2.8.1-snew-cxx-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.8.1snew-cxx` | `cc1n64.exe` `d90df1028c46` @ `0884197d3e4a` | C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe` |
+| `rebrew/gcc:2.8.1-snew-cxx-n64` | n64 | `cc` | wibo (default), wine via `REBREW_RUNNER=wine` | `gcc2.8.1snew-cxx` | `cc1n64.exe` `d90df1028c46` @ `0884197d3e4a` | the same build as `gcc-2.8.1-sn`, with a different front end; C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe` |
 | `rebrew/gcc:2.91.66-mipsel-ps1` | ps1 | `gcc` | native | `gcc2.91.66-mipsel` | `gcc-2.91.66.tar.gz` `3ab7b4aaa763` @ `b74211c9d959` | — |
 | `rebrew/gcc:2.91.66-psx-ps1` | ps1 | `gcc` | native | `gcc2.91.66-psx` | `gcc-2.91.66-psx.tar.gz` `f773a0a9659f` @ `b74211c9d959` | — |
 | `rebrew/gcc:2.95.2-mipsel-ps1` | ps1 | `gcc` | native | `gcc2.95.2-mipsel` | `gcc-2.95.2.tar.gz` `23da2192d39a` @ `b74211c9d959` | — |
@@ -213,7 +213,7 @@ SGI IDO MIPS compilers for N64 (recompiled and IRIX originals)
 | `rebrew/ido:5.3-irix-n64` | n64 | `cc` | native | `ido5.3_irix`, `ido5.3_asm_irix`, `ssb_ido5.3` | `ssb_ido5.3.tar` `a8a5bfa1713c` @ `d577d1654ca4` | — |
 | `rebrew/ido:5.3-n64` | n64 | `cc` | native | `ido5.3` | `ido-5.3-recomp-linux.tar.gz` `ab5c741561f8` @ `9c242adc890b` | — |
 | `rebrew/ido:6.0-n64` | n64 | `cc` | native | `ido6.0`, `ido6.0_irix` | `ido6.0.tar.xz` `c56d4be020bd` @ `d577d1654ca4` | — |
-| `rebrew/ido:7.1-cxx-n64` | n64 | `cc` | native | `ido7.1_c++` | `ido-7.1-recomp-linux.tar.gz` `0d411696e178` @ `9c242adc890b` | entered through the vendor C++ driver (`NCC`) |
+| `rebrew/ido:7.1-cxx-n64` | n64 | `cc` | native | `ido7.1_c++` | `ido-7.1-recomp-linux.tar.gz` `0d411696e178` @ `9c242adc890b` | the same build as `ido-7.1`, with a different front end; entered through the vendor C++ driver (`NCC`) |
 | `rebrew/ido:7.1-n64` | n64 | `cc` | native | `ido7.1`, `ido7.1_irix` | `ido-7.1-recomp-linux.tar.gz` `0d411696e178` @ `9c242adc890b` | — |
 | `rebrew/ido:mipspro-744-n64` | n64 | `cc` | native | `mips_pro_744`, `mips_pro_744_irix` | `mipspro7.4.4.tar.xz` `df33be0d9605` @ `d577d1654ca4` | — |
 
@@ -458,7 +458,7 @@ Sony PSY-Q SDK toolchains (PS1)
 | `rebrew/psyq:4.1-ps1` | ps1 | `cc` | wine, wibo via `REBREW_RUNNER=wibo` | `psyq4.1` | `psyq4.1.tar.gz` `2a2650ceb5ea` | emits a Sony object; convert with the image's `psyq-obj-parser`; pins a second source (obj parser) |
 | `rebrew/psyq:4.3-ps1` | ps1 | `cc` | wine, wibo via `REBREW_RUNNER=wibo` | `psyq4.3` | `psyq4.3.tar.gz` `577038d66507` | emits a Sony object; convert with the image's `psyq-obj-parser`; pins a second source (obj parser) |
 | `rebrew/psyq:4.4-ps1` | ps1 | `cc` | wine, wibo via `REBREW_RUNNER=wibo` | `psyq4.4` | `psyq4.4.tar.gz` `72e73934bab0` | emits a Sony object; convert with the image's `psyq-obj-parser`; pins a second source (obj parser) |
-| `rebrew/psyq:4.5-ps1` | ps1 | `cc` | native | `psyq4.5`, `psyq-4.5-ps1` | `gcc-2.8.1-psx.tar.gz` `f6f6e883942d` @ `b74211c9d959` | pins a second source (SDK headers/libs) |
+| `rebrew/psyq:4.5-ps1` | ps1 | `cc` | native | `psyq4.5`, `psyq-4.5-ps1` | `gcc-2.8.1-psx.tar.gz` `f6f6e883942d` @ `b74211c9d959` | the same build as `gcc-2.8.1-psx`, with a different front end; pins a second source (SDK headers/libs) |
 | `rebrew/psyq:4.6-ps1` | ps1 | `cc` | wine, wibo via `REBREW_RUNNER=wibo` | `psyq4.6` | `psyq4.6.tar.gz` `635603e09a45` | emits a Sony object; convert with the image's `psyq-obj-parser`; pins a second source (obj parser) |
 
 ## saturn
@@ -493,15 +493,15 @@ Open Watcom C/C++ (32- and 16-bit)
 
 | Image tag | Platform | Entrypoint | Runtime | Aliases | Pinned source | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| `rebrew/watcom:10.0a-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp10.0a` | `wcc10.0a.tar.gz` `920a9674d1b1` @ `0884197d3e4a` | — |
+| `rebrew/watcom:10.0a-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp10.0a` | `wcc10.0a.tar.gz` `920a9674d1b1` @ `0884197d3e4a` | the same build as `watcom-10.0a`, with a different front end |
 | `rebrew/watcom:10.0a-win32` | win32 | `wcc386` | wine, wibo via `REBREW_RUNNER=wibo` | `wcc10.0a` | `wcc10.0a.tar.gz` `920a9674d1b1` @ `0884197d3e4a` | — |
-| `rebrew/watcom:10.5-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp10.5` | `wcc10.5.tar.gz` `70acc3b4b472` | — |
+| `rebrew/watcom:10.5-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp10.5` | `wcc10.5.tar.gz` `70acc3b4b472` | the same build as `watcom-10.5`, with a different front end |
 | `rebrew/watcom:10.5-win32` | win32 | `wcc386` | wine, wibo via `REBREW_RUNNER=wibo` | `wcc10.5` | `wcc10.5.tar.gz` `70acc3b4b472` | — |
-| `rebrew/watcom:10.5a-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp10.5a` | `wcc10.5a.tar.gz` `fd82fd36594f` | — |
+| `rebrew/watcom:10.5a-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp10.5a` | `wcc10.5a.tar.gz` `fd82fd36594f` | the same build as `watcom-10.5a`, with a different front end |
 | `rebrew/watcom:10.5a-win32` | win32 | `wcc386` | wine, wibo via `REBREW_RUNNER=wibo` | `wcc10.5a` | `wcc10.5a.tar.gz` `fd82fd36594f` | — |
-| `rebrew/watcom:10.6-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp10.6` | `wcc10.6.tar.gz` `c455edf32dc7` | — |
+| `rebrew/watcom:10.6-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp10.6` | `wcc10.6.tar.gz` `c455edf32dc7` | the same build as `watcom-10.6`, with a different front end |
 | `rebrew/watcom:10.6-win32` | win32 | `wcc386` | wine, wibo via `REBREW_RUNNER=wibo` | `wcc10.6` | `wcc10.6.tar.gz` `c455edf32dc7` | — |
-| `rebrew/watcom:11.0-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp11.0` | `wcc11.0.tar.gz` `6ecbf03ad4d7` | — |
+| `rebrew/watcom:11.0-cxx-win32` | win32 | `wpp386` | wine, wibo via `REBREW_RUNNER=wibo` | `wpp11.0` | `wcc11.0.tar.gz` `6ecbf03ad4d7` | the same build as `watcom-11.0`, with a different front end |
 | `rebrew/watcom:11.0-win32` | win32 | `wcc386` | wine, wibo via `REBREW_RUNNER=wibo` | `wcc11.0` | `wcc11.0.tar.gz` `6ecbf03ad4d7` | — |
 | `rebrew/watcom:2.0-win16` | win16 | `wcc` | native | — | `ow-snapshot.tar.xz` `bac354f3c75f` | — |
-| `rebrew/watcom:2.0-win32` | win32 | `wcc386` | native | — | `ow-snapshot.tar.xz` `bac354f3c75f` | — |
+| `rebrew/watcom:2.0-win32` | win32 | `wcc386` | native | — | `ow-snapshot.tar.xz` `bac354f3c75f` | the same build as `watcom-2.0-win16`, with a different front end |

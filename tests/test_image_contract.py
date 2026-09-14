@@ -94,6 +94,29 @@ class TestManifest(unittest.TestCase):
                 self.assertIn(url, text, f"{profile}: {name} url not in its Dockerfile")
                 self.assertIn(sha, text, f"{profile}: {name} sha256 not in its Dockerfile")
 
+    def test_variants_name_a_base_they_share_a_build_with(self) -> None:
+        """`variant_of` is a claim about the data, so it is checked against it.
+
+        A variant compiles with the same archive as the profile it names —
+        that is what makes it a front end rather than a different compiler —
+        and it has to differ somewhere, or it is a duplicate profile.
+        """
+        manifest = _manifest()
+        for profile, entry in manifest.items():
+            base = entry.get("variant_of")
+            if not base:
+                continue
+            self.assertIn(base, manifest, f"{profile}: variant_of names nothing")
+            other = manifest[str(base)]
+            self.assertEqual(other["url"], entry["url"], f"{profile}: different archive")
+            self.assertEqual(other["sha256"], entry["sha256"], f"{profile}: different build")
+            self.assertNotIn("variant_of", other, f"{profile}: {base} is itself a variant")
+            # and it has to differ somewhere, or it is the same image twice.
+            # The pipeline wrappers are hand-written, so their difference lives
+            # in the wrapper's reason rather than in a `binary` field: compare
+            # the recipes as a whole.
+            self.assertNotEqual(entry["recipe"], other["recipe"], f"{profile}: same as {base}")
+
     def test_every_dockerfile_has_a_manifest_entry(self) -> None:
         """Reverse sweep: a Dockerfile whose download pins nothing is a gap."""
         dirs = {str(d.relative_to(_REPO)) for d in _toolchain_dirs()}

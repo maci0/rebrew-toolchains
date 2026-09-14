@@ -827,6 +827,9 @@ def _runs(blob: str, tool: str) -> bool:
 def _notes(profile: str, entry: dict[str, object], dockerfile: str) -> str:
     """Per-image caveats a consumer has to know before invoking it."""
     notes: list[str] = []
+    base = _text(entry, "variant_of")
+    if base:
+        notes.append(f"the same build as `{base}`, with a different front end")
     layout = _text(entry, "layout")
     if layout not in ("tar", "tar-strip1", ""):
         notes.append(f"unpacked from `{layout}`")

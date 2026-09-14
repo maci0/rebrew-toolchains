@@ -63,6 +63,7 @@
     "sha256": "bcf0197e3e27d8e08506a142e25fa68ea7f6679a98347a6406804eb3f9ff4d29",
     "commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
     "layout": "tar",
+    "variant_of": "agbcc",
     "aliases": [
       "agbcc_arm"
     ],
@@ -180,6 +181,7 @@
     "sha256": "bcf0197e3e27d8e08506a142e25fa68ea7f6679a98347a6406804eb3f9ff4d29",
     "commit": "da598c1d918402c42c0c0d7128ba14567f3175e9",
     "layout": "tar",
+    "variant_of": "agbcc",
     "aliases": [
       "old_agbcc"
     ],
@@ -4358,6 +4360,7 @@
     "sha256": "17c57ccd5f2305fe5445c576d4cc2c1fea681dd78b29dd3d1f15c5ca0fdf2cea",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
+    "variant_of": "gcc-2.7.2-sn0001",
     "aliases": [
       "gcc2.7.2sn0001-cxx"
     ],
@@ -4610,6 +4613,7 @@
     "sha256": "1a35a875278f38bfc285c2bd80b782cec38859dedfd925d8b8a2f1733ba9acad",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
+    "variant_of": "gcc-2.7.2-sn0006",
     "aliases": [
       "gcc2.7.2sn0006-cxx"
     ],
@@ -5556,6 +5560,7 @@
     "sha256": "d90df1028c46d826e37146dbcc3e3385f78c59e05a9ddd952daa94c9ad379d9c",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
+    "variant_of": "gcc-2.8.1-sn",
     "aliases": [
       "gcc2.8.1sn-cxx"
     ],
@@ -5646,6 +5651,7 @@
     "sha256": "d90df1028c46d826e37146dbcc3e3385f78c59e05a9ddd952daa94c9ad379d9c",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
+    "variant_of": "gcc-2.8.1-sn",
     "aliases": [
       "gcc2.8.1snew-cxx"
     ],
@@ -7333,6 +7339,7 @@
     "sha256": "0d411696e178fcca34c31c3bf02011b928d7fd9c1fa7f8bf45070e0781b58e15",
     "commit": "9c242adc890beef098020149d9554f48208f699d",
     "layout": "tar",
+    "variant_of": "ido-7.1",
     "aliases": [
       "ido7.1_c++"
     ],
@@ -16754,6 +16761,7 @@
     "sha256": "f6f6e883942d4d3289d048236c672e71ed410e546aaae8ff655952f1567e1be0",
     "commit": "b74211c9d959e9724802f3177c8229cd67202c87",
     "layout": "tar",
+    "variant_of": "gcc-2.8.1-psx",
     "sdk_url": "https://codeload.github.com/FoxdieTeam/psyq_sdk/tar.gz/91719fa5bdca0b7e55c5c4b9e045da407db93510",
     "sdk_sha256": "495697696a3288866d83ff7b7aff423560ffaffd3e212274417f3348cc0b29f8",
     "sdk_commit": "91719fa5bdca0b7e55c5c4b9e045da407db93510",
@@ -18025,6 +18033,7 @@
     "sha256": "920a9674d1b10f227ae65171c187212b06d7fc38b263313922615c4f5e9b24a6",
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "layout": "tar",
+    "variant_of": "watcom-10.0a",
     "aliases": [
       "wpp10.0a"
     ],
@@ -18155,6 +18164,7 @@
     "sha256": "70acc3b4b4729e44c149b53553a3c35aa4070ed34d6790b034273506d5c5b3fb",
     "commit": "",
     "layout": "tar",
+    "variant_of": "watcom-10.5",
     "aliases": [
       "wpp10.5"
     ],
@@ -18285,6 +18295,7 @@
     "sha256": "fd82fd36594f1f1333d2b8a4b87956c1dfaacd2c9b3535db556bcf482f81adab",
     "commit": "",
     "layout": "tar",
+    "variant_of": "watcom-10.5a",
     "aliases": [
       "wpp10.5a"
     ],
@@ -18415,6 +18426,7 @@
     "sha256": "c455edf32dc73f29c2b4e0aa5c6988768809641033ef54700725242711b04e29",
     "commit": "",
     "layout": "tar",
+    "variant_of": "watcom-10.6",
     "aliases": [
       "wpp10.6"
     ],
@@ -18545,6 +18557,7 @@
     "sha256": "6ecbf03ad4d71285f5813c34a4f551720eec0dfb09996a7dda7cb591963df325",
     "commit": "",
     "layout": "tar",
+    "variant_of": "watcom-11.0",
     "aliases": [
       "wpp11.0"
     ],
@@ -18670,6 +18683,7 @@
     "sha256": "bac354f3c75ffa49ff8d70a44e475de7e7c1823fff04b80c14787bd0792c9bdf",
     "commit": "",
     "layout": "tar-strip1",
+    "variant_of": "watcom-2.0-win16",
     "recipe": {
       "base": "base",
       "apt": [],
