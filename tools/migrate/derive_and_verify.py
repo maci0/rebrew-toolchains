@@ -220,10 +220,14 @@ def compare(profile: str, entry: dict[str, object]) -> tuple[bool, list[str]]:
         p.unlink()
     (tmp / "cc-wrapper.sh").write_text(new_wr)
     new = semantics(tmp)
+    # compared as plain mappings: mypy 2.1 (the version uv.lock pins) will not
+    # index a TypedDict with a loop variable, and the keys are strings here
+    old_flat: dict[str, object] = dict(old)
+    new_flat: dict[str, object] = dict(new)
     diffs = [
-        f"{key}: {old[key]!r} -> {new[key]!r}"
+        f"{key}: {old_flat[key]!r} -> {new_flat[key]!r}"
         for key in ("base", "apt", "pins", "env", "entrypoint")
-        if old[key] != new[key]
+        if old_flat[key] != new_flat[key]
     ]
     old_ops, new_ops = old["ops"], new["ops"]
     if sorted(old_ops) != sorted(new_ops):
