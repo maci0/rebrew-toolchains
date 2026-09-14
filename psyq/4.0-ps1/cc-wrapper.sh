@@ -1,4 +1,6 @@
 #!/bin/sh
+# Generated from sources.json by generate.py — do not edit; run `make generate`.
+# Entrypoint — psyq/4.0-ps1
 # cc wrapper — PSY-Q (PS1): the SDK's two-stage compiler pipeline.
 #
 # This SDK has no single driver.  CC1PSX.EXE compiles a preprocessed source
@@ -7,7 +9,7 @@
 # wrapper runs the same pipeline decomp.me's recipe does, so callers use it
 # like an ordinary compiler:
 #
-#   cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable
+# cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable
 #
 # The source is picked out of argv (flags may precede or follow it), -o names
 # the output (default <stem>.o), and every other argument is forwarded to
@@ -20,9 +22,9 @@
 # Each PE stage is called in a subshell: the shared rebrew_run/rebrew_exec
 # helper ends with `exit`, which is right for a one-command wrapper and fatal
 # here — without the subshell the pipeline would stop after CC1PSX.
+#
 # shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
-
 # The image sets this; failing loudly beats exec'ing "/CC1PSX.EXE".
 PSYQ_ROOT="${PSYQ_ROOT:?PSYQ_ROOT must point at the SDK tree (set by the image)}"
 

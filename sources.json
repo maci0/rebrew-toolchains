@@ -16781,10 +16781,33 @@
       "description": "PSY-Q 4.0 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wine",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "psyq_native",
+        "notes": [
+          "cc wrapper — PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
+          "",
+          "This SDK has no single driver.  CC1PSX.EXE compiles a preprocessed source",
+          "to assembly, ASPSX.EXE assembles that into a Sony-format object, and that",
+          "object still needs psyq-obj-parser to become an ELF relocatable.  The",
+          "wrapper runs the same pipeline decomp.me's recipe does, so callers use it",
+          "like an ordinary compiler:",
+          "",
+          "cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable",
+          "",
+          "The source is picked out of argv (flags may precede or follow it), -o names",
+          "the output (default <stem>.o), and every other argument is forwarded to",
+          "CC1PSX.  PSYQ_ROOT is set by the image to its own SDK tree.",
+          "",
+          "The PE stages run inside a scratch directory with *relative* filenames: the",
+          "Sony tools mangle absolute Unix paths (they rewrite them as Windows paths),",
+          "so only the native psyq-obj-parser ever sees an absolute path.",
+          "",
+          "Each PE stage is called in a subshell: the shared rebrew_run/rebrew_exec",
+          "helper ends with `exit`, which is right for a one-command wrapper and fatal",
+          "here — without the subshell the pipeline would stop after CC1PSX."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -16867,10 +16890,33 @@
       "description": "PSY-Q 4.1 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wine",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "psyq_native",
+        "notes": [
+          "cc wrapper — PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
+          "",
+          "This SDK has no single driver.  CC1PSX.EXE compiles a preprocessed source",
+          "to assembly, ASPSX.EXE assembles that into a Sony-format object, and that",
+          "object still needs psyq-obj-parser to become an ELF relocatable.  The",
+          "wrapper runs the same pipeline decomp.me's recipe does, so callers use it",
+          "like an ordinary compiler:",
+          "",
+          "cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable",
+          "",
+          "The source is picked out of argv (flags may precede or follow it), -o names",
+          "the output (default <stem>.o), and every other argument is forwarded to",
+          "CC1PSX.  PSYQ_ROOT is set by the image to its own SDK tree.",
+          "",
+          "The PE stages run inside a scratch directory with *relative* filenames: the",
+          "Sony tools mangle absolute Unix paths (they rewrite them as Windows paths),",
+          "so only the native psyq-obj-parser ever sees an absolute path.",
+          "",
+          "Each PE stage is called in a subshell: the shared rebrew_run/rebrew_exec",
+          "helper ends with `exit`, which is right for a one-command wrapper and fatal",
+          "here — without the subshell the pipeline would stop after CC1PSX."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -16953,10 +16999,33 @@
       "description": "PSY-Q 4.3 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wine",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "psyq_native",
+        "notes": [
+          "cc wrapper — PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
+          "",
+          "This SDK has no single driver.  CC1PSX.EXE compiles a preprocessed source",
+          "to assembly, ASPSX.EXE assembles that into a Sony-format object, and that",
+          "object still needs psyq-obj-parser to become an ELF relocatable.  The",
+          "wrapper runs the same pipeline decomp.me's recipe does, so callers use it",
+          "like an ordinary compiler:",
+          "",
+          "cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable",
+          "",
+          "The source is picked out of argv (flags may precede or follow it), -o names",
+          "the output (default <stem>.o), and every other argument is forwarded to",
+          "CC1PSX.  PSYQ_ROOT is set by the image to its own SDK tree.",
+          "",
+          "The PE stages run inside a scratch directory with *relative* filenames: the",
+          "Sony tools mangle absolute Unix paths (they rewrite them as Windows paths),",
+          "so only the native psyq-obj-parser ever sees an absolute path.",
+          "",
+          "Each PE stage is called in a subshell: the shared rebrew_run/rebrew_exec",
+          "helper ends with `exit`, which is right for a one-command wrapper and fatal",
+          "here — without the subshell the pipeline would stop after CC1PSX."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -17039,10 +17108,33 @@
       "description": "PSY-Q 4.4 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wine",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "psyq_native",
+        "notes": [
+          "cc wrapper — PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
+          "",
+          "This SDK has no single driver.  CC1PSX.EXE compiles a preprocessed source",
+          "to assembly, ASPSX.EXE assembles that into a Sony-format object, and that",
+          "object still needs psyq-obj-parser to become an ELF relocatable.  The",
+          "wrapper runs the same pipeline decomp.me's recipe does, so callers use it",
+          "like an ordinary compiler:",
+          "",
+          "cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable",
+          "",
+          "The source is picked out of argv (flags may precede or follow it), -o names",
+          "the output (default <stem>.o), and every other argument is forwarded to",
+          "CC1PSX.  PSYQ_ROOT is set by the image to its own SDK tree.",
+          "",
+          "The PE stages run inside a scratch directory with *relative* filenames: the",
+          "Sony tools mangle absolute Unix paths (they rewrite them as Windows paths),",
+          "so only the native psyq-obj-parser ever sees an absolute path.",
+          "",
+          "Each PE stage is called in a subshell: the shared rebrew_run/rebrew_exec",
+          "helper ends with `exit`, which is right for a one-command wrapper and fatal",
+          "here — without the subshell the pipeline would stop after CC1PSX."
+        ],
         "file": "cc-wrapper.sh"
       }
     }

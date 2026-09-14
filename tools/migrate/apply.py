@@ -45,7 +45,7 @@ import generate  # noqa: E402
 
 #: Wrapper shapes this branch can express.  Everything else keeps its
 #: hand-written wrapper and is listed by the test that guards this list.
-EXPRESSIBLE = {"passthrough", "dosbox_compile", "psyq_dosemu"}
+EXPRESSIBLE = {"passthrough", "dosbox_compile", "psyq_dosemu", "psyq_native"}
 
 
 #: Wrappers that were printf'd inline in a Dockerfile were never linted, so

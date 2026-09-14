@@ -112,7 +112,9 @@ if [ "$#" -gt 0 ]; then
     done
 else
     # One image per runtime: native ELF, qemu-irix, wibo, wine, DOSBox, and
-    # (below, when KVM is available) dosemu2.
+    # (below, when KVM is available) dosemu2.  One image per *generated wrapper
+    # shape* too, where the runtime list does not already cover it: the psyq-4.x
+    # pipeline is its own template.
     while IFS='|' read -r profile args artifact expect; do
         [ -n "$profile" ] || continue
         run_case "$profile" "$args" "$artifact" "$expect"
@@ -123,6 +125,7 @@ msvc-6.0-sp6|/c t.c|t.obj|COFF
 icc-5.0.1-010525z|-c t.c -o t.obj|t.obj|COFF
 borland-5.6|-c t.c|t.obj|relocatable
 msc-6.0|t.c|t.obj|relocatable
+psyq-4.0|-c t.c -o t.o|t.o|MIPS
 CASES
     if [ -e /dev/kvm ]; then
         while IFS='|' read -r profile args artifact expect; do

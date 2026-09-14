@@ -611,7 +611,21 @@ def classify_psyq_dosemu(wtext: str) -> dict[str, object] | None:
     return {"shape": "psyq_dosemu", "notes": _prose(wtext)}
 
 
+def classify_psyq_native(wtext: str) -> dict[str, object] | None:
+    """The PSY-Q 4.x pipeline: the SDK's own CC1PSX/ASPSX behind a host cpp.
+
+    The body names no version (the tree comes from `PSYQ_ROOT`), so the marker
+    is the guard the wrapper opens with rather than a path.
+    """
+    if 'PSYQ_ROOT="${PSYQ_ROOT:?' not in wtext or "ASPSX.EXE" not in wtext:
+        return None
+    return {"shape": "psyq_native", "notes": _prose(wtext)}
+
+
 def classify_wrapper(rec: Recipe, wtext: str) -> tuple[dict[str, object], str, str] | None:
+    psyq_native = classify_psyq_native(wtext)
+    if psyq_native is not None:
+        return psyq_native, str(rec.get("root") or ""), ""
     psyq = classify_psyq_dosemu(wtext)
     if psyq is not None:
         return psyq, str(rec.get("root") or ""), ""
