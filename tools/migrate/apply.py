@@ -74,19 +74,33 @@ def _with_source_directive(text: str) -> str:
 
 
 def shape_reason(text: str) -> str:
-    """Why this wrapper is not generated yet, so the manifest says something
-    a reader can act on instead of 'unsupported'."""
+    """Why this wrapper is hand-written, in terms a reader can act on.
+
+    "Template pending" was the wrong framing for most of what is left: a shape
+    with a single user is not a template, it is a wrapper.  What a reader needs
+    to know is what the wrapper does that no sibling does.
+    """
+    if "rebrew_dosbox_run" in text and "rebrew_dosbox_collect" in text:
+        return (
+            "staged DOSBox run: copies the toolchain onto a C: drive, writes "
+            "DCC.CFG and collects SRC.EXE — one image"
+        )
     if "rebrew_dosbox" in text:
-        return "DOSBox harness (staged source, FAT-cased artifact) — template pending"
+        return "DOSBox harness (staged source, FAT-cased artifact)"
     if "rebrew_dosemu_run" in text:
-        return "dosemu2 pipeline (COMPILE.BAT / multi-stage DOS) — template pending"
-    if "convert_gas_syntax" in text:
-        return "Apple GCC pipeline (cc1 | convert_gas_syntax.py | GNU as) — template pending"
-    if "|" in text and "rebrew_" in text:
-        return "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending"
+        return "dosemu2 COMPILE.BAT with sh-elf-objcopy instead of the obj parser — one image"
+    if "SN.INI" in text:
+        return "writes SN.INI and drives the SDK's CCPSX.EXE — one image"
     if "qemu-irix" in text:
-        return "qemu-irix driver plus converter — template pending"
-    return "per-family argv normalisation — template pending"
+        return "qemu-irix drives the IRIX cc — one image"
+    if "Z:\\" in text or "Z:\\" in text:
+        return "ICC under wine with Windows Z: paths and a converter stage — one image"
+    if "modern-asn64" in text:
+        return (
+            "modern-asn64 pipeline; the two snew images differ from each other "
+            "(2.7.2 drives the tree's own cpp/cc1), so a template would have one user"
+        )
+    return "multi-stage pipeline whose stages no sibling shares"
 
 
 def baseline_tree(rev: str, into: pathlib.Path) -> pathlib.Path:

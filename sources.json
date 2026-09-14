@@ -2197,7 +2197,7 @@
       "runner": "dosbox",
       "wrapper": {
         "shape": "handwritten",
-        "why": "DOSBox harness (staged source, FAT-cased artifact) — template pending",
+        "why": "staged DOSBox run: copies the toolchain onto a C: drive, writes DCC.CFG and collects SRC.EXE — one image",
         "file": "dcc-wrapper.sh"
       }
     }
@@ -4959,7 +4959,7 @@
       "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "why": "modern-asn64 pipeline; the two snew images differ from each other (2.7.2 drives the tree's own cpp/cc1), so a template would have one user",
         "file": "cc-wrapper.sh"
       }
     }
@@ -5962,7 +5962,7 @@
       "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "why": "modern-asn64 pipeline; the two snew images differ from each other (2.7.2 drives the tree's own cpp/cc1), so a template would have one user",
         "file": "cc-wrapper.sh"
       }
     }
@@ -7166,7 +7166,7 @@
       "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "why": "ICC under wine with Windows Z: paths and a converter stage — one image",
         "file": "icl-wrapper.sh"
       }
     }
@@ -7232,7 +7232,7 @@
       "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "why": "qemu-irix drives the IRIX cc — one image",
         "file": "cc-wrapper.sh"
       }
     }
@@ -17564,7 +17564,7 @@
       "runner": "wine",
       "wrapper": {
         "shape": "handwritten",
-        "why": "per-family argv normalisation — template pending",
+        "why": "writes SN.INI and drives the SDK's CCPSX.EXE — one image",
         "file": "cc-wrapper.sh"
       }
     }
@@ -17636,7 +17636,7 @@
       "runner": "dosemu2",
       "wrapper": {
         "shape": "handwritten",
-        "why": "dosemu2 pipeline (COMPILE.BAT / multi-stage DOS) — template pending",
+        "why": "dosemu2 COMPILE.BAT with sh-elf-objcopy instead of the obj parser — one image",
         "file": "cc-wrapper.sh"
       }
     }
