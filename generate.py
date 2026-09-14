@@ -332,6 +332,8 @@ def render_wrapper(profile: str, entry: dict[str, object]) -> str:
         return _wrapper_psyq_native(entry, wrapper)
     if shape == "sn64_pe":
         return _wrapper_sn64_pe(entry, wrapper)
+    if shape == "apple_gcc":
+        return _wrapper_apple_gcc(entry, wrapper)
     raise ValueError(f"{profile}: wrapper shape {shape!r} is not expressible; mark it handwritten")
 
 
@@ -570,6 +572,65 @@ cd "$_work" || rebrew_die "cannot enter temporary directory"
     || rebrew_die "asn64 failed on the assembly {cc1_stem} produced"
 /opt/{root}/psyq-obj-parser out.obj -o "$OUT_ABS" {parser_flags}
 """
+
+
+#: The Apple GCC pipeline: the shipped `cc1` (or `cc1plus` for C++), the
+#: image's `convert_gas_syntax.py` to rewrite the assembly into what the
+#: host assembler accepts, then GNU `as`.  Four images share it and differ
+#: in where `cc1` lives inside the tree and which binary is the C++ front
+#: end.  Raw string on purpose: the trailing `\` continuations are the
+#: shell's, not Python's.
+_APPLE_GCC_BODY = r"""
+rebrew_pick_source "$@"
+
+OUT=""
+CC_FLAGS=""
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        -o)
+            [ "$#" -ge 2 ] || rebrew_die "-o requires an output file"
+            OUT="$2"
+            shift 2
+            ;;
+        -c) shift ;;
+        "$SRC") shift ;;
+        *)
+            CC_FLAGS="$CC_FLAGS $1"
+            shift
+            ;;
+    esac
+done
+[ -n "$OUT" ] || OUT="$STEM.o"
+case "$SRC" in /*) SRC_ABS="$SRC" ;; *) SRC_ABS="$(pwd)/$SRC" ;; esac
+case "$OUT" in /*) OUT_ABS="$OUT" ;; *) OUT_ABS="$(pwd)/$OUT" ;; esac
+
+_cc1=/opt/{root}/{cc1_dir}cc1
+case "$SRC" in
+    *.cpp | *.cc | *.cxx | *.C)
+        [ -x /opt/{root}/{cc1_dir}{cxx_probe} ] && _cc1=/opt/{root}/{cc1_dir}{cxx_probe}
+        ;;
+    *) ;;
+esac
+
+_work="$(mktemp -d)" || rebrew_die "cannot create a temporary directory"
+# shellcheck disable=SC2064  # expand $_work now: the trap runs after it may be unset
+trap "rm -rf '$_work'" EXIT
+
+# shellcheck disable=SC2086,SC2310  # CC_FLAGS is a flag list; the helper exits by design
+( rebrew_exec "$_cc1" -quiet $CC_FLAGS "$SRC_ABS" -o "$_work/out.s" ) \
+    || rebrew_die "cc1 failed on $SRC"
+python3 /opt/{root}/convert_gas_syntax.py "$_work/out.s" "$STEM" new > "$_work/out_new.s" \
+    || rebrew_die "assembler-syntax conversion failed for $SRC"
+powerpc-linux-gnu-as "$_work/out_new.s" -o "$OUT_ABS"
+"""
+
+
+def _wrapper_apple_gcc(entry: dict[str, object], wrapper: dict[str, object]) -> str:
+    """The Apple GCC pipeline (cc1, syntax converter, GNU as)."""
+    body = _APPLE_GCC_BODY.replace("{root}", install_root(entry))
+    body = body.replace("{cc1_dir}", _text(wrapper, "cc1_dir"))
+    body = body.replace("{cxx_probe}", _text(wrapper, "cxx_probe"))
+    return "\n".join(_head(entry, "Entrypoint", wrapper)) + body
 
 
 def _wrapper_sn64_pe(entry: dict[str, object], wrapper: dict[str, object]) -> str:

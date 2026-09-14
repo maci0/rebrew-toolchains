@@ -51,6 +51,7 @@ EXPRESSIBLE = {
     "psyq_dosemu",
     "psyq_native",
     "sn64_pe",
+    "apple_gcc",
 }
 
 

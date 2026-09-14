@@ -1,4 +1,6 @@
 #!/bin/sh
+# Generated from sources.json by generate.py — do not edit; run `make generate`.
+# Entrypoint — gcc/4.0.1-5363-macos
 # cc wrapper — rebrew Apple GCC 4.0.1 build 5363 (macOS).
 #
 # The Apple cc1 emits Darwin assembly that GNU as cannot read, so the wrapper
@@ -6,9 +8,10 @@
 # powerpc-linux-gnu-as.  A C++ source (.cpp/.cc/.cxx/.C) uses cc1plus when the
 # image ships one.
 #
-#   cc -c f.c -o f.o
+# cc -c f.c -o f.o
 #
 # -o names the output (default <stem>.o); every other argument goes to cc1.
+#
 # shellcheck source=base/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
 

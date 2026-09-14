@@ -6459,10 +6459,24 @@
       "description": "powerpc-apple-darwin (Apple GCC 3.1, build 1041) cross compiler (native x86_64) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "Apple GCC pipeline (cc1 | convert_gas_syntax.py | GNU as) — template pending",
+        "shape": "apple_gcc",
+        "cc1_dir": "",
+        "cxx_probe": "cc1",
+        "notes": [
+          "cc wrapper — rebrew Apple GCC 3.1, build 1041 (macOS).",
+          "",
+          "The Apple cc1 emits Darwin assembly that GNU as cannot read, so the wrapper",
+          "runs decomp.me's pipeline: cc1, then convert_gas_syntax.py, then",
+          "powerpc-linux-gnu-as.  A C++ source (.cpp/.cc/.cxx/.C) uses cc1plus when the",
+          "image ships one.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to cc1."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -6611,10 +6625,24 @@
       "description": "powerpc-apple-darwin (Apple GCC 4.0.0 build 5026) cross compiler (native x86_64) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "Apple GCC pipeline (cc1 | convert_gas_syntax.py | GNU as) — template pending",
+        "shape": "apple_gcc",
+        "cc1_dir": "",
+        "cxx_probe": "cc1plus",
+        "notes": [
+          "cc wrapper — rebrew Apple GCC 4.0.0 build 5026 (macOS).",
+          "",
+          "The Apple cc1 emits Darwin assembly that GNU as cannot read, so the wrapper",
+          "runs decomp.me's pipeline: cc1, then convert_gas_syntax.py, then",
+          "powerpc-linux-gnu-as.  A C++ source (.cpp/.cc/.cxx/.C) uses cc1plus when the",
+          "image ships one.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to cc1."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -6681,10 +6709,24 @@
       "description": "powerpc-apple-darwin (Apple GCC 4.0.1 build 5363) cross compiler (native x86_64) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "Apple GCC pipeline (cc1 | convert_gas_syntax.py | GNU as) — template pending",
+        "shape": "apple_gcc",
+        "cc1_dir": "",
+        "cxx_probe": "cc1plus",
+        "notes": [
+          "cc wrapper — rebrew Apple GCC 4.0.1 build 5363 (macOS).",
+          "",
+          "The Apple cc1 emits Darwin assembly that GNU as cannot read, so the wrapper",
+          "runs decomp.me's pipeline: cc1, then convert_gas_syntax.py, then",
+          "powerpc-linux-gnu-as.  A C++ source (.cpp/.cc/.cxx/.C) uses cc1plus when the",
+          "image ships one.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to cc1."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -6751,10 +6793,24 @@
       "description": "powerpc-apple-darwin (Apple GCC 4.0.1 build 5370) cross compiler (native x86_64) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "exec",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "Apple GCC pipeline (cc1 | convert_gas_syntax.py | GNU as) — template pending",
+        "shape": "apple_gcc",
+        "cc1_dir": "powerpc-darwin-cross/bin/",
+        "cxx_probe": "cc1plus",
+        "notes": [
+          "cc wrapper — rebrew Apple GCC 4.0.1 build 5370 (macOS).",
+          "",
+          "The Apple cc1 emits Darwin assembly that GNU as cannot read, so the wrapper",
+          "runs decomp.me's pipeline: cc1, then convert_gas_syntax.py, then",
+          "powerpc-linux-gnu-as.  A C++ source (.cpp/.cc/.cxx/.C) uses cc1plus when the",
+          "image ships one.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to cc1."
+        ],
         "file": "cc-wrapper.sh"
       }
     }

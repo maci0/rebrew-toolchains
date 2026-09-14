@@ -652,7 +652,31 @@ def classify_sn64_pe(rec: Recipe, wtext: str) -> dict[str, object] | None:
     }
 
 
+def classify_apple_gcc(rec: Recipe, wtext: str) -> dict[str, object] | None:
+    """The Apple GCC pipeline: `cc1`, the syntax converter, then GNU as.
+
+    The `cc1` tree layout and which binary is the C++ front end are the only
+    things that differ between the four images, so they are extracted here.
+    """
+    if "convert_gas_syntax.py" not in wtext or "powerpc-linux-gnu-as" not in wtext:
+        return None
+    root = str(rec.get("root") or "")
+    cc1 = re.search(rf"_cc1=/opt/{re.escape(root)}/(\S*)cc1\n", wtext)
+    probe = re.search(rf"\[ -x /opt/{re.escape(root)}/(\S*?)(cc1\w*) \]", wtext)
+    if not cc1 or not probe:
+        return None
+    return {
+        "shape": "apple_gcc",
+        "cc1_dir": cc1.group(1),
+        "cxx_probe": probe.group(2),
+        "notes": _prose(wtext),
+    }
+
+
 def classify_wrapper(rec: Recipe, wtext: str) -> tuple[dict[str, object], str, str] | None:
+    apple = classify_apple_gcc(rec, wtext)
+    if apple is not None:
+        return apple, str(rec.get("root") or ""), ""
     sn64 = classify_sn64_pe(rec, wtext)
     if sn64 is not None:
         return sn64, str(rec.get("root") or ""), ""
