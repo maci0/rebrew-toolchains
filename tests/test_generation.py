@@ -27,14 +27,7 @@ _REPO = Path(__file__).resolve().parents[1]
 #: that spelling.
 _HANDWRITTEN = (
     "delphi-1.0",
-    "gcc-2.7.2-sn0001",
-    "gcc-2.7.2-sn0001-cxx",
-    "gcc-2.7.2-sn0004",
-    "gcc-2.7.2-sn0006",
-    "gcc-2.7.2-sn0006-cxx",
     "gcc-2.7.2-snew",
-    "gcc-2.8.1-sn",
-    "gcc-2.8.1-sn-cxx",
     "gcc-2.8.1-snew-cxx",
     "gcc-3.1-1041",
     "gcc-4.0.0-5026",

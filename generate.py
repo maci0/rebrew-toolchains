@@ -330,6 +330,8 @@ def render_wrapper(profile: str, entry: dict[str, object]) -> str:
         return _wrapper_psyq_dosemu(entry, wrapper)
     if shape == "psyq_native":
         return _wrapper_psyq_native(entry, wrapper)
+    if shape == "sn64_pe":
+        return _wrapper_sn64_pe(entry, wrapper)
     raise ValueError(f"{profile}: wrapper shape {shape!r} is not expressible; mark it handwritten")
 
 
@@ -519,6 +521,67 @@ cd "$_work" || rebrew_die "cannot enter temporary directory"
 
 "$PSYQ_ROOT/psyq-obj-parser" out.bj -o "$OUT_ABS"
 """
+
+
+#: The SN64 PE pipeline, verbatim: the host `cpp` preprocesses, `cc1n64.exe`
+#: and `asn64.exe` each run in a subshell (the shared run helper exits by
+#: design, which would end the pipeline after stage one) inside a scratch
+#: directory with relative filenames (they mangle absolute Unix paths), and
+#: `psyq-obj-parser` turns the resulting object into an ELF relocatable.
+#: Seven images share the skeleton and differ in four places, which are the
+#: holes below; `{root}` is the recipe's install root.  Raw string on
+#: purpose: the trailing `\` line continuations are the shell's, not
+#: Python's.
+_SN64_PE_BODY = r""". /usr/local/lib/rebrew/wrapper-common.sh
+
+rebrew_pick_source "$@"
+
+OUT=""
+CC_FLAGS=""
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        -o)
+            [ "$#" -ge 2 ] || rebrew_die "-o requires an output file"
+            OUT="$2"
+            shift 2
+            ;;
+        -c) shift ;;
+        "$SRC") shift ;;
+        *)
+            CC_FLAGS="$CC_FLAGS $1"
+            shift
+            ;;
+    esac
+done
+[ -n "$OUT" ] || OUT="$STEM.o"
+case "$SRC" in /*) SRC_ABS="$SRC" ;; *) SRC_ABS="$(pwd)/$SRC" ;; esac
+case "$OUT" in /*) OUT_ABS="$OUT" ;; *) OUT_ABS="$(pwd)/$OUT" ;; esac
+
+_work="$(mktemp -d)" || rebrew_die "cannot create a temporary directory"
+# shellcheck disable=SC2064  # expand $_work now: the trap runs after it may be unset
+trap "rm -rf '$_work'" EXIT
+cd "$_work" || rebrew_die "cannot enter temporary directory"
+
+# SC2310: the run helper exits by design, so a stage is called in a subshell
+# under `||`; set -e must not turn a handled failure into an exit.
+# shellcheck disable=SC2086,SC2310  # CC_FLAGS is a flag list, word-split
+{cpp} "$SRC_ABS" | ( rebrew_run /opt/{root}/{cc1} {cc1_flags} $CC_FLAGS -o out.s ) \
+    || rebrew_die "{cc1_stem} failed on $SRC"
+# shellcheck disable=SC2310  # same subshell contract as the {cc1_stem} stage
+( rebrew_run /opt/{root}/asn64.exe {as_flags} out.s -o out.obj ) \
+    || rebrew_die "asn64 failed on the assembly {cc1_stem} produced"
+/opt/{root}/psyq-obj-parser out.obj -o "$OUT_ABS" {parser_flags}
+"""
+
+
+def _wrapper_sn64_pe(entry: dict[str, object], wrapper: dict[str, object]) -> str:
+    """The SN64 PE pipeline (cc1n64/asn64 under the run helper)."""
+    body = _SN64_PE_BODY.replace("{root}", install_root(entry))
+    for hole in ("cpp", "cc1", "cc1_flags", "as_flags", "parser_flags"):
+        body = body.replace("{" + hole + "}", _text(wrapper, hole))
+    cc1 = _text(wrapper, "cc1")
+    body = body.replace("{cc1_stem}", cc1.removesuffix(".exe"))
+    return "\n".join(_head(entry, "Entrypoint", wrapper)) + body
 
 
 def _wrapper_psyq_native(entry: dict[str, object], wrapper: dict[str, object]) -> str:

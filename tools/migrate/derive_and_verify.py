@@ -622,7 +622,40 @@ def classify_psyq_native(wtext: str) -> dict[str, object] | None:
     return {"shape": "psyq_native", "notes": _prose(wtext)}
 
 
+def classify_sn64_pe(rec: Recipe, wtext: str) -> dict[str, object] | None:
+    """The SN64 PE pipeline: host cpp, `cc1n64.exe`, `asn64.exe`, obj parser.
+
+    Seven images share the skeleton and differ in four strings, which are
+    extracted rather than assumed — the same rule as everywhere else: the
+    classifier proposes, the comparison disposes.
+    """
+    if "asn64.exe" not in wtext or "psyq-obj-parser" not in wtext:
+        return None  # the snew variants assemble with modern-asn64 instead
+    root = str(rec.get("root") or "")
+    cpp = re.search(r'^(/usr/bin/cpp .*?) "\$SRC_ABS"', wtext, re.MULTILINE)
+    cc1 = re.search(rf"/opt/{re.escape(root)}/(cc1\w*\.exe)", wtext)
+    if not cpp or not cc1:
+        return None
+    flags = re.search(rf"{re.escape(cc1.group(1))} (.*?)\$CC_FLAGS", wtext)
+    as_flags = re.search(r"asn64\.exe (.*?) out\.s", wtext)
+    parser = re.search(r'psyq-obj-parser out\.obj -o "\$OUT_ABS" (.*)', wtext)
+    if not flags or not as_flags or not parser:
+        return None
+    return {
+        "shape": "sn64_pe",
+        "cpp": cpp.group(1),
+        "cc1": cc1.group(1),
+        "cc1_flags": flags.group(1).rstrip(),
+        "as_flags": as_flags.group(1).rstrip(),
+        "parser_flags": parser.group(1).strip(),
+        "notes": _prose(wtext),
+    }
+
+
 def classify_wrapper(rec: Recipe, wtext: str) -> tuple[dict[str, object], str, str] | None:
+    sn64 = classify_sn64_pe(rec, wtext)
+    if sn64 is not None:
+        return sn64, str(rec.get("root") or ""), ""
     psyq_native = classify_psyq_native(wtext)
     if psyq_native is not None:
         return psyq_native, str(rec.get("root") or ""), ""

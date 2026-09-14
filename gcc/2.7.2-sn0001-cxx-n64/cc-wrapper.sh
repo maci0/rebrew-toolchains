@@ -1,4 +1,6 @@
 #!/bin/sh
+# Generated from sources.json by generate.py — do not edit; run `make generate`.
+# Entrypoint — gcc/2.7.2-sn0001-cxx-n64
 # cc wrapper — SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).
 #
 # The vendored SN64 tools have no usable driver here, so the pipeline is
@@ -6,13 +8,15 @@
 # the C++ defines the original driver supplies, compile with cc1pln64.exe, then
 # assemble with asn64.exe and convert the Sony object to an ELF relocatable with the image's psyq-obj-parser.
 #
-#   cc -c f.C -o f.o
+# cc -c f.C -o f.o
 #
 # -o names the output (default <stem>.o); every other argument goes to
 # cc1pln64.  The PE stages run in a scratch directory with relative filenames
 # (they mangle absolute Unix paths) and inside subshells (the shared run
 # helper exits by design, which would end the pipeline after stage one).
+#
 # shellcheck source=base/wrapper-common.sh
+. /usr/local/lib/rebrew/wrapper-common.sh
 . /usr/local/lib/rebrew/wrapper-common.sh
 
 rebrew_pick_source "$@"
@@ -52,4 +56,3 @@ cd "$_work" || rebrew_die "cannot enter temporary directory"
 ( rebrew_run /opt/gcc-2.7.2-sn0001-cxx-n64/asn64.exe -q out.s -o out.obj ) \
     || rebrew_die "asn64 failed on the assembly cc1pln64 produced"
 /opt/gcc-2.7.2-sn0001-cxx-n64/psyq-obj-parser out.obj -o "$OUT_ABS" -b -n -s
-

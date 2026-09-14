@@ -4439,10 +4439,31 @@
       "description": "GCC 2.7.2 SN0001 (N64) (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wibo",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "sn64_pe",
+        "cpp": "/usr/bin/cpp -E -lang-c -undef -D__GNUC__=2 -Dmips -D__mips__ -D__mips -Dn64 -D__n64__ -D__n64 -D_PSYQ -D__EXTENSIONS__ -D_MIPSEB -D__CHAR_UNSIGNED__",
+        "cc1": "cc1n64.exe",
+        "cc1_flags": "",
+        "as_flags": "-q",
+        "parser_flags": "-b -n -s",
+        "notes": [
+          "cc wrapper — SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
+          "",
+          "The vendored SN64 tools have no usable driver here, so",
+          "The pipeline is decomp.me's recipe verbatim: preprocess with the host cpp",
+          "(the defines the original driver supplies are baked in), compile with",
+          "cc1n64.exe, assemble with asn64.exe, then convert the Sony object to an ELF",
+          "relocatable with the image's psyq-obj-parser.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to",
+          "cc1n64.  The PE stages run in a scratch directory with relative filenames",
+          "(they mangle absolute Unix paths) and inside subshells (the shared run",
+          "helper exits by design, which would end the pipeline after stage one)."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -4524,10 +4545,30 @@
       "description": "GCC 2.7.2 SN0001 C++ (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wibo",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "sn64_pe",
+        "cpp": "/usr/bin/cpp -E -lang-c++ -undef -D__GNUC__=2 -D__cplusplus -Dmips -D__mips__ -D__mips -Dn64 -D__n64__ -D__n64 -D_PSYQ -D__EXTENSIONS__ -D_MIPSEB -D__CHAR_UNSIGNED__ -D_LANGUAGE_C_PLUS_PLUS",
+        "cc1": "cc1pln64.exe",
+        "cc1_flags": "",
+        "as_flags": "-q",
+        "parser_flags": "-b -n -s",
+        "notes": [
+          "cc wrapper — SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).",
+          "",
+          "The vendored SN64 tools have no usable driver here, so the pipeline is",
+          "decomp.me's gcc2.7.2sn0001-cxx recipe verbatim: preprocess with the host cpp using",
+          "the C++ defines the original driver supplies, compile with cc1pln64.exe, then",
+          "assemble with asn64.exe and convert the Sony object to an ELF relocatable with the image's psyq-obj-parser.",
+          "",
+          "cc -c f.C -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to",
+          "cc1pln64.  The PE stages run in a scratch directory with relative filenames",
+          "(they mangle absolute Unix paths) and inside subshells (the shared run",
+          "helper exits by design, which would end the pipeline after stage one)."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -4611,10 +4652,31 @@
       "description": "GCC 2.7.2 SN0004 (N64) (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wibo",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "sn64_pe",
+        "cpp": "/usr/bin/cpp -P",
+        "cc1": "cc1n64.exe",
+        "cc1_flags": "-quiet -G0 -mcpu=vr4300 -mips3 -mhard-float -meb",
+        "as_flags": "-q -G0",
+        "parser_flags": "-b -n",
+        "notes": [
+          "cc wrapper — SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
+          "",
+          "The vendored SN64 tools have no usable driver here, so",
+          "The pipeline is decomp.me's recipe verbatim: preprocess with the host cpp",
+          "(the defines the original driver supplies are baked in), compile with",
+          "cc1n64.exe, assemble with asn64.exe, then convert the Sony object to an ELF",
+          "relocatable with the image's psyq-obj-parser.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to",
+          "cc1n64.  The PE stages run in a scratch directory with relative filenames",
+          "(they mangle absolute Unix paths) and inside subshells (the shared run",
+          "helper exits by design, which would end the pipeline after stage one)."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -4695,10 +4757,31 @@
       "description": "GCC 2.7.2 SN0006 (N64) (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wibo",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "sn64_pe",
+        "cpp": "/usr/bin/cpp -E -lang-c -undef -D__GNUC__=2 -Dmips -D__mips__ -D__mips -Dn64 -D__n64__ -D__n64 -D_PSYQ -D__EXTENSIONS__ -D_MIPSEB -D__CHAR_UNSIGNED__",
+        "cc1": "cc1n64.exe",
+        "cc1_flags": "",
+        "as_flags": "-q -G0",
+        "parser_flags": "-b -n -s",
+        "notes": [
+          "cc wrapper — SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
+          "",
+          "The vendored SN64 tools have no usable driver here, so",
+          "The pipeline is decomp.me's recipe verbatim: preprocess with the host cpp",
+          "(the defines the original driver supplies are baked in), compile with",
+          "cc1n64.exe, assemble with asn64.exe, then convert the Sony object to an ELF",
+          "relocatable with the image's psyq-obj-parser.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to",
+          "cc1n64.  The PE stages run in a scratch directory with relative filenames",
+          "(they mangle absolute Unix paths) and inside subshells (the shared run",
+          "helper exits by design, which would end the pipeline after stage one)."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -4780,10 +4863,30 @@
       "description": "GCC 2.7.2 SN0006 C++ (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wibo",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "sn64_pe",
+        "cpp": "/usr/bin/cpp -E -lang-c++ -undef -D__GNUC__=2 -D__cplusplus -Dmips -D__mips__ -D__mips -Dn64 -D__n64__ -D__n64 -D_PSYQ -D__EXTENSIONS__ -D_MIPSEB -D__CHAR_UNSIGNED__ -D_LANGUAGE_C_PLUS_PLUS",
+        "cc1": "cc1pln64.exe",
+        "cc1_flags": "",
+        "as_flags": "-q -G0",
+        "parser_flags": "-b -n -s",
+        "notes": [
+          "cc wrapper — SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).",
+          "",
+          "The vendored SN64 tools have no usable driver here, so the pipeline is",
+          "decomp.me's gcc2.7.2sn0006-cxx recipe verbatim: preprocess with the host cpp using",
+          "the C++ defines the original driver supplies, compile with cc1pln64.exe, then",
+          "assemble with asn64.exe and convert the Sony object to an ELF relocatable with the image's psyq-obj-parser.",
+          "",
+          "cc -c f.C -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to",
+          "cc1pln64.  The PE stages run in a scratch directory with relative filenames",
+          "(they mangle absolute Unix paths) and inside subshells (the shared run",
+          "helper exits by design, which would end the pipeline after stage one)."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -5645,10 +5748,31 @@
       "description": "GCC 2.8.1 SN (N64) (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wibo",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "sn64_pe",
+        "cpp": "/usr/bin/cpp -E -lang-c -undef -D__GNUC__=2 -Dmips -D__mips__ -D__mips -Dn64 -D__n64__ -D__n64 -D_PSYQ -D__EXTENSIONS__ -D_MIPSEB -D__CHAR_UNSIGNED__",
+        "cc1": "cc1n64.exe",
+        "cc1_flags": "",
+        "as_flags": "-q -G0",
+        "parser_flags": "-b -n",
+        "notes": [
+          "cc wrapper — SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
+          "",
+          "The vendored SN64 tools have no usable driver here, so",
+          "The pipeline is decomp.me's recipe verbatim: preprocess with the host cpp",
+          "(the defines the original driver supplies are baked in), compile with",
+          "cc1n64.exe, assemble with asn64.exe, then convert the Sony object to an ELF",
+          "relocatable with the image's psyq-obj-parser.",
+          "",
+          "cc -c f.c -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to",
+          "cc1n64.  The PE stages run in a scratch directory with relative filenames",
+          "(they mangle absolute Unix paths) and inside subshells (the shared run",
+          "helper exits by design, which would end the pipeline after stage one)."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
@@ -5737,10 +5861,30 @@
       "description": "GCC 2.8.1 SN C++ (N64, PE/x86_32 pipeline) toolchain image",
       "entrypoint": "cc",
       "wrapper_file": "cc-wrapper.sh",
+      "binary": "",
       "runner": "wibo",
       "wrapper": {
-        "shape": "handwritten",
-        "why": "multi-stage pipeline (cpp | cc1 | assembler | converter) — template pending",
+        "shape": "sn64_pe",
+        "cpp": "/usr/bin/cpp -E -lang-c++ -undef -D__GNUC__=2 -D__cplusplus -Dmips -D__mips__ -D__mips -Dn64 -D__n64__ -D__n64 -D_PSYQ -D__EXTENSIONS__ -D_MIPSEB -D__CHAR_UNSIGNED__ -D_LANGUAGE_C_PLUS_PLUS",
+        "cc1": "cc1pln64.exe",
+        "cc1_flags": "",
+        "as_flags": "-q -G0",
+        "parser_flags": "-b -n",
+        "notes": [
+          "cc wrapper — SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).",
+          "",
+          "The vendored SN64 tools have no usable driver here, so the pipeline is",
+          "decomp.me's gcc2.8.1sn-cxx recipe verbatim: preprocess with the host cpp using",
+          "the C++ defines the original driver supplies, compile with cc1pln64.exe, then",
+          "assemble with asn64.exe and convert the Sony object to an ELF relocatable with the image's psyq-obj-parser.",
+          "",
+          "cc -c f.C -o f.o",
+          "",
+          "-o names the output (default <stem>.o); every other argument goes to",
+          "cc1pln64.  The PE stages run in a scratch directory with relative filenames",
+          "(they mangle absolute Unix paths) and inside subshells (the shared run",
+          "helper exits by design, which would end the pipeline after stage one)."
+        ],
         "file": "cc-wrapper.sh"
       }
     }
