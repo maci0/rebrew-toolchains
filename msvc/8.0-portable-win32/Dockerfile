@@ -16,12 +16,11 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends unzip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc8p/msvc.zip \
+RUN mkdir -p /opt/msvc8.0-portable /tmp/msvc8p && curl -fsSL --retry 3 --retry-all-errors -o /tmp/msvc8p/msvc.zip \
         "https://github.com/widberg/msvc8.0/archive/52c8293f8b8d6441c594cf096542290c17a4d70e.zip" \
     && echo "b138c1b3c99a8a2b9c4324add058e0ddfda5def81f0ef821b10cbfcf383b2084  /tmp/msvc8p/msvc.zip" | sha256sum -c -
 
 RUN rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /opt/msvc8.0-portable /tmp/msvc8p \
     && unzip -q /tmp/msvc8p/msvc.zip -d /tmp/msvc8p/x \
     && cp -a /tmp/msvc8p/x/msvc8.0-52c8293f8b8d6441c594cf096542290c17a4d70e/. /opt/msvc8.0-portable/ \
     && rm -rf /tmp/msvc8p \

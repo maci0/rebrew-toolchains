@@ -16,7 +16,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends python3 binutils-powerpc-linux-gnu \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/tools/gcc-5370.tar.gz \
+RUN mkdir -p /opt/gcc-4.0.1-5370 /tmp/tools && curl -fsSL --retry 3 --retry-all-errors -o /tmp/tools/gcc-5370.tar.gz \
         "https://github.com/ChrisNonyminus/powerpc-darwin-cross/releases/download/initial/gcc-5370.tar.gz" \
     && echo "0d55f044365ffd8b34b5d13854235779cfe54131d16a62e5a909ace889363448  /tmp/tools/gcc-5370.tar.gz" | sha256sum -c -
 
@@ -25,7 +25,6 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /opt/gcc-4.0.1-5370/convert_gas_s
     && echo "8ad067bedef54c526774e6453f55ef7a2bedc93604bd7640a6a8a1cc64b3cda0  /opt/gcc-4.0.1-5370/convert_gas_syntax.py" | sha256sum -c -
 
 RUN rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /opt/gcc-4.0.1-5370 /tmp/tools \
     && tar xzf /tmp/tools/gcc-5370.tar.gz -C /opt/gcc-4.0.1-5370 \
     && rm -rf /tmp/tools \
     && chmod +x /opt/gcc-4.0.1-5370/powerpc-darwin-cross/bin/cc1 /opt/gcc-4.0.1-5370/convert_gas_syntax.py

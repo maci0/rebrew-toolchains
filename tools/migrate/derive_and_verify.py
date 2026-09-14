@@ -195,13 +195,7 @@ def semantics(d: pathlib.Path) -> Semantics:
 def _norm_op(cmd: str) -> str:
     cmd = re.sub(r"/opt/[A-Za-z0-9_.+-]+", "/opt/X", cmd)
     cmd = re.sub(r"/tmp/[A-Za-z0-9_.+-]+", "/tmp/F", cmd)  # noqa: S108  (pattern, not a path)
-    cmd = re.sub(r"\s+", " ", cmd)
-    if cmd.startswith("tar "):
-        head, *rest = cmd.split(" ")
-        flags = sorted(r for r in rest if r.startswith("-"))
-        args = [r for r in rest if not r.startswith("-")]
-        return " ".join([head, *args, *flags])
-    return cmd
+    return re.sub(r"\s+", " ", cmd)
 
 
 def _norm_cmd(cmd: str) -> str:

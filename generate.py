@@ -158,9 +158,28 @@ def render_dockerfile(profile: str, entry: dict[str, object]) -> str:
         lines += [f"ENV {pairs}", ""]
 
     pins = pin_urls(entry)
-    for fetch in _list(rec.get("fetch")):
-        if not isinstance(fetch, dict):
-            raise ValueError(f"{profile}: fetch entry is not an object")
+    fetches = [f for f in _list(rec.get("fetch")) if isinstance(f, dict)]
+    steps = [s for s in _list(rec.get("steps")) if isinstance(s, dict)]
+    # Downloads run before the install steps, so a download that lands in a
+    # directory of its own needs that `mkdir` to happen first — the images did
+    # it in the RUN that also downloaded (`mkdir -p /opt/x /tmp/y && curl …`).
+    # That step is rendered here and not repeated in the steps RUN below.
+    needed = {
+        str(pathlib.PurePosixPath(str(f["as"])).parent): index
+        for index, f in enumerate(fetches)
+        if str(pathlib.PurePosixPath(str(f["as"])).parent) != "/tmp"  # noqa: S108
+    }
+    early: dict[int, str] = {}
+    rest: list[dict[str, object]] = []
+    for step in steps:
+        paths = [str(p) for p in _list(step.get("paths"))]
+        targets = [needed[p] for p in paths if p in needed]
+        if step.get("op") == "mkdir" and targets and min(targets) not in early:
+            early[min(targets)] = "mkdir -p " + " ".join(paths)
+            continue
+        rest.append(step)
+
+    for index, fetch in enumerate(fetches):
         name = str(fetch.get("pin", "primary"))
         url, sha = pins.get(name, ("", ""))
         _require(url, f"{profile}: fetch names unknown pin {name}")
@@ -169,14 +188,15 @@ def render_dockerfile(profile: str, entry: dict[str, object]) -> str:
         # the same rule for the manifest itself).
         _require(sha, f"{profile}: pin {name} has no sha256 in sources.json")
         dest = str(fetch["as"])
+        mkdir = f"{early[index]} && " if index in early else ""
         lines += [
-            f"RUN {CURL} -o {dest} \\",
+            f"RUN {mkdir}{CURL} -o {dest} \\",
             f'        "{url}" \\',
             f'    && echo "{sha}  {dest}" | sha256sum -c -',
             "",
         ]
 
-    steps = [s for s in _list(rec.get("steps")) if isinstance(s, dict)]
+    steps = rest
     if steps:
         body = _render_steps(profile, steps)
         # One RUN, chained with && and carried by backslashes: a recipe step
@@ -250,8 +270,11 @@ def _render_steps(profile: str, steps: list[dict[str, object]]) -> list[str]:
             flag = {"gz": "z", "xz": "J", "bz2": "j"}[_text(step, "compression") or "gz"]
             members = " ".join(str(m) for m in _list(step.get("members")))
             wild = " --wildcards" if step.get("wildcards") else ""
-            middle = f" {members}{wild}" if members else ""
-            out.append(f"tar x{flag}f {step['from']}{middle}{strip} -C {step['into']}")
+            # Options come before the members: GNU tar reads everything after
+            # the first member name as a member, so `tar xzf a.tar b/c --strip-
+            # components=1` fails with exit 2 on the option.
+            middle = f" {members}" if members else ""
+            out.append(f"tar x{flag}f {step['from']}{strip}{wild} -C {step['into']}{middle}")
         elif op == "unzip":
             if step.get("subpath"):
                 out.append(

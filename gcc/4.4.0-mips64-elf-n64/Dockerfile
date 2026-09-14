@@ -16,12 +16,11 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends libmpfr6 libgmp10 libmpc3 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/tools/gcc440-mips64.tar.gz \
+RUN mkdir -p /opt/gcc-4.4.0-mips64-elf /tmp/tools && curl -fsSL --retry 3 --retry-all-errors -o /tmp/tools/gcc440-mips64.tar.gz \
         "https://github.com/devwizard64/gcc4.4.0-mips64-elf/releases/download/latest/gcc4.4.0-mips64-elf.tar.gz" \
     && echo "d1a9815f730582ff65f8c14371c62436790655b20a21a5f8ee8b39b4fafa2f58  /tmp/tools/gcc440-mips64.tar.gz" | sha256sum -c -
 
 RUN rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /opt/gcc-4.4.0-mips64-elf /tmp/tools \
     && tar xzf /tmp/tools/gcc440-mips64.tar.gz -C /opt/gcc-4.4.0-mips64-elf \
     && rm -rf /tmp/tools
 

@@ -18,7 +18,7 @@ RUN apt-get update \
 
 ENV REBREW_RUNNER=wibo
 
-RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/tools/n64_sn272_0001.tar.gz \
+RUN mkdir -p /opt/gcc-2.7.2-sn0001-cxx-n64 /tmp/tools && curl -fsSL --retry 3 --retry-all-errors -o /tmp/tools/n64_sn272_0001.tar.gz \
         "https://github.com/decompme/compilers/releases/download/compilers/n64_sn272_0001.tar.gz" \
     && echo "17c57ccd5f2305fe5445c576d4cc2c1fea681dd78b29dd3d1f15c5ca0fdf2cea  /tmp/tools/n64_sn272_0001.tar.gz" | sha256sum -c -
 
@@ -27,7 +27,6 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/parser.tar.gz \
     && echo "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e  /tmp/parser.tar.gz" | sha256sum -c -
 
 RUN rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /opt/gcc-2.7.2-sn0001-cxx-n64 /tmp/tools \
     && tar xzf /tmp/tools/n64_sn272_0001.tar.gz -C /opt/gcc-2.7.2-sn0001-cxx-n64 \
     && rm -rf /tmp/tools \
     && chmod +x /opt/gcc-2.7.2-sn0001-cxx-n64/*.exe \

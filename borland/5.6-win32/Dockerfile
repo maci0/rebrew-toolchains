@@ -17,7 +17,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/bcc56.tar.gz \
     && echo "8e5a93db99330b816646a14bdfa1c90d2e80a41810ce8c65f4942378cb621882  /tmp/bcc56.tar.gz" | sha256sum -c -
 
 RUN mkdir -p /opt/bcc56 \
-    && tar xzf /tmp/bcc56.tar.gz borland-cpp-ide-09bcecc81184/BIN borland-cpp-ide-09bcecc81184/INCLUDE borland-cpp-ide-09bcecc81184/LIB --strip-components=1 -C /opt/bcc56 \
+    && tar xzf /tmp/bcc56.tar.gz --strip-components=1 -C /opt/bcc56 borland-cpp-ide-09bcecc81184/BIN borland-cpp-ide-09bcecc81184/INCLUDE borland-cpp-ide-09bcecc81184/LIB \
     && rm /tmp/bcc56.tar.gz \
     && ls /opt/bcc56/BIN/BCC32.EXE
 

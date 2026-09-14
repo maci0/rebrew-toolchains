@@ -15,12 +15,11 @@ LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \
 ENV WATCOM=/opt/watcom-11.0-cxx \
     INCLUDE=/opt/watcom-11.0-cxx/h
 
-RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/watcom/watcom.tar.gz \
+RUN mkdir -p /opt/watcom-11.0-cxx /tmp/watcom && curl -fsSL --retry 3 --retry-all-errors -o /tmp/watcom/watcom.tar.gz \
         "https://github.com/OmniBlade/decomp.me/releases/download/wcc10.5/wcc11.0.tar.gz" \
     && echo "6ecbf03ad4d71285f5813c34a4f551720eec0dfb09996a7dda7cb591963df325  /tmp/watcom/watcom.tar.gz" | sha256sum -c -
 
-RUN mkdir -p /opt/watcom-11.0-cxx /tmp/watcom \
-    && tar xzf /tmp/watcom/watcom.tar.gz -C /opt/watcom-11.0-cxx \
+RUN tar xzf /tmp/watcom/watcom.tar.gz -C /opt/watcom-11.0-cxx \
     && rm -rf /tmp/watcom \
     && ls /opt/watcom-11.0-cxx/binnt/wpp386.exe
 

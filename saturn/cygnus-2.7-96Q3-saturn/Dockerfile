@@ -16,12 +16,11 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends binutils-sh-elf unzip \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/tools/saturn.zip \
+RUN mkdir -p /opt/saturn-cygnus /tmp/tools && curl -fsSL --retry 3 --retry-all-errors -o /tmp/tools/saturn.zip \
         "https://github.com/sozud/saturn-compilers/archive/af27f4aa6566c1b0fa5332b488e63d6ffd28bd48.zip" \
     && echo "f5460e3ea653a24fb011a94f2ce2c54b277877e60859ffc906b07dbbe6406595  /tmp/tools/saturn.zip" | sha256sum -c -
 
 RUN rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /opt/saturn-cygnus /tmp/tools \
     && unzip -q /tmp/tools/saturn.zip -d /tmp/tools \
     && cp -a /tmp/tools/saturn-compilers-af27f4aa6566c1b0fa5332b488e63d6ffd28bd48/cygnus-2.7-96Q3-bin/. /opt/saturn-cygnus/ \
     && rm -rf /tmp/tools \

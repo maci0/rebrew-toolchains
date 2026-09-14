@@ -20,12 +20,11 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /tmp/shc.tar.gz \
         "https://github.com/decompme/compilers/releases/download/compilers/shc-v5.1r13.tar.gz" \
     && echo "0da9982adc576171d93ceeeedff15c946fc570b0473e39b388e18d9e4ee1427a  /tmp/shc.tar.gz" | sha256sum -c -
 
-RUN curl -fsSL --retry 3 --retry-all-errors -o /opt/shc-5.1r13/rof2elf.py \
+RUN mkdir -p /opt/shc-5.1r13 && curl -fsSL --retry 3 --retry-all-errors -o /opt/shc-5.1r13/rof2elf.py \
         "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py" \
     && echo "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821  /opt/shc-5.1r13/rof2elf.py" | sha256sum -c -
 
-RUN mkdir -p /opt/shc-5.1r13 \
-    && tar xzf /tmp/shc.tar.gz -C /opt/shc-5.1r13 \
+RUN tar xzf /tmp/shc.tar.gz -C /opt/shc-5.1r13 \
     && rm /tmp/shc.tar.gz \
     && chmod +x /opt/shc-5.1r13/rof2elf.py /opt/shc-5.1r13/bin/*.exe \
     && ls /opt/shc-5.1r13/bin/shc.exe \
