@@ -22,8 +22,6 @@ import argparse
 import collections
 import pathlib
 import re
-import shutil
-import subprocess
 import sys
 import tempfile
 
@@ -31,6 +29,7 @@ REPO = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "tools" / "migrate"))
 
+import gitrev  # noqa: E402
 from derive_and_verify import (  # noqa: E402
     instructions,
     semantics,
@@ -46,30 +45,6 @@ import generate  # noqa: E402
 ACKNOWLEDGED = dict.fromkeys(
     ("clang-3.9.1", "clang-8.0.0", "clang-9.0.0"), "pin upgraded from http to https (same sha256)"
 )
-
-
-def baseline_tree(rev: str, into: pathlib.Path) -> pathlib.Path:
-    """Check ``rev`` out into ``into`` and return that path."""
-    known = subprocess.run(  # noqa: S603  (fixed argv, no shell)
-        ["git", "cat-file", "-e", f"{rev}^{{commit}}"],  # noqa: S607
-        cwd=REPO,
-        check=False,
-        capture_output=True,
-    )
-    if known.returncode:
-        raise SystemExit(
-            f"verify: {rev} is not in this clone — a shallow checkout hides it, "
-            f"so fetch the full history or pass another --baseline"
-        )
-    if into.exists():
-        shutil.rmtree(into)
-    subprocess.run(  # noqa: S603  (fixed argv, no shell)
-        ["git", "worktree", "add", "--detach", str(into), rev],  # noqa: S607
-        cwd=REPO,
-        check=True,
-        capture_output=True,
-    )
-    return into
 
 
 def copy_sources(directory: pathlib.Path) -> list[str]:
@@ -250,7 +225,7 @@ def main(argv: list[str]) -> int:
         return 2
 
     tmp = pathlib.Path(tempfile.mkdtemp(prefix="rebrew-baseline-"))
-    base = baseline_tree(args.baseline, tmp / "tree")
+    base = gitrev.checkout(args.baseline, tmp / "tree")
     try:
         differ: list[tuple[str, list[str]]] = []
         acknowledged: list[tuple[str, str]] = []
@@ -294,13 +269,7 @@ def main(argv: list[str]) -> int:
                 print(f"    {problem}")
         return 1 if differ else 0
     finally:
-        subprocess.run(  # noqa: S603  (fixed argv, no shell)
-            ["git", "worktree", "remove", "--force", str(base)],  # noqa: S607
-            cwd=REPO,
-            check=False,
-            capture_output=True,
-        )
-        shutil.rmtree(tmp, ignore_errors=True)
+        gitrev.discard(base, tmp)
 
 
 if __name__ == "__main__":

@@ -391,5 +391,6 @@ EOF
 | `url`, `sha256` | the primary pinned download, verified inside the build |
 | `commit` | the git commit a branch-pinned URL came from; `""` for release assets |
 | `recipe` | everything the Dockerfile is rendered from: base, apt, fetch, steps, env, root, binary, entrypoint, runner, wrapper, labels (see step 3) |
+| `notes` | optional authored documentation for the image — the catalog's Notes column, verbatim.  It lives here, not in the recipe, because re-deriving a recipe rewrites it: anything the image does not render belongs at the profile level. |
 | `aliases` | extra names `build.sh` accepts for this profile |
 | `*_url`/`*_sha256`/`*_commit` | additional pinned sources the image needs |

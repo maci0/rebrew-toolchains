@@ -44,12 +44,7 @@
       "root": "agbcc",
       "title": "rebrew agbcc (GBA)",
       "description": "agbcc (pret, GBA, native x86_64) toolchain image",
-      "notes": [
-        "cc1-style: emits assembly, not an object",
-        "upstream release tag is rebuilt on every push — re-pin on drift"
-      ],
       "entrypoint": "agbcc",
-      "wrapper_file": "",
       "binary": "bin/agbcc",
       "runner": "exec",
       "wrapper": {
@@ -57,7 +52,11 @@
         "validate_source": false,
         "argv": []
       }
-    }
+    },
+    "notes": [
+      "cc1-style: emits assembly, not an object",
+      "upstream release tag is rebuilt on every push — re-pin on drift"
+    ]
   },
   "agbcc-arm-gba": {
     "family": "agbcc",
@@ -68,6 +67,10 @@
     "variant_of": "agbcc",
     "aliases": [
       "agbcc_arm"
+    ],
+    "notes": [
+      "cc1-style: emits assembly, not an object",
+      "upstream release tag is rebuilt on every push — re-pin on drift"
     ],
     "recipe": {
       "base": "base",
@@ -108,12 +111,7 @@
       "root": "agbcc-agbcc_arm",
       "title": "rebrew agbcc (ARM mode, GBA)",
       "description": "agbcc ARM-mode front end (pret, GBA, native x86_64) toolchain image",
-      "notes": [
-        "cc1-style: emits assembly, not an object",
-        "upstream release tag is rebuilt on every push — re-pin on drift"
-      ],
       "entrypoint": "agbcc_arm",
-      "wrapper_file": "",
       "binary": "bin/agbcc_arm",
       "runner": "exec",
       "wrapper": {
@@ -168,12 +166,7 @@
       "root": "agbcc-fe8j",
       "title": "rebrew agbcc FE8J (GBA)",
       "description": "agbcc (laqieer FE8J fork, GBA, native x86_64) toolchain image",
-      "notes": [
-        "cc1-style: emits assembly, not an object",
-        "upstream release tag is rebuilt on every push — re-pin on drift"
-      ],
       "entrypoint": "agbcc",
-      "wrapper_file": "",
       "binary": "bin/agbcc",
       "runner": "exec",
       "wrapper": {
@@ -181,7 +174,11 @@
         "validate_source": false,
         "argv": []
       }
-    }
+    },
+    "notes": [
+      "cc1-style: emits assembly, not an object",
+      "upstream release tag is rebuilt on every push — re-pin on drift"
+    ]
   },
   "agbcc-old-gba": {
     "family": "agbcc",
@@ -192,6 +189,10 @@
     "variant_of": "agbcc",
     "aliases": [
       "old_agbcc"
+    ],
+    "notes": [
+      "cc1-style: emits assembly, not an object",
+      "upstream release tag is rebuilt on every push — re-pin on drift"
     ],
     "recipe": {
       "base": "base",
@@ -232,12 +233,7 @@
       "root": "agbcc-old_agbcc",
       "title": "rebrew agbcc (old front end, GBA)",
       "description": "agbcc old front end (pret, GBA, native x86_64) toolchain image",
-      "notes": [
-        "cc1-style: emits assembly, not an object",
-        "upstream release tag is rebuilt on every push — re-pin on drift"
-      ],
       "entrypoint": "old_agbcc",
-      "wrapper_file": "",
       "binary": "bin/old_agbcc",
       "runner": "exec",
       "wrapper": {
@@ -292,12 +288,7 @@
       "root": "agbccpp",
       "title": "rebrew agbccpp (GBA)",
       "description": "agbccpp (notyourav cp fork, GBA, native x86_64) toolchain image",
-      "notes": [
-        "cc1-style: emits assembly, not an object",
-        "upstream release tag is rebuilt on every push — re-pin on drift"
-      ],
       "entrypoint": "agbccpp",
-      "wrapper_file": "",
       "binary": "bin/agbcp",
       "runner": "exec",
       "wrapper": {
@@ -305,7 +296,11 @@
         "validate_source": false,
         "argv": []
       }
-    }
+    },
+    "notes": [
+      "cc1-style: emits assembly, not an object",
+      "upstream release tag is rebuilt on every push — re-pin on drift"
+    ]
   },
   "armcc-4.0-771": {
     "family": "armcc",
@@ -315,6 +310,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_40_771"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.0/b771`"
     ],
     "recipe": {
       "base": "base",
@@ -361,11 +359,7 @@
       "root": "armcc-4.0-771",
       "title": "rebrew ARMCC 4.0-771 (3DS)",
       "description": "ARMCC 4.0-771 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.0/b771`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -386,6 +380,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_40_821"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.0/b821`"
     ],
     "recipe": {
       "base": "base",
@@ -432,11 +429,7 @@
       "root": "armcc-4.0-821",
       "title": "rebrew ARMCC 4.0-821 (3DS)",
       "description": "ARMCC 4.0-821 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.0/b821`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -457,6 +450,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_40_865"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.0/b865`"
     ],
     "recipe": {
       "base": "base",
@@ -503,11 +499,7 @@
       "root": "armcc-4.0-865",
       "title": "rebrew ARMCC 4.0-865 (3DS)",
       "description": "ARMCC 4.0-865 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.0/b865`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -528,6 +520,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_40_902"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.0/b902`"
     ],
     "recipe": {
       "base": "base",
@@ -574,11 +569,7 @@
       "root": "armcc-4.0-902",
       "title": "rebrew ARMCC 4.0-902 (3DS)",
       "description": "ARM Compiler 4.0-902 (Nintendo 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.0/b902`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -599,6 +590,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_41_1049"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.1/b1049`"
     ],
     "recipe": {
       "base": "base",
@@ -645,11 +639,7 @@
       "root": "armcc-4.1-1049",
       "title": "rebrew ARMCC 4.1-1049 (3DS)",
       "description": "ARMCC 4.1-1049 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.1/b1049`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -670,6 +660,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_41_1440"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.1/b1440`"
     ],
     "recipe": {
       "base": "base",
@@ -716,11 +709,7 @@
       "root": "armcc-4.1-1440",
       "title": "rebrew ARMCC 4.1-1440 (3DS)",
       "description": "ARMCC 4.1-1440 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.1/b1440`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -741,6 +730,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_41_1454"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.1/b1454`"
     ],
     "recipe": {
       "base": "base",
@@ -787,11 +779,7 @@
       "root": "armcc-4.1-1454",
       "title": "rebrew ARMCC 4.1-1454 (3DS)",
       "description": "ARMCC 4.1-1454 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.1/b1454`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -812,6 +800,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_41_561"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.1/b561`"
     ],
     "recipe": {
       "base": "base",
@@ -858,11 +849,7 @@
       "root": "armcc-4.1-561",
       "title": "rebrew ARMCC 4.1-561 (3DS)",
       "description": "ARMCC 4.1-561 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.1/b561`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -883,6 +870,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_41_713"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.1/b713`"
     ],
     "recipe": {
       "base": "base",
@@ -929,11 +919,7 @@
       "root": "armcc-4.1-713",
       "title": "rebrew ARMCC 4.1-713 (3DS)",
       "description": "ARMCC 4.1-713 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.1/b713`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -954,6 +940,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_41_791"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.1/b791`"
     ],
     "recipe": {
       "base": "base",
@@ -1000,11 +989,7 @@
       "root": "armcc-4.1-791",
       "title": "rebrew ARMCC 4.1-791 (3DS)",
       "description": "ARMCC 4.1-791 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.1/b791`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -1025,6 +1010,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_41_844"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.1/b844`"
     ],
     "recipe": {
       "base": "base",
@@ -1071,11 +1059,7 @@
       "root": "armcc-4.1-844",
       "title": "rebrew ARMCC 4.1-844 (3DS)",
       "description": "ARMCC 4.1-844 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.1/b844`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -1096,6 +1080,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_41_894"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.1/b894`"
     ],
     "recipe": {
       "base": "base",
@@ -1142,11 +1129,7 @@
       "root": "armcc-4.1-894",
       "title": "rebrew ARMCC 4.1-894 (3DS)",
       "description": "ARMCC 4.1-894 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.1/b894`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -1167,6 +1150,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_41_921"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:4.1/b921`"
     ],
     "recipe": {
       "base": "base",
@@ -1213,11 +1199,7 @@
       "root": "armcc-4.1-921",
       "title": "rebrew ARMCC 4.1-921 (3DS)",
       "description": "ARMCC 4.1-921 (CodeWarrior 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:4.1/b921`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -1238,6 +1220,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "armcc_504_82"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:5.04/b82`"
     ],
     "recipe": {
       "base": "base",
@@ -1284,11 +1269,7 @@
       "root": "armcc-5.04-82",
       "title": "rebrew ARMCC 5.04-82 (3DS)",
       "description": "ARM Compiler 5.04-82 (Nintendo 3DS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:5.04/b82`"
-      ],
       "entrypoint": "armcc",
-      "wrapper_file": "",
       "binary": "bin/armcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -1344,7 +1325,6 @@
       "title": "rebrew Turbo C 2.0 (win16, DOSBox)",
       "description": "Turbo C 2.0 (win16, DOSBox) toolchain image",
       "entrypoint": "tcc",
-      "wrapper_file": "tc20-run.sh",
       "binary": "",
       "runner": "dosbox",
       "wrapper": {
@@ -1418,7 +1398,6 @@
       "title": "rebrew Borland C++ 2.0 (decomp.me repack)",
       "description": "Borland C++ 2.0 (decomp.me preservation repack, 16-bit DOS, DOSBox) toolchain image",
       "entrypoint": "bcc",
-      "wrapper_file": "bcc-wrapper.sh",
       "binary": "",
       "runner": "dosbox",
       "wrapper": {
@@ -1485,7 +1464,6 @@
       "title": "rebrew Turbo C++ 3.1 (win16, DOSBox)",
       "description": "Turbo C++ 3.1 (win16, DOSBox) toolchain image",
       "entrypoint": "tcc",
-      "wrapper_file": "tc16-run.sh",
       "binary": "",
       "runner": "dosbox",
       "wrapper": {
@@ -1559,7 +1537,6 @@
       "title": "rebrew Borland C++ 3.1 (decomp.me repack)",
       "description": "Borland C++ 3.1 (decomp.me preservation repack, 16-bit DOS, DOSBox) toolchain image",
       "entrypoint": "bcc",
-      "wrapper_file": "bcc-wrapper.sh",
       "binary": "",
       "runner": "dosbox",
       "wrapper": {
@@ -1626,7 +1603,6 @@
       "title": "rebrew Borland C++ 5.5 (win32, wine)",
       "description": "Borland C++ 5.5 (win32, wine) toolchain image",
       "entrypoint": "bcc",
-      "wrapper_file": "bcc-wrapper.sh",
       "binary": "Bin/bcc32.exe",
       "runner": "wine",
       "wrapper": {
@@ -1698,11 +1674,7 @@
       "root": "bcc56",
       "title": "rebrew Borland C++ 5.6 (win32, wine)",
       "description": "Borland C++ 5.6 (win32, wine) toolchain image",
-      "notes": [
-        "unpacked from `tar-subset`"
-      ],
       "entrypoint": "bcc",
-      "wrapper_file": "bcc-wrapper.sh",
       "binary": "BIN/BCC32.EXE",
       "runner": "wine",
       "wrapper": {
@@ -1725,7 +1697,10 @@
         "set_e": true,
         "file": "bcc-wrapper.sh"
       }
-    }
+    },
+    "notes": [
+      "unpacked from `tar-subset`"
+    ]
   },
   "clang-16.0.4": {
     "family": "clang",
@@ -1776,7 +1751,6 @@
       "title": "rebrew Clang 16.0.4 (ELF/x86_64, native)",
       "description": "Clang 16.0.4 (ELF/x86_64, native, LLVM release build) toolchain image",
       "entrypoint": "clang",
-      "wrapper_file": "",
       "binary": "bin/clang",
       "runner": "exec",
       "wrapper": {
@@ -1836,7 +1810,6 @@
       "title": "rebrew Clang 18.1.8 (ELF/x86_64, native)",
       "description": "Clang 18.1.8 (ELF/x86_64, native, LLVM release build) toolchain image",
       "entrypoint": "clang",
-      "wrapper_file": "",
       "binary": "bin/clang",
       "runner": "exec",
       "wrapper": {
@@ -1922,7 +1895,6 @@
         "LD_LIBRARY_PATH": "/opt/clang-3.9.1/lib"
       },
       "entrypoint": "clang",
-      "wrapper_file": "",
       "root": "clang-3.9.1",
       "binary": "bin/clang",
       "runner": "exec",
@@ -1991,7 +1963,6 @@
       "title": "rebrew Clang 4.0.1 (Switch)",
       "description": "Clang 4.0.1 (LLVM prebuilt, native x86_64, Switch decomp) toolchain image",
       "entrypoint": "clang",
-      "wrapper_file": "",
       "binary": "bin/clang",
       "runner": "exec",
       "wrapper": {
@@ -2077,7 +2048,6 @@
         "LD_LIBRARY_PATH": "/opt/clang-8.0.0/lib"
       },
       "entrypoint": "clang",
-      "wrapper_file": "",
       "root": "clang-8.0.0",
       "binary": "bin/clang",
       "runner": "exec",
@@ -2166,7 +2136,6 @@
         "LD_LIBRARY_PATH": "/opt/clang-9.0.0/lib"
       },
       "entrypoint": "clang",
-      "wrapper_file": "",
       "root": "clang-9.0.0",
       "binary": "bin/clang",
       "runner": "exec",
@@ -2226,7 +2195,6 @@
       "title": "rebrew Delphi 1.0 (win16, DOSBox)",
       "description": "Delphi 1.0 (win16, DOSBox) toolchain image",
       "entrypoint": "dcc",
-      "wrapper_file": "dcc-wrapper.sh",
       "runner": "dosbox",
       "wrapper": {
         "shape": "handwritten",
@@ -2280,7 +2248,6 @@
       "title": "rebrew EE-GCC 2.9-990721 (PS2)",
       "description": "EE-GCC 2.9-990721 (PS2 Emotion Engine, native i386) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc",
       "runner": "exec",
       "wrapper": {
@@ -2342,7 +2309,6 @@
       "title": "rebrew EE-GCC 2.9-991111 (PS2)",
       "description": "EE-GCC 2.9-991111 (PS2 Emotion Engine, native i386) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc",
       "runner": "exec",
       "wrapper": {
@@ -2397,7 +2363,6 @@
       "title": "rebrew EE-GCC 2.9-991111-01 (PS2)",
       "description": "EE-GCC 2.9-991111-01 (PS2 Emotion Engine, native i386) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc",
       "runner": "exec",
       "wrapper": {
@@ -2452,7 +2417,6 @@
       "title": "rebrew EE-GCC 2.9-991111-01-dtls13010 (PS2)",
       "description": "EE-GCC 2.9-991111-01-dtls13010 (PS2 Emotion Engine, native i386) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc",
       "runner": "exec",
       "wrapper": {
@@ -2507,7 +2471,6 @@
       "title": "rebrew EE-GCC 2.9-991111a (PS2)",
       "description": "EE-GCC 2.9-991111a (PS2 Emotion Engine, native i386) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc",
       "runner": "exec",
       "wrapper": {
@@ -2562,7 +2525,6 @@
       "title": "rebrew EE-GCC 2.9-991111b-r4 (PS2)",
       "description": "EE-GCC 2.9-991111b-r4 (PS2 Emotion Engine, PE/x86_32) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -2580,6 +2542,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "ee-gcc2.95.2-273a"
+    ],
+    "notes": [
+      "unpacked from `tar-subpath:ee-gcc2.95.2-273a`"
     ],
     "recipe": {
       "base": "base",
@@ -2623,11 +2588,7 @@
       "root": "ee-gcc-2.95.2-273a",
       "title": "rebrew EE-GCC 2.95.2-273a (PS2)",
       "description": "EE-GCC 2.95.2-273a (PS2 Emotion Engine, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `tar-subpath:ee-gcc2.95.2-273a`"
-      ],
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -2645,6 +2606,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "ee-gcc2.95.2-274"
+    ],
+    "notes": [
+      "unpacked from `tar-subpath:ee-gcc2.95.2-274`"
     ],
     "recipe": {
       "base": "base",
@@ -2688,11 +2652,7 @@
       "root": "ee-gcc-2.95.2-274",
       "title": "rebrew EE-GCC 2.95.2-274 (PS2)",
       "description": "EE-GCC 2.95.2-274 (PS2 Emotion Engine, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `tar-subpath:ee-gcc2.95.2-274`"
-      ],
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -2710,6 +2670,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "ee-gcc2.95.3-107"
+    ],
+    "notes": [
+      "unpacked from `tar-subpath:ee-gcc2.95.3-107`"
     ],
     "recipe": {
       "base": "base",
@@ -2753,11 +2716,7 @@
       "root": "ee-gcc-2.95.3-107",
       "title": "rebrew EE-GCC 2.95.3-107 (PS2)",
       "description": "EE-GCC 2.95.3-107 (PS2 Emotion Engine, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `tar-subpath:ee-gcc2.95.3-107`"
-      ],
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -2775,6 +2734,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "ee-gcc2.95.3-114"
+    ],
+    "notes": [
+      "unpacked from `tar-subpath:ee-gcc2.95.3-114`"
     ],
     "recipe": {
       "base": "base",
@@ -2818,11 +2780,7 @@
       "root": "ee-gcc-2.95.3-114",
       "title": "rebrew EE-GCC 2.95.3-114 (PS2)",
       "description": "EE-GCC 2.95.3-114 (PS2 Emotion Engine, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `tar-subpath:ee-gcc2.95.3-114`"
-      ],
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -2877,7 +2835,6 @@
       "title": "rebrew EE-GCC 2.95.3-136 (PS2)",
       "description": "EE-GCC 2.95.3 build 136 (PS2 Emotion Engine, PE/x86_32) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -2932,7 +2889,6 @@
       "title": "rebrew EE-GCC 2.96 (PS2)",
       "description": "EE-GCC 2.96 (PS2 Emotion Engine, native i386) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc",
       "runner": "exec",
       "wrapper": {
@@ -2992,7 +2948,6 @@
       "title": "rebrew EE-GCC 3.2-030210-beta2 (PS2)",
       "description": "EE-GCC 3.2-030210-beta2 (PS2 Emotion Engine, PE/x86_32) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -3047,7 +3002,6 @@
       "title": "rebrew EE-GCC 3.2-030926 (PS2)",
       "description": "EE-GCC 3.2-030926 (PS2 Emotion Engine, native i386) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc",
       "runner": "exec",
       "wrapper": {
@@ -3109,7 +3063,6 @@
       "title": "rebrew EE-GCC 3.2-040921 (PS2)",
       "description": "EE-GCC 3.2-040921 (PS2 Emotion Engine, native i386) toolchain image",
       "entrypoint": "ee-gcc",
-      "wrapper_file": "",
       "binary": "bin/ee-gcc",
       "runner": "exec",
       "wrapper": {
@@ -3190,7 +3143,6 @@
       "title": "rebrew GCC 12.3.0 (ELF/x86_64, native, C)",
       "description": "GCC 12.3.0 (ELF/x86_64, C only, built from source) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -3271,7 +3223,6 @@
       "title": "rebrew GCC 14.2.0 (ELF/x86_64, native, C)",
       "description": "GCC 14.2.0 (ELF/x86_64, C only, built from source) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -3360,7 +3311,6 @@
       "title": "rebrew GCC 2.5.7 (PS1)",
       "description": "GCC 2.5.7 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -3449,7 +3399,6 @@
       "title": "rebrew GCC 2.5.7-psx (PS1)",
       "description": "GCC 2.5.7-psx (psx flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -3538,7 +3487,6 @@
       "title": "rebrew GCC 2.6.0 (PS1)",
       "description": "GCC 2.6.0 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -3627,7 +3575,6 @@
       "title": "rebrew GCC 2.6.0-psx (PS1)",
       "description": "GCC 2.6.0-psx (psx flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -3716,7 +3663,6 @@
       "title": "rebrew GCC 2.6.3 (PS1)",
       "description": "GCC 2.6.3 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -3811,7 +3757,6 @@
       "title": "rebrew GCC 2.6.3 (PS1)",
       "description": "GCC 2.6.3 (mips-sony-psx, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -3900,7 +3845,6 @@
       "title": "rebrew GCC 2.7.0-mipsel (PS1)",
       "description": "GCC 2.7.0-mipsel (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -3989,7 +3933,6 @@
       "title": "rebrew GCC 2.7.1-mipsel (PS1)",
       "description": "GCC 2.7.1-mipsel (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -4078,7 +4021,6 @@
       "title": "rebrew GCC 2.7.2-cdk (PS1)",
       "description": "GCC 2.7.2-cdk (CDK/cygnus flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -4191,7 +4133,6 @@
       "title": "rebrew GCC 2.7.2 KMC (N64)",
       "description": "GCC 2.7.2 KMC (mips-mips-gnu, decompals mips-gcc-2.7.2 prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -4280,7 +4221,6 @@
       "title": "rebrew GCC 2.7.2 (PS1)",
       "description": "GCC 2.7.2 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -4369,7 +4309,6 @@
       "title": "rebrew GCC 2.7.2 psx (PS1)",
       "description": "GCC 2.7.2 (mips-sony-psx, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -4387,6 +4326,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "gcc2.7.2sn0001"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -4452,11 +4394,7 @@
       "root": "gcc-2.7.2-sn0001",
       "title": "rebrew GCC 2.7.2 SN0001 (N64)",
       "description": "GCC 2.7.2 SN0001 (N64) (N64, PE/x86_32 pipeline) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wibo",
       "wrapper": {
@@ -4495,6 +4433,10 @@
     "variant_of": "gcc-2.7.2-sn0001",
     "aliases": [
       "gcc2.7.2sn0001-cxx"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`",
+      "C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -4560,12 +4502,7 @@
       "root": "gcc-2.7.2-sn0001-cxx-n64",
       "title": "rebrew GCC 2.7.2 SN0001 C++ (N64)",
       "description": "GCC 2.7.2 SN0001 C++ (N64, PE/x86_32 pipeline) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`",
-        "C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wibo",
       "wrapper": {
@@ -4602,6 +4539,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "gcc2.7.2sn0004"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -4670,11 +4610,7 @@
       "root": "gcc-2.7.2-sn0004",
       "title": "rebrew GCC 2.7.2 SN0004 (N64)",
       "description": "GCC 2.7.2 SN0004 (N64) (N64, PE/x86_32 pipeline) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wibo",
       "wrapper": {
@@ -4712,6 +4648,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "gcc2.7.2sn0006"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -4777,11 +4716,7 @@
       "root": "gcc-2.7.2-sn0006",
       "title": "rebrew GCC 2.7.2 SN0006 (N64)",
       "description": "GCC 2.7.2 SN0006 (N64) (N64, PE/x86_32 pipeline) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wibo",
       "wrapper": {
@@ -4820,6 +4755,10 @@
     "variant_of": "gcc-2.7.2-sn0006",
     "aliases": [
       "gcc2.7.2sn0006-cxx"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`",
+      "C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -4885,12 +4824,7 @@
       "root": "gcc-2.7.2-sn0006-cxx-n64",
       "title": "rebrew GCC 2.7.2 SN0006 C++ (N64)",
       "description": "GCC 2.7.2 SN0006 C++ (N64, PE/x86_32 pipeline) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`",
-        "C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wibo",
       "wrapper": {
@@ -4982,7 +4916,6 @@
       "title": "rebrew GCC 2.7.2 SNEW (N64)",
       "description": "GCC 2.7.2 SNEW (SN64, N64, native x86_64 + modern-asn64.py) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
@@ -5070,7 +5003,6 @@
       "title": "rebrew GCC 2.7.2.1 (PS1)",
       "description": "GCC 2.7.2.1 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -5159,7 +5091,6 @@
       "title": "rebrew GCC 2.7.2.2 (PS1)",
       "description": "GCC 2.7.2.2 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -5248,7 +5179,6 @@
       "title": "rebrew GCC 2.7.2.3 (PS1)",
       "description": "GCC 2.7.2.3 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -5337,7 +5267,6 @@
       "title": "rebrew GCC 2.8.0 (PS1)",
       "description": "GCC 2.8.0 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -5426,7 +5355,6 @@
       "title": "rebrew GCC 2.8.0-psx (PS1)",
       "description": "GCC 2.8.0-psx (psx flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -5515,7 +5443,6 @@
       "title": "rebrew GCC 2.8.1 (PS1)",
       "description": "GCC 2.8.1 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -5586,7 +5513,6 @@
       "title": "rebrew GCC 2.8.1 PM (N64)",
       "description": "GCC 2.8.1 (papermario, N64, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "gcc",
       "runner": "exec",
       "wrapper": {
@@ -5678,7 +5604,6 @@
       "title": "rebrew GCC 2.8.1-psx (PS1)",
       "description": "GCC 2.8.1-psx (psx flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -5696,6 +5621,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "gcc2.8.1sn"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -5764,11 +5692,7 @@
       "root": "gcc-2.8.1-sn",
       "title": "rebrew GCC 2.8.1 SN (N64)",
       "description": "GCC 2.8.1 SN (N64) (N64, PE/x86_32 pipeline) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wibo",
       "wrapper": {
@@ -5807,6 +5731,10 @@
     "variant_of": "gcc-2.8.1-sn",
     "aliases": [
       "gcc2.8.1sn-cxx"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`",
+      "C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -5879,12 +5807,7 @@
       "root": "gcc-2.8.1-sn-cxx-n64",
       "title": "rebrew GCC 2.8.1 SN C++ (N64)",
       "description": "GCC 2.8.1 SN C++ (N64, PE/x86_32 pipeline) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`",
-        "C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wibo",
       "wrapper": {
@@ -5922,6 +5845,9 @@
     "variant_of": "gcc-2.8.1-sn",
     "aliases": [
       "gcc2.8.1snew-cxx"
+    ],
+    "notes": [
+      "C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe`"
     ],
     "extra_pins": [
       {
@@ -5980,11 +5906,7 @@
       "root": "gcc-2.8.1-snew-cxx-n64",
       "title": "rebrew GCC 2.8.1 SNEW C++ (N64)",
       "description": "GCC 2.8.1 SNEW C++ (N64, PE/x86_32 + modern-asn64.py) toolchain image",
-      "notes": [
-        "C++ id: `cpp -lang-c++` into the C++ front end `cc1pln64.exe`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
@@ -6072,7 +5994,6 @@
       "title": "rebrew GCC 2.91.66-mipsel (PS1)",
       "description": "GCC 2.91.66-mipsel (mipsel flavour (egcs), decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -6161,7 +6082,6 @@
       "title": "rebrew GCC 2.91.66-psx (PS1)",
       "description": "GCC 2.91.66-psx (psx flavour (egcs), decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -6250,7 +6170,6 @@
       "title": "rebrew GCC 2.95.2 (PS1)",
       "description": "GCC 2.95.2 (mipsel flavour, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -6344,7 +6263,6 @@
       "title": "rebrew GCC 2.95.2 (PS1)",
       "description": "GCC 2.95.2 (mips-sony-psx, decompals/old-gcc prebuilt, native x86_64) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -6362,6 +6280,9 @@
     "commit": "",
     "aliases": [
       "gcc2.96"
+    ],
+    "notes": [
+      "unpacked from `tar-root`"
     ],
     "recipe": {
       "base": "base",
@@ -6408,11 +6329,7 @@
       "root": "camelot-2.96",
       "title": "rebrew GCC 2.96 Camelot (GBA)",
       "description": "GCC 2.96 arm-elf (Camelot, GBA, native x86_64) toolchain image",
-      "notes": [
-        "unpacked from `tar-root`"
-      ],
       "entrypoint": "gcc",
-      "wrapper_file": "",
       "binary": "usr/local/bin/arm-elf-gcc",
       "runner": "exec",
       "wrapper": {
@@ -6430,6 +6347,9 @@
     "commit": "",
     "aliases": [
       "gcc3-1041"
+    ],
+    "notes": [
+      "Apple cc1 output goes through decomp.me's `convert_gas_syntax.py`, which emits only the translation unit's first function"
     ],
     "helper_url": "https://gist.githubusercontent.com/ChrisNonyminus/ec53837b151a65e4233fa53604de4549/raw/d7c6fc639310b938fa519e68a8f8d4909acba2ad/convert_gas_syntax.py",
     "helper_sha256": "8ad067bedef54c526774e6453f55ef7a2bedc93604bd7640a6a8a1cc64b3cda0",
@@ -6480,11 +6400,7 @@
       "root": "gcc-3.1-1041",
       "title": "rebrew Apple GCC 3.1, build 1041 (macOS)",
       "description": "powerpc-apple-darwin (Apple GCC 3.1, build 1041) cross compiler (native x86_64) toolchain image",
-      "notes": [
-        "Apple cc1 output goes through decomp.me's `convert_gas_syntax.py`, which emits only the translation unit's first function"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "exec",
       "wrapper": {
@@ -6554,7 +6470,6 @@
       "title": "rebrew GCC 3.2 (Red Hat 8, i386 Linux)",
       "description": "Red Hat 8 GCC 3.2 (i386-redhat-linux, native) toolchain image",
       "entrypoint": "gcc",
-      "wrapper_file": "gcc-wrapper.sh",
       "binary": "bin/i386-redhat-linux-gcc",
       "runner": "exec",
       "wrapper": {
@@ -6597,6 +6512,9 @@
     "aliases": [
       "gcc-5026",
       "gcc-5026-cpp"
+    ],
+    "notes": [
+      "Apple cc1 output goes through decomp.me's `convert_gas_syntax.py`, which emits only the translation unit's first function"
     ],
     "helper_url": "https://gist.githubusercontent.com/ChrisNonyminus/ec53837b151a65e4233fa53604de4549/raw/d7c6fc639310b938fa519e68a8f8d4909acba2ad/convert_gas_syntax.py",
     "helper_sha256": "8ad067bedef54c526774e6453f55ef7a2bedc93604bd7640a6a8a1cc64b3cda0",
@@ -6647,11 +6565,7 @@
       "root": "gcc-4.0.0-5026",
       "title": "rebrew Apple GCC 4.0.0 build 5026 (macOS)",
       "description": "powerpc-apple-darwin (Apple GCC 4.0.0 build 5026) cross compiler (native x86_64) toolchain image",
-      "notes": [
-        "Apple cc1 output goes through decomp.me's `convert_gas_syntax.py`, which emits only the translation unit's first function"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "exec",
       "wrapper": {
@@ -6683,6 +6597,9 @@
     "aliases": [
       "gcc-5363",
       "gcc-5363-cpp"
+    ],
+    "notes": [
+      "Apple cc1 output goes through decomp.me's `convert_gas_syntax.py`, which emits only the translation unit's first function"
     ],
     "helper_url": "https://gist.githubusercontent.com/ChrisNonyminus/ec53837b151a65e4233fa53604de4549/raw/d7c6fc639310b938fa519e68a8f8d4909acba2ad/convert_gas_syntax.py",
     "helper_sha256": "8ad067bedef54c526774e6453f55ef7a2bedc93604bd7640a6a8a1cc64b3cda0",
@@ -6733,11 +6650,7 @@
       "root": "gcc-4.0.1-5363",
       "title": "rebrew Apple GCC 4.0.1 build 5363 (macOS)",
       "description": "powerpc-apple-darwin (Apple GCC 4.0.1 build 5363) cross compiler (native x86_64) toolchain image",
-      "notes": [
-        "Apple cc1 output goes through decomp.me's `convert_gas_syntax.py`, which emits only the translation unit's first function"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "exec",
       "wrapper": {
@@ -6769,6 +6682,9 @@
     "aliases": [
       "gcc-5370",
       "gcc-5370-cpp"
+    ],
+    "notes": [
+      "Apple cc1 output goes through decomp.me's `convert_gas_syntax.py`, which emits only the translation unit's first function"
     ],
     "helper_url": "https://gist.githubusercontent.com/ChrisNonyminus/ec53837b151a65e4233fa53604de4549/raw/d7c6fc639310b938fa519e68a8f8d4909acba2ad/convert_gas_syntax.py",
     "helper_sha256": "8ad067bedef54c526774e6453f55ef7a2bedc93604bd7640a6a8a1cc64b3cda0",
@@ -6819,11 +6735,7 @@
       "root": "gcc-4.0.1-5370",
       "title": "rebrew Apple GCC 4.0.1 build 5370 (macOS)",
       "description": "powerpc-apple-darwin (Apple GCC 4.0.1 build 5370) cross compiler (native x86_64) toolchain image",
-      "notes": [
-        "Apple cc1 output goes through decomp.me's `convert_gas_syntax.py`, which emits only the translation unit's first function"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "exec",
       "wrapper": {
@@ -6896,7 +6808,6 @@
       "title": "rebrew GCC 4.4.0 mips64-elf (N64)",
       "description": "GCC 4.4.0 mips64-elf (N64) (N64, native x86_64) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "bin/mips64-elf-gcc",
       "runner": "exec",
       "wrapper": {
@@ -6970,7 +6881,6 @@
       "title": "rebrew EGCS 1.1.2-4 (N64)",
       "description": "EGCS 1.1.2-4 (N64) (N64, native x86_64) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "mips-linux-gcc",
       "runner": "exec",
       "wrapper": {
@@ -7057,7 +6967,6 @@
       "title": "rebrew EGCS 1.1.2-4c (N64)",
       "description": "EGCS 1.1.2-4c (N64) (N64, native x86_64) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "gcc",
       "runner": "exec",
       "wrapper": {
@@ -7127,7 +7036,6 @@
       "title": "rebrew Green Hills 5.3.22 (Wii U)",
       "description": "Green Hills C/C++ 5.3.22 (Wii U PowerPC, PE/x86_32) toolchain image",
       "entrypoint": "cxppc",
-      "wrapper_file": "",
       "binary": "bin/cxppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -7188,7 +7096,6 @@
       "title": "rebrew Intel C++ 5.0.1 (win32)",
       "description": "Intel C++ Compiler 5.0.1 build 010525Z (i386 COFF, wine/wibo) toolchain image",
       "entrypoint": "icl",
-      "wrapper_file": "icl-wrapper.sh",
       "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
@@ -7253,7 +7160,6 @@
       "title": "rebrew IDO 4.1 (N64, qemu-irix-4.0)",
       "description": "IDO 4.1 (SGI MIPS, N64 little-endian, IRIX binaries under qemu-irix-4.0) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
@@ -7317,7 +7223,6 @@
       "title": "rebrew IDO 5.2 (N64, qemu-irix)",
       "description": "IDO 5.2 (SGI MIPS, N64, IRIX binaries under qemu-irix) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "",
       "binary": "usr/bin/qemu-irix",
       "runner": "exec",
       "wrapper": {
@@ -7378,7 +7283,6 @@
       "title": "rebrew IDO 5.3 (MIPS, N64)",
       "description": "IDO 5.3 reimplementation (MIPS-II big-endian, N64) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "",
       "binary": "cc",
       "runner": "exec",
       "wrapper": {
@@ -7398,6 +7302,9 @@
       "ido5.3_c++",
       "ido5.3_c++_irix",
       "ido5.3-cxx"
+    ],
+    "notes": [
+      "entered through the vendor C++ driver (`usr/lib/CC`): `.C`/`.cc` only, `.cpp` is silently ignored"
     ],
     "recipe": {
       "base": "base",
@@ -7444,11 +7351,7 @@
       "root": "ido-5.3-c++",
       "title": "rebrew IDO 5.3 C++ (N64, qemu-irix)",
       "description": "IDO 5.3 C++ (SGI MIPS, N64, IRIX binaries under qemu-irix) toolchain image",
-      "notes": [
-        "entered through the vendor C++ driver (`usr/lib/CC`): `.C`/`.cc` only, `.cpp` is silently ignored"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "",
       "binary": "usr/bin/qemu-irix",
       "runner": "exec",
       "wrapper": {
@@ -7549,7 +7452,6 @@
       "title": "rebrew IDO 5.3 IRIX originals (N64, qemu-irix)",
       "description": "IDO 5.3 (SGI MIPS, N64, original IRIX binaries under qemu-irix) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "",
       "binary": "usr/bin/qemu-irix",
       "runner": "exec",
       "wrapper": {
@@ -7621,7 +7523,6 @@
       "title": "rebrew IDO 6.0 (N64, qemu-irix)",
       "description": "IDO 6.0 (SGI MIPS, N64, IRIX binaries under qemu-irix) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "",
       "binary": "usr/bin/qemu-irix",
       "runner": "exec",
       "wrapper": {
@@ -7683,7 +7584,6 @@
       "title": "rebrew IDO 7.1 (MIPS, N64)",
       "description": "IDO 7.1 reimplementation (MIPS-II big-endian, N64) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "",
       "binary": "cc",
       "runner": "exec",
       "wrapper": {
@@ -7702,6 +7602,9 @@
     "variant_of": "ido-7.1",
     "aliases": [
       "ido7.1_c++"
+    ],
+    "notes": [
+      "entered through the vendor C++ driver (`NCC`)"
     ],
     "recipe": {
       "base": "base",
@@ -7742,11 +7645,7 @@
       "root": "ido/7.1",
       "title": "rebrew IDO 7.1 C++ (MIPS, N64)",
       "description": "IDO 7.1 C++ reimplementation (MIPS-II big-endian, N64) toolchain image",
-      "notes": [
-        "entered through the vendor C++ driver (`NCC`)"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "",
       "binary": "NCC",
       "runner": "exec",
       "wrapper": {
@@ -7812,7 +7711,6 @@
       "title": "rebrew MIPSpro 7.4.4 (N64, qemu-irix)",
       "description": "MIPSpro 7.4.4 (SGI MIPS, N64, IRIX binaries under qemu-irix) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "",
       "binary": "usr/bin/qemu-irix",
       "runner": "exec",
       "wrapper": {
@@ -7877,7 +7775,6 @@
       "title": "rebrew IOP-GCC 2.8.1 (PS2)",
       "description": "IOP-GCC 2.8.1 (PS2 IOP, mipsel-scei-elfl, native x86_64) toolchain image",
       "entrypoint": "iop-gcc",
-      "wrapper_file": "",
       "binary": "bin/iop-gcc",
       "runner": "exec",
       "wrapper": {
@@ -7935,7 +7832,6 @@
       "title": "rebrew IOP-GCC 2.95.2-102 (PS2)",
       "description": "IOP-GCC 2.95.2 build 102 (PS2 IOP, PE/x86_32) toolchain image",
       "entrypoint": "iop-gcc",
-      "wrapper_file": "",
       "binary": "bin/iop-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -8001,11 +7897,7 @@
       "root": "mingw-14.2.0",
       "title": "rebrew MinGW-w64 GCC 14.2.0 (win32, wine)",
       "description": "MinGW-w64 GCC 14.2.0 (i686-w64-mingw32, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `7z-strip1`"
-      ],
       "entrypoint": "mingw",
-      "wrapper_file": "",
       "binary": "bin/i686-w64-mingw32-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -8013,7 +7905,10 @@
         "validate_source": false,
         "argv": []
       }
-    }
+    },
+    "notes": [
+      "unpacked from `7z-strip1`"
+    ]
   },
   "mingw-16.2.0": {
     "family": "mingw",
@@ -8068,11 +7963,7 @@
       "root": "mingw-16.2.0",
       "title": "rebrew MinGW-w64 GCC 16.2.0 (win32, wine)",
       "description": "MinGW-w64 GCC 16.2.0 (i686-w64-mingw32, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `7z-strip1`"
-      ],
       "entrypoint": "mingw",
-      "wrapper_file": "",
       "binary": "bin/i686-w64-mingw32-gcc.exe",
       "runner": "wine",
       "wrapper": {
@@ -8080,7 +7971,10 @@
         "validate_source": false,
         "argv": []
       }
-    }
+    },
+    "notes": [
+      "unpacked from `7z-strip1`"
+    ]
   },
   "msc-5.1": {
     "family": "msc",
@@ -8128,7 +8022,6 @@
       "title": "rebrew Microsoft C 5.1 (DOS)",
       "description": "Microsoft C 5.1 (16-bit DOS compiler, DOSBox) toolchain image",
       "entrypoint": "mscl",
-      "wrapper_file": "msc51-wrapper.sh",
       "binary": "",
       "runner": "dosbox",
       "wrapper": {
@@ -8199,7 +8092,6 @@
       "title": "rebrew Microsoft C 6.0 (DOS)",
       "description": "Microsoft C 6.0 (16-bit DOS compiler, DOSBox) toolchain image",
       "entrypoint": "msc60",
-      "wrapper_file": "msc60-wrapper.sh",
       "binary": "",
       "runner": "dosbox",
       "wrapper": {
@@ -8267,7 +8159,6 @@
       "title": "rebrew MSVC 1.0 (win16, DOSBox)",
       "description": "MSVC 1.0 (win16, DOSBox) toolchain image",
       "entrypoint": "cl10",
-      "wrapper_file": "cl10-wrapper.sh",
       "binary": "",
       "runner": "dosbox",
       "wrapper": {
@@ -8338,7 +8229,6 @@
       "title": "rebrew MSVC 1.5 (win16, DOSBox)",
       "description": "MSVC 1.5 (win16, DOSBox) toolchain image",
       "entrypoint": "cl15",
-      "wrapper_file": "cl15-wrapper.sh",
       "binary": "",
       "runner": "dosbox",
       "wrapper": {
@@ -8409,7 +8299,6 @@
       "title": "rebrew MSVC 1.52 (win16, DOSBox)",
       "description": "MSVC 1.52 (win16, DOSBox) toolchain image",
       "entrypoint": "cl16",
-      "wrapper_file": "cl16-wrapper.sh",
       "binary": "",
       "runner": "dosbox",
       "wrapper": {
@@ -8480,7 +8369,6 @@
       "title": "rebrew MSVC 10.0 (win32, wine)",
       "description": "MSVC 10.0 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -8533,7 +8421,6 @@
       "title": "rebrew MSVC 10.0-sp1 (win32, wine)",
       "description": "MSVC 10.0-sp1 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -8586,7 +8473,6 @@
       "title": "rebrew MSVC 11.0 (win32, wine)",
       "description": "MSVC 11.0 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -8639,7 +8525,6 @@
       "title": "rebrew MSVC 2.0 (win32, wine)",
       "description": "MSVC 2.0 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -8695,7 +8580,6 @@
       "title": "rebrew MSVC 4.0 (win32, wine)",
       "description": "MSVC 4.0 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "BIN/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -8751,7 +8635,6 @@
       "title": "rebrew MSVC 4.1 (win32, wine)",
       "description": "MSVC 4.1 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -8807,7 +8690,6 @@
       "title": "rebrew MSVC 4.2 (win32, wine)",
       "description": "MSVC 4.2 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -8860,7 +8742,6 @@
       "title": "rebrew MSVC 5.0 (win32, wine)",
       "description": "MSVC 5.0 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -8913,7 +8794,6 @@
       "title": "rebrew MSVC 5.0-sp1 (win32, wine)",
       "description": "MSVC 5.0-sp1 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -8966,7 +8846,6 @@
       "title": "rebrew MSVC 5.0-sp2 (win32, wine)",
       "description": "MSVC 5.0-sp2 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -9019,7 +8898,6 @@
       "title": "rebrew MSVC 5.0-sp3 (win32, wine)",
       "description": "MSVC 5.0-sp3 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -9072,7 +8950,6 @@
       "title": "rebrew MSVC 6.0 (win32, wine)",
       "description": "MSVC 6.0 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC98/Bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -9137,7 +9014,6 @@
       "title": "rebrew MSVC 6.0-sp1 (win32, wine)",
       "description": "MSVC 6.0-sp1 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC98/bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -9190,7 +9066,6 @@
       "title": "rebrew MSVC 6.0-sp2 (win32, wine)",
       "description": "MSVC 6.0-sp2 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC98/bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -9246,7 +9121,6 @@
       "title": "rebrew MSVC 6.0-sp3 (win32, wine)",
       "description": "MSVC 6.0-sp3 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC98/Bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -9302,7 +9176,6 @@
       "title": "rebrew MSVC 6.0-sp4 (win32, wine)",
       "description": "MSVC 6.0-sp4 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC98/bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -9362,7 +9235,6 @@
       "title": "rebrew MSVC 6.0-sp5 (win32, wine)",
       "description": "MSVC 6.0-sp5 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC98/Bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -9422,7 +9294,6 @@
       "title": "rebrew MSVC 6.0 SP5 + Processor Pack (win32, wine)",
       "description": "MSVC 6.0-sp5 + VC6 Processor Pack (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC98/Bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -9482,7 +9353,6 @@
       "title": "rebrew MSVC 6.0-sp6 (win32, wine)",
       "description": "MSVC 6.0-sp6 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC98/Bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -9543,7 +9413,6 @@
       "title": "rebrew MSVC 6.0 win9x repack (win32)",
       "description": "MSVC 6.0 (Windows 9x preservation repack, PE/x86_32) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "Bin/CL.EXE",
       "runner": "wine",
       "wrapper": {
@@ -9607,7 +9476,6 @@
       "title": "rebrew MSVC 7.0 (win32, wine)",
       "description": "MSVC 7.0 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "Vc7/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -9660,7 +9528,6 @@
       "title": "rebrew MSVC 7.0-sp1 (win32, wine)",
       "description": "MSVC 7.0-sp1 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "Vc7/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -9716,7 +9583,6 @@
       "title": "rebrew MSVC 7.1 (win32, wine)",
       "description": "MSVC 7.1 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "Vc7/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -9769,7 +9635,6 @@
       "title": "rebrew MSVC 7.1-sp1 (win32, wine)",
       "description": "MSVC 7.1-sp1 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "Vc7/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -9825,7 +9690,6 @@
       "title": "rebrew MSVC 8.0 (win32, wine)",
       "description": "MSVC 8.0 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -9843,6 +9707,9 @@
     "commit": "52c8293f8b8d6441c594cf096542290c17a4d70e",
     "aliases": [
       "msvc8.0p"
+    ],
+    "notes": [
+      "unpacked from `zip-strip1`"
     ],
     "recipe": {
       "base": "base",
@@ -9891,11 +9758,7 @@
       "root": "msvc8.0-portable",
       "title": "rebrew MSVC 8.0 portable repack (win32)",
       "description": "MSVC 8.0 (portable preservation repack, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-strip1`"
-      ],
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -9960,7 +9823,6 @@
       "title": "rebrew MSVC 8.0-sp1 (win32, wine)",
       "description": "MSVC 8.0-sp1 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -10013,7 +9875,6 @@
       "title": "rebrew MSVC 9.0 (win32, wine)",
       "description": "MSVC 9.0 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -10066,7 +9927,6 @@
       "title": "rebrew MSVC 9.0-sp1 (win32, wine)",
       "description": "MSVC 9.0-sp1 (win32, wine) toolchain image",
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "VC/bin/cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -10084,6 +9944,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "msvc_ppc_14.00.2110"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:X360/14.00.2110`"
     ],
     "recipe": {
       "base": "base",
@@ -10130,11 +9993,7 @@
       "root": "msvc-ppc-14.00.2110",
       "title": "rebrew MSVC PPC 14.00.2110 (Xbox 360)",
       "description": "MSVC for Xbox 360 (PowerPC, 14.00.2110.00, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:X360/14.00.2110`"
-      ],
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -10152,6 +10011,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "msvc_ppc_16.00.11886.00"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:X360/16.00.11886.00`"
     ],
     "recipe": {
       "base": "base",
@@ -10198,11 +10060,7 @@
       "root": "msvc-ppc-16.00.11886",
       "title": "rebrew MSVC PPC 16.00.11886 (Xbox 360)",
       "description": "MSVC for Xbox 360 (PowerPC, 16.00.11886.00, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:X360/16.00.11886.00`"
-      ],
       "entrypoint": "cl",
-      "wrapper_file": "",
       "binary": "cl.exe",
       "runner": "wine",
       "wrapper": {
@@ -10220,6 +10078,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_233_144"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/1.0`"
     ],
     "recipe": {
       "base": "base",
@@ -10266,11 +10127,7 @@
       "root": "mwcc-2.3.3-144",
       "title": "rebrew MWCC 2.3.3-144 (GameCube)",
       "description": "MWCC 2.3.3-144 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/1.0`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10288,6 +10145,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_233_159"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/1.1`"
     ],
     "recipe": {
       "base": "base",
@@ -10334,11 +10194,7 @@
       "root": "mwcc-2.3.3-159",
       "title": "rebrew MWCC 2.3.3-159 (gc)",
       "description": "MWCC 2.3.3-159 (CodeWarrior gc, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/1.1`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10356,6 +10212,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_233_159p1"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/1.1p1`"
     ],
     "recipe": {
       "base": "base",
@@ -10402,11 +10261,7 @@
       "root": "mwcc-2.3.3-159p1",
       "title": "rebrew MWCC 2.3.3-159p1 (GameCube)",
       "description": "MWCC 2.3.3-159p1 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/1.1p1`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10425,6 +10280,9 @@
     "aliases": [
       "mwcc_233_163",
       "mwcc233_163"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/1.2.5`"
     ],
     "recipe": {
       "base": "base",
@@ -10471,11 +10329,7 @@
       "root": "mwcc-2.3.3",
       "title": "rebrew MWCC 2.3.3 b163 (GameCube)",
       "description": "MWCC 2.3.3 build 163 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/1.2.5`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10493,6 +10347,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_233_163e"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/1.2.5e`"
     ],
     "recipe": {
       "base": "base",
@@ -10539,11 +10396,7 @@
       "root": "mwcc-2.3.3-163e",
       "title": "rebrew MWCC 2.3.3-163e (GameCube)",
       "description": "MWCC 2.3.3-163e (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/1.2.5e`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10561,6 +10414,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_233_163n"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/1.2.5n`"
     ],
     "recipe": {
       "base": "base",
@@ -10607,11 +10463,7 @@
       "root": "mwcc-2.3.3-163n",
       "title": "rebrew MWCC 2.3.3-163n (GameCube)",
       "description": "MWCC 2.3.3-163n (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/1.2.5n`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10629,6 +10481,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_242_53"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/1.3`"
     ],
     "recipe": {
       "base": "base",
@@ -10675,11 +10530,7 @@
       "root": "mwcc-2.4.2-53",
       "title": "rebrew MWCC 2.4.2-53 (GameCube)",
       "description": "MWCC 2.4.2-53 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/1.3`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10697,6 +10548,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_242_81"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/1.3.2`"
     ],
     "recipe": {
       "base": "base",
@@ -10743,11 +10597,7 @@
       "root": "mwcc-2.4.2-81",
       "title": "rebrew MWCC 2.4.2-81 (gc)",
       "description": "MWCC 2.4.2-81 (CodeWarrior gc, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/1.3.2`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10765,6 +10615,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_242_81r"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/1.3.2r`"
     ],
     "recipe": {
       "base": "base",
@@ -10811,11 +10664,7 @@
       "root": "mwcc-2.4.2-81r",
       "title": "rebrew MWCC 2.4.2-81r (GameCube)",
       "description": "MWCC 2.4.2-81r (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/1.3.2r`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10833,6 +10682,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_247_105"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/2.5`"
     ],
     "recipe": {
       "base": "base",
@@ -10879,11 +10731,7 @@
       "root": "mwcc-2.4.7-105",
       "title": "rebrew MWCC 2.4.7-105 (GameCube)",
       "description": "MWCC 2.4.7-105 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/2.5`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10901,6 +10749,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_247_107"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/2.6`"
     ],
     "recipe": {
       "base": "base",
@@ -10947,11 +10798,7 @@
       "root": "mwcc-2.4.7-107",
       "title": "rebrew MWCC 2.4.7-107 (GameCube)",
       "description": "MWCC 2.4.7-107 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/2.6`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -10969,6 +10816,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_247_108"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/2.7`"
     ],
     "recipe": {
       "base": "base",
@@ -11015,11 +10865,7 @@
       "root": "mwcc-2.4.7-108",
       "title": "rebrew MWCC 2.4.7-108 (gc)",
       "description": "MWCC 2.4.7-108 (CodeWarrior gc, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/2.7`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11037,6 +10883,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_247_92"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/2.0`"
     ],
     "recipe": {
       "base": "base",
@@ -11083,11 +10932,7 @@
       "root": "mwcc-2.4.7-92",
       "title": "rebrew MWCC 2.4.7-92 (GameCube)",
       "description": "MWCC 2.4.7-92 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/2.0`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11105,6 +10950,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_247_92p1"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/2.0p1`"
     ],
     "recipe": {
       "base": "base",
@@ -11151,11 +10999,7 @@
       "root": "mwcc-2.4.7",
       "title": "rebrew MWCC 2.4.7 92p1 (Wii)",
       "description": "MWCC 2.4.7 build 92p1 (CodeWarrior Wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/2.0p1`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11173,6 +11017,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_41_51213"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/3.0a3`"
     ],
     "recipe": {
       "base": "base",
@@ -11219,11 +11066,7 @@
       "root": "mwcc-4.1-51213",
       "title": "rebrew MWCC 4.1-51213 (GameCube)",
       "description": "MWCC 4.1-51213 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/3.0a3`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11241,6 +11084,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_41_60126"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/3.0a3.2`"
     ],
     "recipe": {
       "base": "base",
@@ -11287,11 +11133,7 @@
       "root": "mwcc-4.1-60126",
       "title": "rebrew MWCC 4.1-60126 (GameCube)",
       "description": "MWCC 4.1-60126 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/3.0a3.2`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11309,6 +11151,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_41_60209"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/3.0a3.3`"
     ],
     "recipe": {
       "base": "base",
@@ -11355,11 +11200,7 @@
       "root": "mwcc-4.1-60209",
       "title": "rebrew MWCC 4.1-60209 (GameCube)",
       "description": "MWCC 4.1-60209 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/3.0a3.3`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11377,6 +11218,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_41_60831"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/3.0a5.2`"
     ],
     "recipe": {
       "base": "base",
@@ -11423,11 +11267,7 @@
       "root": "mwcc-4.1-60831",
       "title": "rebrew MWCC 4.1-60831 (GameCube)",
       "description": "MWCC 4.1-60831 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/3.0a5.2`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11445,6 +11285,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_42_127"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:Wii/0x4201_127`"
     ],
     "recipe": {
       "base": "base",
@@ -11491,11 +11334,7 @@
       "root": "mwcc-4.2-127",
       "title": "rebrew MWCC 4.2-127 (Wii)",
       "description": "MWCC 4.2-127 (CodeWarrior Wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:Wii/0x4201_127`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11513,6 +11352,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_42_140"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:Wii/1.0RC1`"
     ],
     "recipe": {
       "base": "base",
@@ -11559,11 +11401,7 @@
       "root": "mwcc-4.2-140",
       "title": "rebrew MWCC 4.2-140 (Wii)",
       "description": "MWCC 4.2-140 (CodeWarrior Wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:Wii/1.0RC1`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11581,6 +11419,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_42_142"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:Wii/1.0a`"
     ],
     "recipe": {
       "base": "base",
@@ -11627,11 +11468,7 @@
       "root": "mwcc-4.2-142",
       "title": "rebrew MWCC 4.2-142 (Wii)",
       "description": "MWCC 4.2-142 (CodeWarrior Wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:Wii/1.0a`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11649,6 +11486,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_42_60308"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/3.0a3.4`"
     ],
     "recipe": {
       "base": "base",
@@ -11695,11 +11535,7 @@
       "root": "mwcc-4.2-60308",
       "title": "rebrew MWCC 4.2-60308 (GameCube)",
       "description": "MWCC 4.2-60308 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/3.0a3.4`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11717,6 +11553,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_42_60422"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:GC/3.0a5`"
     ],
     "recipe": {
       "base": "base",
@@ -11763,11 +11602,7 @@
       "root": "mwcc-4.2-60422",
       "title": "rebrew MWCC 4.2-60422 (GameCube)",
       "description": "MWCC 4.2-60422 (CodeWarrior GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:GC/3.0a5`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11785,6 +11620,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_43_145"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:Wii/1.0`"
     ],
     "recipe": {
       "base": "base",
@@ -11831,11 +11669,7 @@
       "root": "mwcc-4.3-145",
       "title": "rebrew MWCC 4.3-145 (Wii)",
       "description": "MWCC 4.3-145 (CodeWarrior Wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:Wii/1.0`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11853,6 +11687,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_43_151"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:Wii/1.1`"
     ],
     "recipe": {
       "base": "base",
@@ -11899,11 +11736,7 @@
       "root": "mwcc-4.3-151",
       "title": "rebrew MWCC 4.3-151 (Wii)",
       "description": "MWCC 4.3-151 (CodeWarrior Wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:Wii/1.1`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11921,6 +11754,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_43_172"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:Wii/1.3`"
     ],
     "recipe": {
       "base": "base",
@@ -11967,11 +11803,7 @@
       "root": "mwcc-4.3-172",
       "title": "rebrew MWCC 4.3-172 (Wii)",
       "description": "MWCC 4.3-172 (CodeWarrior Wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:Wii/1.3`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -11989,6 +11821,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_43_188"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:Wii/1.5`"
     ],
     "recipe": {
       "base": "base",
@@ -12035,11 +11870,7 @@
       "root": "mwcc-4.3-188",
       "title": "rebrew MWCC 4.3-188 (Wii)",
       "description": "MWCC 4.3-188 (CodeWarrior Wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:Wii/1.5`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -12057,6 +11888,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_43_202"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:Wii/1.6`"
     ],
     "recipe": {
       "base": "base",
@@ -12103,11 +11937,7 @@
       "root": "mwcc-4.3-202",
       "title": "rebrew MWCC 4.3-202 (Wii)",
       "description": "MWCC 4.3-202 (CodeWarrior Wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:Wii/1.6`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -12125,6 +11955,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_43_213"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:Wii/1.7`"
     ],
     "recipe": {
       "base": "base",
@@ -12171,11 +12004,7 @@
       "root": "mwcc-4.3-213",
       "title": "rebrew MWCC 4.3-213 (wii)",
       "description": "MWCC 4.3-213 (CodeWarrior wii, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:Wii/1.7`"
-      ],
       "entrypoint": "mwcceppc",
-      "wrapper_file": "",
       "binary": "mwcceppc.exe",
       "runner": "wine",
       "wrapper": {
@@ -12232,7 +12061,6 @@
       "title": "rebrew MWCCARM 2.0-56 (NDS)",
       "description": "MWCCARM 2.0-56 (CodeWarrior NDS ARM9, PE/x86_32) toolchain image",
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12250,6 +12078,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_20_72"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/1.2/base`"
     ],
     "recipe": {
       "base": "base",
@@ -12302,11 +12133,7 @@
       "root": "mwccarm-2.0-72",
       "title": "rebrew MWCCARM 2.0-72 (NDS)",
       "description": "MWCCARM 2.0-72 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/1.2/base`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12324,6 +12151,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_20_79"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/1.2/sp2`"
     ],
     "recipe": {
       "base": "base",
@@ -12376,11 +12206,7 @@
       "root": "mwccarm-2.0-79",
       "title": "rebrew MWCCARM 2.0-79 (NDS)",
       "description": "MWCCARM 2.0-79 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/1.2/sp2`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12398,6 +12224,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_20_82"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/1.2/sp2p3`"
     ],
     "recipe": {
       "base": "base",
@@ -12450,11 +12279,7 @@
       "root": "mwccarm-2.0-82",
       "title": "rebrew MWCCARM 2.0-82 (NDS)",
       "description": "MWCCARM 2.0-82 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/1.2/sp2p3`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12472,6 +12297,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_20_84"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/1.2/sp3`"
     ],
     "recipe": {
       "base": "base",
@@ -12524,11 +12352,7 @@
       "root": "mwccarm-2.0-84",
       "title": "rebrew MWCCARM 2.0-84 (NDS)",
       "description": "MWCCARM 2.0-84 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/1.2/sp3`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12546,6 +12370,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_20_87"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/1.2/sp4`"
     ],
     "recipe": {
       "base": "base",
@@ -12598,11 +12425,7 @@
       "root": "mwccarm-2.0-87",
       "title": "rebrew MWCCARM 2.0-87 (NDS)",
       "description": "MWCCARM 2.0-87 (CodeWarrior NDS ARM9, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/1.2/sp4`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12620,6 +12443,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_114"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/base`"
     ],
     "recipe": {
       "base": "base",
@@ -12672,11 +12498,7 @@
       "root": "mwccarm-3.0-114",
       "title": "rebrew MWCCARM 3.0-114 (NDS)",
       "description": "MWCCARM 3.0-114 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/base`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12694,6 +12516,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_123"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/sp1`"
     ],
     "recipe": {
       "base": "base",
@@ -12746,11 +12571,7 @@
       "root": "mwccarm-3.0-123",
       "title": "rebrew MWCCARM 3.0-123 (NDS)",
       "description": "MWCCARM 3.0-123 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/sp1`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12768,6 +12589,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_126"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/sp1p2`"
     ],
     "recipe": {
       "base": "base",
@@ -12820,11 +12644,7 @@
       "root": "mwccarm-3.0-126",
       "title": "rebrew MWCCARM 3.0-126 (NDS)",
       "description": "MWCCARM 3.0-126 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/sp1p2`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12842,6 +12662,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_131"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/sp1p5`"
     ],
     "recipe": {
       "base": "base",
@@ -12894,11 +12717,7 @@
       "root": "mwccarm-3.0-131",
       "title": "rebrew MWCCARM 3.0-131 (NDS)",
       "description": "MWCCARM 3.0-131 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/sp1p5`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12916,6 +12735,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_133"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/sp1p6`"
     ],
     "recipe": {
       "base": "base",
@@ -12968,11 +12790,7 @@
       "root": "mwccarm-3.0-133",
       "title": "rebrew MWCCARM 3.0-133 (NDS)",
       "description": "MWCCARM 3.0-133 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/sp1p6`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -12990,6 +12808,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_134"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/sp1p7`"
     ],
     "recipe": {
       "base": "base",
@@ -13042,11 +12863,7 @@
       "root": "mwccarm-3.0-134",
       "title": "rebrew MWCCARM 3.0-134 (NDS)",
       "description": "MWCCARM 3.0-134 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/sp1p7`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13064,6 +12881,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_136"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/sp2`"
     ],
     "recipe": {
       "base": "base",
@@ -13116,11 +12936,7 @@
       "root": "mwccarm-3.0-136",
       "title": "rebrew MWCCARM 3.0-136 (NDS)",
       "description": "MWCCARM 3.0-136 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/sp2`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13138,6 +12954,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_137"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/sp2p2`"
     ],
     "recipe": {
       "base": "base",
@@ -13190,11 +13009,7 @@
       "root": "mwccarm-3.0-137",
       "title": "rebrew MWCCARM 3.0-137 (NDS)",
       "description": "MWCCARM 3.0-137 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/sp2p2`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13212,6 +13027,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_138"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/sp2p3`"
     ],
     "recipe": {
       "base": "base",
@@ -13264,11 +13082,7 @@
       "root": "mwccarm-3.0-138",
       "title": "rebrew MWCCARM 3.0-138 (NDS)",
       "description": "MWCCARM 3.0-138 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/sp2p3`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13286,6 +13100,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_30_139"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/2.0/sp2p4`"
     ],
     "recipe": {
       "base": "base",
@@ -13338,11 +13155,7 @@
       "root": "mwccarm-3.0-139",
       "title": "rebrew MWCCARM 3.0-139 (NDS)",
       "description": "MWCCARM 3.0-139 (CodeWarrior NDS ARM9, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/2.0/sp2p4`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13360,6 +13173,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_40_1018"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/dsi/1.1`"
     ],
     "recipe": {
       "base": "base",
@@ -13412,11 +13228,7 @@
       "root": "mwccarm-4.0-1018",
       "title": "rebrew MWCCARM 4.0-1018 (NDS)",
       "description": "MWCCARM 4.0-1018 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/dsi/1.1`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13434,6 +13246,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_40_1024"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/dsi/1.1p1`"
     ],
     "recipe": {
       "base": "base",
@@ -13486,11 +13301,7 @@
       "root": "mwccarm-4.0-1024",
       "title": "rebrew MWCCARM 4.0-1024 (NDS)",
       "description": "MWCCARM 4.0-1024 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/dsi/1.1p1`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13508,6 +13319,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_40_1026"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/dsi/1.2`"
     ],
     "recipe": {
       "base": "base",
@@ -13560,11 +13374,7 @@
       "root": "mwccarm-4.0-1026",
       "title": "rebrew MWCCARM 4.0-1026 (NDS)",
       "description": "MWCCARM 4.0-1026 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/dsi/1.2`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13582,6 +13392,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_40_1027"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/dsi/1.2p1`"
     ],
     "recipe": {
       "base": "base",
@@ -13634,11 +13447,7 @@
       "root": "mwccarm-4.0-1027",
       "title": "rebrew MWCCARM 4.0-1027 (NDS)",
       "description": "MWCCARM 4.0-1027 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/dsi/1.2p1`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13656,6 +13465,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_40_1028"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/dsi/1.2p2`"
     ],
     "recipe": {
       "base": "base",
@@ -13708,11 +13520,7 @@
       "root": "mwccarm-4.0-1028",
       "title": "rebrew MWCCARM 4.0-1028 (NDS)",
       "description": "MWCCARM 4.0-1028 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/dsi/1.2p2`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13730,6 +13538,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_40_1034"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/dsi/1.3`"
     ],
     "recipe": {
       "base": "base",
@@ -13782,11 +13593,7 @@
       "root": "mwccarm-4.0-1034",
       "title": "rebrew MWCCARM 4.0-1034 (NDS)",
       "description": "MWCCARM 4.0-1034 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/dsi/1.3`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13804,6 +13611,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_40_1036"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/dsi/1.3p1`"
     ],
     "recipe": {
       "base": "base",
@@ -13856,11 +13666,7 @@
       "root": "mwccarm-4.0-1036",
       "title": "rebrew MWCCARM 4.0-1036 (NDS)",
       "description": "MWCCARM 4.0-1036 (CodeWarrior NDS, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/dsi/1.3p1`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13878,6 +13684,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "mwcc_40_1051"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:mwccarm/dsi/1.6sp1`"
     ],
     "recipe": {
       "base": "base",
@@ -13930,11 +13739,7 @@
       "root": "mwccarm-4.0-1051",
       "title": "rebrew MWCCARM 4.0-1051 (NDS)",
       "description": "MWCCARM 4.0-1051 (CodeWarrior NDS ARM9, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:mwccarm/dsi/1.6sp1`"
-      ],
       "entrypoint": "mwccarm",
-      "wrapper_file": "",
       "binary": "mwccarm.exe",
       "runner": "wibo",
       "wrapper": {
@@ -13991,7 +13796,6 @@
       "title": "rebrew MWCCPSP 3.0.1-121 (PSP)",
       "description": "MWCCPSP 3.0.1-121 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14055,7 +13859,6 @@
       "title": "rebrew MWCCPSP 3.0.1-134 (PSP)",
       "description": "MWCCPSP 3.0.1-134 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14119,7 +13922,6 @@
       "title": "rebrew MWCCPSP 3.0.1-139 (PSP)",
       "description": "MWCCPSP 3.0.1-139 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14183,7 +13985,6 @@
       "title": "rebrew MWCCPSP 3.0.1-147 (PSP)",
       "description": "MWCCPSP 3.0.1-147 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14247,7 +14048,6 @@
       "title": "rebrew MWCCPSP 3.0.1-151 (PSP)",
       "description": "MWCCPSP 3.0.1-151 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14311,7 +14111,6 @@
       "title": "rebrew MWCCPSP 3.0.1-180 (PSP)",
       "description": "MWCCPSP 3.0.1-180 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14375,7 +14174,6 @@
       "title": "rebrew MWCCPSP 3.0.1-192 (PSP)",
       "description": "MWCCPSP 3.0.1-192 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14439,7 +14237,6 @@
       "title": "rebrew MWCCPSP 3.0.1-201 (PSP)",
       "description": "MWCCPSP 3.0.1-201 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14503,7 +14300,6 @@
       "title": "rebrew MWCCPSP 3.0.1-205 (PSP)",
       "description": "MWCCPSP 3.0.1-205 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14560,7 +14356,6 @@
       "title": "rebrew MWCCPSP 3.0.1-210 (PSP)",
       "description": "MWCCPSP 3.0.1 build 210 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14617,7 +14412,6 @@
       "title": "rebrew MWCCPSP 3.0.1-219 (PSP)",
       "description": "MWCCPSP 3.0.1-219 (CodeWarrior PSP, PE/x86_32) toolchain image",
       "entrypoint": "mwccpsp",
-      "wrapper_file": "",
       "binary": "mwccpsp.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14677,11 +14471,7 @@
       "root": "mwcps2-2.3-991202",
       "title": "rebrew MWCPS2 2.3-991202 (PS2)",
       "description": "MWCPS2 2.3-991202 (CodeWarrior PS2, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `tar-subpath:mwcps2-2.3-991202`"
-      ],
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccmips.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14689,7 +14479,10 @@
         "validate_source": false,
         "argv": []
       }
-    }
+    },
+    "notes": [
+      "unpacked from `tar-subpath:mwcps2-2.3-991202`"
+    ]
   },
   "mwcps2-2.3.3-000906": {
     "family": "mwcps2",
@@ -14742,7 +14535,6 @@
       "title": "rebrew MWCPS2 2.3.3-000906 (PS2)",
       "description": "MWCPS2 2.3.3-000906 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14796,7 +14588,6 @@
       "title": "rebrew MWCPS2 2.4-001213 (PS2)",
       "description": "MWCPS2 2.4-001213 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwccps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14857,7 +14648,6 @@
       "title": "rebrew MWCPS2 3.0-011126 (PS2)",
       "description": "MWCPS2 3.0-011126 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14911,7 +14701,6 @@
       "title": "rebrew MWCPS2 3.0.1-020123 (PS2)",
       "description": "MWCPS2 3.0.1-020123 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwccps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -14972,7 +14761,6 @@
       "title": "rebrew MWCPS2 3.0.1b103-040528 (PS2)",
       "description": "MWCPS2 3.0.1b103-040528 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15033,7 +14821,6 @@
       "title": "rebrew MWCPS2 3.0.1b119-040914 (PS2)",
       "description": "MWCPS2 3.0.1b119-040914 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15094,7 +14881,6 @@
       "title": "rebrew MWCPS2 3.0.1b145-050209 (PS2)",
       "description": "MWCPS2 3.0.1b145-050209 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15155,7 +14941,6 @@
       "title": "rebrew MWCPS2 3.0.1b151-050317 (PS2)",
       "description": "MWCPS2 3.0.1b151-050317 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15216,7 +15001,6 @@
       "title": "rebrew MWCPS2 3.0.1b198-051011 (PS2)",
       "description": "MWCPS2 3.0.1b198-051011 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15277,7 +15061,6 @@
       "title": "rebrew MWCPS2 3.0.1b205-051227 (PS2)",
       "description": "MWCPS2 3.0.1b205-051227 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15338,7 +15121,6 @@
       "title": "rebrew MWCPS2 3.0.1b210-060308 (PS2)",
       "description": "MWCPS2 3.0.1b210-060308 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15399,7 +15181,6 @@
       "title": "rebrew MWCPS2 3.0.1b44-030325 (PS2)",
       "description": "MWCPS2 3.0.1b44-030325 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15460,7 +15241,6 @@
       "title": "rebrew MWCPS2 3.0.1b51-030512 (PS2)",
       "description": "MWCPS2 3.0.1b51-030512 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15521,7 +15301,6 @@
       "title": "rebrew MWCPS2 3.0.1b74-030811 (PS2)",
       "description": "MWCPS2 3.0.1b74-030811 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15582,7 +15361,6 @@
       "title": "rebrew MWCPS2 3.0.1b75-030916 (PS2)",
       "description": "MWCPS2 3.0.1b75-030916 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15643,7 +15421,6 @@
       "title": "rebrew MWCPS2 3.0.1b87-031208 (PS2)",
       "description": "MWCPS2 3.0.1b87-031208 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15704,7 +15481,6 @@
       "title": "rebrew MWCPS2 3.0.1b95-040309 (PS2)",
       "description": "MWCPS2 3.0.1b95-040309 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15760,7 +15536,6 @@
       "title": "rebrew MWCPS2 3.0.3 (PS2)",
       "description": "MWCPS2 3.0.3 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwccps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wine",
       "wrapper": {
@@ -15820,11 +15595,7 @@
       "root": "mwcps2-3.0b22-020926",
       "title": "rebrew MWCPS2 3.0b22-020926 (PS2)",
       "description": "MWCPS2 3.0b22-020926 (CodeWarrior PS2, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `tar-subpath:mwcps2-3.0b22-020926`"
-      ],
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15832,7 +15603,10 @@
         "validate_source": false,
         "argv": []
       }
-    }
+    },
+    "notes": [
+      "unpacked from `tar-subpath:mwcps2-3.0b22-020926`"
+    ]
   },
   "mwcps2-3.0b38-030307": {
     "family": "mwcps2",
@@ -15885,7 +15659,6 @@
       "title": "rebrew MWCPS2 3.0b38-030307 (PS2)",
       "description": "MWCPS2 3.0b38-030307 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -15946,7 +15719,6 @@
       "title": "rebrew MWCPS2 3.0b50-030527 (PS2)",
       "description": "MWCPS2 3.0b50-030527 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -16007,7 +15779,6 @@
       "title": "rebrew MWCPS2 3.0b52-030722 (PS2)",
       "description": "MWCPS2 3.0b52-030722 (CodeWarrior PS2, PE/x86_32) toolchain image",
       "entrypoint": "mwcps2",
-      "wrapper_file": "",
       "binary": "mwccps2.exe",
       "runner": "wibo",
       "wrapper": {
@@ -16025,6 +15796,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "ndk-r8e-gcc-4.4.3"
+    ],
+    "notes": [
+      "unpacked from `tar-bz2-subset`"
     ],
     "recipe": {
       "base": "base",
@@ -16073,11 +15847,7 @@
       "root": "ndk-r8e-4.4.3",
       "title": "rebrew Android NDK r8e GCC 4.4.3 (x86)",
       "description": "Android NDK r8e GCC 4.4.3 (i686-linux-android, native x86_64) toolchain image",
-      "notes": [
-        "unpacked from `tar-bz2-subset`"
-      ],
       "entrypoint": "ndk-gcc",
-      "wrapper_file": "",
       "binary": "toolchains/x86-4.4.3/prebuilt/linux-x86_64/bin/i686-linux-android-gcc",
       "runner": "exec",
       "wrapper": {
@@ -16097,6 +15867,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "ndk-r8e-gcc-4.7"
+    ],
+    "notes": [
+      "unpacked from `tar-bz2-subset`"
     ],
     "recipe": {
       "base": "base",
@@ -16145,11 +15918,7 @@
       "root": "ndk-r8e-4.7",
       "title": "rebrew Android NDK r8e GCC 4.7 (x86)",
       "description": "Android NDK r8e GCC 4.7 (i686-linux-android, native x86_64) toolchain image",
-      "notes": [
-        "unpacked from `tar-bz2-subset`"
-      ],
       "entrypoint": "ndk-gcc",
-      "wrapper_file": "",
       "binary": "toolchains/x86-4.7/prebuilt/linux-x86_64/bin/i686-linux-android-gcc",
       "runner": "exec",
       "wrapper": {
@@ -16169,6 +15938,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "prodg_35"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:ProDG/3.5`"
     ],
     "recipe": {
       "base": "base",
@@ -16217,11 +15989,7 @@
       "root": "prodg-3.5",
       "title": "rebrew ProDG 3.5 (GameCube)",
       "description": "ProDG 3.5 (SN Systems GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:ProDG/3.5`"
-      ],
       "entrypoint": "ngccc",
-      "wrapper_file": "",
       "binary": "ngccc.exe",
       "runner": "wine",
       "wrapper": {
@@ -16239,6 +16007,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "prodg_35_b140"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:ProDG/3.5b140`"
     ],
     "recipe": {
       "base": "base",
@@ -16287,11 +16058,7 @@
       "root": "prodg-3.5b140",
       "title": "rebrew PRODG 3.5b140 (GameCube)",
       "description": "PRODG 3.5b140 (SN Systems ProDG GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:ProDG/3.5b140`"
-      ],
       "entrypoint": "ngccc",
-      "wrapper_file": "",
       "binary": "ngccc.exe",
       "runner": "wine",
       "wrapper": {
@@ -16309,6 +16076,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "prodg_37"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:ProDG/3.7`"
     ],
     "recipe": {
       "base": "base",
@@ -16357,11 +16127,7 @@
       "root": "prodg-3.7",
       "title": "rebrew PRODG 3.7 (GameCube)",
       "description": "PRODG 3.7 (SN Systems ProDG GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:ProDG/3.7`"
-      ],
       "entrypoint": "ngccc",
-      "wrapper_file": "",
       "binary": "ngccc.exe",
       "runner": "wine",
       "wrapper": {
@@ -16379,6 +16145,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "prodg_381"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:ProDG/3.8.1`"
     ],
     "recipe": {
       "base": "base",
@@ -16427,11 +16196,7 @@
       "root": "prodg-3.8.1",
       "title": "rebrew ProDG 3.8.1 (GameCube)",
       "description": "ProDG 3.8.1 (SN Systems GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:ProDG/3.8.1`"
-      ],
       "entrypoint": "ngccc",
-      "wrapper_file": "",
       "binary": "ngccc.exe",
       "runner": "wine",
       "wrapper": {
@@ -16449,6 +16214,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "prodg_393"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:ProDG/3.9.3`"
     ],
     "recipe": {
       "base": "base",
@@ -16497,11 +16265,7 @@
       "root": "prodg-3.9.3",
       "title": "rebrew ProDG 3.9.3 (GameCube)",
       "description": "ProDG 3.9.3 (SN Systems GameCube, PE/x86_32) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:ProDG/3.9.3`"
-      ],
       "entrypoint": "ngccc",
-      "wrapper_file": "",
       "binary": "ngccc.exe",
       "runner": "wine",
       "wrapper": {
@@ -16591,7 +16355,6 @@
       "title": "rebrew PSP GCC 1.3.1",
       "description": "PSP GCC 1.3.1 (mipsallegrex, PS1-family MIPS, 32-bit host) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "/usr/local/psp/devkit/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -16662,7 +16425,6 @@
       "title": "rebrew PSPSNC 1.2.7503.0 (PSP)",
       "description": "PSPSNC 1.2.7503.0 (Sony PSP, PE/x86_32) toolchain image",
       "entrypoint": "pspsnc",
-      "wrapper_file": "",
       "binary": "pspsnc.exe",
       "runner": "wine",
       "wrapper": {
@@ -16682,6 +16444,10 @@
     "commit": "",
     "aliases": [
       "psyq_263_221"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`",
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
     ],
     "recipe": {
       "base": "base-dosemu",
@@ -16718,12 +16484,7 @@
       "root": "psyq-2.6.3",
       "title": "rebrew PSY-Q 2.6.3 (PlayStation 1, dosemu2)",
       "description": "PSY-Q 2.6.3 (MIPS R3000, PS1, DOS binaries under dosemu2) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`",
-        "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "dosemu2",
       "wrapper": {
@@ -16752,6 +16513,10 @@
     "commit": "",
     "aliases": [
       "psyq3.3"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`",
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -16809,12 +16574,7 @@
       "root": "psyq-3.3",
       "title": "rebrew PSY-Q 3.3 (PlayStation 1, dosemu2)",
       "description": "PSY-Q 3.3 (MIPS R3000, PS1, DOS binaries under dosemu2) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`",
-        "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "dosemu2",
       "wrapper": {
@@ -16843,6 +16603,10 @@
     "commit": "",
     "aliases": [
       "psyq3.5"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`",
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -16900,12 +16664,7 @@
       "root": "psyq-3.5",
       "title": "rebrew PSY-Q 3.5 (PlayStation 1, dosemu2)",
       "description": "PSY-Q 3.5 (MIPS R3000, PS1, DOS binaries under dosemu2) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`",
-        "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "dosemu2",
       "wrapper": {
@@ -16934,6 +16693,10 @@
     "commit": "",
     "aliases": [
       "psyq3.6"
+    ],
+    "notes": [
+      "converts its Sony object with the image's `psyq-obj-parser`",
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -16991,12 +16754,7 @@
       "root": "psyq-3.6",
       "title": "rebrew PSY-Q 3.6 (PlayStation 1, dosemu2)",
       "description": "PSY-Q 3.6 (MIPS R3000, PS1, DOS binaries under dosemu2) toolchain image",
-      "notes": [
-        "converts its Sony object with the image's `psyq-obj-parser`",
-        "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "dosemu2",
       "wrapper": {
@@ -17025,6 +16783,9 @@
     "commit": "",
     "aliases": [
       "psyq4.0"
+    ],
+    "notes": [
+      "emits a Sony object; convert with the image's `psyq-obj-parser`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -17092,11 +16853,7 @@
       "root": "psyq-4.0",
       "title": "rebrew PSY-Q 4.0 (PS1)",
       "description": "PSY-Q 4.0 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a Sony object; convert with the image's `psyq-obj-parser`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wine",
       "wrapper": {
@@ -17136,6 +16893,9 @@
     "commit": "",
     "aliases": [
       "psyq4.1"
+    ],
+    "notes": [
+      "emits a Sony object; convert with the image's `psyq-obj-parser`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -17203,11 +16963,7 @@
       "root": "psyq-4.1",
       "title": "rebrew PSY-Q 4.1 (PS1)",
       "description": "PSY-Q 4.1 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a Sony object; convert with the image's `psyq-obj-parser`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wine",
       "wrapper": {
@@ -17247,6 +17003,9 @@
     "commit": "",
     "aliases": [
       "psyq4.3"
+    ],
+    "notes": [
+      "emits a Sony object; convert with the image's `psyq-obj-parser`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -17314,11 +17073,7 @@
       "root": "psyq-4.3",
       "title": "rebrew PSY-Q 4.3 (PS1)",
       "description": "PSY-Q 4.3 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a Sony object; convert with the image's `psyq-obj-parser`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wine",
       "wrapper": {
@@ -17358,6 +17113,9 @@
     "commit": "",
     "aliases": [
       "psyq4.4"
+    ],
+    "notes": [
+      "emits a Sony object; convert with the image's `psyq-obj-parser`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -17425,11 +17183,7 @@
       "root": "psyq-4.4",
       "title": "rebrew PSY-Q 4.4 (PS1)",
       "description": "PSY-Q 4.4 (CC1PSX + ASPSX pipeline + obj parser, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a Sony object; convert with the image's `psyq-obj-parser`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "binary": "",
       "runner": "wine",
       "wrapper": {
@@ -17584,7 +17338,6 @@
       "title": "rebrew PSY-Q 4.5 (PS1)",
       "description": "PSY-Q 4.5 (gcc 2.8.1-psx + SDK headers/libs, native x86_64) toolchain image",
       "entrypoint": "cc",
-      "wrapper_file": "",
       "binary": "/opt/cross/bin/gcc",
       "runner": "exec",
       "wrapper": {
@@ -17605,6 +17358,9 @@
     "commit": "",
     "aliases": [
       "psyq4.6"
+    ],
+    "notes": [
+      "emits a Sony object; convert with the image's `psyq-obj-parser`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -17662,11 +17418,7 @@
       "root": "psyq-4.6",
       "title": "rebrew PSY-Q 4.6 (PS1)",
       "description": "PSY-Q 4.6 (Sony CCPSX.EXE + obj parser, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a Sony object; convert with the image's `psyq-obj-parser`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "",
       "runner": "wine",
       "wrapper": {
         "shape": "handwritten",
@@ -17683,6 +17435,10 @@
     "commit": "af27f4aa6566c1b0fa5332b488e63d6ffd28bd48",
     "aliases": [
       "cygnus-2.7-96Q3"
+    ],
+    "notes": [
+      "unpacked from `zip-subpath:cygnus-2.7-96Q3-bin`",
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
     ],
     "recipe": {
       "base": "base-dosemu",
@@ -17736,12 +17492,7 @@
       "root": "saturn-cygnus",
       "title": "rebrew Saturn Cygnus 2.7-96Q3 (dosemu2)",
       "description": "Cygnus 2.7-96Q3 (SH-2, Sega Saturn, DOS binaries under dosemu2) toolchain image",
-      "notes": [
-        "unpacked from `zip-subpath:cygnus-2.7-96Q3-bin`",
-        "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
-      ],
       "entrypoint": "cc",
-      "wrapper_file": "cc-wrapper.sh",
       "runner": "dosemu2",
       "wrapper": {
         "shape": "handwritten",
@@ -17758,6 +17509,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.0r10"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -17810,11 +17564,7 @@
       "root": "shc-5.0r10",
       "title": "rebrew SHC 5.0r10 (Dreamcast)",
       "description": "SHC 5.0r10 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/shc.exe",
       "runner": "wine",
       "wrapper": {
@@ -17844,6 +17594,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.0r26"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -17896,11 +17649,7 @@
       "root": "shc-5.0r26",
       "title": "rebrew SHC 5.0r26 (Dreamcast)",
       "description": "SHC 5.0r26 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/shc.exe",
       "runner": "wine",
       "wrapper": {
@@ -17930,6 +17679,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.0r28"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -17982,11 +17734,7 @@
       "root": "shc-5.0r28",
       "title": "rebrew SHC 5.0r28 (Dreamcast)",
       "description": "SHC 5.0r28 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/shc.exe",
       "runner": "wine",
       "wrapper": {
@@ -18016,6 +17764,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.0r31"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -18068,11 +17819,7 @@
       "root": "shc-5.0r31",
       "title": "rebrew SHC 5.0r31 (Dreamcast)",
       "description": "SHC 5.0r31 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/shc.exe",
       "runner": "wine",
       "wrapper": {
@@ -18102,6 +17849,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.0r32"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -18154,11 +17904,7 @@
       "root": "shc-5.0r32",
       "title": "rebrew SHC 5.0r32 (Dreamcast)",
       "description": "SHC 5.0r32 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/shc.exe",
       "runner": "wine",
       "wrapper": {
@@ -18188,6 +17934,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.1r01"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -18240,11 +17989,7 @@
       "root": "shc-5.1r01",
       "title": "rebrew SHC 5.1r01 (Dreamcast)",
       "description": "SHC 5.1r01 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/SHC.EXE",
       "runner": "wine",
       "wrapper": {
@@ -18274,6 +18019,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.1r03"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -18326,11 +18074,7 @@
       "root": "shc-5.1r03",
       "title": "rebrew SHC 5.1r03 (Dreamcast)",
       "description": "SHC 5.1r03 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/shc.exe",
       "runner": "wine",
       "wrapper": {
@@ -18360,6 +18104,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.1r04"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -18412,11 +18159,7 @@
       "root": "shc-5.1r04",
       "title": "rebrew SHC 5.1r04 (Dreamcast)",
       "description": "SHC 5.1r04 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/shc.exe",
       "runner": "wine",
       "wrapper": {
@@ -18446,6 +18189,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.1r08"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -18498,11 +18244,7 @@
       "root": "shc-5.1r08",
       "title": "rebrew SHC 5.1r08 (Dreamcast)",
       "description": "SHC 5.1r08 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/SHC.EXE",
       "runner": "wine",
       "wrapper": {
@@ -18532,6 +18274,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.1r11"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -18584,11 +18329,7 @@
       "root": "shc-5.1r11",
       "title": "rebrew SHC 5.1r11 (Dreamcast)",
       "description": "SHC 5.1r11 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/shc.exe",
       "runner": "wine",
       "wrapper": {
@@ -18618,6 +18359,9 @@
     "commit": "0884197d3e4a27ee0e274f17ca5b03d8bee94d0a",
     "aliases": [
       "shc-v5.1r13"
+    ],
+    "notes": [
+      "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
     ],
     "helper_url": "https://gist.githubusercontent.com/Mc-muffin/c2d3f30e50c5c5749f994973441c503a/raw/18fbf1a19bd720d02774ed634b00b0508eaf474c/rof2elf.py",
     "helper_sha256": "f5a52b69b619e206172da4dc74182ecc97eeac5dcfcf5466c537af5ea6310821",
@@ -18670,11 +18414,7 @@
       "root": "shc-5.1r13",
       "title": "rebrew SHC 5.1r13 (Dreamcast)",
       "description": "SHC 5.1r13 (Hitachi SuperH, Dreamcast, PE/x86_32) toolchain image",
-      "notes": [
-        "emits a ROF `.obj`; convert with the image's `rof2elf.py`"
-      ],
       "entrypoint": "shc",
-      "wrapper_file": "",
       "binary": "bin/shc.exe",
       "runner": "wine",
       "wrapper": {
@@ -18745,7 +18485,6 @@
       "title": "rebrew Watcom C/C++ 10.0a (DOS-era release) (win32)",
       "description": "Watcom C/C++ 10.0a (DOS-era release) (wcc386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wcc386",
-      "wrapper_file": "wcc386-wrapper.sh",
       "binary": "binnt/wcc386.exe",
       "runner": "wine",
       "wrapper": {
@@ -18821,7 +18560,6 @@
       "title": "rebrew Watcom C++ 10.0a (DOS-era release) (win32)",
       "description": "Watcom C++ 10.0a (DOS-era release) (wpp386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wpp386",
-      "wrapper_file": "wpp386-wrapper.sh",
       "binary": "binnt/wpp386.exe",
       "runner": "wine",
       "wrapper": {
@@ -18896,7 +18634,6 @@
       "title": "rebrew Watcom C/C++ 10.5 (win32)",
       "description": "Watcom C/C++ 10.5 (wcc386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wcc386",
-      "wrapper_file": "wcc386-wrapper.sh",
       "binary": "binnt/wcc386.exe",
       "runner": "wine",
       "wrapper": {
@@ -18972,7 +18709,6 @@
       "title": "rebrew Watcom C/C++ 10.5 (win32)",
       "description": "Watcom C/C++ 10.5 (wcc386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wpp386",
-      "wrapper_file": "wpp386-wrapper.sh",
       "binary": "binnt/wpp386.exe",
       "runner": "wine",
       "wrapper": {
@@ -19047,7 +18783,6 @@
       "title": "rebrew Watcom C/C++ 10.5a (win32)",
       "description": "Watcom C/C++ 10.5a (wcc386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wcc386",
-      "wrapper_file": "wcc386-wrapper.sh",
       "binary": "binnt/wcc386.exe",
       "runner": "wine",
       "wrapper": {
@@ -19123,7 +18858,6 @@
       "title": "rebrew Watcom C/C++ 10.5a (win32)",
       "description": "Watcom C/C++ 10.5a (wcc386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wpp386",
-      "wrapper_file": "wpp386-wrapper.sh",
       "binary": "binnt/wpp386.exe",
       "runner": "wine",
       "wrapper": {
@@ -19198,7 +18932,6 @@
       "title": "rebrew Watcom C/C++ 10.6 (win32)",
       "description": "Watcom C/C++ 10.6 (wcc386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wcc386",
-      "wrapper_file": "wcc386-wrapper.sh",
       "binary": "binnt/wcc386.exe",
       "runner": "wine",
       "wrapper": {
@@ -19274,7 +19007,6 @@
       "title": "rebrew Watcom C/C++ 10.6 (win32)",
       "description": "Watcom C/C++ 10.6 (wcc386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wpp386",
-      "wrapper_file": "wpp386-wrapper.sh",
       "binary": "binnt/wpp386.exe",
       "runner": "wine",
       "wrapper": {
@@ -19349,7 +19081,6 @@
       "title": "rebrew Watcom C/C++ 11.0 (win32)",
       "description": "Watcom C/C++ 11.0 (wcc386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wcc386",
-      "wrapper_file": "wcc386-wrapper.sh",
       "binary": "binnt/wcc386.exe",
       "runner": "wine",
       "wrapper": {
@@ -19425,7 +19156,6 @@
       "title": "rebrew Watcom C/C++ 11.0 (win32)",
       "description": "Watcom C/C++ 11.0 (wcc386, PE/x86_32, wine/wibo) toolchain image",
       "entrypoint": "wpp386",
-      "wrapper_file": "wpp386-wrapper.sh",
       "binary": "binnt/wpp386.exe",
       "runner": "wine",
       "wrapper": {
@@ -19498,7 +19228,6 @@
       "title": "rebrew Open Watcom 2.0 (win16, native)",
       "description": "Open Watcom 2.0 (win16, native) toolchain image",
       "entrypoint": "wcc",
-      "wrapper_file": "wcc-wrapper.sh",
       "binary": "binl/wcc",
       "runner": "exec",
       "wrapper": {
@@ -19569,7 +19298,6 @@
       "title": "rebrew Open Watcom 2.0 (win32, native)",
       "description": "Open Watcom 2.0 (win32, native) toolchain image",
       "entrypoint": "wcc386",
-      "wrapper_file": "wcc386-wrapper.sh",
       "binary": "binl/wcc386",
       "runner": "exec",
       "wrapper": {

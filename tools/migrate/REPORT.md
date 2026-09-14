@@ -168,4 +168,14 @@ The remaining work is mechanical but not small, and none of it is guesswork:
    catalog for its note.  Either the note moves to the recipe or the field does.
 4. `tools/migrate/` is scaffolding with a purpose: `verify_migration.py` is the
    migration's proof and runs in CI; `derive_and_verify.py` and `apply.py` exist
-   for (1).  If no further shape is ever added, the two can go.
+   for (1), and `gitrev.py` holds the worktree checkout both of them use.  If no
+   further shape is ever added, the pair can go — the proof cannot.
+
+## One rule worth keeping
+
+The recipe is derived; everything else about a profile is authored.  Deriving
+again rewrites `recipe` wholesale, so anything the image does not *render* has
+to live outside it — which is how `notes` (the catalog's notes column) ended up
+being wiped by a re-derivation the moment it was put inside `recipe`.  `title`
+and `description` are inside it because they become `LABEL`s; `notes` is at the
+profile level next to `aliases` because nothing renders it.

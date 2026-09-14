@@ -98,15 +98,19 @@ def pin_urls(entry: dict[str, object]) -> dict[str, tuple[str, str]]:
     return pins
 
 
-def _title(entry: dict[str, object]) -> tuple[str, str]:
+def _title(profile: str, entry: dict[str, object]) -> tuple[str, str]:
+    """The image's OCI labels.
+
+    They are recipe data because they are documentation — what the image is and
+    where it came from — and every profile carries them.  The old fallback
+    rendered the directory name, which is a worse label nobody chose; a missing
+    one is a manifest gap, and the manifest is expected to say so.
+    """
     rec = recipe(entry)
-    if _text(rec, "title"):
-        return _text(rec, "title"), _text(rec, "description")
-    family = _text(entry, "family")
-    version = _text(entry, "host_dir").split("/", 1)[1]
-    label = _text(rec, "label") or _text(entry, "family")
-    kind = f" ({label})" if label and label != family else ""
-    return f"rebrew {family} {version}{kind}", f"{family} {version} toolchain image"
+    title, description = _text(rec, "title"), _text(rec, "description")
+    _require(title, f"{profile}: recipe has no title")
+    _require(description, f"{profile}: recipe has no description")
+    return title, description
 
 
 def _require(condition: object, message: str) -> None:
@@ -125,7 +129,7 @@ def render_dockerfile(profile: str, entry: dict[str, object]) -> str:
         raise ValueError(f"{profile} is marked handwritten and must not be generated")
 
     lines += [f"ARG BASE_IMAGE=rebrew/{base}:1.0", "", "FROM ${BASE_IMAGE}", "", "USER root", ""]
-    title, description = _title(entry)
+    title, description = _title(profile, entry)
     lines += [
         'LABEL org.opencontainers.image.source="https://github.com/maci0/rebrew" \\',
         '      org.opencontainers.image.licenses="MIT" \\',
@@ -236,11 +240,13 @@ def entrypoint_name(entry: dict[str, object]) -> str:
 
 
 def wrapper_filename(entry: dict[str, object]) -> str:
-    rec = recipe(entry)
-    wrapper = rec.get("wrapper")
+    """The wrapper file's name: what the recipe names, or the entrypoint's.
+
+    `recipe.wrapper.file` is the only place this lives; a second top-level
+    `wrapper_file` key used to shadow it for 53 profiles.
+    """
+    wrapper = recipe(entry).get("wrapper")
     name = _text(wrapper, "file") if isinstance(wrapper, dict) else ""
-    if not name and _text(rec, "wrapper_file"):
-        name = _text(rec, "wrapper_file")
     return name or f"{entrypoint_name(entry)}-wrapper.sh"
 
 

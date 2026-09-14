@@ -799,11 +799,9 @@ def _notes(entry: dict[str, object]) -> str:
     ):
         if _text(entry, field):
             notes.append(f"pins a second source ({what})")
-    recipe = entry.get("recipe")
-    if isinstance(recipe, dict):
-        declared = recipe.get("notes")
-        if isinstance(declared, list):
-            notes += [str(note) for note in declared]
+    declared = entry.get("notes")
+    if isinstance(declared, list):
+        notes += [str(note) for note in declared]
     return "; ".join(notes) or "—"
 
 

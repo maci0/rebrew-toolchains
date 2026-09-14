@@ -1,4 +1,4 @@
-"""Numeric-contract tests for delphi/1.0-win16/pak_extract.py.
+"""Numeric-contract tests for tools/pak_extract.py.
 
 Pins the arithmetic the Quantum decoder depends on: bit-reader word
 assembly and overrun accounting, adaptive-model frequency invariants,
@@ -23,7 +23,7 @@ from pathlib import Path
 from types import ModuleType
 
 _REPO = Path(__file__).resolve().parents[1]
-_PAK = _REPO / "delphi" / "1.0-win16" / "pak_extract.py"
+_PAK = _REPO / "tools" / "pak_extract.py"
 
 
 def _load_module() -> ModuleType:

@@ -83,7 +83,6 @@ class Recipe(TypedDict, total=False):
     title: str
     description: str
     entrypoint: str
-    wrapper_file: str
     root: str
     binary: str
     runner: str
@@ -391,7 +390,7 @@ def derive(
             m = re.search(r'"(/usr/local/bin/[^"]+)"', ins)
             if m:
                 entrypoint = pathlib.Path(m.group(1)).name
-    wfile, wtext = wrapper_text(d)
+    _, wtext = wrapper_text(d)
     # The install root is what the Dockerfile creates under /opt (it is not the
     # host_dir name for agbcc/arm-gba, ido/7.1, psp-gcc, camelot, ...).
     roots = [
@@ -415,7 +414,6 @@ def derive(
     if description:
         rec["description"] = description
     rec["entrypoint"] = entrypoint
-    rec["wrapper_file"] = wfile
     if ignore_wrapper:
         # a hand-written wrapper still runs its compiler some way, and the
         # catalog asks the recipe rather than grepping the file for it

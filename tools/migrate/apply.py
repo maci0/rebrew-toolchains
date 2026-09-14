@@ -23,8 +23,6 @@ from __future__ import annotations
 import argparse
 import json
 import pathlib
-import shutil
-import subprocess
 import sys
 import tempfile
 
@@ -32,6 +30,7 @@ REPO = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "tools" / "migrate"))
 
+import gitrev  # noqa: E402
 from derive_and_verify import (  # noqa: E402
     Recipe as RecipeType,
 )
@@ -103,25 +102,6 @@ def shape_reason(text: str) -> str:
     return "multi-stage pipeline whose stages no sibling shares"
 
 
-def baseline_tree(rev: str, into: pathlib.Path) -> pathlib.Path:
-    """Check ``rev`` out into ``into``: the files to derive *from*.
-
-    Deriving from the working tree only works while the tree still holds the
-    hand-written files.  After the migration it holds the generated ones, so a
-    newly taught wrapper shape is applied by deriving from the revision that
-    still had the originals.
-    """
-    if into.exists():
-        shutil.rmtree(into)
-    subprocess.run(  # noqa: S603  (fixed argv, no shell)
-        ["git", "worktree", "add", "--detach", str(into), rev],  # noqa: S607
-        cwd=REPO,
-        check=True,
-        capture_output=True,
-    )
-    return into
-
-
 def _require_handwritten(
     source: pathlib.Path, rev: str, manifest: dict[str, dict[str, object]]
 ) -> None:
@@ -169,12 +149,24 @@ def main() -> int:
     sources = REPO / "sources.json"
     manifest: dict[str, dict[str, object]] = json.loads(sources.read_text())
 
-    scratch: pathlib.Path | None = None
+    scratch = pathlib.Path(tempfile.mkdtemp(prefix="rebrew-derive-")) if args.baseline else None
     source = REPO
-    if args.baseline:
-        scratch = pathlib.Path(tempfile.mkdtemp(prefix="rebrew-derive-"))
-        source = baseline_tree(args.baseline, scratch / "tree")
-        _require_handwritten(source, args.baseline, manifest)
+    try:
+        if args.baseline and scratch is not None:
+            source = gitrev.checkout(args.baseline, scratch / "tree")
+            _require_handwritten(source, args.baseline, manifest)
+        return _run(args, source, manifest, sources)
+    finally:
+        if scratch is not None:
+            gitrev.discard(source, scratch)
+
+
+def _run(
+    args: argparse.Namespace,
+    source: pathlib.Path,
+    manifest: dict[str, dict[str, object]],
+    sources: pathlib.Path,
+) -> int:
     handwritten: list[tuple[str, str]] = []
     failed: list[tuple[str, str]] = []
     injected = 0
@@ -219,26 +211,10 @@ def main() -> int:
     for profile, why in failed:
         print(f"  NOT DERIVED: {profile} — {why}")
     if args.check:
-        if scratch is not None:
-            _drop(source, scratch)
         return 1 if failed else 0
 
-    try:
-        sources.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
-        return generate.main([])
-    finally:
-        if scratch is not None:
-            _drop(source, scratch)
-
-
-def _drop(source: pathlib.Path, scratch: pathlib.Path) -> None:
-    subprocess.run(  # noqa: S603  (fixed argv, no shell)
-        ["git", "worktree", "remove", "--force", str(source)],  # noqa: S607
-        cwd=REPO,
-        check=False,
-        capture_output=True,
-    )
-    shutil.rmtree(scratch, ignore_errors=True)
+    sources.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+    return generate.main([])
 
 
 if __name__ == "__main__":
