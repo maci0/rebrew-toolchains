@@ -52,8 +52,8 @@ RUN apt-get update \
 RUN apt-get update \
     && mkdir -p /tmp/debs \
     && curl -fsSL --retry 3 --retry-all-errors -o /tmp/debs/dosemu2.deb \
-        "https://ppa.launchpadcontent.net/dosemu2/ppa/ubuntu/pool/main/d/dosemu2/dosemu2_2.0~pre9-10291-7a50cf4a1+202609122046~ubuntu24.04.1_amd64.deb" \
-    && echo "44cd714d3cbb2996999b68c8a46c9e9ad69f07ff2eed1b243ec37a7d32c2ee4b  /tmp/debs/dosemu2.deb" | sha256sum -c - \
+        "https://ppa.launchpadcontent.net/dosemu2/ppa/ubuntu/pool/main/d/dosemu2/dosemu2_2.0~pre9-10295-4c9fe98ef+202609142054~ubuntu24.04.1_amd64.deb" \
+    && echo "fc764ef92f98c152e2c4f753d4395a76eb900c5da23cc6d5d48815a119893e8d  /tmp/debs/dosemu2.deb" | sha256sum -c - \
     && curl -fsSL --retry 3 --retry-all-errors -o /tmp/debs/fdpp.deb \
         "https://ppa.launchpadcontent.net/dosemu2/ppa/ubuntu/pool/main/f/fdpp/fdpp_1.10-10002-1671-9282d8c+202605091902~ubuntu24.04.1_amd64.deb" \
     && echo "e1b2c238ef79c97ac588dfeec54cc8598890cd97e2e344dc4627258948d09d8d  /tmp/debs/fdpp.deb" | sha256sum -c - \

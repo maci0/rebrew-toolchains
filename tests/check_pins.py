@@ -7,6 +7,11 @@ builds, GitHub release tags get retagged, `files.decomp.dev` rotates dated
 bundles).  This is the check that notices: it asks each pinned URL for its
 headers and fails on anything that is no longer there.
 
+It covers the manifest's pins *and* the shared base images' pins.  It did not,
+and the dosemu2 PPA pruned the build `base-dosemu` had pinned while four
+weekly runs looked elsewhere: the image could not be built by anything, which
+the smoke job found before this check did.
+
 Deliberately not part of `make test`: it needs the network, and a transient
 outage must not look like a broken manifest.  Run it by hand (`make pins`) or
 on the weekly schedule in .github/workflows/pins.yml.
@@ -17,6 +22,7 @@ Exit:   0 all pinned URLs resolve, 1 otherwise.
 
 from __future__ import annotations
 
+import re
 import sys
 import time
 import urllib.error
@@ -71,6 +77,23 @@ def check(url: str) -> str | None:
     return problem
 
 
+def base_pins() -> list[tuple[str, str]]:
+    """Every URL the shared base images download, labelled by their directory.
+
+    These images are not in the manifest — they are built first, by `build.sh`,
+    and everything else inherits them — so a pruned pin there breaks the whole
+    matrix and no manifest check can see it.
+    """
+    pins: list[tuple[str, str]] = []
+    for dockerfile in sorted(REPO.glob("base*/Dockerfile")):
+        text = re.sub(r"\\\s*\n\s*", " ", dockerfile.read_text(encoding="utf-8"))
+        pins.extend(
+            (dockerfile.parent.name, url)
+            for url in re.findall(r'curl[^"]*"(https?://[^"]+)"', text)
+        )
+    return pins
+
+
 def main(argv: list[str]) -> int:
     sys.path.insert(0, str(REPO))
     import catalog
@@ -90,10 +113,20 @@ def main(argv: list[str]) -> int:
             else:
                 print(f"FAIL {profile:28s} {url} ({problem})")
                 failures.append((profile, url, problem))
-    failing_urls = {url for _profile, url, _problem in failures}
+    for label, url in base_pins():
+        if wanted and label not in wanted:
+            continue
+        checked += 1
+        problem = check(url)
+        if problem is None:
+            print(f"ok   {label:28s} {url}")
+        else:
+            print(f"FAIL {label:28s} {url} ({problem})")
+            failures.append((label, url, problem))
+    failing_urls = {url for _label, url, _problem in failures}
     print(
         f"\n{checked} pinned URL(s) checked, {len(failures)} failing "
-        f"({len(failing_urls)} unique URL(s))"
+        f"({len(failing_urls)} distinct failing URLs)"
     )
     return 1 if failures else 0
 
