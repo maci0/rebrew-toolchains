@@ -22,6 +22,7 @@ Exit:   0 all pinned URLs resolve, 1 otherwise.
 
 from __future__ import annotations
 
+import concurrent.futures
 import re
 import sys
 import time
@@ -58,6 +59,11 @@ def _request(url: str, method: str) -> tuple[int, str]:
 #: single flaky URL backs several profiles and would otherwise fail them all.
 _GONE = (404, 410)
 _ATTEMPTS = 3
+
+#: The pins check is network-bound - 310+ URLs at ~0.05-0.5s each - so the
+#: checks run concurrently.  16 workers keep the weekly run under a minute
+#: without hammering any single host; stdlib threads, no new dependency.
+_WORKERS = 16
 
 
 def check(url: str) -> str | None:
@@ -100,24 +106,22 @@ def main(argv: list[str]) -> int:
 
     manifest = catalog.manifest()
     wanted = set(argv)
+    jobs: list[tuple[str, str]] = [
+        (profile, url)
+        for profile, entry in manifest.items()
+        if not wanted or profile in wanted
+        for url in catalog.urls_of(entry)
+    ]
+    jobs += [(label, url) for label, url in base_pins() if not wanted or label in wanted]
+    # One thread per check; the URL list is small (~320) so collect-then-sort
+    # keeps the output deterministic — diffable week to week — regardless of
+    # which thread finishes first.
     checked = 0
     failures: list[tuple[str, str, str]] = []
-    for profile, entry in manifest.items():
-        if wanted and profile not in wanted:
-            continue
-        for url in catalog.urls_of(entry):
-            checked += 1
-            problem = check(url)
-            if problem is None:
-                print(f"ok   {profile:28s} {url}")
-            else:
-                print(f"FAIL {profile:28s} {url} ({problem})")
-                failures.append((profile, url, problem))
-    for label, url in base_pins():
-        if wanted and label not in wanted:
-            continue
+    with concurrent.futures.ThreadPoolExecutor(max_workers=_WORKERS) as pool:
+        results = sorted(pool.map(lambda job: (*job, check(job[1])), jobs))
+    for label, url, problem in results:
         checked += 1
-        problem = check(url)
         if problem is None:
             print(f"ok   {label:28s} {url}")
         else:
