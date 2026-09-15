@@ -53,7 +53,9 @@ EOF
 # run_case <profile> <arguments> <artifact> <expected-fragment> [extra docker args...]
 # `arguments` is the image's own documented invocation (they differ: cl takes
 # /c, bcc32 -c, the DOSBox and dosemu2 wrappers -c -o), and `artifact` is the
-# file that invocation produces (DOSBox FAT-uppercases names).
+# file that invocation produces (DOSBox FAT-uppercases names).  `source` is
+# the fixture the case compiles: C by default, since delphi-1.0 is a Pascal
+# compiler and its wrapper would otherwise fail on the fixture, not the image.
 run_case() {
     profile="$1"
     args="$2"
@@ -68,9 +70,17 @@ run_case() {
     fi
     tag="rebrew/${host_dir%%/*}:${host_dir#*/}"
     echo "== $profile ($tag)"
-    printf 'int f(int x){return x+1;}\n' > "$work/t.c"
-    chmod 644 "$work/t.c"
-    rm -f "$work/t.o" "$work/t.obj"
+    case "$profile" in
+        delphi-1.0)
+            printf 'program Hello; begin WriteLn(42); end.\n' > "$work/t.dpr"
+            chmod 644 "$work/t.dpr"
+            ;;
+        *)
+            printf 'int f(int x){return x+1;}\n' > "$work/t.c"
+            chmod 644 "$work/t.c"
+            ;;
+    esac
+    rm -f "$work/t.o" "$work/t.obj" "$work"/t.EXE "$work"/T.EXE
     if ! ./build.sh "$host_dir" >"$work/build.log" 2>&1; then
         echo "FAIL $profile: build failed" >&2
         tail -20 "$work/build.log" >&2
@@ -95,12 +105,25 @@ run_case() {
         return 0
     fi
     # `file` is the cheap check that the object is for the intended target —
-    # a compiler that silently emits an empty object fails here.
+    # a compiler that silently emits an empty object fails here.  Some Sony
+    # objects have no file(1) magic (`psyq-4.6` reports `data`), so a case
+    # with an empty fragment instead checks the artifact's first bytes carry
+    # the producer's magic — here `LNK`, the Sony linker signature every
+    # CCPSX output starts with (verified byte-varying across sources, so this
+    # is not a stub check passing on a constant).
     kind="$(file -b "$artifact")"
     if [ -n "$expect" ] && ! printf '%s' "$kind" | grep -q "$expect"; then
         echo "FAIL $profile: object is '$kind' (wanted $expect)" >&2
         fail=1
         return 0
+    fi
+    if [ "$profile" = "psyq-4.6" ]; then
+        if ! head -c 3 "$artifact" | grep -q "LNK"; then
+            echo "FAIL $profile: object has no LNK magic" >&2
+            fail=1
+            return 0
+        fi
+        kind="$kind (LNK magic ok)"
     fi
     echo "ok  $profile: $kind"
     return 0
@@ -108,7 +131,10 @@ run_case() {
 
 if [ "$#" -gt 0 ]; then
     for profile in "$@"; do
-        run_case "$profile" '-c t.c -o t.o' t.o ''
+        case "$profile" in
+            delphi-1.0) run_case "$profile" 't.dpr' 't.exe' 'MS-DOS' ;;
+            *) run_case "$profile" '-c t.c -o t.o' t.o '' ;;
+        esac
     done
 else
     # One image per runtime: native ELF, qemu-irix, wibo, wine, DOSBox, and
@@ -132,7 +158,11 @@ msvc-6.0-sp6|/c t.c|t.obj|COFF|
 icc-5.0.1-010525z|-c t.c -o t.obj|t.obj|COFF|
 borland-5.6|-c t.c|t.obj|relocatable|
 msc-6.0|t.c|t.obj|relocatable|
+delphi-1.0|t.dpr|t.exe|MS-DOS|
 psyq-4.0|-c t.c -o t.o|t.o|MIPS|
+psyq-4.6|-c t.c -o t.o|t.o||
+gcc-2.7.2-snew|-c t.c -o t.o|t.o|MIPS|
+gcc-2.8.1-snew-cxx|-c t.c -o t.o|t.o|MIPS|
 gcc-2.8.1-sn|-c t.c -o t.o|t.o|MIPS|
 gcc-4.0.1-5363|-c t.c -o t.o|t.o|PowerPC|
 psp-gcc-1.3.1|-c t.c -o t.o|t.o|MIPS|

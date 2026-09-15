@@ -342,11 +342,15 @@ make pins                              # every pinned URL still resolves (needs 
 ./build.sh this-is-not-a-toolchain     # exercises the manifest validation sweep
 ```
 
-`tests/smoke.sh` covers one image per runtime class *and* one per generated
-wrapper shape (`sn64_pe` is covered by `gcc-2.8.1-sn`; `apple_gcc` by
-`gcc-4.0.1-5363`).  A new wrapper shape lands with its smoke case in the same
-change — the shape that ships without one is the shape that breaks silently,
-as the sn64 fetch RUNs did while every other gate stayed green.
+`tests/smoke.sh` covers one image per runtime class *and* every handwritten
+wrapper (`delphi-1.0`, `gcc-2.7.2-snew`, `gcc-2.8.1-snew-cxx`, `psyq-4.6` —
+plus the handwritten ones the runtime list already covers: `icc-5.0.1`,
+`ido-4.1`, `saturn-cygnus`).  A new wrapper shape lands with its smoke case
+in the same change — the shape that ships without one is the shape that
+breaks silently, as the sn64 fetch RUNs did while every other gate stayed
+green.  Non-C compilers need their own fixture: the harness compiles C by
+default, so `delphi-1.0` carries a Pascal source (`run_case` special-cases
+it) rather than failing on the fixture.
 
 `build.sh` validation is bidirectional: a manifest entry without a
 Dockerfile fails, and a Dockerfile without a manifest entry fails (its
