@@ -699,12 +699,16 @@ GAPS: tuple[tuple[str, str], ...] = (
     (
         "psp-gcc 1.7.1 (`psp-gcc-1.7.1`)",
         (
-            "its asset ships **0-byte** `psp/bin/as` and `psp/bin/ld` (verified), so "
-            "the driver's cc1 runs and then fails with \"cannot exec "
-            '`/usr/local/psp/devkit/bin/as`: Exec format error".  `psp-gcc-1.3.1` '
-            "from the same release series carries real 32-bit binutils and *is* "
-            "shipped; note that decomp.me's own compiler list serves only 1.3.1 "
-            "as well"
+            "its asset ships **0-byte** `psp/bin/{ar,as,g++,ld,nm,ranlib,strip}` "
+            "(re-verified 2026-09-15: tarball sha256 "
+            "`55d4267b1d74855157501d5fd61ed31b68d961a737306b5831b582a2d58f3484`, "
+            "7,412,657 bytes; only `gcc`/`c++` and `cc1`/`cc1plus` are real "
+            "32-bit ELF), and none of the `pspspecs`/`pspfixup`/`psplibgen` "
+            "scripts the driver hard-codes, so the driver's cc1 runs and then "
+            'fails with "cannot exec `/usr/local/psp/devkit/bin/as`: Exec '
+            'format error".  `psp-gcc-1.3.1` from the same release series carries '
+            "real 32-bit binutils and *is* shipped; note that decomp.me's own "
+            "compiler list serves only 1.3.1 as well"
         ),
     ),
 )

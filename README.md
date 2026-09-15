@@ -351,8 +351,10 @@ Per-family notes:
 - **MWCCPSP (PSP)**: the `mwccpsp_3.0.1_210` decompme/compilers release
   asset; Windows PE, wibo by default (its LMGR licensing path fails under
   wine).  `psp-gcc-1.7.1` is catalogued but **not** implemented: the pinned
-  asset ships an empty `as`/`ld` and none of the `pspspecs`/`pspfixup`/
-  `psplibgen` scripts the driver hard-codes, so it cannot compile as shipped.
+  asset (re-verified 2026-09-15, sha256 `55d4267b…f3484`) ships 0-byte
+  `psp/bin/{ar,as,g++,ld,nm,ranlib,strip}` and none of the
+  `pspspecs`/`pspfixup`/`psplibgen` scripts the driver hard-codes, so it
+  cannot compile as shipped.
 - **Green Hills 5.3.22 (Wii U)**: the `ghs5.3.22` decompme/compilers release
   asset (PowerPC `bin/cxppc.exe` toolset); Windows PE, wine/wibo.
 - **IDO 5.2/6.0 (N64)**: `LLONSIT/qemu-irix-helpers` tarballs at branch

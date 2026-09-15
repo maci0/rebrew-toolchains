@@ -342,6 +342,12 @@ make pins                              # every pinned URL still resolves (needs 
 ./build.sh this-is-not-a-toolchain     # exercises the manifest validation sweep
 ```
 
+`tests/smoke.sh` covers one image per runtime class *and* one per generated
+wrapper shape (`sn64_pe` is covered by `gcc-2.8.1-sn`; `apple_gcc` by
+`gcc-4.0.1-5363`).  A new wrapper shape lands with its smoke case in the same
+change — the shape that ships without one is the shape that breaks silently,
+as the sn64 fetch RUNs did while every other gate stayed green.
+
 `build.sh` validation is bidirectional: a manifest entry without a
 Dockerfile fails, and a Dockerfile without a manifest entry fails (its
 download pins would otherwise go unverified).
