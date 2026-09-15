@@ -13,6 +13,7 @@ DOSBox directly (the drift this guards against: older images ran
 from __future__ import annotations
 
 import json
+import re
 import unittest
 from collections.abc import Mapping
 from pathlib import Path
@@ -157,6 +158,33 @@ class TestManifest(unittest.TestCase):
 
 
 class TestImageContract(unittest.TestCase):
+    def test_fetch_destinations_exist_before_the_download(self) -> None:
+        """Every `curl -o <dest>` is preceded, in an earlier RUN (or its own),
+        by a `mkdir -p` of `<dest>`'s parent.  Each RUN is a fresh layer, so
+        a destination whose directory nothing has made yet fails the build
+        with a bare `curl: (23) Failure writing output to destination` —
+        which is how the sn64/egcs/Apple-GCC fetch RUNs broke while every
+        gate stayed green: their `RUN curl` wrote into directories the
+        generator only `mkdir`d later.
+        """
+        for d in _toolchain_dirs():
+            lines = (d / "Dockerfile").read_text(encoding="utf-8").splitlines()
+            made = {"/tmp"}  # noqa: S108 — the shared scratch dir, always present
+            for number, line in enumerate(lines, start=1):
+                for chunk in line.split("&&"):
+                    token = chunk.strip().removeprefix("RUN ").strip()
+                    if token.startswith("mkdir -p "):
+                        made.update(token[len("mkdir -p ") :].split())
+                match = re.search(r"curl [^&]*?-o (\S+)", line)
+                if not match:
+                    continue
+                parent = str(Path(match.group(1).strip('"')).parent)
+                self.assertIn(
+                    parent,
+                    made,
+                    f"{d}:{number}: curl writes before mkdir -p {parent}",
+                )
+
     def test_entrypoint_is_chmodded_after_it_is_copied(self) -> None:
         """The wrapper is COPYed in, then made executable.
 

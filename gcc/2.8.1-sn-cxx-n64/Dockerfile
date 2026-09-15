@@ -18,7 +18,7 @@ RUN apt-get update \
 
 ENV REBREW_RUNNER=wibo
 
-RUN curl -fsSL --retry 3 --retry-all-errors -o /opt/gcc-2.8.1-sn-cxx-n64/cc1n64.exe \
+RUN mkdir -p /opt/gcc-2.8.1-sn-cxx-n64 && curl -fsSL --retry 3 --retry-all-errors -o /opt/gcc-2.8.1-sn-cxx-n64/cc1n64.exe \
         "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/cc1n64.exe" \
     && echo "d90df1028c46d826e37146dbcc3e3385f78c59e05a9ddd952daa94c9ad379d9c  /opt/gcc-2.8.1-sn-cxx-n64/cc1n64.exe" | sha256sum -c -
 
@@ -26,7 +26,7 @@ RUN curl -fsSL --retry 3 --retry-all-errors -o /opt/gcc-2.8.1-sn-cxx-n64/cc1pln6
         "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/cc1pln64.exe" \
     && echo "85e3e9fa05640af67115279a992a616a1a1fec8cf56b2e58191196fbbc51853a  /opt/gcc-2.8.1-sn-cxx-n64/cc1pln64.exe" | sha256sum -c -
 
-RUN mkdir -p /opt/gcc-2.8.1-sn-cxx-n64 && curl -fsSL --retry 3 --retry-all-errors -o /opt/gcc-2.8.1-sn-cxx-n64/asn64.exe \
+RUN curl -fsSL --retry 3 --retry-all-errors -o /opt/gcc-2.8.1-sn-cxx-n64/asn64.exe \
         "https://github.com/marijnvdwerf/sn64/releases/download/1%2C0%2C0%2C2/asn64.exe" \
     && echo "53e3a9f8b7b9a06c8f5a781f01074441df3469e6bbe2df5438ba4e2d8fcf3819  /opt/gcc-2.8.1-sn-cxx-n64/asn64.exe" | sha256sum -c -
 

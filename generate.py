@@ -154,11 +154,15 @@ def render_dockerfile(profile: str, entry: dict[str, object]) -> str:
     # directory of its own needs that `mkdir` to happen first — the images did
     # it in the RUN that also downloaded (`mkdir -p /opt/x /tmp/y && curl …`).
     # That step is rendered here and not repeated in the steps RUN below.
-    needed = {
-        str(pathlib.PurePosixPath(str(f["as"])).parent): index
-        for index, f in enumerate(fetches)
-        if str(pathlib.PurePosixPath(str(f["as"])).parent) != "/tmp"  # noqa: S108
-    }
+    # `setdefault` is the whole fix: the mkdir must ride the FIRST
+    # download into each directory, because each RUN is a fresh layer and a
+    # later layer cannot retroactively create the directory for an earlier
+    # `curl -o` (bare `curl: (23) Failure writing output to destination`).
+    needed: dict[str, int] = {}
+    for index, f in enumerate(fetches):
+        parent = str(pathlib.PurePosixPath(str(f["as"])).parent)
+        if parent != "/tmp":  # noqa: S108
+            needed.setdefault(parent, index)
     early: dict[int, str] = {}
     rest: list[dict[str, object]] = []
     for step in steps:
