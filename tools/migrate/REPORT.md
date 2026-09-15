@@ -17,15 +17,23 @@ against the file it replaced, checked out from the baseline revision:
 `07a7268` is the last revision that held the hand-written files; `--baseline
 main` stopped meaning anything the moment the migration landed on `main`.
 
-Three *independent* comparisons run, because a comparison that shares a parser
-with the renderer can agree with it by making the same mistake twice — which
-happened, repeatedly:
+The stages below run together, and each exists because it sees something the
+others cannot — a comparison that shares a parser with the renderer can agree
+with it by making the same mistake twice, which happened repeatedly:
 
 | stage | what it compares | what it caught |
 | --- | --- | --- |
-| classified semantics | base, apt, pins, env, labels, entrypoint, ops, wrapper cmds (deduped, normalised) | the label regression, the duplicate `chmod` delivery |
-| raw install clauses | the `&&`-separated clauses as written | the truncated `ln -s "$(ldconfig -p`, `cp -r` vs `cp -a` |
-| raw wrapper lines | the wrapper as written (the classified one sorts tokens) | a swapped argument would be invisible otherwise |
+| classified facts | base, apt, pins, env, labels, entrypoint, user, workdir, and the entrypoint's delivery (counted, not deduped) | the label regression, the duplicate `chmod` delivery |
+| raw install clauses | the `&&`-separated clauses as written, **in file order** | the truncated `ln -s "$(ldconfig -p`, `cp -r` vs `cp -a`, an install step that moved |
+| raw wrapper lines | the wrapper as written — commands *and* prose | a swapped argument, a deleted paragraph |
+| COPY integrity | that every `COPY` in the generated file has a file to copy | a wrapper that would not be in the image |
+
+There was a fifth, a classified comparison of the install operations; it was
+cut when a probe showed the raw clause stage catches everything it did (and,
+because it normalised `/opt/<name>` to `/opt/X`, one thing it did not: a
+changed install root).  It was the only stage comparing install-step *order*,
+so the clause stage now compares in file order, with a control that fails when
+two clauses are swapped.
 
 The three acknowledged differences are the clang images' `libtinfo5` pin, which
 was fetched over plaintext http and now uses https (same sha256, verified).  Two
@@ -101,11 +109,11 @@ the *engineering* is — 272 copies of eight procedures.
   gate mirroring `make docs`.
 - `tools/migrate/verify_migration.py` — the proof, and what runs in CI.  It
   reads a Dockerfile and a wrapper the way Docker and a shell do and compares
-  the generated file with the original three ways (classified semantics, raw
-  install clauses, raw wrapper lines).  It carries its own parsers rather than
-  sharing a renderer's, because a comparison that shares them can agree with a
-  mistake by making it twice — which happened, repeatedly (see below).
-- `tools/migrate/gitrev.py` — the throw-away checkout of the baseline revision.
+  the generated file with the original stage by stage (see the table above),
+  and checks the baseline revision out into a throw-away worktree to do it.  It
+  carries its own Dockerfile and wrapper parsers rather than sharing a
+  renderer's, because a comparison that shares them can agree with a mistake by
+  making it twice — which happened, repeatedly (see below).
 
 The *derivation* harness (a `derive_and_verify.py` that read a recipe out of
 each hand-written Dockerfile, and an `apply.py` that ran it over the corpus and
@@ -162,8 +170,8 @@ The remaining work is mechanical but not small, and none of it is guesswork:
        make test                                            # the list shrinks
        sh tests/smoke.sh <one image of the new shape>        # and it compiles
 
-2. `tools/migrate/` holds the proof (`verify_migration.py`, run in CI) and the
-   worktree checkout it uses (`gitrev.py`).  Nothing else.
+2. `tools/migrate/` holds the proof (`verify_migration.py`, run in CI) and this
+   report.  Nothing else.
 
 Nothing else is outstanding.  `catalog.py` reads the manifest for everything it
 prints — the runtime from `recipe.runner`, the notes from the profile's `notes`

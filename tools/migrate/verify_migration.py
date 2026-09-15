@@ -5,7 +5,7 @@ Carries its own Dockerfile and wrapper parsers: it must read a file the way
 Docker and a shell do, and it must not share that reading with a renderer whose
 mistakes it is supposed to catch.
 
-    python3 tools/migrate/verify_migration.py [--baseline HEAD] [profile ...]
+    python3 tools/migrate/verify_migration.py --baseline 07a7268 [profile ...]
 
 The migration replaced 272 hand-written Dockerfiles (and 233 hand-written
 wrappers) with files rendered from ``sources.json``.  A rewrite of that size is
@@ -24,9 +24,10 @@ from __future__ import annotations
 
 import argparse
 import collections
-import json
 import pathlib
 import re
+import shutil
+import subprocess
 import sys
 import tempfile
 from typing import TypedDict
@@ -34,8 +35,6 @@ from typing import TypedDict
 REPO = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "tools" / "migrate"))
-
-import gitrev  # noqa: E402
 
 import generate  # noqa: E402
 
@@ -46,6 +45,47 @@ import generate  # noqa: E402
 ACKNOWLEDGED = dict.fromkeys(
     ("clang-3.9.1", "clang-8.0.0", "clang-9.0.0"), "pin upgraded from http to https (same sha256)"
 )
+
+
+def checkout(rev: str, into: pathlib.Path) -> pathlib.Path:
+    """Check ``rev`` out into ``into`` and return it.
+
+    The comparison needs the files as they were before the migration, so it
+    works on a copy of the repository rather than on the tree it is verifying.
+    A shallow clone does not have that revision at all, and `git worktree add`
+    answers that with a bare exit 128, so the revision is checked first.
+    """
+    known = subprocess.run(  # noqa: S603  (fixed argv, no shell)
+        ["git", "cat-file", "-e", f"{rev}^{{commit}}"],  # noqa: S607
+        cwd=REPO,
+        check=False,
+        capture_output=True,
+    )
+    if known.returncode:
+        raise SystemExit(
+            f"verify: {rev} is not in this clone — a shallow checkout hides it, "
+            f"so fetch the full history or pass another --baseline"
+        )
+    if into.exists():
+        shutil.rmtree(into)
+    subprocess.run(  # noqa: S603  (fixed argv, no shell)
+        ["git", "worktree", "add", "--detach", str(into), rev],  # noqa: S607
+        cwd=REPO,
+        check=True,
+        capture_output=True,
+    )
+    return into
+
+
+def discard(tree: pathlib.Path, scratch: pathlib.Path) -> None:
+    """Remove the worktree and the temporary directory that held it."""
+    subprocess.run(  # noqa: S603  (fixed argv, no shell)
+        ["git", "worktree", "remove", "--force", str(tree)],  # noqa: S607
+        cwd=REPO,
+        check=False,
+        capture_output=True,
+    )
+    shutil.rmtree(scratch, ignore_errors=True)
 
 
 def copy_sources(directory: pathlib.Path) -> list[str]:
@@ -119,10 +159,8 @@ class Semantics(TypedDict):
     base: str
     apt: list[str]
     pins: list[str]
-    ops: list[str]
     env: dict[str, str]
     labels: dict[str, str]
-    copies: list[str]
     delivery: list[str]
     entrypoint: str
 
@@ -133,10 +171,8 @@ def semantics(d: pathlib.Path) -> Semantics:
     base = "base"
     apt: list[str] = []
     pins: list[str] = []
-    ops: list[str] = []
     env: dict[str, str] = {}
     labels: dict[str, str] = {}
-    copies: list[str] = []
     delivery: list[str] = []
     entrypoint = ""
     for ins in instructions(text):
@@ -154,14 +190,6 @@ def semantics(d: pathlib.Path) -> Semantics:
             # documentation that rots; a wrong title/description is a defect
             # like any other.
             labels.update(re.findall(r"(org\.opencontainers\.image\.[a-z]+)=\"([^\"]*)\"", ins))
-        elif verb == "COPY":
-            # A wrapper that is COPYed from the wrong file, or not COPYed at
-            # all, changes the image — the wrapper's *text* is read from the
-            # directory, so without this the file could be missing from the
-            # image and still compare equal.
-            m = re.match(r"COPY\s+(?:--from=\S+\s+)?(\S+)\s+(\S+)", ins)
-            if m:
-                copies.append(f"{m.group(1)} -> {m.group(2)}")
         elif verb == "ENV":
             env.update(re.findall(r"([A-Z_][A-Z0-9_]*)=(\S+)", ins[4:]))
         elif verb == "RUN":
@@ -178,121 +206,21 @@ def semantics(d: pathlib.Path) -> Semantics:
                 apt += sorted(m.group(1).split())
             for raw_cmd in re.split(r"\s*&&\s*", body):
                 cmd = raw_cmd.strip()
-                if not cmd or cmd.startswith(("curl ", "echo ", "printf ", "rm ")):
-                    continue
-                if cmd.startswith("apt-get"):
-                    continue
-                op = classify(cmd)
-                if op is not None and op.get("op") not in {"script", "apt_meta"}:
-                    if _is_entrypoint_chmod(op):
-                        # counted, not deduped: the entrypoint must be made
-                        # executable exactly once, after the COPY that puts it
-                        # there.  Deduping this is what hid 53 images whose
-                        # install step chmod'd a file that did not exist yet.
-                        delivery.append(_norm_op(cmd))
-                        continue
-                    ops.append(json.dumps(op, sort_keys=True))
-                else:
-                    ops.append(_norm_op(cmd))
-    # repeated idempotent operations are not a difference
-    seen: list[str] = []
-    for text_op in ops:
-        idempotent = any(word in text_op for word in ("mkdir", "rm ", "ls ", "chmod"))
-        if text_op in seen and idempotent:
-            continue
-        seen.append(text_op)
+                # counted, not deduped: the entrypoint must be made executable
+                # exactly once, after the COPY that puts it there.  Deduping
+                # this is what hid 53 images whose install step chmod'd a file
+                # that did not exist yet.
+                if cmd.startswith("chmod +x /usr/local/bin/"):
+                    delivery.append(cmd)
     return {
         "base": base,
         "apt": apt,
         "pins": pins,
-        "ops": seen,
         "env": env,
         "labels": labels,
-        "copies": copies,
         "delivery": delivery,
         "entrypoint": entrypoint,
     }
-
-
-def _norm_op(cmd: str) -> str:
-    cmd = re.sub(r"/opt/[A-Za-z0-9_.+-]+", "/opt/X", cmd)
-    cmd = re.sub(r"/tmp/[A-Za-z0-9_.+-]+", "/tmp/F", cmd)  # noqa: S108  (pattern, not a path)
-    return re.sub(r"\s+", " ", cmd)
-
-
-def classify(cmd: str) -> dict[str, object] | None:
-    """One shell command -> one schema op (None = handled elsewhere)."""
-    if cmd.startswith(("curl ", "echo ", "printf ")):
-        return None
-    m = re.match(r"mkdir -p (.+)", cmd)
-    if m:
-        return {"op": "mkdir", "paths": m.group(1).split()}
-    m = re.match(r"tar x(\w)f (\S+) (.+)$", cmd)
-    if m and re.search(r"(^| )-C ", m.group(3)):
-        flags = m.group(3)
-        into = re.search(r"-C (\S+)", flags)
-        strip = re.search(r"--strip-components=(\d+)", flags)
-        wild = "--wildcards" in flags
-        into_dir = into.group(1) if into else ""
-        members = [tok for tok in flags.split() if not tok.startswith("-") and tok != into_dir]
-        if into:
-            op = {
-                "op": "tar",
-                "compression": {"z": "gz", "J": "xz", "j": "bz2"}.get(m.group(1), "gz"),
-                "from": m.group(2),
-                "into": into.group(1),
-            }
-            if strip:
-                op["strip"] = int(strip.group(1))
-            if members:
-                op["members"] = members
-            if wild:
-                op["wildcards"] = True
-            return op
-    m = re.match(r"unzip -q (\S+) -d (\S+)", cmd)
-    if m:
-        return {"op": "unzip", "from": m.group(1), "into": m.group(2)}
-    m = re.match(r"cp (-[ar]+) (.+)$", cmd)
-    if m:
-        parts = m.group(2).split()
-        if len(parts) >= 2:
-            # `-a` preserves owners and times, `-r` does not: not the same
-            # command, so the flag is carried rather than re-chosen.
-            return {
-                "op": "cp",
-                "flags": m.group(1),
-                "from": parts[0] if len(parts) == 2 else parts[:-1],
-                "into": parts[-1],
-            }
-    if cmd.startswith("chmod "):
-        return {"op": "chmod", "cmd": cmd}
-    # The source may be a quoted command substitution containing spaces and a
-    # pipeline — `ln -s "$(ldconfig -p | awk '/x/{print $NF; exit}')" /opt/…/y`
-    # — so the name is the last token and everything before it is the source.
-    # Matching on the first token instead read that command as `ln -s "$(ldconfig
-    # -p`, and because the comparison reused this classifier it agreed with
-    # itself and called the truncated render equal.
-    m = re.match(r"ln -s (.+) (\S+)$", cmd)
-    if m:
-        return {"op": "link", "target": m.group(1), "name": m.group(2)}
-    if cmd.startswith(("ls ", "find ")):
-        return {"op": "guard", "cmd": cmd}
-    if cmd.startswith("rm "):
-        return {"op": "rm", "cmd": cmd}
-    if re.match(r"^/opt/\S+ --version", cmd) or cmd.endswith("--version"):
-        return {"op": "check_run", "cmd": cmd}
-    m = re.match(r"apt-get install -y --no-install-recommends (.+)", cmd)
-    if m:
-        return {"op": "apt", "packages": m.group(1).split()}
-    if cmd.startswith("apt-get"):
-        return {"op": "apt_meta", "cmd": cmd}
-    return {"op": "script", "run": cmd}
-
-
-def _is_entrypoint_chmod(op: dict[str, object]) -> bool:
-    """True for the `chmod +x /usr/local/bin/<entrypoint>` delivery step."""
-    cmd = " ".join(str(part) for part in (op.get("cmd"), op.get("path")) if part)
-    return "chmod" in cmd and "/usr/local/bin/" in cmd
 
 
 #: Clauses that are the same command written by a different mechanism, or that
@@ -336,7 +264,10 @@ def install_clauses(text: str) -> list[str]:
             clause = re.sub(r"\s+", " ", part).strip()
             if clause and not any(pattern.match(clause) for pattern in _DROPPED_CLAUSES):
                 out.append(_canonical_tar(clause))
-    return sorted(out)
+    # in file order: an install step that moved is a behaviour change, and this
+    # is the only stage that can see it now that the classified `ops`
+    # comparison is gone
+    return out
 
 
 def wrapper_lines(directory: pathlib.Path) -> list[str]:
@@ -404,7 +335,10 @@ def clause_diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
     """Raw install clauses that changed, beyond the ones already accounted for."""
     old = install_clauses((old_dir / "Dockerfile").read_text(encoding="utf-8"))
     new = install_clauses((new_dir / "Dockerfile").read_text(encoding="utf-8"))
-    return _differences("clause", sorted(old), sorted(new))
+    # order-sensitive, and that is why the classified `ops` comparison could
+    # go: a reordered install clause is a behaviour change, and this reports it
+    # on the clause itself instead of on a normalised copy of it
+    return _differences("clause", old, new)
 
 
 def diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
@@ -425,25 +359,21 @@ def diff(old_dir: pathlib.Path, new_dir: pathlib.Path) -> list[str]:
         "user",
         "workdir",
     )
-    out = [
+    return [
         f"{key}: {old.get(key)!r} -> {new.get(key)!r}"
         for key in keys
         if (key in old or key in new) and old.get(key) != new.get(key)
     ]
-    for label, o, n in (("ops", old["ops"], new["ops"]),):
-        if sorted(o) != sorted(n):
-            missing = [x for x in o if x not in n]
-            extra = [x for x in n if x not in o]
-            if missing:
-                out.append(f"{label} lost: {missing[:4]}")
-            if extra:
-                out.append(f"{label} gained: {extra[:4]}")
-    return out
 
 
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--baseline", default="HEAD", help="revision to compare against")
+    parser.add_argument(
+        "--baseline",
+        required=True,
+        help="revision holding the hand-written files (e.g. 07a7268); HEAD would "
+        "compare the generated files with themselves",
+    )
     parser.add_argument("profiles", nargs="*", help="profiles to check (default: all)")
     args = parser.parse_args(argv)
 
@@ -455,7 +385,7 @@ def main(argv: list[str]) -> int:
         return 2
 
     tmp = pathlib.Path(tempfile.mkdtemp(prefix="rebrew-baseline-"))
-    base = gitrev.checkout(args.baseline, tmp / "tree")
+    base = checkout(args.baseline, tmp / "tree")
     try:
         differ: list[tuple[str, list[str]]] = []
         acknowledged: list[tuple[str, str]] = []
@@ -499,7 +429,7 @@ def main(argv: list[str]) -> int:
                 print(f"    {problem}")
         return 1 if differ else 0
     finally:
-        gitrev.discard(base, tmp)
+        discard(base, tmp)
 
 
 if __name__ == "__main__":
