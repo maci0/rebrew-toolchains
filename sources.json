@@ -55,7 +55,7 @@
     },
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push — re-pin on drift"
+      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
     ]
   },
   "agbcc-arm-gba": {
@@ -70,7 +70,7 @@
     ],
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push — re-pin on drift"
+      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
     ],
     "recipe": {
       "base": "base",
@@ -177,7 +177,7 @@
     },
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push — re-pin on drift"
+      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
     ]
   },
   "agbcc-old-gba": {
@@ -192,7 +192,7 @@
     ],
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push — re-pin on drift"
+      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
     ],
     "recipe": {
       "base": "base",
@@ -299,7 +299,7 @@
     },
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push — re-pin on drift"
+      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
     ]
   },
   "armcc-4.0-771": {
@@ -1334,7 +1334,7 @@
         "command": "C:\\\\BIN\\\\TCC.EXE -c -I\\\\INCLUDE -oSRC.OBJ $FLAGS SRC.C > C:\\\\tcout.txt",
         "log": "tcout.txt",
         "notes": [
-          "tc20 wrapper — compile one translation unit with the vendored Turbo C 2.0",
+          "tc20 wrapper \u2014 compile one translation unit with the vendored Turbo C 2.0",
           "tree under DOSBox (uses the shared wrapper helpers).",
           "",
           "Invoke:  tcc <source.c> [flags...]",
@@ -1407,7 +1407,7 @@
         "command": "set INCLUDE=C:\\\\INCLUDE\nC:\\\\BIN\\\\BCC.EXE -c $FLAGS SRC.C > C:\\\\bccout.txt",
         "log": "bccout.txt",
         "notes": [
-          "bcc wrapper — Borland C++ 2.0 (decomp.me repack) under DOSBox.",
+          "bcc wrapper \u2014 Borland C++ 2.0 (decomp.me repack) under DOSBox.",
           "",
           "Invoke:  bcc <source.c> [flags...]",
           "",
@@ -1473,7 +1473,7 @@
         "command": "C:\\\\BIN\\\\TCC.EXE -c -I\\\\INCLUDE -oSRC.OBJ $FLAGS SRC.C > C:\\\\tcout.txt",
         "log": "tcout.txt",
         "notes": [
-          "tc16 wrapper — compile one translation unit with the vendored Turbo C++ 3.1",
+          "tc16 wrapper \u2014 compile one translation unit with the vendored Turbo C++ 3.1",
           "tree under DOSBox (uses the shared wrapper helpers).",
           "",
           "Invoke:  tcc <source.c> [flags...]",
@@ -1546,7 +1546,7 @@
         "command": "set INCLUDE=C:\\\\INCLUDE\nC:\\\\BIN\\\\BCC.EXE -c $FLAGS SRC.C > C:\\\\bccout.txt",
         "log": "bccout.txt",
         "notes": [
-          "bcc wrapper — Borland C++ 3.1 (decomp.me repack) under DOSBox.",
+          "bcc wrapper \u2014 Borland C++ 3.1 (decomp.me repack) under DOSBox.",
           "",
           "Invoke:  bcc <source.c> [flags...]",
           "",
@@ -1613,7 +1613,7 @@
           "-L/opt/bcc55/Lib"
         ],
         "notes": [
-          "bcc wrapper — Borland C++ 5.5 (bcc32) under wine or wibo (uses the shared",
+          "bcc wrapper \u2014 Borland C++ 5.5 (bcc32) under wine or wibo (uses the shared",
           "helpers; set REBREW_RUNNER=wibo to skip wine for faster runs).",
           "",
           "Invoke:  bcc <source.c> [flags...]",
@@ -1685,7 +1685,7 @@
           "-L/opt/bcc56/LIB"
         ],
         "notes": [
-          "bcc wrapper — Borland C++ 5.6 (bcc32) under wine or wibo (uses the shared",
+          "bcc wrapper \u2014 Borland C++ 5.6 (bcc32) under wine or wibo (uses the shared",
           "helpers; set REBREW_RUNNER=wibo to skip wine for faster runs).",
           "",
           "Invoke:  bcc <source.c> [flags...]",
@@ -2198,7 +2198,7 @@
       "runner": "dosbox",
       "wrapper": {
         "shape": "handwritten",
-        "why": "staged DOSBox run: copies the toolchain onto a C: drive, writes DCC.CFG and collects SRC.EXE — one image",
+        "why": "staged DOSBox run: copies the toolchain onto a C: drive, writes DCC.CFG and collects SRC.EXE \u2014 one image",
         "file": "dcc-wrapper.sh"
       }
     }
@@ -4405,7 +4405,7 @@
         "as_flags": "-q",
         "parser_flags": "-b -n -s",
         "notes": [
-          "cc wrapper — SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
+          "cc wrapper \u2014 SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
           "",
           "The vendored SN64 tools have no usable driver here, so",
           "The pipeline is decomp.me's recipe verbatim: preprocess with the host cpp",
@@ -4513,7 +4513,7 @@
         "as_flags": "-q",
         "parser_flags": "-b -n -s",
         "notes": [
-          "cc wrapper — SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).",
+          "cc wrapper \u2014 SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).",
           "",
           "The vendored SN64 tools have no usable driver here, so the pipeline is",
           "decomp.me's gcc2.7.2sn0001-cxx recipe verbatim: preprocess with the host cpp using",
@@ -4621,7 +4621,7 @@
         "as_flags": "-q -G0",
         "parser_flags": "-b -n",
         "notes": [
-          "cc wrapper — SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
+          "cc wrapper \u2014 SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
           "",
           "The vendored SN64 tools have no usable driver here, so",
           "The pipeline is decomp.me's recipe verbatim: preprocess with the host cpp",
@@ -4727,7 +4727,7 @@
         "as_flags": "-q -G0",
         "parser_flags": "-b -n -s",
         "notes": [
-          "cc wrapper — SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
+          "cc wrapper \u2014 SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
           "",
           "The vendored SN64 tools have no usable driver here, so",
           "The pipeline is decomp.me's recipe verbatim: preprocess with the host cpp",
@@ -4835,7 +4835,7 @@
         "as_flags": "-q -G0",
         "parser_flags": "-b -n -s",
         "notes": [
-          "cc wrapper — SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).",
+          "cc wrapper \u2014 SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).",
           "",
           "The vendored SN64 tools have no usable driver here, so the pipeline is",
           "decomp.me's gcc2.7.2sn0006-cxx recipe verbatim: preprocess with the host cpp using",
@@ -5703,7 +5703,7 @@
         "as_flags": "-q -G0",
         "parser_flags": "-b -n",
         "notes": [
-          "cc wrapper — SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
+          "cc wrapper \u2014 SN64 pipeline (host cpp -> cc1n64 -> asn64 -> obj parser).",
           "",
           "The vendored SN64 tools have no usable driver here, so",
           "The pipeline is decomp.me's recipe verbatim: preprocess with the host cpp",
@@ -5818,7 +5818,7 @@
         "as_flags": "-q -G0",
         "parser_flags": "-b -n",
         "notes": [
-          "cc wrapper — SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).",
+          "cc wrapper \u2014 SN64 C++ pipeline (host cpp -> cc1pln64 -> asn64).",
           "",
           "The vendored SN64 tools have no usable driver here, so the pipeline is",
           "decomp.me's gcc2.8.1sn-cxx recipe verbatim: preprocess with the host cpp using",
@@ -6408,7 +6408,7 @@
         "cc1_dir": "",
         "cxx_probe": "cc1",
         "notes": [
-          "cc wrapper — rebrew Apple GCC 3.1, build 1041 (macOS).",
+          "cc wrapper \u2014 rebrew Apple GCC 3.1, build 1041 (macOS).",
           "",
           "The Apple cc1 emits Darwin assembly that GNU as cannot read, so the wrapper",
           "runs decomp.me's pipeline: cc1, then convert_gas_syntax.py, then",
@@ -6477,7 +6477,7 @@
         "validate_source": false,
         "argv": [],
         "notes": [
-          "gcc wrapper — Red Hat 8 GCC 3.2 (i386-redhat-linux, native, under the shared",
+          "gcc wrapper \u2014 Red Hat 8 GCC 3.2 (i386-redhat-linux, native, under the shared",
           "watchdog contract).",
           "",
           "Invoke:  gcc [flags...] <source.c>",
@@ -6573,7 +6573,7 @@
         "cc1_dir": "",
         "cxx_probe": "cc1plus",
         "notes": [
-          "cc wrapper — rebrew Apple GCC 4.0.0 build 5026 (macOS).",
+          "cc wrapper \u2014 rebrew Apple GCC 4.0.0 build 5026 (macOS).",
           "",
           "The Apple cc1 emits Darwin assembly that GNU as cannot read, so the wrapper",
           "runs decomp.me's pipeline: cc1, then convert_gas_syntax.py, then",
@@ -6658,7 +6658,7 @@
         "cc1_dir": "",
         "cxx_probe": "cc1plus",
         "notes": [
-          "cc wrapper — rebrew Apple GCC 4.0.1 build 5363 (macOS).",
+          "cc wrapper \u2014 rebrew Apple GCC 4.0.1 build 5363 (macOS).",
           "",
           "The Apple cc1 emits Darwin assembly that GNU as cannot read, so the wrapper",
           "runs decomp.me's pipeline: cc1, then convert_gas_syntax.py, then",
@@ -6743,7 +6743,7 @@
         "cc1_dir": "powerpc-darwin-cross/bin/",
         "cxx_probe": "cc1plus",
         "notes": [
-          "cc wrapper — rebrew Apple GCC 4.0.1 build 5370 (macOS).",
+          "cc wrapper \u2014 rebrew Apple GCC 4.0.1 build 5370 (macOS).",
           "",
           "The Apple cc1 emits Darwin assembly that GNU as cannot read, so the wrapper",
           "runs decomp.me's pipeline: cc1, then convert_gas_syntax.py, then",
@@ -6818,7 +6818,7 @@
           "/opt/gcc-4.4.0-mips64-elf/mips64-elf/include"
         ],
         "notes": [
-          "cc wrapper — native N64 compiler from a flat vendor tree.",
+          "cc wrapper \u2014 native N64 compiler from a flat vendor tree.",
           "",
           "The tree is a flat dump (driver, cc1, cpp, binutils) whose driver resolves",
           "its tools through COMPILER_PATH, so the wrapper points that at the install",
@@ -6888,7 +6888,7 @@
         "validate_source": true,
         "argv": [],
         "notes": [
-          "cc wrapper — native N64 compiler from a flat vendor tree.",
+          "cc wrapper \u2014 native N64 compiler from a flat vendor tree.",
           "",
           "The tree is a flat dump (driver, cc1, cpp, binutils) whose driver resolves",
           "its tools through COMPILER_PATH, so the wrapper points that at the install",
@@ -6974,7 +6974,7 @@
         "validate_source": true,
         "argv": [],
         "notes": [
-          "cc wrapper — native N64 compiler from a flat vendor tree.",
+          "cc wrapper \u2014 native N64 compiler from a flat vendor tree.",
           "",
           "The tree is a flat dump (driver, cc1, cpp, binutils) whose driver resolves",
           "its tools through COMPILER_PATH, so the wrapper points that at the install",
@@ -7099,7 +7099,7 @@
       "runner": "wibo",
       "wrapper": {
         "shape": "handwritten",
-        "why": "ICC under wine with Windows Z: paths and a converter stage — one image",
+        "why": "ICC under wine with Windows Z: paths and a converter stage \u2014 one image",
         "file": "icl-wrapper.sh"
       }
     }
@@ -7163,7 +7163,7 @@
       "runner": "exec",
       "wrapper": {
         "shape": "handwritten",
-        "why": "qemu-irix drives the IRIX cc — one image",
+        "why": "qemu-irix drives the IRIX cc \u2014 one image",
         "file": "cc-wrapper.sh"
       }
     }
@@ -8031,7 +8031,7 @@
         "command": "set INCLUDE=C:\\\\INCLUDE\nC:\\\\BIN\\\\CL.EXE /c $FLAGS SRC.C > C:\\\\mscout.txt",
         "log": "mscout.txt",
         "notes": [
-          "msc51 wrapper — Microsoft C 5.1 compiler under DOSBox (shared helpers).",
+          "msc51 wrapper \u2014 Microsoft C 5.1 compiler under DOSBox (shared helpers).",
           "",
           "Invoke:  mscl <source.c> [flags...]",
           "",
@@ -8101,7 +8101,7 @@
         "command": "set INCLUDE=C:\\\\INCLUDE\nC:\\\\BIN\\\\CL.EXE /c $FLAGS SRC.C > C:\\\\msc60out.txt",
         "log": "msc60out.txt",
         "notes": [
-          "msc60 wrapper — Microsoft C 6.0 compiler under DOSBox (shared helpers).",
+          "msc60 wrapper \u2014 Microsoft C 6.0 compiler under DOSBox (shared helpers).",
           "",
           "Invoke:  msc60 <source.c> [flags...]",
           "",
@@ -8168,7 +8168,7 @@
         "command": "set INCLUDE=C:\\\\INCLUDE\nset LIB=C:\\\\LIB\nC:\\\\BIN\\\\CL.EXE /nologo /c $FLAGS SRC.C > C:\\\\clout.txt",
         "log": "clout.txt",
         "notes": [
-          "cl10 wrapper — compile one translation unit with the vendored MSVC 1.0",
+          "cl10 wrapper \u2014 compile one translation unit with the vendored MSVC 1.0",
           "tree under DOSBox (uses the shared wrapper helpers).",
           "",
           "Invoke:  cl10 <source.c> [flags...]",
@@ -8238,7 +8238,7 @@
         "command": "set INCLUDE=C:\\\\INCLUDE\nset LIB=C:\\\\LIB\nC:\\\\BIN\\\\CL.EXE /nologo /c $FLAGS SRC.C > C:\\\\clout.txt",
         "log": "clout.txt",
         "notes": [
-          "cl15 wrapper — compile one translation unit with the vendored MSVC 1.5",
+          "cl15 wrapper \u2014 compile one translation unit with the vendored MSVC 1.5",
           "tree under DOSBox (uses the shared wrapper helpers).",
           "",
           "Invoke:  cl15 <source.c> [flags...]",
@@ -8308,7 +8308,7 @@
         "command": "set INCLUDE=C:\\\\INCLUDE\nset LIB=C:\\\\LIB\nC:\\\\BIN\\\\CL.EXE /nologo /c $FLAGS SRC.C > C:\\\\clout.txt",
         "log": "clout.txt",
         "notes": [
-          "cl16 wrapper — compile one translation unit with the vendored MSVC 1.52",
+          "cl16 wrapper \u2014 compile one translation unit with the vendored MSVC 1.52",
           "tree under DOSBox (uses the shared wrapper helpers).",
           "",
           "Invoke:  cl16 <source.c> [flags...]",
@@ -16365,7 +16365,7 @@
           "-c"
         ],
         "notes": [
-          "cc wrapper — PSP GCC (mipsallegrex).",
+          "cc wrapper \u2014 PSP GCC (mipsallegrex).",
           "",
           "The vendor driver is a 32-bit i386 binary and finds its cc1/binutils through",
           "the prefix baked in at build time, so this wrapper only normalizes `-o` and",
@@ -16447,7 +16447,7 @@
     ],
     "notes": [
       "converts its Sony object with the image's `psyq-obj-parser`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
     ],
     "recipe": {
       "base": "base-dosemu",
@@ -16490,7 +16490,7 @@
       "wrapper": {
         "shape": "psyq_dosemu",
         "notes": [
-          "cc wrapper — PSY-Q 2.6.3 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
+          "cc wrapper \u2014 PSY-Q 2.6.3 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
           "",
           "These are 1994 DOS binaries, so each stage runs in its own dosemu2 session",
           "(see rebrew_dosemu_run; DOSBox cannot load their DJGPP stub).  decomp.me's",
@@ -16516,7 +16516,7 @@
     ],
     "notes": [
       "converts its Sony object with the image's `psyq-obj-parser`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -16580,7 +16580,7 @@
       "wrapper": {
         "shape": "psyq_dosemu",
         "notes": [
-          "cc wrapper — PSY-Q 3.3 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
+          "cc wrapper \u2014 PSY-Q 3.3 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
           "",
           "These are 1994 DOS binaries, so each stage runs in its own dosemu2 session",
           "(see rebrew_dosemu_run; DOSBox cannot load their DJGPP stub).  decomp.me's",
@@ -16606,7 +16606,7 @@
     ],
     "notes": [
       "converts its Sony object with the image's `psyq-obj-parser`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -16670,7 +16670,7 @@
       "wrapper": {
         "shape": "psyq_dosemu",
         "notes": [
-          "cc wrapper — PSY-Q 3.5 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
+          "cc wrapper \u2014 PSY-Q 3.5 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
           "",
           "These are 1994 DOS binaries, so each stage runs in its own dosemu2 session",
           "(see rebrew_dosemu_run; DOSBox cannot load their DJGPP stub).  decomp.me's",
@@ -16696,7 +16696,7 @@
     ],
     "notes": [
       "converts its Sony object with the image's `psyq-obj-parser`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -16760,7 +16760,7 @@
       "wrapper": {
         "shape": "psyq_dosemu",
         "notes": [
-          "cc wrapper — PSY-Q 3.6 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
+          "cc wrapper \u2014 PSY-Q 3.6 pipeline (host cpp -> CC1PSX -> ASPSX -> obj parser).",
           "",
           "These are 1994 DOS binaries, so each stage runs in its own dosemu2 session",
           "(see rebrew_dosemu_run; DOSBox cannot load their DJGPP stub).  decomp.me's",
@@ -16859,7 +16859,7 @@
       "wrapper": {
         "shape": "psyq_native",
         "notes": [
-          "cc wrapper — PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
+          "cc wrapper \u2014 PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
           "",
           "This SDK has no single driver.  CC1PSX.EXE compiles a preprocessed source",
           "to assembly, ASPSX.EXE assembles that into a Sony-format object, and that",
@@ -16867,7 +16867,7 @@
           "wrapper runs the same pipeline decomp.me's recipe does, so callers use it",
           "like an ordinary compiler:",
           "",
-          "cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable",
+          "cc -c f.c -o f.o      # \u2192 f.o, a MIPS ELF relocatable",
           "",
           "The source is picked out of argv (flags may precede or follow it), -o names",
           "the output (default <stem>.o), and every other argument is forwarded to",
@@ -16879,7 +16879,7 @@
           "",
           "Each PE stage is called in a subshell: the shared rebrew_run/rebrew_exec",
           "helper ends with `exit`, which is right for a one-command wrapper and fatal",
-          "here — without the subshell the pipeline would stop after CC1PSX."
+          "here \u2014 without the subshell the pipeline would stop after CC1PSX."
         ],
         "file": "cc-wrapper.sh"
       }
@@ -16969,7 +16969,7 @@
       "wrapper": {
         "shape": "psyq_native",
         "notes": [
-          "cc wrapper — PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
+          "cc wrapper \u2014 PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
           "",
           "This SDK has no single driver.  CC1PSX.EXE compiles a preprocessed source",
           "to assembly, ASPSX.EXE assembles that into a Sony-format object, and that",
@@ -16977,7 +16977,7 @@
           "wrapper runs the same pipeline decomp.me's recipe does, so callers use it",
           "like an ordinary compiler:",
           "",
-          "cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable",
+          "cc -c f.c -o f.o      # \u2192 f.o, a MIPS ELF relocatable",
           "",
           "The source is picked out of argv (flags may precede or follow it), -o names",
           "the output (default <stem>.o), and every other argument is forwarded to",
@@ -16989,7 +16989,7 @@
           "",
           "Each PE stage is called in a subshell: the shared rebrew_run/rebrew_exec",
           "helper ends with `exit`, which is right for a one-command wrapper and fatal",
-          "here — without the subshell the pipeline would stop after CC1PSX."
+          "here \u2014 without the subshell the pipeline would stop after CC1PSX."
         ],
         "file": "cc-wrapper.sh"
       }
@@ -17079,7 +17079,7 @@
       "wrapper": {
         "shape": "psyq_native",
         "notes": [
-          "cc wrapper — PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
+          "cc wrapper \u2014 PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
           "",
           "This SDK has no single driver.  CC1PSX.EXE compiles a preprocessed source",
           "to assembly, ASPSX.EXE assembles that into a Sony-format object, and that",
@@ -17087,7 +17087,7 @@
           "wrapper runs the same pipeline decomp.me's recipe does, so callers use it",
           "like an ordinary compiler:",
           "",
-          "cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable",
+          "cc -c f.c -o f.o      # \u2192 f.o, a MIPS ELF relocatable",
           "",
           "The source is picked out of argv (flags may precede or follow it), -o names",
           "the output (default <stem>.o), and every other argument is forwarded to",
@@ -17099,7 +17099,7 @@
           "",
           "Each PE stage is called in a subshell: the shared rebrew_run/rebrew_exec",
           "helper ends with `exit`, which is right for a one-command wrapper and fatal",
-          "here — without the subshell the pipeline would stop after CC1PSX."
+          "here \u2014 without the subshell the pipeline would stop after CC1PSX."
         ],
         "file": "cc-wrapper.sh"
       }
@@ -17189,7 +17189,7 @@
       "wrapper": {
         "shape": "psyq_native",
         "notes": [
-          "cc wrapper — PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
+          "cc wrapper \u2014 PSY-Q (PS1): the SDK's two-stage compiler pipeline.",
           "",
           "This SDK has no single driver.  CC1PSX.EXE compiles a preprocessed source",
           "to assembly, ASPSX.EXE assembles that into a Sony-format object, and that",
@@ -17197,7 +17197,7 @@
           "wrapper runs the same pipeline decomp.me's recipe does, so callers use it",
           "like an ordinary compiler:",
           "",
-          "cc -c f.c -o f.o      # → f.o, a MIPS ELF relocatable",
+          "cc -c f.c -o f.o      # \u2192 f.o, a MIPS ELF relocatable",
           "",
           "The source is picked out of argv (flags may precede or follow it), -o names",
           "the output (default <stem>.o), and every other argument is forwarded to",
@@ -17209,7 +17209,7 @@
           "",
           "Each PE stage is called in a subshell: the shared rebrew_run/rebrew_exec",
           "helper ends with `exit`, which is right for a one-command wrapper and fatal",
-          "here — without the subshell the pipeline would stop after CC1PSX."
+          "here \u2014 without the subshell the pipeline would stop after CC1PSX."
         ],
         "file": "cc-wrapper.sh"
       }
@@ -17422,7 +17422,7 @@
       "runner": "wine",
       "wrapper": {
         "shape": "handwritten",
-        "why": "writes SN.INI and drives the SDK's CCPSX.EXE — one image",
+        "why": "writes SN.INI and drives the SDK's CCPSX.EXE \u2014 one image",
         "file": "cc-wrapper.sh"
       }
     }
@@ -17438,7 +17438,7 @@
     ],
     "notes": [
       "unpacked from `zip-subpath:cygnus-2.7-96Q3-bin`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 — DOSBox cannot load their stub — so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
     ],
     "recipe": {
       "base": "base-dosemu",
@@ -17496,7 +17496,7 @@
       "runner": "dosemu2",
       "wrapper": {
         "shape": "handwritten",
-        "why": "dosemu2 COMPILE.BAT with sh-elf-objcopy instead of the obj parser — one image",
+        "why": "dosemu2 COMPILE.BAT with sh-elf-objcopy instead of the obj parser \u2014 one image",
         "file": "cc-wrapper.sh"
       }
     }
@@ -18495,7 +18495,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.0a\\\\h\\\\nt\""
         ],
         "notes": [
-          "wcc386 wrapper — Watcom C/C++ 10.0a 32-bit compiler (Windows PE).",
+          "wcc386 wrapper \u2014 Watcom C/C++ 10.0a 32-bit compiler (Windows PE).",
           "",
           "Invoke:  wcc386 [flags...] <source.c>",
           "",
@@ -18570,7 +18570,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.0a-cxx\\\\h\\\\nt\""
         ],
         "notes": [
-          "wpp386 wrapper — Watcom C/C++ 10.0a 32-bit C++ compiler (Windows PE).",
+          "wpp386 wrapper \u2014 Watcom C/C++ 10.0a 32-bit C++ compiler (Windows PE).",
           "",
           "Invoke:  wpp386 [flags...] <source.cpp>",
           "",
@@ -18644,7 +18644,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.5\\\\h\\\\nt\""
         ],
         "notes": [
-          "wcc386 wrapper — Watcom C/C++ 10.5 32-bit compiler (Windows PE).",
+          "wcc386 wrapper \u2014 Watcom C/C++ 10.5 32-bit compiler (Windows PE).",
           "",
           "Invoke:  wcc386 [flags...] <source.c>",
           "",
@@ -18719,7 +18719,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.5-cxx\\\\h\\\\nt\""
         ],
         "notes": [
-          "wpp386 wrapper — Watcom C/C++ 10.5 32-bit C++ compiler (Windows PE).",
+          "wpp386 wrapper \u2014 Watcom C/C++ 10.5 32-bit C++ compiler (Windows PE).",
           "",
           "Invoke:  wpp386 [flags...] <source.cpp>",
           "",
@@ -18793,7 +18793,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.5a\\\\h\\\\nt\""
         ],
         "notes": [
-          "wcc386 wrapper — Watcom C/C++ 10.5a 32-bit compiler (Windows PE).",
+          "wcc386 wrapper \u2014 Watcom C/C++ 10.5a 32-bit compiler (Windows PE).",
           "",
           "Invoke:  wcc386 [flags...] <source.c>",
           "",
@@ -18868,7 +18868,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.5a-cxx\\\\h\\\\nt\""
         ],
         "notes": [
-          "wpp386 wrapper — Watcom C/C++ 10.5a 32-bit C++ compiler (Windows PE).",
+          "wpp386 wrapper \u2014 Watcom C/C++ 10.5a 32-bit C++ compiler (Windows PE).",
           "",
           "Invoke:  wpp386 [flags...] <source.cpp>",
           "",
@@ -18942,7 +18942,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.6\\\\h\\\\nt\""
         ],
         "notes": [
-          "wcc386 wrapper — Watcom C/C++ 10.6 32-bit compiler (Windows PE).",
+          "wcc386 wrapper \u2014 Watcom C/C++ 10.6 32-bit compiler (Windows PE).",
           "",
           "Invoke:  wcc386 [flags...] <source.c>",
           "",
@@ -19017,7 +19017,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-10.6-cxx\\\\h\\\\nt\""
         ],
         "notes": [
-          "wpp386 wrapper — Watcom C/C++ 10.6 32-bit C++ compiler (Windows PE).",
+          "wpp386 wrapper \u2014 Watcom C/C++ 10.6 32-bit C++ compiler (Windows PE).",
           "",
           "Invoke:  wpp386 [flags...] <source.cpp>",
           "",
@@ -19091,7 +19091,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-11.0\\\\h\\\\nt\""
         ],
         "notes": [
-          "wcc386 wrapper — Watcom C/C++ 11.0 32-bit compiler (Windows PE).",
+          "wcc386 wrapper \u2014 Watcom C/C++ 11.0 32-bit compiler (Windows PE).",
           "",
           "Invoke:  wcc386 [flags...] <source.c>",
           "",
@@ -19166,7 +19166,7 @@
           "-i=\"Z:\\\\opt\\\\watcom-11.0-cxx\\\\h\\\\nt\""
         ],
         "notes": [
-          "wpp386 wrapper — Watcom C/C++ 11.0 32-bit C++ compiler (Windows PE).",
+          "wpp386 wrapper \u2014 Watcom C/C++ 11.0 32-bit C++ compiler (Windows PE).",
           "",
           "Invoke:  wpp386 [flags...] <source.cpp>",
           "",
@@ -19235,7 +19235,7 @@
         "validate_source": false,
         "argv": [],
         "notes": [
-          "wcc wrapper — native 16-bit Open Watcom compiler under the shared watchdog",
+          "wcc wrapper \u2014 native 16-bit Open Watcom compiler under the shared watchdog",
           "contract (uses the wrapper-common helpers).",
           "",
           "Invoke:  wcc [flags...] <source.c>",
@@ -19305,7 +19305,7 @@
         "validate_source": false,
         "argv": [],
         "notes": [
-          "wcc386 wrapper — native Open Watcom compiler under the shared watchdog",
+          "wcc386 wrapper \u2014 native Open Watcom compiler under the shared watchdog",
           "contract (uses the wrapper-common helpers).",
           "",
           "Invoke:  wcc386 [flags...] <source.c>",
@@ -19317,6 +19317,170 @@
         ],
         "set_e": true,
         "file": "wcc386-wrapper.sh"
+      }
+    }
+  },
+  "msvc-7.0-rtm": {
+    "family": "msvc",
+    "host_dir": "msvc/7.0-rtm-win32",
+    "url": "https://codeload.github.com/archaic-msvc/msvc700/tar.gz/refs/heads/master",
+    "sha256": "5f75462fb6134ad56c3ae28cf8b1e3b2869578d4171568b7a1fcdfb0bf97830b",
+    "commit": "97fe4cdeaeb0bb934591d4b05eb52c2e8ab3e34b",
+    "aliases": [
+      "msvc7.0rtm"
+    ],
+    "recipe": {
+      "base": "base",
+      "apt": [],
+      "fetch": [
+        {
+          "pin": "primary",
+          "as": "/tmp/msvc700.tar.gz"
+        }
+      ],
+      "steps": [
+        {
+          "op": "mkdir",
+          "paths": [
+            "/opt/msvc7.0"
+          ]
+        },
+        {
+          "op": "tar",
+          "compression": "gz",
+          "from": "/tmp/msvc700.tar.gz",
+          "into": "/opt/msvc7.0",
+          "strip": 1
+        },
+        {
+          "op": "rm",
+          "cmd": "rm /tmp/msvc700.tar.gz"
+        },
+        {
+          "op": "guard",
+          "cmd": "ls /opt/msvc7.0/Vc7/bin/cl.exe"
+        }
+      ],
+      "env": {},
+      "root": "msvc7.0",
+      "title": "rebrew MSVC 7.0-rtm (win32, wine)",
+      "description": "MSVC 7.0 RTM (win32, wine) toolchain image",
+      "entrypoint": "cl",
+      "binary": "Vc7/bin/cl.exe",
+      "runner": "wine",
+      "wrapper": {
+        "shape": "passthrough",
+        "validate_source": true,
+        "argv": []
+      }
+    }
+  },
+  "ido-5.3-linux": {
+    "family": "ido",
+    "host_dir": "ido/5.3-linux",
+    "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-5.3-recomp-linux.tar.gz",
+    "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506",
+    "commit": "9c242adc890beef098020149d9554f48208f699d",
+    "aliases": [
+      "ido5.3"
+    ],
+    "recipe": {
+      "base": "base",
+      "apt": [],
+      "fetch": [
+        {
+          "pin": "primary",
+          "as": "/tmp/ido53.tar.gz"
+        }
+      ],
+      "steps": [
+        {
+          "op": "mkdir",
+          "paths": [
+            "/opt/ido/5.3"
+          ]
+        },
+        {
+          "op": "tar",
+          "compression": "gz",
+          "from": "/tmp/ido53.tar.gz",
+          "into": "/opt/ido/5.3"
+        },
+        {
+          "op": "rm",
+          "cmd": "rm /tmp/ido53.tar.gz"
+        },
+        {
+          "op": "chmod",
+          "cmd": "chmod +x /opt/ido/5.3/cc"
+        }
+      ],
+      "env": {},
+      "root": "ido/5.3",
+      "title": "rebrew IDO 5.3 (MIPS, N64)",
+      "description": "IDO 5.3 reimplementation (MIPS-II big-endian, N64) toolchain image",
+      "entrypoint": "cc",
+      "binary": "cc",
+      "runner": "exec",
+      "wrapper": {
+        "shape": "passthrough",
+        "validate_source": true,
+        "argv": []
+      }
+    }
+  },
+  "ido-7.1-linux": {
+    "family": "ido",
+    "host_dir": "ido/7.1-linux",
+    "url": "https://github.com/decompals/ido-static-recomp/releases/download/v1.2/ido-7.1-recomp-linux.tar.gz",
+    "sha256": "0d411696e178fcca34c31c3bf02011b928d7fd9c1fa7f8bf45070e0781b58e15",
+    "commit": "9c242adc890beef098020149d9554f48208f699d",
+    "aliases": [
+      "ido7.1",
+      "ido7.1_irix"
+    ],
+    "recipe": {
+      "base": "base",
+      "apt": [],
+      "fetch": [
+        {
+          "pin": "primary",
+          "as": "/tmp/ido71.tar.gz"
+        }
+      ],
+      "steps": [
+        {
+          "op": "mkdir",
+          "paths": [
+            "/opt/ido/7.1"
+          ]
+        },
+        {
+          "op": "tar",
+          "compression": "gz",
+          "from": "/tmp/ido71.tar.gz",
+          "into": "/opt/ido/7.1"
+        },
+        {
+          "op": "rm",
+          "cmd": "rm /tmp/ido71.tar.gz"
+        },
+        {
+          "op": "chmod",
+          "cmd": "chmod +x /opt/ido/7.1/cc"
+        }
+      ],
+      "env": {},
+      "root": "ido/7.1",
+      "title": "rebrew IDO 7.1 (MIPS, N64)",
+      "description": "IDO 7.1 reimplementation (MIPS-II big-endian, N64) toolchain image",
+      "entrypoint": "cc",
+      "binary": "cc",
+      "runner": "exec",
+      "wrapper": {
+        "shape": "passthrough",
+        "validate_source": true,
+        "argv": []
       }
     }
   }
