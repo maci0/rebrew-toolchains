@@ -3,7 +3,7 @@
 
 # Toolchain catalog
 
-272 toolchains, one self-contained image each.  This file is generated
+275 toolchains, one self-contained image each.  This file is generated
 from `sources.json` and the toolchain Dockerfiles; see
 [ADDING-TOOLCHAIN.md](ADDING-TOOLCHAIN.md) to add another, and the
 [README](../README.md) for how to run the images.
@@ -21,6 +21,7 @@ the notes column flags the toolchains whose output needs a second step.
 | dreamcast | 11 |
 | gba | 6 |
 | gc | 24 |
+| host | 2 |
 | linux-i386 | 1 |
 | linux-x64 | 4 |
 | macos | 4 |
@@ -35,7 +36,7 @@ the notes column flags the toolchains whose output needs a second step.
 | wii | 10 |
 | wiiu | 1 |
 | win16 | 9 |
-| win32 | 45 |
+| win32 | 46 |
 | x360 | 2 |
 
 ## agbcc
@@ -211,9 +212,11 @@ SGI IDO MIPS compilers for N64 (recompiled and IRIX originals)
 | `rebrew/ido:5.2-n64` | n64 | `cc` | native | `ido5.2` | `ido5.2.tar.xz` `870cd946d31d` @ `d577d1654ca4` | — |
 | `rebrew/ido:5.3-cxx-n64` | n64 | `cc` | native | `ido5.3_c++`, `ido5.3_c++_irix`, `ido5.3-cxx` | `ido5.3_c++.tar.xz` `851426c63ffb` @ `d577d1654ca4` | entered through the vendor C++ driver (`usr/lib/CC`): `.C`/`.cc` only, `.cpp` is silently ignored |
 | `rebrew/ido:5.3-irix-n64` | n64 | `cc` | native | `ido5.3_irix`, `ido5.3_asm_irix`, `ssb_ido5.3` | `ssb_ido5.3.tar` `a8a5bfa1713c` @ `d577d1654ca4` | — |
+| `rebrew/ido:5.3-linux` | host | `cc` | native | `ido5.3` | `ido-5.3-recomp-linux.tar.gz` `ab5c741561f8` @ `9c242adc890b` | — |
 | `rebrew/ido:5.3-n64` | n64 | `cc` | native | `ido5.3` | `ido-5.3-recomp-linux.tar.gz` `ab5c741561f8` @ `9c242adc890b` | — |
 | `rebrew/ido:6.0-n64` | n64 | `cc` | native | `ido6.0`, `ido6.0_irix` | `ido6.0.tar.xz` `c56d4be020bd` @ `d577d1654ca4` | — |
 | `rebrew/ido:7.1-cxx-n64` | n64 | `cc` | native | `ido7.1_c++` | `ido-7.1-recomp-linux.tar.gz` `0d411696e178` @ `9c242adc890b` | the same build as `ido-7.1`, with a different front end; entered through the vendor C++ driver (`NCC`) |
+| `rebrew/ido:7.1-linux` | host | `cc` | native | `ido7.1`, `ido7.1_irix` | `ido-7.1-recomp-linux.tar.gz` `0d411696e178` @ `9c242adc890b` | — |
 | `rebrew/ido:7.1-n64` | n64 | `cc` | native | `ido7.1`, `ido7.1_irix` | `ido-7.1-recomp-linux.tar.gz` `0d411696e178` @ `9c242adc890b` | — |
 | `rebrew/ido:mipspro-744-n64` | n64 | `cc` | native | `mips_pro_744`, `mips_pro_744_irix` | `mipspro7.4.4.tar.xz` `df33be0d9605` @ `d577d1654ca4` | — |
 
@@ -273,6 +276,7 @@ Microsoft Visual C/C++ 1.0-11.0
 | `rebrew/msvc:6.0-sp6-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc6.6` | `master` `7c2aa3dd4c56` @ `1f4223a77122` | — |
 | `rebrew/msvc:6.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `19b72020c822` @ `34d4fc4004e8` | — |
 | `rebrew/msvc:6.0-win9x-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc6.0` | `msvc6.0.tar.gz` `5c81e9c2ab0a` | — |
+| `rebrew/msvc:7.0-rtm-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc7.0rtm` | `master` `5f75462fb613` @ `97fe4cdeaeb0` | — |
 | `rebrew/msvc:7.0-sp1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `bc1300625c89` @ `8bd9502d7427` | — |
 | `rebrew/msvc:7.0-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | `msvc-7.0-rtm`, `msvc7.0` | `master` `5f75462fb613` @ `97fe4cdeaeb0` | — |
 | `rebrew/msvc:7.1-sp1-win32` | win32 | `cl` | wine, wibo via `REBREW_RUNNER=wibo` | — | `master` `44246ff2980d` @ `cf6260606463` | — |

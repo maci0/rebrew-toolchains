@@ -25,8 +25,8 @@ listed here, so a new upstream cannot arrive undocumented.
 | --- | --- | --- | --- |
 | `github.com/decompme` | decomp.me's compiler release assets (`decompme/compilers`: the vendor MWCCARM/ARMCC/MWCPS2/MWCCCPSP/SHC/PSY-Q/IRIX tools — proprietary — plus the Apache-2.0/GPL Android NDK repacks and psyq-obj-parser) | proprietary | 128 |
 | `files.decomp.dev` | dated decomp.me compiler bundles (the GameCube/Wii MWCC, ProDG and Xbox 360 MSVC trees; older dates stay addressable) | proprietary | 36 |
-| `github.com/decompals` | decompals rebuilds: `ido-static-recomp` (IDO for Linux), `old-gcc` (PS1/N64 GCC), `mips-gcc-2.7.2`, `mips-binutils-2.6` | GPL (rebuilds of GPL toolchains) | 29 |
-| `github.com/archaic-msvc` | our own preservation repos for the archived 32-bit Microsoft VC++ trees (`msvc1000` … `msvc900`, every service pack) | proprietary | 21 |
+| `github.com/decompals` | decompals rebuilds: `ido-static-recomp` (IDO for Linux), `old-gcc` (PS1/N64 GCC), `mips-gcc-2.7.2`, `mips-binutils-2.6` | GPL (rebuilds of GPL toolchains) | 31 |
+| `github.com/archaic-msvc` | our own preservation repos for the archived 32-bit Microsoft VC++ trees (`msvc1000` … `msvc900`, every service pack) | proprietary | 22 |
 | `gist.githubusercontent.com` | revision-pinned converter scripts: `Mc-muffin`'s `rof2elf.py` (SHC ROF → ELF) and `ChrisNonyminus`'s `convert_gas_syntax.py` (Apple cc1 assembler → GNU as) | MIT (gists) | 15 |
 | `github.com/archaic-toolchains` | our own preservation repos: reconstructed 16-bit MSVC / Turbo C / Delphi trees, the MSVC 4.0 and service-pack repos, and Borland C++ 5.5 | proprietary | 13 |
 | `github.com/OmniBlade` | `OmniBlade/decomp.me` preservation releases: the DOS-era Watcom C/C++ 10.5/10.5a/10.6/11.0 trees (and the `msvcwin9x` repacks) | proprietary | 10 |
