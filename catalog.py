@@ -374,10 +374,10 @@ EQUIVALENCES: tuple[tuple[str, str, str, str], ...] = (
         "covered from our own repos",
         (
             "we ship the RTM tree as `msvc-7.0` (`archaic-msvc/msvc700`, "
-            "13.00.9466) and SP1 as `msvc-7.0-sp1`; the old `msvc-7.0-rtm` profile "
-            "pinned the same tarball byte-for-byte, so it is now an alias rather "
-            "than a second image.  Note: this profile used to point at the *7.1* "
-            "tree (13.10.3077) — the same compiler as `msvc-7.1`"
+            "13.00.9466) and SP1 as `msvc-7.0-sp1`; `msvc-7.0-rtm` pins the same "
+            "tarball byte-for-byte as its own `7.0-rtm-win32` image.  Note: this "
+            "profile used to point at the *7.1* tree (13.10.3077), the same "
+            "compiler as `msvc-7.1`"
         ),
     ),
     (

@@ -51,6 +51,24 @@ class TestCatalog(unittest.TestCase):
                 self.fail(f"{community}: {profile} has no alias list")
             self.assertIn(community, [str(a) for a in aliases], community)
 
+    def test_aliases_are_unambiguous(self) -> None:
+        """`build.sh` refuses to start when an alias is ambiguous; fail here first.
+
+        An alias may not repeat a profile name, and may not name two images.
+        """
+        manifest = catalog.manifest()
+        owner: dict[str, str] = {}
+        for profile, entry in manifest.items():
+            declared = entry.get("aliases", [])
+            if not isinstance(declared, list):
+                self.fail(f"{profile}: aliases is not a list")
+            for alias in map(str, declared):
+                self.assertFalse(alias in manifest, f"{profile}: alias {alias} shadows a profile")
+                first = owner.setdefault(alias, str(entry["host_dir"]))
+                self.assertEqual(
+                    first, entry["host_dir"], f"{profile}: alias {alias} names two images"
+                )
+
     def test_source_of_prefers_the_most_specific_upstream(self) -> None:
         """Attribution must not depend on SOURCES' insertion order."""
         original = catalog.SOURCES

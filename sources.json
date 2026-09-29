@@ -9436,7 +9436,6 @@
     "sha256": "5f75462fb6134ad56c3ae28cf8b1e3b2869578d4171568b7a1fcdfb0bf97830b",
     "commit": "97fe4cdeaeb0bb934591d4b05eb52c2e8ab3e34b",
     "aliases": [
-      "msvc-7.0-rtm",
       "msvc7.0"
     ],
     "recipe": {
@@ -19382,7 +19381,7 @@
     "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506",
     "commit": "9c242adc890beef098020149d9554f48208f699d",
     "aliases": [
-      "ido5.3"
+      "ido5.3_linux"
     ],
     "recipe": {
       "base": "base",
@@ -19436,8 +19435,7 @@
     "sha256": "0d411696e178fcca34c31c3bf02011b928d7fd9c1fa7f8bf45070e0781b58e15",
     "commit": "9c242adc890beef098020149d9554f48208f699d",
     "aliases": [
-      "ido7.1",
-      "ido7.1_irix"
+      "ido7.1_linux"
     ],
     "recipe": {
       "base": "base",
