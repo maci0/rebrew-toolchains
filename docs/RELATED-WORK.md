@@ -1,8 +1,8 @@
 # How this compares to Compiler Explorer
 
 [Compiler Explorer](https://godbolt.org) ("godbolt") is the other large public
-collection of old and new compilers, and it solves the same first problem we do
-— how do you keep hundreds of pinned toolchains installable and honest.  Its
+collection of old and new compilers, and it solves the same first problem we do:
+how do you keep hundreds of pinned toolchains installable and honest.  Its
 pipeline, from the project's own
 [overview](https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/AddingCustomCompilersOverview.md):
 
@@ -38,11 +38,11 @@ list of downloads with a verification step (`check_exe`/`check_file` there, a
 What we borrowed conceptually: a pinned, declarative source list; an explicit
 install-verification step (ours is the smoke test in
 [`ADDING-TOOLCHAIN.md`](ADDING-TOOLCHAIN.md)); and keeping one installation
-behind several names — CE does it with per-compiler flag sets, we do it with
+behind several names; CE does it with per-compiler flag sets, we do it with
 `aliases` when the compiler binary is byte-identical and with a separate image
 when the entry point differs (`ido7.1_c++`, `wpp10.0a`, `agbcc_arm`).
 
 What we deliberately do not have: CE's `versionRe`/`options` metadata, its
 runtime sandboxing and caching, and its hundreds of *upstream GCC/Clang builds*
-fetched from CE's own S3 — that repository is the source of truth for those, and
+fetched from CE's own S3; that repository is the source of truth for those, and
 this one is the source of truth for preserved, vendor and console toolchains.

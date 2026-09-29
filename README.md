@@ -1,6 +1,6 @@
 # rebrew-toolchains
 
-Standalone docker images for legacy and modern C compilers — MSVC 1.0–11.0
+Standalone docker images for legacy and modern C compilers: MSVC 1.0–11.0
 (every preserved service pack), Borland C/C++ (Turbo C 2.0, Turbo C++ 3.1,
 bcc32 5.5), Watcom C (Open Watcom 2.0, 32- and 16-bit), Delphi 1.0, MinGW-w64
 GCC (i686 PE), GNU GCC (ELF/x86_64), Clang (ELF/x86_64), the SGI IDO
@@ -15,17 +15,17 @@ Green Hills 5.3.22 (Wii U), SHC 5.1r08/5.1r11/5.1r13 (Dreamcast), MSVC for
 Xbox 360 (PowerPC) and clang
 3.9.1/4.0.1/8.0.0/9.0.0 (Switch).  Each image is a self-contained compiler
 container: the runtime (wine / wibo / DOSBox / native Linux) and the compiler
-are baked in, and the entrypoint is the compiler wrapper — you just mount a
+are baked in, and the entrypoint is the compiler wrapper; you just mount a
 workdir and pass compiler flags.
 
-The complete list — every image with its entrypoint, runtime, aliases and
-pin — is the generated [toolchain catalog](docs/TOOLCHAINS.md) (which states
+The complete list (every image with its entrypoint, runtime, aliases and
+pin) is the generated [toolchain catalog](docs/TOOLCHAINS.md) (which states
 the current count); how to add another is
 [docs/ADDING-TOOLCHAIN.md](docs/ADDING-TOOLCHAIN.md).
 
 This repo is the *build source*: Dockerfiles, the shared `base` image,
 wrapper scripts and the pinned-source manifest.  **No compiler binaries
-live in this repo** — every image downloads its sha256-verified source at
+live in this repo**: every image downloads its sha256-verified source at
 build time from the URL recorded in `sources.json` (the proprietary trees
 live in the community preservation repos the build pulls from; see
 [Copyright](#copyright)).
@@ -34,7 +34,7 @@ live in the community preservation repos the build pulls from; see
 
 These are the same images [rebrew](https://github.com/maci0/rebrew) uses for
 compiler-in-the-loop decompilation, packaged so any tool can use them without
-rebrew itself — e.g. a `recompile`-style compiler-as-a-service
+rebrew itself, e.g. a `recompile`-style compiler-as-a-service
 (submit C source + toolchain id, get back the object; a local `recompile`
 service is the reference consumer).
 
@@ -56,17 +56,17 @@ toolchains).  Each Dockerfile declares the one it needs in its `ARG BASE_IMAGE=`
 default, and `build.sh` honours it, so an image never inherits a runtime it does
 not use.  Naming is normalized everywhere: a toolchain
 lives in `<family>/<version>-<platform>` (platform suffixes: `win16`,
-`win32`, `linux-x64`, or the console — `n64`, `ps1`, `ps2`, `gba`, `nds`,
+`win32`, `linux-x64`, or the console; `n64`, `ps1`, `ps2`, `gba`, `nds`,
 `3ds`, `psp`, `gc`, `wii`, `wiiu`, `dreamcast`, `saturn`, `x360`, `switch`), its
 manifest key in `sources.json` is
 `<family>-<version>[-<variant>]`, and its image tag is
 `<PREFIX>/<family>:<version>-<platform>`.  Every profile may also carry
-`aliases` — the decomp.me ids and pre-normalization rebrew names
-(`mwcc_233_163`, `ido7.1`, `shc-v5.1r13`, `ee-gcc2.95.3-136`, ...) — so
+`aliases`: the decomp.me ids and pre-normalization rebrew names
+(`mwcc_233_163`, `ido7.1`, `shc-v5.1r13`, `ee-gcc2.95.3-136`, ...), so
 `./build.sh <alias>` resolves to the same canonical dir; an alias that would
 shadow a profile name or a second dir is rejected at startup.  The base image is built first, then the
 toolchain images build in parallel (`REBREW_BUILD_JOBS` concurrent builds,
-default 4; set it to 1 for strictly sequential) — each build downloads its
+default 4; set it to 1 for strictly sequential): each build downloads its
 pinned source tarball, so a full sweep is network-bound and parallelism cuts
 wall-clock roughly by the job count.  Every image is self-contained; no extra inputs
 are needed.
@@ -78,8 +78,8 @@ all and must stay green.  Both `make lint` and the behavioral `make test`
 are CI gates (`.github/workflows/lint.yml`), so findings and contract
 breaks block merges.  The environment
 is pinned twice over: tool versions are exact-pinned in `pyproject.toml`'s
-`[dependency-groups]` (`lint`) and fully resolved — with sha256 hashes for
-every artifact — in the committed `uv.lock`.  CI installs with
+`[dependency-groups]` (`lint`) and fully resolved (with sha256 hashes for
+every artifact) in the committed `uv.lock`.  CI installs with
 `uv sync --group lint --locked`, so local runs and CI get byte-identical,
 hash-verified packages or fail loudly on drift:
 
@@ -87,7 +87,7 @@ hash-verified packages or fail loudly on drift:
   the two disabled style codes are recorded there with their reasons).
   The wrappers' `# shellcheck source=` directives point at
   `base/wrapper-common.sh`, so the shared helpers are analyzed in context.
-- **ruff** (`pyproject.toml`) checks and formats the Python sources — every
+- **ruff** (`pyproject.toml`) checks and formats the Python sources: every
   defect-oriented rule group that passes clean today is enabled, with any
   exclusion recorded and justified in the config (100-column hard cap).
 - **mypy** in `strict` mode, scoped to the whole tree: new Python files are
@@ -110,7 +110,7 @@ runtime user and the shared wrapper helpers); and the generated
 not been re-run after a manifest change.  They also pin the generation
 direction: every Dockerfile and wrapper is rendered from `sources.json` by
 `make generate`, and a test fails when a committed one differs from its
-rendering — a hand edit is a change to the wrong file.
+rendering; a hand edit is a change to the wrong file.
 
 After editing Python config locally, `uv sync --group lint --locked` (or
 just `uv run make lint`) reproduces exactly what CI installs.
@@ -122,7 +122,7 @@ source through `/work` (bind-mount your dir, `-w /work`), flags and source
 follow, and the artifact lands back in the mounted dir.
 
 Images drop to the unprivileged user `rebrew` (uid/gid 1000), so the mounted
-directory must be readable **and writable** by that uid — a `0700` scratch dir
+directory must be readable **and writable** by that uid: a `0700` scratch dir
 or a host account with a different uid will fail with `no readable source file`
 (or a silently missing object).  If your uid differs, either relax the
 directory's mode or map the user yourself with `--user "$(id -u):$(id -g)"`
@@ -133,7 +133,7 @@ owner, which is uid 1000):
 # MSVC 6.0 (wine inside the image)
 docker run --rm -v "$PWD":/work -w /work rebrew/msvc:6.0-win32 /c /O2 f.c   # → f.obj
 
-# Same image, wibo instead of wine — much faster for plain console tools.
+# Same image, wibo instead of wine: much faster for plain console tools.
 # The wrapper reads REBREW_RUNNER (wine is the default; wibo is the minimal
 # decompals PE loader baked into the base image).
 docker run --rm -e REBREW_RUNNER=wibo -v "$PWD":/work -w /work rebrew/msvc:6.0-win32 /c /O2 f.c
@@ -146,7 +146,7 @@ docker run --rm -v "$PWD":/work -w /work rebrew/delphi:1.0-win16 hello.dpr
 # Watcom (native Linux binary in the image, POSIX-ish flags)
 docker run --rm -v "$PWD":/work -w /work rebrew/watcom:2.0-win32 -fo=f.obj -zq f.c
 
-# 16-bit DOS compilers that need a DPMI host — PSY-Q 3.x/2.6.3 and Saturn
+# 16-bit DOS compilers that need a DPMI host: PSY-Q 3.x/2.6.3 and Saturn
 # Cygnus.  These run under dosemu2 (DOSBox cannot load their DJGPP stub), which
 # drives the CPU through KVM, so they take --device /dev/kvm:
 docker run --rm --device /dev/kvm -v "$PWD":/work -w /work rebrew/psyq:3.3-ps1 -c f.c -o f.o
@@ -187,9 +187,9 @@ docker run --rm -v "$PWD":/work -w /work rebrew/clang:4.0.1-switch -c f.c -o f.o
 
 The PE-driving wrappers (the 32-bit MSVC/Borland images and the MinGW images)
 run the compiler through `rebrew_run`, which dispatches
-on the `REBREW_RUNNER` env var: `wine` (default, full Wine — most
+on the `REBREW_RUNNER` env var: `wine` (default, full Wine; most
 compatible) or `wibo` (the minimal [decompals/wibo](https://github.com/decompals/wibo)
-PE loader baked into the base image — an order of magnitude faster to start,
+PE loader baked into the base image; an order of magnitude faster to start,
 good for plain console compilers, but it only implements a subset of Win32;
 if a tool misbehaves, fall back to wine).  The native images (Watcom, GCC,
 Clang, IDO) exec their compiler directly.  The 16-bit DOSBox toolchains
@@ -203,7 +203,7 @@ is capped by the same knob):
 the knob.
 
 The wrapper validates the source (`rebrew_pick_source`) and forwards every
-other argument to the compiler verbatim, so any flag set works — except the
+other argument to the compiler verbatim, so any flag set works, except the
 Delphi `dcc` wrapper, which runs DCC with a fixed configuration baked into
 the image and ignores extra arguments.  Artifacts are named after the source
 (`.obj`/`.o`/`.exe`), FAT-uppercased for the DOSBox runtimes (`f.OBJ`).
@@ -223,32 +223,32 @@ REBREW_RUNNER=wine` still forces wine.
 
 ## Docs
 
-- **[docs/TOOLCHAINS.md](docs/TOOLCHAINS.md)** — the full catalog: every image
+- **[docs/TOOLCHAINS.md](docs/TOOLCHAINS.md)**: the full catalog: every image
   tag, its entrypoint, how it runs (native / wine / wibo / DOSBox), its
   aliases, the pinned source and any second-step caveat.  **Generated** from
   `sources.json` + the Dockerfiles by `make docs`, and verified by
   `make test`, so it cannot drift from the images.
-- **[tools/decompme_drift.py](tools/decompme_drift.py)** — how this catalogue
+- **[tools/decompme_drift.py](tools/decompme_drift.py)**: how this catalogue
   stands against decomp.me's: which of its compiler ids resolve to an image
   here, how many pin the same upstream artifact, and which ids are not
   provided.  Every gap is declared in the tool with a reason, so a change on
   their side fails rather than passing unnoticed.  Needs network; not part of
   `make test`.
-- **[docs/PROVENANCE.md](docs/PROVENANCE.md)** — where every pinned download
+- **[docs/PROVENANCE.md](docs/PROVENANCE.md)**, where every pinned download
   comes from, which upstreams are our own preservation repos, the licence
   class of each, and the catalogued-but-not-shipped list with its reasons.
   **Generated** from the manifest, with a test that fails on an undocumented
   upstream.
-- **[docs/ADDING-TOOLCHAIN.md](docs/ADDING-TOOLCHAIN.md)** — how to add one:
+- **[docs/ADDING-TOOLCHAIN.md](docs/ADDING-TOOLCHAIN.md)**: how to add one:
   where to find preserved compilers, how to pin them (and what the contract
   tests enforce), the naming rules, which wrapper to pick, the traps
   (flat old-GCC dumps, 32-bit i386 drivers, LMGR licensing, backslash-eating
   `echo`), and the build-and-prove checklist.
-- **[docs/RELATED-WORK.md](docs/RELATED-WORK.md)** — how Compiler Explorer
-  ("godbolt") organises the same problem — its YAML install list, shared
-  compiler tree and per-compiler properties — and where this repo's
+- **[docs/RELATED-WORK.md](docs/RELATED-WORK.md)**: how Compiler Explorer
+  ("godbolt") organises the same problem (its YAML install list, shared
+  compiler tree and per-compiler properties) and where this repo's
   image-per-toolchain model differs on purpose.
-- **[sources.json](sources.json)** — the manifest itself: per toolchain the
+- **[sources.json](sources.json)**: the manifest itself: per toolchain the
   pinned `url` + `sha256` (+ `commit` for branch pins), archive `layout`,
   secondary pins and `aliases`.  `build.sh` validates it in both directions
   before any image is built.
@@ -264,12 +264,12 @@ documented there, so provenance cannot drift.
 The chain is: original vendor media → preservation repos → sha256-pinned
 downloads → images.  Two of those preservation orgs are **our own**:
 
-- **[`archaic-msvc`](https://github.com/archaic-msvc)** — the archived 32-bit
+- **[`archaic-msvc`](https://github.com/archaic-msvc)**: the archived 32-bit
   Microsoft VC++ trees (`msvc1000`, `msvc1100`, `msvc200`, `msvc410`,
   `msvc420`, `msvc500(+sp1..sp3)`, `msvc600(+sp5, sp5_vcpp, sp6)`,
   `msvc700(+sp1)`, `msvc710_sp1`, `msvc800(+sp1)`, `msvc900`): MSVC 2.0–11.0
   and every service pack available there.
-- **[`archaic-toolchains`](https://github.com/archaic-toolchains)** — the
+- **[`archaic-toolchains`](https://github.com/archaic-toolchains)**: the
   reconstructed 16-bit trees and the Borland/Delphi media (`msvc10`,
   `msvc15`, `msvc152`, `msvc400`, `msvc600_sp{1,2,3,4}`, `msvc900_sp1`,
   `tc20`, `tc31`, `borlandc55`, `delphi10`).
@@ -287,7 +287,7 @@ Per-family notes:
   from the decomp.me `msvc6.3`/`msvc6.4` releases (sha-verified byte-identical
   to the official SP4 CD).
 - **16-bit MSVC 1.0/1.5/1.52**: reconstructed from the original Microsoft
-  media — archive.org `en_vc152` / `en_vc152_202512`, WinWorld's VC 1.0
+  media; archive.org `en_vc152` / `en_vc152_202512`, WinWorld's VC 1.0
   3.5" floppy set (SZDD payloads decompressed).
 - **Turbo C 2.0/3.1, Delphi 1.0**: archive.org `turboc20`, `turboc3.1_202112`,
   `delphi10` items.
@@ -307,7 +307,7 @@ Per-family notes:
   its pin upstream, and a dated release asset stays valid.
 - **IDO 5.3/7.1 (N64)**: `decompals/ido-static-recomp` v1.2 release assets
   (statically recompiled SGI compilers, native Linux x86_64).
-- **GCC 2.6.3/2.8.1/2.95.2 (PS1)**: `decompals/old-gcc` release 0.17 assets —
+- **GCC 2.6.3/2.8.1/2.95.2 (PS1)**: `decompals/old-gcc` release 0.17 assets;
   statically linked x86_64 builds of the psx-flavour compilers (commit-pinned
   source, `b74211c9`).
 - **PSY-Q 4.5 (PS1)**: the SDK's gcc 2.8.1-psx compiler from `decompals/old-gcc`
@@ -315,7 +315,7 @@ Per-family notes:
   repo (commit-pinned branch tarball).
 - **agbcc / agbccpp (GBA)**: the `pret/agbcc` `release` asset and the
   `notyourav/agbcc` `cp`-tag asset (the C++ frontend lives in the fork).
-  Both tags are rebuilt on pushes to their branches — moving tags, re-pinned
+  Both tags are rebuilt on pushes to their branches; moving tags, re-pinned
   on drift.
 - **MWCC 2.3.3 b163 (GC) / 2.4.7 92p1 (Wii)**: the dated
   `files.decomp.dev/compilers_20251015.zip` bundle (`GC/1.2.5` and `GC/2.0p1`
@@ -358,7 +358,7 @@ Per-family notes:
 - **Green Hills 5.3.22 (Wii U)**: the `ghs5.3.22` decompme/compilers release
   asset (PowerPC `bin/cxppc.exe` toolset); Windows PE, wine/wibo.
 - **IDO 5.2/6.0 (N64)**: `LLONSIT/qemu-irix-helpers` tarballs at branch
-  commit `d577d165` — the genuine IRIX IDO executables plus the static
+  commit `d577d165`; the genuine IRIX IDO executables plus the static
   `qemu-irix` user-mode emulator (the image needs `libglib2.0-0` for it).
 - **GCC 2.8.1 papermario (N64)**: `pmret/gcc-papermario` and
   `pmret/binutils-papermario` release assets, merged into one directory the
@@ -371,9 +371,9 @@ Per-family notes:
 - **SHC 5.1r08/5.1r11 (Dreamcast)**: `decompme/compilers` release assets
   (r08 ships uppercase `SHC.EXE`) plus the revision-pinned `rof2elf.py` gist.
 
-Catalogued upstream but deliberately not shipped — DOS-based PSY-Q 3.x and
+Catalogued upstream but deliberately not shipped: DOS-based PSY-Q 3.x and
 Saturn Cygnus (their DJGPP-stub DOS binaries need DOSEMU, which bookworm does
-not package), IDO 4.1, `psp-gcc` and Intel C++ 5.0.1 — are listed with their
+not package), IDO 4.1, `psp-gcc` and Intel C++ 5.0.1: are listed with their
 concrete reasons in
 [docs/PROVENANCE.md](docs/PROVENANCE.md#catalogued-but-not-shipped).
 
@@ -386,14 +386,14 @@ build, so a build is reproducible from this repo alone (the four `.7z`/
 The compiler binaries and media are **proprietary** (Microsoft / Borland /
 Watcom / Sony / Nintendo / Sega / SN Systems / Silicon Graphics) and are
 *not* in this repository.  What's here is our own build
-glue: Dockerfiles, wrapper scripts, the shared base image and the manifest
-— all MIT.  The GCC-derived console compilers (ido-static-recomp, old-gcc,
+glue: Dockerfiles, wrapper scripts, the shared base image and the manifest;
+all MIT.  The GCC-derived console compilers (ido-static-recomp, old-gcc,
 agbcc, Camelot gcc, EE/IOP-GCC) are GPL and fetched from their community
 rebuild repos at build time.
 
 The 16-bit toolchains ultimately derive from scans of the original media
 (archive.org items and WinWorld floppy sets noted under Sources &
-provenance; abandonware — obtaining or using them is at your own
+provenance; abandonware; obtaining or using them is at your own
 discretion).  The builds fetch the reconstructed trees from the
 community-run `archaic-msvc` / `archaic-toolchains` GitHub repos, pinned by
 sha256 in `sources.json`; see also the provenance notes in the

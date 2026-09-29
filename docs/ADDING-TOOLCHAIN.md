@@ -1,7 +1,7 @@
 # Adding a toolchain
 
 A toolchain is three things: a directory, a Dockerfile, and a manifest entry.
-Nothing else — no compiler binaries live in this repo, every image downloads
+Nothing else; no compiler binaries live in this repo, every image downloads
 its own sha256-verified source at build time.
 
 ```
@@ -22,7 +22,7 @@ Prefer, in order:
    MWCC, ProDG and Xbox 360 MSVC trees; `mwccarm.zip` and `armcc.zip` carry
    whole version lines). Adding a version then costs one Dockerfile and no
    new hash.
-2. **[decompme/compilers](https://github.com/decompme/compilers)** —
+2. **[decompme/compilers](https://github.com/decompme/compilers)**:
    `values.yaml` lists every preserved console compiler with its download
    URLs, and `platforms/<platform>/<id>/Dockerfile` shows the **exact
    subtree** each id maps to. Copy that mapping into the recipe's unpack step
@@ -41,12 +41,12 @@ again: its IDO 5.3 tree is byte-identical to what we ship (`driver`
 **no Pascal front end exists anywhere in it** (`pc`/`pascal` appear in no path
 or product manifest), so it cannot unblock `ido5.3Pascal`/`ido7.1Pascal`.  The
 only trees in it that we do not already ship are **IDO 5.1** (*Ansi C 3.17* +
-*Development System 5.1*) and the **C++ Translator 4.0** cfront — both would
+*Development System 5.1*) and the **C++ Translator 4.0** cfront, both would
 need the whole 1.5 GB archive as their pin, and neither backs a community id, so
 they are deliberately unshipped.
-`qemu-irix-helpers` also publishes near-duplicate containers of the same tree —
+`qemu-irix-helpers` also publishes near-duplicate containers of the same tree:
 `ido6.0.tar.gz` is `ido6.0.tar.xz` minus the bundled emulator (207 shared files,
-all byte-identical) — so diff the file lists before picking one.
+all byte-identical), so diff the file lists before picking one.
 
 **Sweep the upstream release's asset list against our pins.**  A catalogued
 id list is not the whole story: `decompme/compilers`' release holds assets the
@@ -57,11 +57,11 @@ were alternate packagings of compilers we already ship.
 
 Before adding a candidate, **check it against what we already ship**: hash the
 compiler binary.  Preservation archives are often the same build under another
-name — `bitch-code/Turbo-C-` is byte-identical to our `borland/3.1-win16`
+name: `bitch-code/Turbo-C-` is byte-identical to our `borland/3.1-win16`
 (`tcc.exe` `2548e4ba9c88b280`), so it is not a gap; conversely
 `earthsiege2/borland-cpp-ide` turned out to hold **Borland C++ 5.6**, a newer
 build than the 5.5 we had, which is now `borland/5.6-win32`.  A duplicate
-finding is worth recording in the PR/commit, not in the catalog — from this
+finding is worth recording in the PR/commit, not in the catalog: from this
 repo's own sweeps: `n64_sn272_build0001` is byte-identical to
 `n64_sn272_0001`, the `build0006cygnus` tarball's `cc1n64.exe`/`asn64.exe`
 match `n64_sn272_0006`'s, and decomp.me's `msvc4.1` `cl.exe` matches
@@ -79,13 +79,13 @@ Two traps found while unblocking the last DOS toolchains (2026):
 - **DOSBox cannot run DJGPP `go32` binaries.**  PSY-Q 3.x's `CC1PSX.EXE` and
   Cygnus's `CPP/CC1/AS` are 1994 DOS-extended executables; under DOSBox 0.74-3
   *and* DOSBox-X they exit silently with no object (verified both).  They need
-  dosemu2 with the dj64 DPMI host — the runtime `base-dosemu` builds — and
+  dosemu2 with the dj64 DPMI host (the runtime `base-dosemu` builds) and
   dosemu2 drives the CPU through KVM, so those images run with
   `--device /dev/kvm` (the wrapper says so if the device is missing).
 - **A recipe may fetch more than one file for one id.**  decomp.me's
   `icc5.0.1-010525z` entry lists Microsoft C 6.0 (for the linker) *and* the
   Intel tree; downloading only the first made an earlier round here record the
-  id as "a plain MSVC 6.0 tree — contains no Intel compiler", which was wrong.
+  id as "a plain MSVC 6.0 tree: contains no Intel compiler", which was wrong.
 
 Then pin it by content:
 
@@ -105,7 +105,7 @@ Rules the contract tests enforce (`tests/test_image_contract.py`):
   than fetching something the manifest does not pin.
 - Prefer immutable URLs: commit-pinned codeload/raw URLs, dated release
   assets, tag-pinned release assets.
-- **codeload tar.gz streams are not byte-stable** — a commit-pinned
+- **codeload tar.gz streams are not byte-stable**: a commit-pinned
   codeload URL can hash differently between downloads. Pin the commit
   instead and pipe the download straight into `tar` (see
   `psyq/4.5-ps1/Dockerfile` for the pattern and its comment).
@@ -125,12 +125,12 @@ Add `aliases` for the names the community and older rebrew configs use
 (decomp.me ids, pre-normalization names): `mwcc_233_163`, `ido7.1`,
 `shc-v5.1r13`, `ee-gcc2.95.3-136`. `./build.sh <alias>` then resolves to the
 same directory. Two rules apply, both enforced at startup: an alias may not
-equal a profile name (that is a no-op — drop it) and may not map to two
+equal a profile name (that is a no-op; drop it) and may not map to two
 different directories.
 
 ## 3. Describe the install, then generate it
 
-You do not write the Dockerfile — you give the profile a `recipe` and render
+You do not write the Dockerfile: you give the profile a `recipe` and render
 it.  Find the closest existing image, read its recipe, and adjust.
 
 ```bash
@@ -151,9 +151,9 @@ The recipe fields:
 | `root` | the install directory under `/opt` |
 | `binary` | the driver inside it, relative, or an absolute path for a shared prefix such as `/opt/cross` |
 | `entrypoint` | the name it is installed as in `/usr/local/bin` |
-| `runner` | `exec` (native), `wine`, `wibo` — picks `rebrew_exec` or `rebrew_run` |
+| `runner` | `exec` (native), `wine`, `wibo`: picks `rebrew_exec` or `rebrew_run` |
 | `wrapper` | how the entrypoint is generated (below) |
-| `title`, `description` | the OCI labels; omitted, they fall back to the directory name, which is worse — write them |
+| `title`, `description` | the OCI labels; omitted, they fall back to the directory name, which is worse: write them |
 
 The smallest complete example, an old GCC release asset:
 
@@ -203,7 +203,7 @@ Things that bite, learned the hard way:
 
 - **Every instruction must come after `FROM`.** A shell block, `ENV` or
   `LABEL` that ends up above it fails with `no build stage in current
-  context` — a header comment block before `FROM` is fine, instructions are
+  context`: a header comment block before `FROM` is fine, instructions are
   not.
 - **A generator must assert that nothing is left unrendered.** Two separate
   bulk runs shipped files whose placeholders were never substituted
@@ -237,7 +237,7 @@ Things that bite, learned the hard way:
   `ee-gcc` 3.2 betas ship `cygwin1.dll`; without
   `WINEPATH=Z:\\opt\\<install>\\dll` the driver dies before it finds its
   assembler (same fix as the MinGW image).  These builds also cannot run
-  under wibo — keep wine as their default.
+  under wibo: keep wine as their default.
 - **The decomp.me id is not the upstream filename.** `ee-gcc2.9-991111b-r4`
   lives at `ee-gcc2.9-991111.tar.gz` (a *different* file from the
   `ee-gcc2.9-991111.tar.xz` build), and `mwcc_20_87` is `mwccarm/1.2/sp4`.
@@ -256,7 +256,7 @@ Things that bite, learned the hard way:
   then fails on a mangled temp path.
 - If the compiler emits something other than an object (assembly, a Hitachi
   ROF `.obj`, a Sony object), note it in the Dockerfile header and ship the
-  converter in the image — the catalog's notes column is generated from
+  converter in the image: the catalog's notes column is generated from
   those Dockerfile markers.
 
 ## 4. Document the provenance
@@ -264,7 +264,7 @@ Things that bite, learned the hard way:
 Adding a source means documenting it: append its entry to `SOURCES` in
 `catalog.py` (upstream key, what it hosts, licence class) and re-run
 `make docs`.  `tests/test_catalog.py` fails when a pinned URL's upstream is
-not listed, so an undocumented download cannot be merged — that is the whole
+not listed, so an undocumented download cannot be merged: that is the whole
 point of [`PROVENANCE.md`](PROVENANCE.md), which is generated from the same
 manifest.
 
@@ -272,8 +272,8 @@ Check the licence class honestly: GPL for rebuilds of GPL toolchains
 (`decompals`, `pret/agbcc`, in-image GNU GCC), proprietary for preserved
 vendor binaries (Microsoft, Sony, Nintendo, Sega, SN Systems, SGI), and note
 mixed bundles (the IRIX images combine a GPL emulator with proprietary IRIX
-binaries).  If a toolchain cannot be shipped — a missing script in the asset,
-a host-glibc mismatch, a pipeline our base image does not implement — add it
+binaries).  If a toolchain cannot be shipped: a missing script in the asset,
+a host-glibc mismatch, a pipeline our base image does not implement: add it
 to `GAPS` with the concrete reason instead of leaving it silently absent.
 
 Two provenance checks worth running before you trust a pin:
@@ -316,7 +316,7 @@ docker run --rm -v "$PWD":/work -w /work rebrew/<family>:<ver>-<platform> <flags
 file t.o                               # an object of the right target, or the documented artifact
 ```
 
-Every image in this repo was smoke-tested that way before it landed — a
+Every image in this repo was smoke-tested that way before it landed: a
 build that succeeds but produces no artifact is not done.  Three traps that
 have produced false results here:
 
@@ -343,10 +343,10 @@ make pins                              # every pinned URL still resolves (needs 
 ```
 
 `tests/smoke.sh` covers one image per runtime class *and* every handwritten
-wrapper (`delphi-1.0`, `gcc-2.7.2-snew`, `gcc-2.8.1-snew-cxx`, `psyq-4.6` —
+wrapper (`delphi-1.0`, `gcc-2.7.2-snew`, `gcc-2.8.1-snew-cxx`, `psyq-4.6`,
 plus the handwritten ones the runtime list already covers: `icc-5.0.1`,
 `ido-4.1`, `saturn-cygnus`).  A new wrapper shape lands with its smoke case
-in the same change — the shape that ships without one is the shape that
+in the same change: the shape that ships without one is the shape that
 breaks silently, as the sn64 fetch RUNs did while every other gate stayed
 green.  Non-C compilers need their own fixture: the harness compiles C by
 default, so `delphi-1.0` carries a Pascal source (`run_case` special-cases
@@ -356,7 +356,7 @@ it) rather than failing on the fixture.
 Dockerfile fails, and a Dockerfile without a manifest entry fails (its
 download pins would otherwise go unverified).
 
-A second sweep catches copy-paste provenance bugs — two profiles that pin the
+A second sweep catches copy-paste provenance bugs: two profiles that pin the
 *same* source when they claim to be different compilers (bundles like the
 compilers zip are legitimately shared, so read the output rather than treating
 it as an error).  This is how `msvc-7.0` was found to be pinning the 7.1 tree,
@@ -375,7 +375,7 @@ EOF
 ```
 
 One sweep is worth running whenever toolchains are renamed or re-pinned
-(nothing in CI can do it — it needs Docker): every manifest profile must have
+(nothing in CI can do it; it needs Docker): every manifest profile must have
 a built image under its **current** tag.  A rename that updates the manifest
 but leaves the old tag behind is invisible otherwise, which is how
 `ido/5.3-linux` → `ido/5.3-n64` once ended up with a manifest entry and no
@@ -401,6 +401,6 @@ EOF
 | `url`, `sha256` | the primary pinned download, verified inside the build |
 | `commit` | the git commit a branch-pinned URL came from; `""` for release assets |
 | `recipe` | everything the Dockerfile is rendered from: base, apt, fetch, steps, env, root, binary, entrypoint, runner, wrapper, labels (see step 3) |
-| `notes` | optional authored documentation for the image — the catalog's Notes column, verbatim.  It lives here, not in the recipe, because re-deriving a recipe rewrites it: anything the image does not render belongs at the profile level. |
+| `notes` | optional authored documentation for the image: the catalog's Notes column, verbatim.  It lives here, not in the recipe, because re-deriving a recipe rewrites it: anything the image does not render belongs at the profile level. |
 | `aliases` | extra names `build.sh` accepts for this profile |
 | `*_url`/`*_sha256`/`*_commit` | additional pinned sources the image needs |
