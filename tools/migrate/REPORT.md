@@ -7,8 +7,8 @@ migration was done and what is left.
 ## Outcome
 
 The migration is done and verified.  Every one of the 272 images is now
-rendered from `sources.json`; the semantics of each — base, apt packages, pins
-and their hashes, env, labels, install steps, wrapper commands — were compared
+rendered from `sources.json`; the semantics of each (base, apt packages, pins
+and their hashes, env, labels, install steps, wrapper commands) were compared
 against the file it replaced, checked out from the baseline revision:
 
     make verify                       # (== verify_migration.py --baseline 07a7268)
@@ -18,14 +18,14 @@ against the file it replaced, checked out from the baseline revision:
 main` stopped meaning anything the moment the migration landed on `main`.
 
 The stages below run together, and each exists because it sees something the
-others cannot — a comparison that shares a parser with the renderer can agree
+others cannot: a comparison that shares a parser with the renderer can agree
 with it by making the same mistake twice, which happened repeatedly:
 
 | stage | what it compares | what it caught |
 | --- | --- | --- |
 | classified facts | base, apt, pins, env, labels, entrypoint, user, workdir, and the entrypoint's delivery (counted, not deduped) | the label regression, the duplicate `chmod` delivery |
 | raw install clauses | the `&&`-separated clauses as written, **in file order** | the truncated `ln -s "$(ldconfig -p`, `cp -r` vs `cp -a`, an install step that moved |
-| raw wrapper lines | the wrapper as written — commands *and* prose | a swapped argument, a deleted paragraph |
+| raw wrapper lines | the wrapper as written: commands *and* prose | a swapped argument, a deleted paragraph |
 | COPY integrity | that every `COPY` in the generated file has a file to copy | a wrapper that would not be in the image |
 
 There was a fifth, a classified comparison of the install operations; it was
@@ -50,7 +50,7 @@ so the exception list cannot grow quietly.
 with, all fixed:
 
 * 53 images ran `chmod +x /usr/local/bin/<entrypoint>` *before* the COPY that
-  installed it — the install RUN failed, because the file did not exist yet;
+  installed it, so the install RUN failed, because the file did not exist yet;
 * msvc-6.0-sp5/-sp5-pp/-sp6 lost the `cp` of `MSPDB60.DLL`, because a comment
   inside a continued `RUN` swallowed the rest of the command (and the
   comparison read the comment the same way);
@@ -62,7 +62,7 @@ with, all fixed:
 
 The lesson worth keeping: none of these were found by the comparison that
 reused the renderer's own assumptions, and all of them were found by something
-that did not — a smoke build, or a comparison written from scratch.
+that did not: a smoke build, or a comparison written from scratch.
 
 The same lesson paid twice more when shapes started landing:
 
@@ -80,7 +80,7 @@ carry `runner`, and the contract test reads the wrapper's *code* (not its
 comments) to check the declared value.
 
 And a third time, in the comparison itself: `old == new` had failed correctly,
-but the report was built with `line not in new` — so a *duplicated* line was
+but the report was built with `line not in new`, so a *duplicated* line was
 invisible, because it is present on both sides.  Seven wrappers sourced the
 shared helper twice and `make verify` called them equal.  Both diff helpers now
 count occurrences before comparing.  The general rule this file keeps
@@ -100,20 +100,20 @@ Measured on `main` (272 images):
 | decomp.me ids whose first pinned URL we share byte for byte | 178 of 235 |
 
 So: the *data* is not duplicated (we pin what they pin, deliberately verified),
-the *engineering* is — 272 copies of eight procedures.
+the *engineering* is: 272 copies of eight procedures.
 
 ## What is built
 
-- `generate.py` — the generator and the recipe schema (documented in its
+- `generate.py`: the generator and the recipe schema (documented in its
   docstring).  `--check` re-renders in memory and diffs, for a CI staleness
   gate mirroring `make docs`.
-- `tools/migrate/verify_migration.py` — the proof, and what runs in CI.  It
+- `tools/migrate/verify_migration.py`: the proof, and what runs in CI.  It
   reads a Dockerfile and a wrapper the way Docker and a shell do and compares
   the generated file with the original stage by stage (see the table above),
   and checks the baseline revision out into a throw-away worktree to do it.  It
   carries its own Dockerfile and wrapper parsers rather than sharing a
   renderer's, because a comparison that shares them can agree with a mistake by
-  making it twice — which happened, repeatedly (see below).
+  making it twice, which happened, repeatedly (see below).
 
 The *derivation* harness (a `derive_and_verify.py` that read a recipe out of
 each hand-written Dockerfile, and an `apply.py` that ran it over the corpus and
@@ -134,14 +134,14 @@ The remaining work is mechanical but not small, and none of it is guesswork:
    command substitutions, wrapper `env` prefixes, `apt_meta` (the
    `update && install && rm` idiom), and profiles whose install root is reached
    through a `link` (psp-gcc, camelot) rather than `mkdir`.
-3. **Install-op derivation for the tail**: source builds (`make`, `configure` —
+3. **Install-op derivation for the tail**: source builds (`make`, `configure` for
    the two linux-x64 GCCs), `ar`/`mv`/`cd` one-offs; these want `script` steps or
    an explicit `handwritten` reason rather than a template.
 
 ## Verification plan (already implemented, to run at the end)
 
 1. `generate.py --check` clean for every generated file.
-2. `make verify` reports **0 differing** — i.e. every generated image is
+2. `make verify` reports **0 differing**, so every generated image is
    semantically identical to the one that ships today.
 3. `make lint && make test` (contract tests police generated output too).
 4. `make smoke` extended to one image per *shape* (~12 builds, including
@@ -157,7 +157,7 @@ The remaining work is mechanical but not small, and none of it is guesswork:
    images that differ from each other, ICC's Windows `Z:` paths, qemu-irix
    driving the IRIX cc, psyq-4.6's SN.INI-driven `CCPSX.EXE`, and saturn's
    dosemu2 `COMPILE.BAT` with `sh-elf-objcopy`.  A shape with one user is not a
-   template, it is a wrapper — the remaining work here is *none*, and that is
+   template, it is a wrapper; the remaining work here is *none*, and that is
    the point of the list.
 
    If a sibling ever appears, the loop is: teach `generate.py` a renderer for
@@ -174,8 +174,8 @@ The remaining work is mechanical but not small, and none of it is guesswork:
    report.  Nothing else.
 
 Nothing else is outstanding.  `catalog.py` reads the manifest for everything it
-prints — the runtime from `recipe.runner`, the notes from the profile's `notes`
-— and the five helpers that grepped the rendered Dockerfile for it
+prints (the runtime from `recipe.runner`, the notes from the profile's `notes`)
+and the five helpers that grepped the rendered Dockerfile for it
 (`_image_sources`, `_wrapper_text`, `_runs`, `_PLUMBING`, the `blob`) are gone
 with the `layout` field they were reading.
 
@@ -183,7 +183,7 @@ with the `layout` field they were reading.
 
 The recipe is derived; everything else about a profile is authored.  Deriving
 again rewrites `recipe` wholesale, so anything the image does not *render* has
-to live outside it — which is how `notes` (the catalog's notes column) ended up
+to live outside it, which is how `notes` (the catalog's notes column) ended up
 being wiped by a re-derivation the moment it was put inside `recipe`.  `title`
 and `description` are inside it because they become `LABEL`s; `notes` is at the
 profile level next to `aliases` because nothing renders it.
