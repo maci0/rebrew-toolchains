@@ -223,7 +223,7 @@ REBREW_RUNNER=wine` still forces wine.
 
 ## Docs
 
-- **[docs/TOOLCHAINS.md](docs/TOOLCHAINS.md)**: the full catalog: every image
+- **[docs/TOOLCHAINS.md](docs/TOOLCHAINS.md)**: the full catalog, with every image
   tag, its entrypoint, how it runs (native / wine / wibo / DOSBox), its
   aliases, the pinned source and any second-step caveat.  **Generated** from
   `sources.json` + the Dockerfiles by `make docs`, and verified by
@@ -234,12 +234,12 @@ REBREW_RUNNER=wine` still forces wine.
   provided.  Every gap is declared in the tool with a reason, so a change on
   their side fails rather than passing unnoticed.  Needs network; not part of
   `make test`.
-- **[docs/PROVENANCE.md](docs/PROVENANCE.md)**, where every pinned download
+- **[docs/PROVENANCE.md](docs/PROVENANCE.md)**: where every pinned download
   comes from, which upstreams are our own preservation repos, the licence
   class of each, and the catalogued-but-not-shipped list with its reasons.
   **Generated** from the manifest, with a test that fails on an undocumented
   upstream.
-- **[docs/ADDING-TOOLCHAIN.md](docs/ADDING-TOOLCHAIN.md)**: how to add one:
+- **[docs/ADDING-TOOLCHAIN.md](docs/ADDING-TOOLCHAIN.md)**: how to add a toolchain:
   where to find preserved compilers, how to pin them (and what the contract
   tests enforce), the naming rules, which wrapper to pick, the traps
   (flat old-GCC dumps, 32-bit i386 drivers, LMGR licensing, backslash-eating
@@ -248,7 +248,7 @@ REBREW_RUNNER=wine` still forces wine.
   ("godbolt") organises the same problem (its YAML install list, shared
   compiler tree and per-compiler properties) and where this repo's
   image-per-toolchain model differs on purpose.
-- **[sources.json](sources.json)**: the manifest itself: per toolchain the
+- **[sources.json](sources.json)**: the manifest itself, holding per toolchain the
   pinned `url` + `sha256` (+ `commit` for branch pins), archive `layout`,
   secondary pins and `aliases`.  `build.sh` validates it in both directions
   before any image is built.
