@@ -350,7 +350,9 @@ in the same change: the shape that ships without one is the shape that
 breaks silently, as the sn64 fetch RUNs did while every other gate stayed
 green.  Non-C compilers need their own fixture: the harness compiles C by
 default, so `delphi-1.0` carries a Pascal source (`run_case` special-cases
-it) rather than failing on the fixture.
+it) rather than failing on the fixture.  Its case also reads the NE module
+name from four more builds: `hello.dpr` must produce module `HELLO`, and
+`longername.dpr`, `a.b.dpr` and `a+b.dpr` (not 8.3) must fall back to `SRC`.
 
 `build.sh` validation is bidirectional: a manifest entry without a
 Dockerfile fails, and a Dockerfile without a manifest entry fails (its

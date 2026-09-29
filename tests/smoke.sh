@@ -125,8 +125,58 @@ run_case() {
         fi
         kind="$kind (LNK magic ok)"
     fi
+    if [ "$profile" = "delphi-1.0" ]; then
+        delphi_module_names "$tag"
+        if [ "$names_failed" -ne 0 ]; then
+            fail=1
+            return 0
+        fi
+        kind="$kind (module names ok)"
+    fi
     echo "ok  $profile: $kind"
     return 0
+}
+
+# ne_module_name <exe>: the first resident-name entry of a Windows NE header
+# (NE offset at 0x3C, resident-name table offset at NE+0x26, then a
+# length-prefixed name).
+ne_module_name() {
+    _ne=$(od -An -tu4 -j60 -N4 "$1" | tr -d ' ')
+    _rt=$(od -An -tu2 -j$((_ne + 38)) -N2 "$1" | tr -d ' ')
+    _len=$(od -An -tu1 -j$((_ne + _rt)) -N1 "$1" | tr -d ' ')
+    dd if="$1" bs=1 skip=$((_ne + _rt + 1)) count="$_len" 2>/dev/null
+}
+
+# delphi_module_names <tag>: the dcc wrapper stages an 8.3 basename as-is, so
+# DCC names the module after it, and falls back to SRC.DPR for a basename DOS
+# cannot hold (too long, two dots, or a character DOS rejects).  Each case is
+# <basename>|<expected NE module name>.  Sets names_failed to 1 on the first
+# failure (like run_case, it returns 0 so `set -e` stays in force).
+delphi_module_names() {
+    names_failed=1
+    for _case in 'hello.dpr|HELLO' 'longername.dpr|SRC' 'a.b.dpr|SRC' 'a+b.dpr|SRC'; do
+        _src=${_case%%|*}
+        _want=${_case#*|}
+        _exe="${_src%.*}.EXE"
+        printf 'program Hello; begin WriteLn(42); end.\n' > "$work/$_src"
+        chmod 644 "$work/$_src"
+        rm -f "$work/$_exe"
+        if ! docker run --rm -v "$work":/work -w /work "$1" "$_src" >"$work/compile.log" 2>&1; then
+            echo "FAIL delphi-1.0: $_src did not compile" >&2
+            tail -20 "$work/compile.log" >&2
+            return 0
+        fi
+        if [ ! -s "$work/$_exe" ]; then
+            echo "FAIL delphi-1.0: $_src produced no $_exe" >&2
+            return 0
+        fi
+        _got=$(ne_module_name "$work/$_exe")
+        if [ "$_got" != "$_want" ]; then
+            echo "FAIL delphi-1.0: $_src built module '$_got' (wanted $_want)" >&2
+            return 0
+        fi
+    done
+    names_failed=0
 }
 
 if [ "$#" -gt 0 ]; then
