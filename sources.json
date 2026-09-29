@@ -55,7 +55,7 @@
     },
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
+      "upstream release tag is rebuilt on every push, so re-pin on drift"
     ]
   },
   "agbcc-arm-gba": {
@@ -70,7 +70,7 @@
     ],
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
+      "upstream release tag is rebuilt on every push, so re-pin on drift"
     ],
     "recipe": {
       "base": "base",
@@ -177,7 +177,7 @@
     },
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
+      "upstream release tag is rebuilt on every push, so re-pin on drift"
     ]
   },
   "agbcc-old-gba": {
@@ -192,7 +192,7 @@
     ],
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
+      "upstream release tag is rebuilt on every push, so re-pin on drift"
     ],
     "recipe": {
       "base": "base",
@@ -299,7 +299,7 @@
     },
     "notes": [
       "cc1-style: emits assembly, not an object",
-      "upstream release tag is rebuilt on every push \u2014 re-pin on drift"
+      "upstream release tag is rebuilt on every push, so re-pin on drift"
     ]
   },
   "armcc-4.0-771": {
@@ -16446,7 +16446,7 @@
     ],
     "notes": [
       "converts its Sony object with the image's `psyq-obj-parser`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 (DOSBox cannot load their stub), so the container needs `--device /dev/kvm`"
     ],
     "recipe": {
       "base": "base-dosemu",
@@ -16515,7 +16515,7 @@
     ],
     "notes": [
       "converts its Sony object with the image's `psyq-obj-parser`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 (DOSBox cannot load their stub), so the container needs `--device /dev/kvm`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -16605,7 +16605,7 @@
     ],
     "notes": [
       "converts its Sony object with the image's `psyq-obj-parser`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 (DOSBox cannot load their stub), so the container needs `--device /dev/kvm`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -16695,7 +16695,7 @@
     ],
     "notes": [
       "converts its Sony object with the image's `psyq-obj-parser`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 (DOSBox cannot load their stub), so the container needs `--device /dev/kvm`"
     ],
     "parser_url": "https://github.com/decompme/compilers/releases/download/compilers/psyq-obj-parser.tar.gz",
     "parser_sha256": "353495f13f6756773cd905ba3a0743843232f95719e306fc6ee56cbf7d731a3e",
@@ -17437,7 +17437,7 @@
     ],
     "notes": [
       "unpacked from `zip-subpath:cygnus-2.7-96Q3-bin`",
-      "1994 DJGPP `go32` DOS binaries run under dosemu2 \u2014 DOSBox cannot load their stub \u2014 so the container needs `--device /dev/kvm`"
+      "1994 DJGPP `go32` DOS binaries run under dosemu2 (DOSBox cannot load their stub), so the container needs `--device /dev/kvm`"
     ],
     "recipe": {
       "base": "base-dosemu",

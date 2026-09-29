@@ -1,4 +1,4 @@
-"""Generate ``docs/TOOLCHAINS.md`` — the toolchain catalog.
+"""Generate ``docs/TOOLCHAINS.md``, the toolchain catalog.
 
 The catalog is derived from the two things that actually build the images:
 ``sources.json`` (what is pinned, what names resolve to what) and each
@@ -85,8 +85,8 @@ _ENTRYPOINT = re.compile(r'^ENTRYPOINT \["/usr/local/bin/([^"]+)"\]$', re.MULTIL
 
 #: Every upstream a pinned download may come from, keyed by the part of the
 #: URL that identifies it.  ``tests/test_catalog.py`` fails when a profile
-#: pins a URL whose source is not listed here, so provenance — and the
-#: licence class that goes with it — cannot be added silently.
+#: pins a URL whose source is not listed here, so provenance (and the
+#: licence class that goes with it) cannot be added silently.
 SOURCES: dict[str, tuple[str, str]] = {
     "github.com/archaic-msvc": (
         (
@@ -105,7 +105,7 @@ SOURCES: dict[str, tuple[str, str]] = {
     "github.com/decompme": (
         (
             "decomp.me's compiler release assets (`decompme/compilers`: the vendor "
-            "MWCCARM/ARMCC/MWCPS2/MWCCCPSP/SHC/PSY-Q/IRIX tools — proprietary — plus the "
+            "MWCCARM/ARMCC/MWCPS2/MWCCCPSP/SHC/PSY-Q/IRIX tools (proprietary) plus the "
             "Apache-2.0/GPL Android NDK repacks and psyq-obj-parser)"
         ),
         "proprietary",
@@ -157,7 +157,7 @@ SOURCES: dict[str, tuple[str, str]] = {
         (
             "the `dosemu2/ppa` packages `dosemu2` (x86 virtualisation for DOS), "
             "`fdpp`/`libfdpp35`/`libfdldr35` (the FreeDOS++ kernel) and "
-            "`comcom64`/`comcom32` — the DOS runtime the 16-bit toolchains run on"
+            "`comcom64`/`comcom32`, the DOS runtime the 16-bit toolchains run on"
         ),
         "GPL",
     ),
@@ -272,38 +272,38 @@ EQUIVALENCES: tuple[tuple[str, str, str, str], ...] = (
         "msvc6.3",
         "msvc-6.0-sp3",
         "verified alias",
-        "`c1xx.dll` `28c355499c`, `c2.dll` `a0cc45f83f` — identical in both trees",
+        "`c1xx.dll` `28c355499c` and `c2.dll` `a0cc45f83f`, identical in both trees",
     ),
     (
         "msvc6.4",
         "msvc-6.0-sp4",
         "verified alias",
-        "`c1xx.dll` `71718c2ba1`, `c2.dll` `5649bd68ed` — identical in both trees",
+        "`c1xx.dll` `71718c2ba1` and `c2.dll` `5649bd68ed`, identical in both trees",
     ),
     (
         "msvc6.5",
         "msvc-6.0-sp5",
         "verified alias",
-        "`c1xx.dll` `f014b3bee6`, `c2.dll` `d50100ac23` — identical in both trees",
+        "`c1xx.dll` `f014b3bee6` and `c2.dll` `d50100ac23`, identical in both trees",
     ),
     (
         "msvc6.5pp",
         "msvc-6.0-sp5-pp",
         "verified alias",
-        "`c1xx.dll` `f014b3bee6`, `c2.dll` `6c8e3988a5` — identical in both trees",
+        "`c1xx.dll` `f014b3bee6` and `c2.dll` `6c8e3988a5`, identical in both trees",
     ),
     (
         "msvc6.6",
         "msvc-6.0-sp6",
         "verified alias",
-        "`c1xx.dll` `ab4610ad56`, `c2.dll` `3f2b5f43e3` — identical in both trees",
+        "`c1xx.dll` `ab4610ad56` and `c2.dll` `3f2b5f43e3`, identical in both trees",
     ),
     (
         "msvc6.0",
         "msvc-6.0-win9x",
         "verified alias (distinct build)",
         (
-            "the win9x repack decomp.me serves under this id — shipped here as its own "
+            "the win9x repack decomp.me serves under this id, shipped here as its own "
             "image because its front ends differ from `msvc-6.0`'s "
             "(`c1xx.dll` `71554a7688` vs `f3f0245453`), with the same banner 12.00.8168"
         ),
@@ -364,7 +364,7 @@ EQUIVALENCES: tuple[tuple[str, str, str, str], ...] = (
             "decomp.me serves OmniBlade's win9x repack (`msvc7.0.tar.gz`) under this "
             "id; our `archaic-msvc/msvc710` `Vc7/bin` carries the same compiler "
             "(`cl.exe` `2ecf86a3edfd`, `c1.dll` `11f452af93f8`, `c1xx.dll` "
-            "`353f3d5dcd05`, `c2.dll` `bcd28f39b179`) — only stray `.config`/`.sql` "
+            "`353f3d5dcd05`, `c2.dll` `bcd28f39b179`); only stray `.config`/`.sql` "
             "files differ"
         ),
     ),
@@ -398,7 +398,7 @@ EQUIVALENCES: tuple[tuple[str, str, str, str], ...] = (
         (
             "decomp.me declares this as `base_compiler=IDO53_CXX`, so it is the same "
             "`ido5.3_c++.tar.xz` tree behind the same `usr/lib/CC` driver under "
-            "qemu-irix — only the platform label differs from `ido5.3_c++`"
+            "qemu-irix; only the platform label differs from `ido5.3_c++`"
         ),
     ),
     (
@@ -480,7 +480,7 @@ EQUIVALENCES: tuple[tuple[str, str, str, str], ...] = (
         "verified alias",
         (
             "same `n64_sn272_0006.tar.gz` tree as `gcc2.7.2sn0006`, C++ front end and "
-            "defines — the C image cannot serve C++ at all"
+            "defines; the C image cannot serve C++ at all"
         ),
     ),
     (
@@ -507,7 +507,7 @@ EQUIVALENCES: tuple[tuple[str, str, str, str], ...] = (
         "gcc-4.0.0-5026",
         "verified alias (same image)",
         (
-            "the C image already selects `cc1plus` for `.cpp`/`.cc`/`.C` sources — "
+            "the C image already selects `cc1plus` for `.cpp`/`.cc`/`.C` sources: "
             "its wrapper carries exactly decomp.me's `GCC_CC1PLUS_ALT` pipeline, and "
             "C++ compiles to a PowerPC object in both"
         ),
@@ -524,7 +524,7 @@ EQUIVALENCES: tuple[tuple[str, str, str, str], ...] = (
         "verified alias (same image)",
         (
             "this tree keeps `cc1plus` under `powerpc-darwin-cross/bin/`, which is "
-            "where the C image's wrapper looks — exactly decomp.me's `GCC_CC1PLUS`"
+            "where the C image's wrapper looks, exactly decomp.me's `GCC_CC1PLUS`"
         ),
     ),
     (
@@ -652,7 +652,7 @@ EQUIVALENCES: tuple[tuple[str, str, str, str], ...] = (
         (
             "the asset's split layout (driver in `psp/bin`, internals in `lib/gcc-lib`) "
             "reassembled under the prefix the driver hard-codes, `/usr/local/psp/devkit`. "
-            "An earlier round recorded it as blocked because `as`/`ld` looked empty — "
+            "An earlier round recorded it as blocked because `as`/`ld` looked empty, but "
             "they are real 32-bit i386 binaries; what is missing is the "
             "`pspspecs`/`pspfixup`/`psplibgen` trio that only matters for linking"
         ),
@@ -670,8 +670,8 @@ GAPS: tuple[tuple[str, str], ...] = (
             "these are not vendor toolchains but decomp.me's own `cc-irix4` driver "
             "stitching three trees together (the 4.1 front end, the 5.3 `c++` cfront "
             "and the 7.1 backend, the latter two from archives we do pin).  The "
-            "GLIBC_2.38 obstacle is gone — `ido/4.1-n64` runs the bundled "
-            "`qemu-irix-4.0` on the Ubuntu-noble base — so what remains is that no "
+            "GLIBC_2.38 obstacle is gone (`ido/4.1-n64` runs the bundled "
+            "`qemu-irix-4.0` on the Ubuntu-noble base), so what remains is that no "
             "vendor id maps to this franken-driver; the plain `ido7.1_irix` id *is* "
             "shipped as the static recomp"
         ),
@@ -786,7 +786,7 @@ def _notes(entry: dict[str, object]) -> str:
 
     The structural ones are computed from the manifest (a variant relation, a
     second pinned source); the rest are the image's own `recipe.notes`.  They
-    used to be sniffed out of the rendered Dockerfile and its wrapper — which
+    used to be sniffed out of the rendered Dockerfile and its wrapper, which
     meant the docs could disagree with the manifest, and did: the runtime
     column read `?` for every externally-wrapped image, and `runner` was wrong
     on 151 profiles while the docs looked fine.
@@ -806,7 +806,7 @@ def _notes(entry: dict[str, object]) -> str:
     declared = entry.get("notes")
     if isinstance(declared, list):
         notes += [str(note) for note in declared]
-    return "; ".join(notes) or "—"
+    return "; ".join(notes) or "none"
 
 
 def _pin(entry: dict[str, object]) -> str:
@@ -826,7 +826,7 @@ def render(entries: dict[str, dict[str, object]]) -> str:
         rows.setdefault(family, []).append((profile, entry))
 
     out: list[str] = [
-        "<!-- Generated by catalog.py — do not edit by hand. -->",
+        "<!-- Generated by catalog.py; do not edit by hand. -->",
         "<!-- Regenerate with `make docs`. -->",
         "",
         "# Toolchain catalog",
@@ -868,8 +868,8 @@ def render(entries: dict[str, dict[str, object]]) -> str:
             version_arch = host_dir.split("/", 1)[1] if "/" in host_dir else host_dir
             dockerfile = (REPO / host_dir / "Dockerfile").read_text(encoding="utf-8")
             match = _ENTRYPOINT.search(dockerfile)
-            entrypoint = f"`{match.group(1)}`" if match else "—"
-            aliases = ", ".join(f"`{a}`" for a in _aliases(entry)) or "—"
+            entrypoint = f"`{match.group(1)}`" if match else "none"
+            aliases = ", ".join(f"`{a}`" for a in _aliases(entry)) or "none"
             out.append(
                 f"| `rebrew/{family}:{version_arch}` | {_platform(host_dir)} | {entrypoint} "
                 f"| {_runtime(entry)} | {aliases} | {_pin(entry)} "
@@ -880,14 +880,14 @@ def render(entries: dict[str, dict[str, object]]) -> str:
 
 
 def provenance(entries: dict[str, dict[str, object]]) -> str:
-    """Render ``docs/PROVENANCE.md`` — where every pinned download comes from."""
+    """Render ``docs/PROVENANCE.md``: where every pinned download comes from."""
     per_source: dict[str, list[str]] = {}
     for profile, entry in entries.items():
         for url in urls_of(entry):
             per_source.setdefault(source_of(url), []).append(profile)
 
     out: list[str] = [
-        "<!-- Generated by catalog.py — do not edit by hand. -->",
+        "<!-- Generated by catalog.py; do not edit by hand. -->",
         "<!-- Regenerate with `make docs`. -->",
         "",
         "# Provenance",
@@ -914,7 +914,7 @@ def provenance(entries: dict[str, dict[str, object]]) -> str:
         "| --- | --- | --- | --- |",
     ]
     for key in sorted(per_source, key=lambda k: (-len(per_source[k]), k)):
-        label, licence = SOURCES.get(key, ("**UNDOCUMENTED — add to `SOURCES`**", "unknown"))
+        label, licence = SOURCES.get(key, ("**UNDOCUMENTED: add to `SOURCES`**", "unknown"))
         profiles = sorted(set(per_source[key]))
         out.append(f"| `{key or '?'}` | {label} | {licence} | {len(profiles)} |")
 
@@ -929,14 +929,14 @@ def provenance(entries: dict[str, dict[str, object]]) -> str:
             "",
             "## Shared bases",
             "",
-            "These upstreams are not pinned by any profile — they are what the",
+            "These upstreams are not pinned by any profile; they are what the",
             "shared base images install, and each base Dockerfile carries the",
             "sha256-pinned package list:",
             "",
         ]
         for key in shared:
             label, licence = SOURCES[key]
-            out.append(f"- `{key}` — {label} ({licence})")
+            out.append(f"- `{key}` hosts {label} ({licence})")
 
     out += [
         "",
@@ -973,7 +973,7 @@ def provenance(entries: dict[str, dict[str, object]]) -> str:
         "- The **IRIX IDO/MIPSpro images** combine a GPL emulator (`qemu-irix`,",
         "  vendored in the same bundle) with proprietary IRIX binaries.",
         "",
-        "Per-profile pins — URL, sha256, commit — are in the",
+        "Per-profile pins (URL, sha256, commit) are in the",
         "[toolchain catalog](TOOLCHAINS.md) and in [`sources.json`](../sources.json).",
         "",
         "## Catalogued but not shipped",
@@ -1002,7 +1002,7 @@ def main(argv: list[str]) -> int:
             if current != expected:
                 stale.append(str(path.relative_to(REPO)))
         if stale:
-            print(f"stale: {', '.join(stale)} — run `make docs`", file=sys.stderr)
+            print(f"stale: {', '.join(stale)}; run `make docs`", file=sys.stderr)
             return 1
         print("docs are up to date")
         return 0
