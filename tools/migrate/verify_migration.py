@@ -38,13 +38,21 @@ sys.path.insert(0, str(REPO / "tools" / "migrate"))
 
 import generate  # noqa: E402
 
-#: Differences this migration *intends*: every entry is checked to be exactly
-#: the pin it names, and anything else still fails the run.  The clang images
-#: fetched ncurses' libtinfo5 over plaintext http; the same bytes are served
-#: over https (sha256 unchanged), so the pin was upgraded while migrating.
-ACKNOWLEDGED = dict.fromkeys(
-    ("clang-3.9.1", "clang-8.0.0", "clang-9.0.0"), "pin upgraded from http to https (same sha256)"
-)
+#: Differences made on purpose since the baseline, keyed by profile: the reason,
+#: and the text every one of that profile's problems must contain, so anything
+#: else still fails the run.  The clang images fetched ncurses' libtinfo5 over
+#: plaintext http; the same bytes are served over https (sha256 unchanged), so
+#: the pin was upgraded while migrating.  The delphi-1.0 wrapper keeps an 8.3
+#: source basename instead of staging every source as SRC.DPR, because DCC
+#: takes the NE module name from it; that hand-written wrapper is expected to
+#: differ from the baseline.
+ACKNOWLEDGED: dict[str, tuple[str, str]] = {
+    **dict.fromkeys(
+        ("clang-3.9.1", "clang-8.0.0", "clang-9.0.0"),
+        ("pin upgraded from http to https (same sha256)", "http://deb.debian.org"),
+    ),
+    "delphi-1.0": ("wrapper keeps the 8.3 source basename as the NE module name", "wrapper line "),
+}
 
 
 def checkout(rev: str, into: pathlib.Path) -> pathlib.Path:
@@ -411,18 +419,18 @@ def main(argv: list[str]) -> int:
             )
             if not problems:
                 continue
-            if profile in ACKNOWLEDGED and all(
-                "http://deb.debian.org" in problem for problem in problems
-            ):
-                acknowledged.append((profile, ACKNOWLEDGED[profile]))
-                continue
+            if profile in ACKNOWLEDGED:
+                why, expected = ACKNOWLEDGED[profile]
+                if all(expected in problem for problem in problems):
+                    acknowledged.append((profile, why))
+                    continue
             differ.append((profile, problems))
         print(
             f"verify: {len(wanted) - skipped} compared, {skipped} new, "
             f"{len(acknowledged)} acknowledged, {len(differ)} differ"
         )
         for profile, why in acknowledged:
-            print(f"  acknowledged: {profile} — {why}")
+            print(f"  acknowledged: {profile}: {why}")
         for profile, problems in differ:
             print(f"  {profile}")
             for problem in problems:
