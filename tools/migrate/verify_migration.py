@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import collections
+import hashlib
 import pathlib
 import re
 import shutil
@@ -39,19 +40,23 @@ sys.path.insert(0, str(REPO / "tools" / "migrate"))
 import generate  # noqa: E402
 
 #: Differences made on purpose since the baseline, keyed by profile: the reason,
-#: and the text every one of that profile's problems must contain, so anything
-#: else still fails the run.  The clang images fetched ncurses' libtinfo5 over
-#: plaintext http; the same bytes are served over https (sha256 unchanged), so
-#: the pin was upgraded while migrating.  The delphi-1.0 wrapper keeps an 8.3
-#: source basename instead of staging every source as SRC.DPR, because DCC
-#: takes the NE module name from it; that hand-written wrapper is expected to
-#: differ from the baseline.
-ACKNOWLEDGED: dict[str, tuple[str, str]] = {
+#: the text every one of that profile's problems must contain, and, for a
+#: hand-written wrapper, the sha256 of the acknowledged wrapper, so any other
+#: difference, or any later edit to that wrapper, still fails the run.  The
+#: clang images fetched ncurses' libtinfo5 over plaintext http; the same bytes
+#: are served over https (sha256 unchanged), so the pin was upgraded while
+#: migrating.  The delphi-1.0 wrapper keeps an 8.3 source basename instead of
+#: staging every source as SRC.DPR, because DCC takes the NE module name from it.
+ACKNOWLEDGED: dict[str, tuple[str, str, str | None]] = {
     **dict.fromkeys(
         ("clang-3.9.1", "clang-8.0.0", "clang-9.0.0"),
-        ("pin upgraded from http to https (same sha256)", "http://deb.debian.org"),
+        ("pin upgraded from http to https (same sha256)", "http://deb.debian.org", None),
     ),
-    "delphi-1.0": ("wrapper keeps the 8.3 source basename as the NE module name", "wrapper line "),
+    "delphi-1.0": (
+        "wrapper keeps the 8.3 source basename as the NE module name",
+        "wrapper line ",
+        "96f51c6fe7149e096af3d24f96451dd365bb1043e14b9553b5b8a0cd7ee98287",
+    ),
 }
 
 
@@ -420,7 +425,13 @@ def main(argv: list[str]) -> int:
             if not problems:
                 continue
             if profile in ACKNOWLEDGED:
-                why, expected = ACKNOWLEDGED[profile]
+                why, expected, wrapper_sha256 = ACKNOWLEDGED[profile]
+                if wrapper_sha256 is not None:
+                    got = hashlib.sha256(wrapper_text(new_dir)[1].encode()).hexdigest()
+                    if got != wrapper_sha256:
+                        problems.append(
+                            f"wrapper sha256 {got} is not the acknowledged {wrapper_sha256}"
+                        )
                 if all(expected in problem for problem in problems):
                     acknowledged.append((profile, why))
                     continue
