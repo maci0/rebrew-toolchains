@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.13"
       - name: Free up disk space for image layers
@@ -31,4 +31,4 @@ jobs:
           sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android
           docker image prune -af || true
       - name: Build and compile with one image per runtime class
-        run: make smoke
+        run: uv run --locked make smoke

@@ -24,10 +24,9 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: "3.13"
-      - uses: astral-sh/setup-uv@v6
       - name: Install pinned analyzers
         run: uv sync --group lint --locked
       - name: Check every pinned URL still resolves
